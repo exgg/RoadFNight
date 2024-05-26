@@ -18,16 +18,19 @@ MonoBehaviour:
     m_Values: 
 --- !u!21 &2100000
 Material:
-  serializedVersion: 7
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAD - Road 1
-  m_Shader: {fileID: -6465566751694194690, guid: 7832bf5b00aaa68488a4e94fdf5b13d9, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 7832bf5b00aaa68488a4e94fdf5b13d9,
+    type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _DISABLE_SSR_TRANSPARENT
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -87,6 +90,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_46a29b150af14a3989a8fe835d10c79e_Texture_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_46a29b150af14a3989a8fe835d10c79e_Texture_1_Texture2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -204,8 +211,10 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_34fdc2cdc3d4462a85283c3fb33bf16b: {r: 1, g: 1, b: 1, a: 0}
-    - Color_3aabafc5b5554eb1a1ef6b52cd0b62b6: {r: 0.23584905, g: 0.23584905, b: 0.23584905, a: 0}
-    - Color_85574648cd794bddb323ee6bf7207db7: {r: 0.9622642, g: 0.74573696, b: 0.34042364, a: 1}
+    - Color_3aabafc5b5554eb1a1ef6b52cd0b62b6: {r: 0.23584905, g: 0.23584905, b: 0.23584905,
+        a: 0}
+    - Color_85574648cd794bddb323ee6bf7207db7: {r: 0.9622642, g: 0.74573696, b: 0.34042364,
+        a: 1}
     - Vector2_63d8f4eef112456d85c30ef3ecb6f524: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_71f13fd520f5440b902a2b0197cc6162: {r: 0.5, g: 0.5, b: 0, a: 0}
     - Vector2_e476e7268b964a49baa84c0624bad1b1: {r: 1, g: 1, b: 0, a: 0}
@@ -227,4 +236,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 6
+  version: 7

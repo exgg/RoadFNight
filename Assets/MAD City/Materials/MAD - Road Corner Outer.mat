@@ -18,16 +18,19 @@ MonoBehaviour:
     m_Values: 
 --- !u!21 &2100000
 Material:
-  serializedVersion: 7
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAD - Road Corner Outer
-  m_Shader: {fileID: -6465566751694194690, guid: 7832bf5b00aaa68488a4e94fdf5b13d9, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 7832bf5b00aaa68488a4e94fdf5b13d9,
+    type: 3}
   m_Parent: {fileID: 2100000, guid: 2899f24ee9b98ab41976369d331be2fe, type: 2}
   m_ModifiedSerializedProperties: 16
-  m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _DISABLE_SSR_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -50,7 +53,8 @@ Material:
     - Vector1_d33eeb9b1310495d9ca585c5048b1747: 1.61
     - _ZTestDepthEqualForOpaque: 3
     m_Colors:
-    - Color_3aabafc5b5554eb1a1ef6b52cd0b62b6: {r: 0.23584902, g: 0.23584902, b: 0.23584902, a: 0}
+    - Color_3aabafc5b5554eb1a1ef6b52cd0b62b6: {r: 0.23584902, g: 0.23584902, b: 0.23584902,
+        a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5254706096779820166
@@ -65,4 +69,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 6
+  version: 7
