@@ -13,7 +13,7 @@ public class Playertest : MonoBehaviour
 
     private void Start()
     {
-        controller = gameObject.AddComponent<CharacterController>();
+        controller = this.GetComponentInChildren<CharacterController>();
     }
 
     void Update()
