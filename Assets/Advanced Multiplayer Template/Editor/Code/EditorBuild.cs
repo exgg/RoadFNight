@@ -6,6 +6,11 @@ using UnityEditor.Build.Reporting;
 
 namespace UnityEngine {
 
+	/// <summary>
+	/// This creates a unity editor tab for building the games servers, it needs to have 2 servers running along side
+	/// Unity in order to allow local connection. This therefor will allow for players or a dev to connect into the server once initialized on
+	/// the command prompt
+	/// </summary>
 	public static class EditorBuild {
 
 		public static BuildTargetGroup defaultBuildTargetGroup;
@@ -16,6 +21,10 @@ namespace UnityEngine {
         public const string UNIQUE_SEPARATOR = "Advanced~Multiplayer~Template";
 
 		#region Save & Load
+		
+		/// <summary>
+		/// Save the current build settings to player prefs
+		/// </summary>
 		public static void Save() {
 			PlayerPrefs.SetInt(nameof(defaultBuildTargetGroup), (int)defaultBuildTargetGroup);
 			PlayerPrefs.SetInt(nameof(defaultBuildTarget), (int)defaultBuildTarget);
@@ -29,6 +38,9 @@ namespace UnityEngine {
 			}
 		}
 
+		/// <summary>
+		/// Load the saved build settings from PlayerPrefs when the editor loads
+		/// </summary>
 		[InitializeOnLoadMethod]
 		private static void Load() {
 			defaultBuildTargetGroup = (BuildTargetGroup)PlayerPrefs.GetInt(nameof(defaultBuildTargetGroup), (int)BuildTargetGroup.Standalone);
@@ -43,11 +55,18 @@ namespace UnityEngine {
 		}
 		#endregion
 
-		/// <summary>Util</summary>
+		/// <summary>
+		/// Adds a "[Build]" Tag to text
+		/// </summary>
+		/// <param name="text"></param>
+		/// <returns></returns>
 		public static string GetTaggedText(string text) {
 			return string.Concat("[Build] ", text);
 		}
 
+		/// <summary>
+		/// Build Project Server with specific options
+		/// </summary>
 		private static void Build(BuildTargetGroup targetGroup, BuildTarget target, BuildOptions options, bool server, string fileFormat, bool revealInFinder, bool run, bool masterServer) {
 			Load();
 

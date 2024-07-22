@@ -520,7 +520,8 @@ namespace RedicionStudio.InventorySystem {
 				}
 			}
             //Aim
-            if (!BSystem.BSystem.inMenu & !inMenu & !inPropertyArea & !inShop & !inCar & !usesParachute & !this.GetComponent<Health>().isDeath & !this.GetComponent<EmoteWheel>().isPlayingAnimation & _input.aim & _slot.amount > 0 & _slot.item.itemSO != null & _slot.item.itemSO is WeaponItemSO)
+            if (!BSystem.BSystem.inMenu & !inMenu & !inPropertyArea & !inShop & !inCar & !usesParachute & !this.GetComponent<Health>().isDeath &
+                !this.GetComponent<EmoteWheel>().isPlayingAnimation & _input.aim & _slot.amount > 0 & _slot.item.itemSO != null & _slot.item.itemSO is WeaponItemSO)
             {
                 CmdAim();
             }
