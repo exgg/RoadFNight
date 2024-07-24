@@ -9,7 +9,9 @@ public class Player : NetworkBehaviour {
 	#region Calls
 
 	private Health _health;
-
+	private PlayerAI _playerAI;
+	private ExperienceManager _experienceManager;
+	
 	#endregion
 	
 	[Header("Player Modules")]
@@ -33,6 +35,25 @@ public class Player : NetworkBehaviour {
 
     public static event Action<Player, string> OnMessage;
 
+    [SerializeField] private Transform _nameplateCanvas;
+    [SerializeField] private TextMeshProUGUI _nameplateText;
+    private static Transform _camera;
+
+    private bool _isDead;
+    public bool IsDead
+    {
+	    get => _isDead;
+		
+	    set
+	    {
+		    if (_isDead == value) return;
+		    
+		    this._isDead = value;
+		    HandleDeath();
+	    }
+	    
+    }
+    
       /// <summary>
     /// Initializes the local player when they start.
     /// Sets up necessary client-side states, locks the cursor, and assigns the camera.
@@ -60,55 +81,82 @@ public class Player : NetworkBehaviour {
     /// But surely it would be more efficient just having a seperate prefab for the AI ?
     /// </summary>
 	private void Start() {
-        if (GetComponent<PlayerAI>().isSetAsAi == true)
-        {
-            GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().enabled = false;
-            return;
-        }
-		onlinePlayers[id] = this;
-
-		if (!isLocalPlayer) {
-			Destroy(GetComponent<TPController.TPCharacterController>());
-		}
-		else {
-			Destroy(_nameplateCanvas.gameObject);
-            if (username != "")
-            {
-                GetComponent<PlayerAI>().enabled = false;
-                GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
-            }
-		}
-
-		if (!isLocalPlayer && !isServerOnly) {
-			_nameplateText.text = username + (status == 100 ? "\n<color=#6ab04c><developer></color>" : string.Empty);
-		}
-		
+	    InitializeCalls();
 		LoadPlacement();
+		InitialisePlayer();
 	}
-    
-    private void Update() {
-	    if (localPlayer != null && !isLocalPlayer)
-	    {
-		    if (this.GetComponent<Health>().isDeath == false)
-		    {
-			    this.GetComponent<Health>()._HealthCanvas.gameObject.SetActive(true);
-			    if (!this.GetComponent<PlayerAI>().isSetAsAi)
-				    _nameplateCanvas.gameObject.SetActive(true);
-			    else
-				    _nameplateCanvas.gameObject.SetActive(false);
-			    _nameplateCanvas.LookAt(_nameplateCanvas.position + _camera.rotation * Vector3.forward,
-				    _camera.rotation * Vector3.up);
-		    }
-		    else
-		    {
-			    this.GetComponent<Health>()._HealthCanvas.gameObject.SetActive(false);
-			    _nameplateCanvas.gameObject.SetActive(false);
-		    }
-	    }
-	    else if (localPlayer != null && isLocalPlayer)
-		    this.GetComponent<ExperienceManager>().ExperienceUI.SetActive(true);
+
+    private void HandleDeath()
+    {
+	    Debug.Log("You have died");
+	    _health._HealthCanvas.gameObject.SetActive(false);
+	    _nameplateCanvas.gameObject.SetActive(false);
     }
 
+    #region Setup On Join
+    private void InitialisePlayer()
+    {
+	    _isDead = _health.isDeath;
+	    
+	    TemporarySetupAIorPlayer();
+	    Debug.Log("Is Dead:" + IsDead);
+	    
+	    if (!isLocalPlayer && !isServerOnly) { // setup player username nameplate
+		    _nameplateText.text = username + (status == 100 ? "\n<color=#6ab04c><developer></color>" : string.Empty);
+	    }
+	    
+	    SetupFloatingUI();
+    }
+
+    private void SetupFloatingUI()
+    {
+	    _health._HealthCanvas.gameObject.SetActive(true);
+	    _nameplateCanvas.gameObject.SetActive(!_playerAI.isSetAsAi);
+	    _nameplateCanvas.LookAt(_nameplateCanvas.position + _camera.rotation * Vector3.forward,
+		    _camera.rotation * Vector3.up);
+    }
+    private void InitializeCalls()
+    {
+	    _health = GetComponent<Health>();
+	    _playerAI = GetComponent<PlayerAI>();
+	    _experienceManager = GetComponent<ExperienceManager>();
+    }
+    
+    /// <summary>
+    /// Setup whether the player is AI or a Player. This is an odd way of doing AI maniplulation as behaviours is difficult
+    /// to change if this stays, so I have moved it to a temporary method
+    /// </summary>
+    private void TemporarySetupAIorPlayer()
+    {
+	    if (GetComponent<PlayerAI>().isSetAsAi == true)
+	    {
+		    GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().enabled = false;
+		    return;
+	    }
+	    onlinePlayers[id] = this;
+
+	    if (!isLocalPlayer) {
+		    Destroy(GetComponent<TPController.TPCharacterController>());
+	    }
+	    else {
+		    Destroy(_nameplateCanvas.gameObject);
+		    if (username != "")
+		    {
+			    GetComponent<PlayerAI>().enabled = false;
+			    GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+		    }
+	    }
+	    
+	    if (localPlayer != null && isLocalPlayer)
+		    this.GetComponent<ExperienceManager>().ExperienceUI.SetActive(true);
+    }
+    
+    /// <summary>
+    /// Retrieves and places objects that the player has placed in the game world.
+    /// This function runs only on the server or within the Unity Editor for testing purposes. otherwise will never call
+    /// It gets the placed objects data from the MasterServer and instantiates them in the game world
+    /// at the correct positions and orientations, then adds them to the player's placed objects list.
+    /// </summary>
     private void LoadPlacement()
     {
 	#if UNITY_SERVER// || UNITY_EDITOR // (Server)
@@ -117,12 +165,7 @@ public class Player : NetworkBehaviour {
 		propertyArea = PropertyArea.GetPropertyArea(instance.uniqueName, id); // ?????
 	#endif
 
-	    /*
-	     * Retrieves and places objects that the player has placed in the game world.
-	     * This function runs only on the server or within the Unity Editor for testing purposes. otherwise will never call
-	     * It gets the placed objects data from the MasterServer and instantiates them in the game world
-	     * at the correct positions and orientations, then adds them to the player's placed objects list.
-	     */
+	   
 	#if UNITY_SERVER || UNITY_EDITOR
 	    
 	    if (isServer) {
@@ -143,6 +186,10 @@ public class Player : NetworkBehaviour {
 	    }
 	#endif
     }
+    
+    #endregion
+
+    #region Client Server Placement Mechanics
     
     /// <summary>
     /// Attempts to place a placeable object at a specified position and rotation.
@@ -230,16 +277,6 @@ public class Player : NetworkBehaviour {
 		}
 	}
 
-    public void SetExperience(int _xp)
-    {
-        if (isServer)
-        {
-            experiencePoints += _xp;
-        }
-    }
-
-  
-    
 	/// <summary>
 	/// Receives the property area ID for the player.
 	/// This method is called on the client that owns the player object.
@@ -249,6 +286,19 @@ public class Player : NetworkBehaviour {
 		Debug.Log(id);
 		PropertyArea.myIndex = id;
 	}
+	
+	#endregion
+	
+	
+    public void SetExperience(int _xp)
+    {
+        if (isServer)
+        {
+            experiencePoints += _xp;
+        }
+    }
+    
+
 
 	/// <summary>
 	/// Toggles off the players controller and removes them from the server and the game
@@ -319,9 +369,6 @@ public class Player : NetworkBehaviour {
 #endif
 	}
 
-	[SerializeField] private Transform _nameplateCanvas;
-	[SerializeField] private TextMeshProUGUI _nameplateText;
-	private static Transform _camera;
 
 
 
