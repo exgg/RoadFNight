@@ -173,6 +173,13 @@ public class EmoteWheel : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Plays an emote based on what is pushed through from the input within the UI of the emote wheel, these are currently
+    /// parsed via the update method
+    /// </summary>
+    /// <param name="_animationTriggerName"></param>
+    /// <param name="_animationLength"></param>
+    /// <param name="_isOnlyUpperBodyAnimation"></param>
     public void PlayEmote(string _animationTriggerName, float _animationLength, bool _isOnlyUpperBodyAnimation)
     {
         isPlayingAnimation = true;
@@ -186,12 +193,23 @@ public class EmoteWheel : NetworkBehaviour
         StartCoroutine(EndEmote(_animationLength, _animationTriggerName));
     }
 
+    /// <summary>
+    /// Push to the server via RPC which has the exact same structure but the client cannot directly communicate
+    /// to the server without a remote event
+    /// </summary>
+    /// <param name="_animationTriggerName"></param>
+    /// <param name="_isOnlyUpperBodyAnimation"></param>
     [Command]
     void CmdPlayEmote(string _animationTriggerName, bool _isOnlyUpperBodyAnimation)
     {
         RpcPlayEmote(_animationTriggerName, _isOnlyUpperBodyAnimation);
     }
 
+    /// <summary>
+    /// Remote event to display the animation on the server as well as the client
+    /// </summary>
+    /// <param name="_animationTriggerName"></param>
+    /// <param name="_isOnlyUpperBodyAnimation"></param>
     [ClientRpc]
     void RpcPlayEmote(string _animationTriggerName, bool _isOnlyUpperBodyAnimation)
     {
@@ -200,6 +218,12 @@ public class EmoteWheel : NetworkBehaviour
         GetComponent<Animator>().SetTrigger(_animationTriggerName);
     }
 
+    /// <summary>
+    /// Coroutine to end the animation after the time of the animation length has passed
+    /// </summary>
+    /// <param name="_animationLength"></param>
+    /// <param name="_animationTriggerName"></param>
+    /// <returns></returns>
     IEnumerator EndEmote(float _animationLength, string _animationTriggerName)
     {
         yield return new WaitForSeconds(_animationLength);
@@ -211,6 +235,9 @@ public class EmoteWheel : NetworkBehaviour
         StopCoroutine(EndEmote(0, ""));
     }
 
+    /// <summary>
+    /// Cancel an animation, is not called in this class, however it seem to be called but an attempt to add a blend between how animations interact
+    /// </summary>
     public void CancelAnimation()
     {
         isPlayingAnimation = false;
@@ -218,6 +245,11 @@ public class EmoteWheel : NetworkBehaviour
         BlockPlayer(false, false);
     }
 
+    /// <summary>
+    /// Again more expensive calls to block the player, which should be referenced and cashed on start
+    /// </summary>
+    /// <param name="block"></param>
+    /// <param name="blockCamera"></param>
     void BlockPlayer(bool block, bool blockCamera = true)
     {
         GetComponent<ThirdPersonController>().BlockPlayer(hasAuthority ? block : false, blockCamera);
@@ -245,16 +277,25 @@ public class EmoteWheelItem
     public Color ButtonDeselectedColor;
     public Color ButtonSelectedColor;
 
+    /// <summary>
+    /// Loads the animation icon to the wheel
+    /// </summary>
     public void Load()
     {
         EmoteButtonIconImage.sprite = EmoteIcon;
     }
 
+    /// <summary>
+    /// Sets the colour once deselected back to the core colour of the Icon
+    /// </summary>
     public void Deselect()
     {
         EmoteButtonImage.color = ButtonDeselectedColor;
     }
 
+    /// <summary>
+    /// Highlights the UI button for visual feedback it is selected
+    /// </summary>
     public void Select()
     {
         EmoteButtonImage.color = ButtonSelectedColor;

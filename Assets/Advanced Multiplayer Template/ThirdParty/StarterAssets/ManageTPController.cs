@@ -44,7 +44,7 @@ public class ManageTPController : NetworkBehaviour
         if (isLocalPlayer)
         {
             Instantiate(loadingScreenPrefab);
-            _input = GameObject.FindGameObjectWithTag("InputManager").GetComponent<StarterAssetsInputs>();
+            _input = GameObject.FindGameObjectWithTag("InputManager").GetComponent<StarterAssetsInputs>(); // change to FindObjectOfType
             CharacterController cc = GetComponent<CharacterController>();
             cc.enabled = true;
             ThirdPersonController tpc = GetComponent<ThirdPersonController>();
@@ -85,9 +85,12 @@ public class ManageTPController : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Toggles the camera to the players character camera and turns off the vehicle camera for the cinema-chine
+    /// sets the camera to follow the player character
+    /// </summary>
     public void StickCameraToPlayer()
     {
-
         Camera vehicleCam = GetVehicleCamera();
         vehicleCam.enabled = false;
 
@@ -96,6 +99,10 @@ public class ManageTPController : NetworkBehaviour
         playerCam.Follow = target;
     }
 
+    /// <summary>
+    /// Toggles the camera to the vehicle camera and turns off the players character camera for the cinema-chine
+    /// sets the camera to follow the vehicle the player is in
+    /// </summary>
     public void StickCameraToVehicle(Transform followTransform)
     {
         Camera vehicleCam = GetVehicleCamera();
@@ -106,12 +113,20 @@ public class ManageTPController : NetworkBehaviour
         playerCam.enabled = false;
     }
 
+    /// <summary>
+    /// Finds the vehicle camera via GameObject.Find then gets its camera component and returns it
+    /// </summary>
+    /// <returns></returns>
     Camera GetVehicleCamera()
     {
         GameObject pfc = GameObject.Find("Camera_Vehicle");
         Camera cvc = pfc.GetComponent<Camera>();
         return cvc;
     }
+    /// <summary>
+    /// Finds the player camera via GameObject.Find and finds the cinema-chine camera 
+    /// </summary>
+    /// <returns></returns>
     CinemachineVirtualCamera GetPlayerCamera()
     {
         GameObject pfc = GameObject.Find("PlayerFollowCamera");
@@ -169,7 +184,7 @@ public class ManageTPController : NetworkBehaviour
                 worldAimTarget.y = CurrentWeaponManager.Player.position.y;
                 Vector3 aimDirection = (worldAimTarget - CurrentWeaponManager.Player.position).normalized;
 
-                if (_input.aim)//Aim
+                if (_input.aim)// Manages the aiming of the character, however uses some very expensive calls within here, get components are even running in else
                 {
                     if (aimValue == 1)
                     {
@@ -304,10 +319,14 @@ public class ManageTPController : NetworkBehaviour
             }
         }
 
-        if (this.GetComponent<PlayerAI>().isSetAsAi)
+        if (this.GetComponent<PlayerAI>().isSetAsAi) // put this in start
             Weapons.SetActive(false);
     }
-
+    
+    /// <summary>
+    /// Begins shooting, then starts a coroutine to stop shooting after the animation length.
+    /// This can be changed into a loop based style. So long as we log the animation length before we parse it
+    /// </summary>
     public void Shoot()
     {
         StopCoroutine(EndShooting());
@@ -316,6 +335,10 @@ public class ManageTPController : NetworkBehaviour
         StartCoroutine(EndShooting());
     }
 
+    /// <summary>
+    /// Ends the shooting boolean after the coroutine has met the conditions on how long the shooting animation is.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator EndShooting()
     {
         yield return new WaitForSeconds(CurrentWeaponManager.WeaponShootAnimationLength);
@@ -323,6 +346,10 @@ public class ManageTPController : NetworkBehaviour
         isShooting = false;
     }
 
+    /// <summary>
+    /// Sets the value of the aim, to tell the server and other classes that require this whether the player is aiming
+    /// </summary>
+    /// <param name="value"></param>
     [Command]
     void CmdSetAimValue(int value)
     {
@@ -331,12 +358,20 @@ public class ManageTPController : NetworkBehaviour
         RpcSetAimValue(value);
     }
 
+    /// <summary>
+    /// Remote call to push this to the server via the client
+    /// </summary>
+    /// <param name="value"></param>
     [ClientRpc]
     void RpcSetAimValue(int value)
     {
         aimValue = value;
     }
 
+    /// <summary>
+    /// Hides the head mesh if playing within first person
+    /// </summary>
+    /// <returns></returns>
     IEnumerator HideHeadMesh()
     {
         yield return new WaitForSeconds(0.7f);
