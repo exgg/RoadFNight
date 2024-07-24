@@ -6,6 +6,12 @@ using System;
 
 public class Player : NetworkBehaviour {
 
+	#region Calls
+
+	private Health _health;
+
+	#endregion
+	
 	[Header("Player Modules")]
 	public RedicionStudio.InventorySystem.PlayerInventoryModule playerInventory;
 	public PlayerNutritionModule playerNutrition;
@@ -76,38 +82,8 @@ public class Player : NetworkBehaviour {
 		if (!isLocalPlayer && !isServerOnly) {
 			_nameplateText.text = username + (status == 100 ? "\n<color=#6ab04c><developer></color>" : string.Empty);
 		}
-
-#if UNITY_SERVER// || UNITY_EDITOR // (Server)
-		int propertyAreaId = PropertyArea.Assign(instance.uniqueName, id);
-		TargetAreaId(propertyAreaId);
-		propertyArea = PropertyArea.GetPropertyArea(instance.uniqueName, id); // ?????
-#endif
-
-	    /*
-	     * Retrieves and places objects that the player has placed in the game world.
-	     * This function runs only on the server or within the Unity Editor for testing purposes. otherwise will never call
-	     * It gets the placed objects data from the MasterServer and instantiates them in the game world
-	     * at the correct positions and orientations, then adds them to the player's placed objects list.
-	     */
-#if UNITY_SERVER || UNITY_EDITOR
-	    
-		if (isServer) {
-			MasterServer.MSClient.GetPlacedObjects(id, (placedObjectsData) => {
-				for (int i = 0; i < placedObjectsData.Length; i++) {
-					Vector3 position = propertyArea.transform.position + new Vector3(
-						placedObjectsData[i].x,
-						placedObjectsData[i].y,
-						placedObjectsData[i].z);
-					GameObject gO = BSystem.PlaceableObject.Place(id, placedObjectsData[i].placeableSOUniqueName, position,
-						new Quaternion(placedObjectsData[i].rotX,
-						placedObjectsData[i].rotY,
-						placedObjectsData[i].rotZ,
-						placedObjectsData[i].rotW)); // ?
-					placedObjects.Add(gO);
-				}
-			});
-		}
-#endif
+		
+		LoadPlacement();
 	}
     
     private void Update() {
@@ -132,7 +108,41 @@ public class Player : NetworkBehaviour {
 	    else if (localPlayer != null && isLocalPlayer)
 		    this.GetComponent<ExperienceManager>().ExperienceUI.SetActive(true);
     }
-    
+
+    private void LoadPlacement()
+    {
+	#if UNITY_SERVER// || UNITY_EDITOR // (Server)
+		int propertyAreaId = PropertyArea.Assign(instance.uniqueName, id);
+		TargetAreaId(propertyAreaId);
+		propertyArea = PropertyArea.GetPropertyArea(instance.uniqueName, id); // ?????
+	#endif
+
+	    /*
+	     * Retrieves and places objects that the player has placed in the game world.
+	     * This function runs only on the server or within the Unity Editor for testing purposes. otherwise will never call
+	     * It gets the placed objects data from the MasterServer and instantiates them in the game world
+	     * at the correct positions and orientations, then adds them to the player's placed objects list.
+	     */
+	#if UNITY_SERVER || UNITY_EDITOR
+	    
+	    if (isServer) {
+		    MasterServer.MSClient.GetPlacedObjects(id, (placedObjectsData) => {
+			    for (int i = 0; i < placedObjectsData.Length; i++) {
+				    Vector3 position = propertyArea.transform.position + new Vector3(
+					    placedObjectsData[i].x,
+					    placedObjectsData[i].y,
+					    placedObjectsData[i].z);
+				    GameObject gO = BSystem.PlaceableObject.Place(id, placedObjectsData[i].placeableSOUniqueName, position,
+					    new Quaternion(placedObjectsData[i].rotX,
+						    placedObjectsData[i].rotY,
+						    placedObjectsData[i].rotZ,
+						    placedObjectsData[i].rotW)); // ?
+				    placedObjects.Add(gO);
+			    }
+		    });
+	    }
+	#endif
+    }
     
     /// <summary>
     /// Attempts to place a placeable object at a specified position and rotation.
