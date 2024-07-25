@@ -15,6 +15,10 @@ public class Footsteps : NetworkBehaviour
         _controller = GetComponent<CharacterController>();
     }
 
+    /// <summary>
+    /// when the player character's walking or running animation steps on the ground
+    /// </summary>
+    /// <param name="animationEvent"></param>
     private void OnFootstep(AnimationEvent animationEvent)
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
@@ -28,6 +32,10 @@ public class Footsteps : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// when the player lands on the ground after falling
+    /// </summary>
+    /// <param name="animationEvent"></param>
     private void OnLand(AnimationEvent animationEvent)
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
@@ -37,6 +45,14 @@ public class Footsteps : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// plays footstep sound
+    /// </summary>
+    /// <param name="_clip">soundclip for footstep</param>
+    /// <param name="_position">point where the footstep soundclip plays</param>
+    /// <param name="_volume">volume of soundclip</param>
+    /// <param name="_minDistance"></param>
+    /// <param name="_maxDistance"></param>
     private void PlayClipAt(AudioClip _clip, Vector3 _position, float _volume, float _minDistance, float _maxDistance)
     {
         if (isServer)

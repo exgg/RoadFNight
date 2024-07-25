@@ -8,6 +8,10 @@ public class MaterialIdentifier : MonoBehaviour
 
     public GameObject hitEffect;
 
+    /// <summary>
+    /// manages collisions with bullets?
+    /// </summary>
+    /// <param name="collision"></param>
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<NetworkBullet>() != null)
@@ -17,7 +21,7 @@ public class MaterialIdentifier : MonoBehaviour
             ContactPoint contact = collision.contacts[0];
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
             Vector3 pos = contact.point;
-            if(collision.gameObject.GetComponent<NetworkBullet>() != null & GetComponent<Player>() != null)
+            if (collision.gameObject.GetComponent<NetworkBullet>() != null & GetComponent<Player>() != null)
             {
                 if (collision.gameObject.GetComponent<NetworkBullet>().shooterUsername != GetComponent<Player>().username)
                     SpawnHitEffect(pos, rot);
@@ -25,9 +29,14 @@ public class MaterialIdentifier : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// instantiates hitEffect from being hit by bullets? or spawning bullets?
+    /// </summary>
+    /// <param name="_position"></param>
+    /// <param name="_rotation"></param>
     void SpawnHitEffect(Vector3 _position, Quaternion _rotation)
     {
-        if(hitEffect != null)
+        if (hitEffect != null)
             Instantiate(hitEffect, _position, _rotation);
     }
 }
