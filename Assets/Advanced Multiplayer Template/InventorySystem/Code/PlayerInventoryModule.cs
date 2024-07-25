@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Mirror;
@@ -13,9 +14,22 @@ namespace RedicionStudio.InventorySystem {
 
 		#region Calls
 		
+		// input components
 		private StarterAssets.StarterAssetsInputs _inputs;
+		
+		// player stat components
 		private Health _health;
-
+        
+		// weapon wheel components
+		private WeaponWheelSystem _weaponWheelSystem;
+		private RectTransform _rectTransform;
+		
+		// emote wheel components
+		private EmoteWheel _emoteWheel;
+		
+		// chat system components
+		private ChatSystem _chatSystem;
+		
 		#endregion
 		
 		[Header("Player Modules")]
@@ -73,10 +87,12 @@ namespace RedicionStudio.InventorySystem {
         
         [Space]
         [SerializeField] private Transform _gFX;
+
+
         
         private void Start() {
 	        if (isLocalPlayer) {
-		        InitializeCalls();
+		        Initialisation();
 		        
 		        UIPlayerInventory.playerInventory = this;
 		        slots.Callback += Slots_Callback;
@@ -96,9 +112,36 @@ namespace RedicionStudio.InventorySystem {
 			        }
 		        };
 	        }
-	        if (chatWindow == null)
-		        chatWindow = GameObject.FindGameObjectWithTag("ChatWindow").GetComponent<ChatSystem>();
+	       
         }
+        
+        /// <summary>
+        /// Setup all required class calls
+        /// </summary>
+        private void Initialisation()
+        {
+	        //Inputs
+	        _inputs = GameObject.FindGameObjectWithTag("InputManager").GetComponent<StarterAssets.StarterAssetsInputs>(); // errr what ? THEE most expensive call in unity... 
+	        _keyboard = Keyboard.current;
+	        _mouse = Mouse.current;
+	        
+	        //Classes
+	        _health = GetComponent<Health>();
+
+	        //Weapon Wheel System
+	        _weaponWheelSystem = UIPlayerInventory.WeaponWheel.GetComponent<WeaponWheelSystem>();
+	        _rectTransform = _weaponWheelSystem.MousePositionText.GetComponent<RectTransform>();
+	        _rectTransform.anchorMin = new Vector2(0, 0);
+	        _rectTransform.anchorMax = new Vector2(0, 0);
+	        
+	        // emote system
+	        _emoteWheel = GetComponent<EmoteWheel>();
+	        
+	        // Chat System
+	        chatWindow = GameObject.FindGameObjectWithTag("ChatWindow").GetComponent<ChatSystem>();
+	        _chatSystem = chatWindow.GetComponent<ChatSystem>();
+        }
+
         
         	/// <summary>
 		/// Update is a mess, lots of logic in here can be both improved and split off into other methods to control readability
@@ -151,19 +194,7 @@ namespace RedicionStudio.InventorySystem {
 	        }
         }
 
-        /// <summary>
-        /// Setup all required class calls
-        /// </summary>
-        private void InitializeCalls()
-        {
-	        _inputs = GameObject.FindGameObjectWithTag("InputManager").GetComponent<StarterAssets.StarterAssetsInputs>(); // errr what ? THEE most expensive call in unity... 
-
-	        _health = GetComponent<Health>();
-	        
-	        _keyboard = Keyboard.current;
-	        _mouse = Mouse.current;
-        }
-
+      
         /// <summary>
         /// Controls the deterioration for shelf life calculation on items that have one 
         /// </summary>
@@ -187,110 +218,160 @@ namespace RedicionStudio.InventorySystem {
 	        _lastTime = NetworkTime.time;
         }
 
+        #region Shop UI
+        
         /// <summary>
         /// Activation toggle for the UI of the ShopUI, can be done in event based instead of this but that can happen in phase 3
         /// </summary>
         public void ShopUIToggle()
         {
-	        if (_keyboard.tabKey.wasPressedThisFrame) {
-		        inMenu = !inMenu;
-		        if (inMenu) {
-			        if (BSystem.BSystem.inMenu) {
-				        BSystem.BSystem.inMenu = false;
-				        BSystemUI.Instance.SetActive(false);
+	        // PSEUDO
+				// allow for expanding to event based later PHASE 3
+			
+	        if(!_keyboard.tabKey.wasPressedThisFrame) return;
+	        
+	        inMenu = !inMenu;
 
-			        }
-			        UIPlayerInventory.SetActive(true);
-			        UIPlayerInventory.InventoryUI.SetActive(true);
-			        TPController.TPCameraController.LockCursor(false);
-		        }
-		        else {
-			        UIPlayerInventory.SetActive(false);
-			        UIPlayerInventory.InventoryUI.SetActive(false);
-			        TPController.TPCameraController.LockCursor(true);
-		        }
+	        switch (inMenu)
+	        {
+		        case true:
+					EnterShopMenu();
+			        break;
+		        case false:
+			        ExitShopMenu();
+			        break;
+		        
 	        }
         }
 
         /// <summary>
-        /// Activation of weapon wheel UI
+        /// Toggle on the Shop Menu, checking if BSsystem has in menu to toggle another instance
         /// </summary>
+        private void EnterShopMenu()
+        {
+	        if (BSystem.BSystem.inMenu) {
+		        BSystem.BSystem.inMenu = false;
+		        BSystemUI.Instance.SetActive(false);
+
+	        }
+			        
+	        UIPlayerInventory.SetActive(true);
+	        UIPlayerInventory.InventoryUI.SetActive(true);
+	        TPController.TPCameraController.LockCursor(false);
+        }
+
+        /// <summary>
+        /// Toggle off the shop menu
+        /// </summary>
+        private void ExitShopMenu()
+        {
+	        UIPlayerInventory.SetActive(false);
+	        UIPlayerInventory.InventoryUI.SetActive(false);
+	        TPController.TPCameraController.LockCursor(true);
+        }
+        
+        #endregion
+        
+      
         public void WeaponWheelUIToggle()
         {
-            if (_inputs.weaponWheel)
-            {
-                if (!isWeaponWheelActive)
-                {
-                    inWeaponWheel = !inWeaponWheel;
-                    if (inWeaponWheel)
-                    {
-                        isWeaponWheelActive = true;
-                        if (BSystem.BSystem.inMenu)
-                        {
-                            BSystem.BSystem.inMenu = false;
-                            BSystemUI.Instance.SetActive(false);
+	        if (!_inputs.weaponWheel)
+	        {
+		        DeactivateWeaponWheel();
+		        return;
+	        }
+	        if (!isWeaponWheelActive)
+	        {
+		        ToggleWeaponWheel();
+	        }
 
-                        }
-                        UIPlayerInventory.WeaponWheel.SetActive(true);
-                        TPController.TPCameraController.LockCursor(false);
-                        rectTransform = UIPlayerInventory.WeaponWheel.GetComponent<WeaponWheelSystem>().MousePositionText.GetComponent<RectTransform>();
-                        rectTransform.anchorMin = new Vector2(0, 0);
-                        rectTransform.anchorMax = new Vector2(0, 0);
-                        foreach (ItemSlot slot in slots)
-                        {
-                            if(slot.item.itemSO != null)
-                            {
-                                bool alreadyRegistered = new bool();
-                                foreach (WeaponWheelItem item in UIPlayerInventory.WeaponWheel.GetComponent<WeaponWheelSystem>().weapons)
-                                {
-                                    if (item.WeaponName == slot.item.itemSO.uniqueName)
-                                        alreadyRegistered = true;
-                                }
+	        if (isWeaponWheelActive)
+	        {
+		        UpdateWeaponWheel();
+	        }
 
-                                if (!alreadyRegistered)
-                                {
-                                    WeaponWheelItem weaponItem = new WeaponWheelItem();
-                                    weaponItem.WeaponName = slot.item.itemSO.uniqueName;
-                                    weaponItem.InfoText = slot.item.itemSO.tooltipText;
-                                    weaponItem.type = slot.item.itemSO.weaponType;
-                                    UIPlayerInventory.WeaponWheel.GetComponent<WeaponWheelSystem>().weapons.Add(weaponItem);
-                                    if (weaponItem.type == ItemSO.WeaponType.Item)
-                                        UIPlayerInventory.WeaponWheel.GetComponent<WeaponWheelSystem>().weapons.Remove(weaponItem);
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        UIPlayerInventory.WeaponWheel.SetActive(false);
-                        TPController.TPCameraController.LockCursor(true);
-                        isWeaponWheelActive = false;
-                    }
-                }
-                if(isWeaponWheelActive)
-                {
-                    rectTransform.anchoredPosition3D = Input.mousePosition;
-                    UIPlayerInventory.WeaponWheel.GetComponent<WeaponWheelSystem>().MousePositionText.text = Input.mousePosition.ToString();
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                }
-            }
-            if (!_inputs.weaponWheel)
-            {
-                UIPlayerInventory.WeaponWheel.SetActive(false);
-                if(!BSystem.BSystem.inMenu && !inMenu && !GetComponent<EmoteWheel>().inEmoteWheel && !inShop && !chatWindow.GetComponent<ChatSystem>().isChatOpen)
-                {
-                    TPController.TPCameraController.LockCursor(true);
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                }
-                isWeaponWheelActive = false;
-                inWeaponWheel = false;
-            }
-
-            _slot = slots[0];
+	        _slot = slots[0];  
         }
-		
+
+        private void ToggleWeaponWheel()
+        {
+	        inWeaponWheel = !inWeaponWheel;
+	        isWeaponWheelActive = !isWeaponWheelActive;
+	        
+	        if(inWeaponWheel)  EnterWeaponWheel();
+	        else ExitWeaponWheel();
+        }
+        private void EnterWeaponWheel()
+        {
+	        UIPlayerInventory.WeaponWheel.SetActive(true);
+	        TPController.TPCameraController.LockCursor(false);
+	        
+	        RegisterWeapon();
+	        
+	        if (!BSystem.BSystem.inMenu) return; // only continue if in menu
+	        BSystem.BSystem.inMenu = false;
+	        BSystemUI.Instance.SetActive(false);
+        }
+
+        private void RegisterWeapon()
+        {
+	        foreach (ItemSlot slot in slots)
+	        {
+		        if (!slot.item.itemSO) continue; // if null continue
+
+		        bool alreadyRegistered =
+			        _weaponWheelSystem.weapons.Any(item => item.WeaponName == slot.item.itemSO.uniqueName);
+
+		        if (!alreadyRegistered)
+		        {
+			        WeaponWheelItem weaponItem = new WeaponWheelItem
+			        {
+				        WeaponName = slot.item.itemSO.uniqueName,
+				        InfoText = slot.item.itemSO.tooltipText,
+				        type = slot.item.itemSO.weaponType
+			        };
+
+			        _weaponWheelSystem.weapons.Add(weaponItem);
+
+			        if (weaponItem.type == ItemSO.WeaponType.Item)
+			        {
+				        _weaponWheelSystem.weapons.Remove(weaponItem);
+			        }
+		        }
+	        }
+        }
+
+        private void ExitWeaponWheel()
+        {
+	        UIPlayerInventory.WeaponWheel.SetActive(false);
+	        TPController.TPCameraController.LockCursor(true);
+	        isWeaponWheelActive = false;
+        }
+
+        private void UpdateWeaponWheel()
+        {
+	        _rectTransform.anchoredPosition3D = Input.mousePosition;
+	        _weaponWheelSystem.MousePositionText.text = Input.mousePosition.ToString(); // set text of weapon system to mouse position on screen
+	        Cursor.lockState = CursorLockMode.None;
+	        Cursor.visible = true;
+        }
+        
+        private void DeactivateWeaponWheel()
+        {
+	        UIPlayerInventory.WeaponWheel.SetActive(false);
+
+	        if (!BSystem.BSystem.inMenu && !inMenu && !_emoteWheel.inEmoteWheel && !inShop && !_chatSystem.isChatOpen)
+	        {
+		        TPController.TPCameraController.LockCursor(true);
+		        Cursor.lockState = CursorLockMode.Locked;
+		        Cursor.visible = false;
+	        }
+
+	        isWeaponWheelActive = false;
+	        inWeaponWheel = false;
+        }
+        
+        
         /// <summary>
         /// Toggles the emote wheel. This looks a mess. And must have a massive amount of other ways to do this
         /// </summary>
