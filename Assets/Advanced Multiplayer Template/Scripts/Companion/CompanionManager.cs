@@ -31,7 +31,7 @@ public class CompanionManager : NetworkBehaviour
                 {
                     if (currentCompanionName != inventoryModule.slots[3].item.itemSO.uniqueName)
                     {
-                        if(companion.name == inventoryModule.slots[3].item.itemSO.uniqueName && !isCompanionInstantiated)
+                        if (companion.name == inventoryModule.slots[3].item.itemSO.uniqueName && !isCompanionInstantiated)
                         {
                             Vector3 companionSpawnPosition = new Vector3(transform.position.x - 2, transform.position.y, transform.position.z);
 
@@ -43,13 +43,22 @@ public class CompanionManager : NetworkBehaviour
         }
         else
         {
-            if(isCompanionInstantiated)
+            if (isCompanionInstantiated)
             {
                 CmdClearCompanion("", false);
             }
         }
     }
 
+    /// <summary>
+    /// summons companion
+    /// </summary>
+    /// <param name="owner">player who owns companion</param>
+    /// <param name="ownerName">name of player</param>
+    /// <param name="companionName">name of companion</param>
+    /// <param name="isInstantiated">whether or not the companion has been spawned</param>
+    /// <param name="spawnPosition">where the companion appears when spawned</param>
+    /// <param name="spawnRotation">which way the companion is facing when spawned</param>
     [Command]
     void CmdInstantiateCompanion(GameObject owner, string ownerName, string companionName, bool isInstantiated, Vector3 spawnPosition, Quaternion spawnRotation)
     {

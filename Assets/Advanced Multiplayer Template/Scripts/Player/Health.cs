@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.InputSystem;
+using UnityEngine.AI.NavMeshAgent
 using StarterAssets;
+using RedicionStudio.InventorySystem.PlayerInventoryModule;
 
 public class Health : NetworkBehaviour
 {
@@ -45,18 +47,63 @@ public class Health : NetworkBehaviour
 
     GameObject[] playerSpawnPoints;
 
+    Player player;
+
+    PlayerAI playerAI;
+    CapsuleCollider myCapsuleCollider;
+    NavMeshAgent navMeshAgent;
+    Animator animator;
+    PlayerInteraction playerInteraction;
+    CharacterController characterController;
+    ThirdPersonController thirdPersonController;
+    PlayerInventoryModule playerInventoryModule;
+
+
+
     private void Start()
     {
         username = this.GetComponent<Player>().username;
 
         playerSpawnPoints = GameObject.FindGameObjectsWithTag("PlayerSpawnPoint");
+
+        playerAI = GetComponent<PlayerAI>();
+        playerInteraction = GetComponent<PlayerInteraction>();
+        myCapsuleCollider = GetComponent<CapsuleCollider>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        characterController = GetComponent<CharacterController>();
+        thirdPersonController = GetComponent<ThirdPersonController>();
+        playerInventoryModule = GetComponent<PlayerInventoryModule>();
+    }
+
+    private void Update()
+    {
+        if (localPlayer != null && !isLocalPlayer)
+        {
+            _HealthCanvas.LookAt(_HealthCanvas.position + _camera.rotation * Vector3.forward,
+                _camera.rotation * Vector3.up);
+        }
+
+        if (isFallingFromCar)
+        {
+            playerRagdoll.position = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+        }
+        else if (isFallingFromAircraft)
+        {
+            parachute.SetActive(true);
+        }
+        if (isFallingFromAircraft == false)
+        {
+            parachute.SetActive(false);
+        }
     }
 
     public override void OnStartLocalPlayer()
     {
-        base.OnStartLocalPlayer(); // ?
+        base.OnStartLocalPlayer(); // run base of overridden class
 
         localPlayer = this;
+
 
         //_camera = FindObjectOfType<Camera>().transform;
         _camera = GameObject.Find("MainCamera").transform;
@@ -65,6 +112,12 @@ public class Health : NetworkBehaviour
             _HealthCanvas.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// processing damage taken and what type
+    /// </summary>
+    /// <param name="amount">interger amount of damage taken</param>
+    /// <param name="attackType">enum type of damage taken</param>
+    /// <param name="attackerName">name of the source of damage</param>
     public void TakeDamage(int amount, AttackType attackType, string attackerName)
     {
         if (!isServer)
@@ -77,9 +130,9 @@ public class Health : NetworkBehaviour
 
         currentHealth -= amount;
         print(gameObject.name + "'s" + " health = " + currentHealth);
-        if (GetComponent<PlayerAI>().isSetAsAi == true)
+        if (playerAI.isSetAsAi == true)
         {
-            GetComponent<PlayerAI>().Run();
+            playerAI.Run();
         }
         if (currentHealth <= 0)
         {
@@ -91,11 +144,11 @@ public class Health : NetworkBehaviour
 
             //RpcPlayAnimation(deathAnimationName);
             RpcFallingDown();
-            if (GetComponent<PlayerAI>().isSetAsAi == true)
+            if (playerAI.isSetAsAi == true)
             {
-                GetComponent<UnityEngine.AI.NavMeshAgent>().isStopped = true;
+                navMeshAgent.isStopped = true;
                 healthbar.parent.gameObject.SetActive(false);
-                GetComponent<CapsuleCollider>().isTrigger = true;
+                myCapsuleCollider.isTrigger = true;
                 RpcNPCDie();
             }
             else
@@ -115,12 +168,21 @@ public class Health : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// processing death message
+    /// </summary>
+    /// <param name="killerName">name of entity, player or object that caused death</param>
+    /// <param name="attackType">enum type of damage that killed player</param>
     [ClientRpc]
     void RpcDeathConfirmation(string killerName, AttackType attackType)
     {
         Instantiate(killMessagePrefab).GetComponent<KillMessage>().ShowKillMessage(killerName, username, attackType);
     }
 
+    /// <summary>
+    /// processing death screen
+    /// </summary>
+    /// <param name="attackerName">name of entity, player or object that caused death</param>
     [ClientRpc]
     void RpcShowDeathScreen(string attackerName)
     {
@@ -131,6 +193,10 @@ public class Health : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// coroutine for respawning the player
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Respawn()
     {
         _respawnTimer -= 1;
@@ -174,32 +240,15 @@ public class Health : NetworkBehaviour
         if (GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar)
             GetComponent<PlayerInteraction>().ForceExitVehicle();
         GetComponent<CapsuleCollider>().enabled = true;
-        GetComponent<Animator>().enabled = true;
-        GetComponent<Animator>().Play("Idle Walk Run Blend");
+        animator.enabled = true;
+        animator.Play("Idle Walk Run Blend");
     }
 
-    private void Update()
-    {
-        if (localPlayer != null && !isLocalPlayer)
-        {
-            _HealthCanvas.LookAt(_HealthCanvas.position + _camera.rotation * Vector3.forward,
-                _camera.rotation * Vector3.up);
-        }
 
-        if (isFallingFromCar)
-        {
-            playerRagdoll.position = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
-        }
-        else if (isFallingFromAircraft)
-        {
-            parachute.SetActive(true);
-        }
-        if (isFallingFromAircraft == false)
-        {
-            parachute.SetActive(false);
-        }
-    }
 
+    /// <summary>
+    /// nullifies player health script upon death
+    /// </summary>
     private void OnDestroy()
     {
         if (localPlayer == this)
@@ -208,13 +257,17 @@ public class Health : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// collision for taking damage
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
-        if(waitingForFallDamage)
+        if (waitingForFallDamage)
         {
             if (collision != null)
             {
-                if(isServer)
+                if (isServer)
                 {
                     waitingForFallDamage = false;
                     TakeDamage(100, AttackType.Plane, "World");
@@ -223,6 +276,10 @@ public class Health : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// plays death animation
+    /// </summary>
+    /// <param name="Animation">animation of player's death</param>
     [ClientRpc]
     public void RpcPlayAnimation(string Animation)
     {
@@ -233,17 +290,24 @@ public class Health : NetworkBehaviour
     public void RpcFallingDown()
     {
         GetComponent<CapsuleCollider>().enabled = false;
-        GetComponent<Animator>().enabled = false;
+        animator.enabled = false;
     }
 
+    /// <summary>
+    /// manages death after health reaches 0
+    /// </summary>
     [ClientRpc]
     public void RpcNPCDie()
     {
-        GetComponent<UnityEngine.AI.NavMeshAgent>().isStopped = true;
+        navMeshAgent.isStopped = true;
         healthbar.parent.gameObject.SetActive(false);
-        GetComponent<CapsuleCollider>().isTrigger = true;
+        myCapsuleCollider.isTrigger = true;
     }
 
+    /// <summary>
+    /// puts player in a falling state after leaving a flying vehicle while in the air
+    /// </summary>
+    /// <param name="vehicleType">ID number of vehicle</param>
     public void FallFromVehicle(int vehicleType)
     {
         CmdFallFromVehicle(vehicleType);
@@ -252,18 +316,18 @@ public class Health : NetworkBehaviour
     [Command]
     public void CmdFallFromVehicle(int vehicleType)
     {
-        GetComponent<CharacterController>().enabled = false;
-        GetComponent<ThirdPersonController>().enabled = false;
-        if(vehicleType == 1)
+        characterController.enabled = false;
+        thirdPersonController.enabled = false;
+        if (vehicleType == 1)
         {
             isFallingFromCar = true;
-            GetComponent<Animator>().SetTrigger("FallFromVehicle");
+            animator.SetTrigger("FallFromVehicle");
         }
         else if (vehicleType == 2)
         {
             isFallingFromCar = true;
-            GetComponent<Animator>().SetBool("FreeFall", true);
-            GetComponent<Animator>().Play("InAir");
+            animator.SetBool("FreeFall", true);
+            animator.Play("InAir");
             waitingForFallDamage = true;
         }
         RpcFallFromVehicle(vehicleType);
@@ -272,69 +336,81 @@ public class Health : NetworkBehaviour
     [ClientRpc]
     public void RpcFallFromVehicle(int vehicleType)// vehicleType, 1 = Car, 2 = Aircraft
     {
-        GetComponent<CharacterController>().enabled = false;
-        GetComponent<ThirdPersonController>().enabled = false;
+        characterController.enabled = false;
+        characterController.enabled = false;
         if (vehicleType == 1)//Car
         {
             isFallingFromCar = true;
-            GetComponent<Animator>().SetTrigger("FallFromVehicle");
+            animator.SetTrigger("FallFromVehicle");
 
             StartCoroutine(StandUpCar());
         }
         else if (vehicleType == 2)//Aircraft
         {
             isFallingFromCar = true;
-            GetComponent<Animator>().SetBool("FreeFall", true);
-            GetComponent<Animator>().Play("InAir");
+            animator.SetBool("FreeFall", true);
+            animator.Play("InAir");
             waitingForFallDamage = true;
 
             StartCoroutine(StandUpPlane());
         }
     }
 
+    /// <summary>
+    /// Coroutine for leaving ground vehicle
+    /// </summary>
+    /// <returns></returns>
     IEnumerator StandUpCar()
     {
         yield return new WaitForSeconds(5.20f);
 
-        GetComponent<CapsuleCollider>().enabled = true;
-        GetComponent<Animator>().enabled = true;
+        myCapsuleCollider.enabled = true;
+        animator.enabled = true;
         isFallingFromCar = false;
-        GetComponent<Animator>().ResetTrigger("FallFromVehicle");
+        animator.ResetTrigger("FallFromVehicle");
         //reanable player movement
-        GetComponent<CharacterController>().enabled = true;
-        GetComponent<ThirdPersonController>().enabled = true;
-        GetComponent<CapsuleCollider>().enabled = true;
+        characterController.enabled = true;
+        thirdPersonController.enabled = true;
+        myCapsuleCollider.enabled = true;
 
-        GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar = false;
+        playerInventoryModule.inCar = false;
 
-        GetComponent<PlayerInteraction>().inVehicle = false;
+        playerInteraction.inVehicle = false;
     }
 
+    // <summary>
+    /// Coroutine for leaving air vehicle
+    /// </summary>
+    /// <returns></returns>
     IEnumerator StandUpPlane()
     {
         yield return new WaitForSeconds(0.17f);
 
-        GetComponent<CapsuleCollider>().enabled = true;
-        GetComponent<Animator>().enabled = true;
+        myCapsuleCollider.enabled = true;
+        animator.enabled = true;
         isFallingFromCar = false;
-        GetComponent<Animator>().SetBool("FreeFall", false);
-        GetComponent<Animator>().Play("Idle Walk Run Blend");
+        animator.SetBool("FreeFall", false);
+        animator.Play("Idle Walk Run Blend");
         //reanable player movement
-        GetComponent<CharacterController>().enabled = true;
-        GetComponent<ThirdPersonController>().enabled = true;
-        GetComponent<CapsuleCollider>().enabled = true;
+        characterController.enabled = true;
+        thirdPersonController.enabled = true;
+        myCapsuleCollider.enabled = true;
 
-        GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar = false;
+        playerInventoryModule.inCar = false;
 
-        GetComponent<PlayerInteraction>().inVehicle = false;
+        playerInteraction.inVehicle = false;
     }
 
+    /// <summary>
+    /// when the player lands on the ground after falling from an aircraft, the parachute is deactivated and the player returns to their grounded state
+    /// </summary>
     public void ReleaseParachute()
     {
         isFallingFromAircraft = false;
-        GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().usesParachute = false;
+        playerInventoryModule.usesParachute = false;
         CmdReleaseParachute(transform.position, transform.rotation);
     }
+
 
     [Command]
     void CmdReleaseParachute(Vector3 _position, Quaternion _rotation)
@@ -352,9 +428,13 @@ public class Health : NetworkBehaviour
         isFallingFromAircraft = false;
         //reanable player movement
         parachute.SetActive(false);
-        GetComponent<Animator>().Play("Idle Walk Run Blend");
+        animator.Play("Idle Walk Run Blend");
     }
 }
+
+/// <summary>
+/// the type of objects that can damage the player and other entities
+/// </summary>
 public enum AttackType : byte
 {
     Minigun,
