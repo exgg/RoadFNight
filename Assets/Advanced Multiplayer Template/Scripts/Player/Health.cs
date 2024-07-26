@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.InputSystem;
-using UnityEngine.AI.NavMeshAgent
 using StarterAssets;
-using RedicionStudio.InventorySystem.PlayerInventoryModule;
 
 public class Health : NetworkBehaviour
 {
@@ -51,12 +49,12 @@ public class Health : NetworkBehaviour
 
     PlayerAI playerAI;
     CapsuleCollider myCapsuleCollider;
-    NavMeshAgent navMeshAgent;
+    UnityEngine.AI.NavMeshAgent navMeshAgent;
     Animator animator;
     PlayerInteraction playerInteraction;
     CharacterController characterController;
     ThirdPersonController thirdPersonController;
-    PlayerInventoryModule playerInventoryModule;
+    RedicionStudio.InventorySystem.PlayerInventoryModule playerInventoryModule;
 
 
 
@@ -69,11 +67,11 @@ public class Health : NetworkBehaviour
         playerAI = GetComponent<PlayerAI>();
         playerInteraction = GetComponent<PlayerInteraction>();
         myCapsuleCollider = GetComponent<CapsuleCollider>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         thirdPersonController = GetComponent<ThirdPersonController>();
-        playerInventoryModule = GetComponent<PlayerInventoryModule>();
+        playerInventoryModule = GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>();
     }
 
     private void Update()
