@@ -121,7 +121,7 @@ namespace RedicionStudio.InventorySystem {
         private void Initialisation()
         {
 	        //Inputs
-	        _inputs = GameObject.FindGameObjectWithTag("InputManager").GetComponent<StarterAssets.StarterAssetsInputs>(); // errr what ? THEE most expensive call in unity... 
+	        _inputs = GameObject.FindGameObjectWithTag("InputManager").GetComponent<StarterAssets.StarterAssetsInputs>(); 
 	        _keyboard = Keyboard.current;
 	        _mouse = Mouse.current;
 	        
@@ -275,6 +275,8 @@ namespace RedicionStudio.InventorySystem {
       
         public void WeaponWheelUIToggle()
         {
+	        _slot = slots[0];  
+	        
 	        if (!_inputs.weaponWheel)
 	        {
 		        DeactivateWeaponWheel();
@@ -290,7 +292,7 @@ namespace RedicionStudio.InventorySystem {
 		        UpdateWeaponWheel();
 	        }
 
-	        _slot = slots[0];  
+	      
         }
 
         private void ToggleWeaponWheel()
@@ -393,13 +395,34 @@ namespace RedicionStudio.InventorySystem {
 	        }
         }
 
+        private bool CheckAim()
+        {
+	        return !BSystem.BSystem.inMenu &
+	               !inPropertyArea &
+	               !inShop & !inCar &
+	               !usesParachute &
+	               !_health.isDeath &
+	               !this.GetComponent<EmoteWheel>().isPlayingAnimation &
+	               _inputs.aim & _slot.amount > 0 &
+	               _slot.item.itemSO != null &
+	               _slot.item.itemSO is WeaponItemSO;
+        }
         public void AimWeapon()
         {
 	        //Aim
-	        if (!BSystem.BSystem.inMenu & !inPropertyArea & !inShop & !inCar & !usesParachute & !_health.isDeath &
-	            !this.GetComponent<EmoteWheel>().isPlayingAnimation & _inputs.aim & _slot.amount > 0 & _slot.item.itemSO != null & _slot.item.itemSO is WeaponItemSO)
+	        if (CheckAim())
 	        {
+		        Debug.Log("Can Aim");
 		        CmdAim();
+	        }
+	        else
+	        {
+		        
+		        Debug.Log("in menu " + BSystem.BSystem.inMenu + "In Property" + inPropertyArea + "in shop" + inShop + "in car" + inCar + " using parachute" + usesParachute + "is dead" + _health.isDeath + "playing anim"
+			        + this.GetComponent<EmoteWheel>().isPlayingAnimation + " aiming input" + _inputs.aim +
+			        "Slot amount" + (_slot.amount > 0) + "slot is null" + (_slot.item.itemSO == null) +
+			        "Slot is weapon" + (_slot.item.itemSO is WeaponItemSO));
+				
 	        }
         }
         
