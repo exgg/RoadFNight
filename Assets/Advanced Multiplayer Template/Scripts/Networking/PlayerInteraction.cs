@@ -90,6 +90,13 @@ public class PlayerInteraction : NetworkBehaviour
         _myVehicle.RequestExiting(this);
     }
 
+    /// <summary>
+    /// runs coroutine and animation for exiting a vehicle
+    /// </summary>
+    /// <param name="seat">seat that player character was sitting on</param>
+    /// <param name="animDuration">duration of animation</param>
+    /// <param name="animID">ID for animation</param>
+    /// <param name="forcedExit">whether or not the player was kicked out or left the vehicle by choice</param>
     public void ExitVehicle(Seat seat, float animDuration, int animID, bool forcedExit)
     {
         if (!forcedExit)
@@ -161,6 +168,14 @@ public class PlayerInteraction : NetworkBehaviour
         }
     }
 
+
+    /// <summary>
+    /// kicks another player out of the vehicle and taking it over
+    /// </summary>
+    /// <param name="pointToTeleport">point where opposing player is pushed out?</param>
+    /// <param name="animDuration">duration of animation</param>
+    /// <param name="vehicle">vehicle being stolen</param>
+    /// <param name="forcedEnter">whether or not you are stealing a car from another player</param>
     public void KickOutOtherPlayer(Transform pointToTeleport, float animDuration, VehicleSync vehicle, bool forcedEnter)
     {
         _transformToStickTo = pointToTeleport;
@@ -183,6 +198,9 @@ public class PlayerInteraction : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// being pushed out of a vehicle by another player
+    /// </summary>
     public void ForceExitVehicle()
     {
         //reanable player movement
@@ -200,13 +218,19 @@ public class PlayerInteraction : NetworkBehaviour
         _anim.Play("Idle Walk Run Blend");
     }
 
+
+    /// <summary>
+    /// entering a vehicle without another player in it
+    /// </summary>
+    /// <param name="vehicleToEnter">vehicle being interacted with</param>
+    /// <param name="animID">ID for animation for entering the vehicle</param>
     public void EnterVehicle(VehicleSync vehicleToEnter, int animID)
     {
         if (hasAuthority)
         {
             GetComponent<ManageTPController>().StickCameraToVehicle(vehicleToEnter.transform);
         }
-        if(isLocalPlayer)
+        if (isLocalPlayer)
         {
             GameObject _carNameInfo = Instantiate(CarNameInfoPrefab);
             _carNameInfo.GetComponent<CarNameInfo>().SetUpCarNameText(vehicleToEnter.VehicleName);
@@ -230,6 +254,9 @@ public class PlayerInteraction : NetworkBehaviour
         GetComponent<NetworkTransform>().enabled = !block;
     }
 
+    /// <summary>
+    /// denotes that you have left a vehicle
+    /// </summary>
     public void Exited()
     {
         _myVehicle = null;
