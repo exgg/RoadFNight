@@ -10,8 +10,8 @@ namespace RedicionStudio.InventorySystem {
 
 		[SerializeField] private GameObject _content;
 		[SerializeField] private Transform _slotsContent;
-        static public GameObject WeaponWheel;
-        static public GameObject InventoryUI;
+        public static GameObject WeaponWheel;
+        public static GameObject InventoryUI;
         [SerializeField] private UISlot slotA; // Weapon slot
 		[SerializeField] private UISlot slotB; // Ammo slot
         [SerializeField] private UISlot slotC; // Outfit slot

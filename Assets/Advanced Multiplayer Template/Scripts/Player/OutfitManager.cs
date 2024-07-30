@@ -48,7 +48,7 @@ public class OutfitManager : NetworkBehaviour
             return;
         }
 
-        if (GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().slots[2].item.itemSO != null)
+        if (GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().slots[2].item.itemSO != null) // expensive but we need to fire an event to update this when we change the slot to change to null or active
         {
             if (inventoryModule.slots[2].item.itemSO is RedicionStudio.InventorySystem.OutfitItemSO)
             {
@@ -67,6 +67,10 @@ public class OutfitManager : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Setups up the outfit to send via RPC to the server to change for all clients online
+    /// </summary>
+    /// <param name="outfitName"></param>
     [Command]
     void CmdSetOutfit(string outfitName)
     {
@@ -75,6 +79,10 @@ public class OutfitManager : NetworkBehaviour
         RpcSetOutfit(outfitName);
     }
 
+    /// <summary>
+    /// Pushes the outfit to the server
+    /// </summary>
+    /// <param name="outfitName"></param>
     [ClientRpc]
     void RpcSetOutfit(string outfitName)
     {

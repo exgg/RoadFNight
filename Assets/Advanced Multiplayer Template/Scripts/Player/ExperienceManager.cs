@@ -51,9 +51,13 @@ public class ExperienceManager : MonoBehaviour
             LevelUp();
     }
 
+    /// <summary>
+    /// Formula to calculate how a player earns EXP, which will then turn into a
+    /// Slider bar in order to give the player visual feedback on what level they are
+    /// </summary>
     public void UpdateXpUI()
     {
-        currentXP = GetComponent<Player>().experiencePoints;
+        currentXP = GetComponent<Player>().experiencePoints; // expensive again given it is in the update
 
         float xpfraction = currentXP / targetXP;
         float FXP = frontXPBar.fillAmount;
@@ -72,6 +76,11 @@ public class ExperienceManager : MonoBehaviour
         currentXPText.text = currentXP + " / " + targetXP;
     }
 
+    /// <summary>
+    /// Flat rate of how experience is earned once it has been earned, it will then proceed to reset the timer of the gradual
+    /// progression of the player
+    /// </summary>
+    /// <param name="xpGained"></param>
     public void GainExperienceFlatRate(float xpGained)
     {
         currentXP += xpGained;
@@ -79,6 +88,11 @@ public class ExperienceManager : MonoBehaviour
         delayTimer = 0f;
     }
 
+    /// <summary>
+    /// Scalable experience which seems to be a way that we can use the template to generate XP at a greater rate.
+    /// </summary>
+    /// <param name="xpGained"></param>
+    /// <param name="passedLevel"></param>
     public void GainExperienceScalable(float xpGained, int passedLevel)
     {
         if(passedLevel < currentLevel)
@@ -94,6 +108,11 @@ public class ExperienceManager : MonoBehaviour
         delayTimer = 0f;
     }
 
+    /// <summary>
+    /// Produces the ability to level up, which first calculates the required XP for the player to level up.
+    /// This secondary method called seems to be exponential based on the formula behind it.
+    /// Then will update the required UI and reset the bar and current XP to the start once more. Increasing the players level
+    /// </summary>
     public void LevelUp()
     {
         currentLevel++;
@@ -107,6 +126,11 @@ public class ExperienceManager : MonoBehaviour
         nextLevelText.text = nextLevel.ToString();
     }
 
+    /// <summary>
+    /// Formula to calculate how much xp is needed per level. This is exponential, we will need to figure out if this is something we want to include or
+    /// we want a more linear transition into levels. Similar to CoD where it has a max XP needed.
+    /// </summary>
+    /// <returns></returns>
     private int CalculateRequiredXp()
     {
         int solveForRequiredXp = 0;

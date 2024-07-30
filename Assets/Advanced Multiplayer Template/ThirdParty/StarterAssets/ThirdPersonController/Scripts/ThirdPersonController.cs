@@ -188,6 +188,10 @@ namespace StarterAssets
                 CameraRotation();
         }
 
+        /// <summary>
+        /// sets up the IDs for animations for later use in the animator and
+        /// to project them onto the server
+        /// </summary>
         private void AssignAnimationIDs()
         {
             _animIDSpeed = Animator.StringToHash("Speed");
@@ -197,6 +201,9 @@ namespace StarterAssets
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         }
 
+        /// <summary>
+        /// Ground check to check if the player is grounded to swich animation to walk, idle, standstill within the animator. Otherwise, it will be in free fall
+        /// </summary>
         private void GroundedCheck()
         {
             // set sphere position, with offset
@@ -212,6 +219,9 @@ namespace StarterAssets
             }
         }
 
+        /// <summary>
+        /// Camera movement calculations. Uses cinemachine, so there must be a cinema-chine brain somewhere
+        /// </summary>
         private void CameraRotation()
         {
             // if there is an input and camera position is not fixed
@@ -373,13 +383,25 @@ namespace StarterAssets
             }
         }
 
+        /// <summary>
+        /// Clamp the angle of the Cinemachine camera
+        /// </summary>
+        /// <param name="lfAngle"></param>
+        /// <param name="lfMin"></param>
+        /// <param name="lfMax"></param>
+        /// <returns></returns>
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {
             if (lfAngle < -360f) lfAngle += 360f;
             if (lfAngle > 360f) lfAngle -= 360f;
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
-
+        
+        /// <summary>
+        /// Draws gizmos in the Unity editor to visualize the grounding status of the object.
+        /// When the object is grounded, a green transparent sphere is drawn; otherwise, a red transparent sphere is drawn.
+        /// The sphere is drawn at the object's position, offset by GroundedOffset, with a radius of GroundedRadius.
+        /// </summary>
         private void OnDrawGizmosSelected()
         {
             Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
@@ -394,15 +416,23 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
+        /// <summary>
+        /// Sets the sensitivity of the cinemachine camera
+        /// </summary>
+        /// <param name="newSensitivity"></param>
         public void SetSensitivity(float newSensitivity)
         {
             Sensitivity = newSensitivity; 
         }
-
+        
         public void SetRotateOnMove(bool newRotateOnMove)
         {
             _rotateOnMove = newRotateOnMove;
         }
+        /// <summary>
+        /// Allow the phase through of collisions for each of the ignored objects
+        /// </summary>
+        /// <param name="collision"></param>
 
         void OnCollisionEnter(Collision collision)
         {
