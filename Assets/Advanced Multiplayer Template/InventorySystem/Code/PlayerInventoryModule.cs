@@ -275,6 +275,8 @@ namespace RedicionStudio.InventorySystem {
       
         public void WeaponWheelUIToggle()
         {
+	        _slot = slots[0];  
+	        
 	        if (!_inputs.weaponWheel)
 	        {
 		        DeactivateWeaponWheel();
@@ -289,8 +291,6 @@ namespace RedicionStudio.InventorySystem {
 	        {
 		        UpdateWeaponWheel();
 	        }
-
-	        _slot = slots[0];  
         }
 
         private void ToggleWeaponWheel()

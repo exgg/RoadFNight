@@ -112,8 +112,8 @@ namespace UnityEngine {
             "Assets/Advanced Multiplayer Template/MasterServer/Scenes/MasterServerScene.unity"
         };
             else
-                playerOptions.scenes = playerOptions.scenes = new string[1] {
-            "Assets/Advanced Multiplayer Template/Scenes/MainScene.unity"
+                playerOptions.scenes = playerOptions.scenes = new string[] {
+            "Assets/Scenes/TestScene.unity"
         };
 
             // set UTC build timestamp
