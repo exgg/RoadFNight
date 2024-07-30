@@ -29,6 +29,8 @@ public class PlayerInteraction : NetworkBehaviour
 
     private Transform _transformToStickTo;
 
+
+
     void Update()
     {
 
