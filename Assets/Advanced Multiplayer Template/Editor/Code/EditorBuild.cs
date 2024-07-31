@@ -108,14 +108,16 @@ namespace UnityEngine {
 			playerOptions.targetGroup = targetGroup;
 			playerOptions.target = target;
             if(masterServer)
-                playerOptions.scenes = new string[1] {
+                playerOptions.scenes = new string[] {
             "Assets/Advanced Multiplayer Template/MasterServer/Scenes/MasterServerScene.unity"
         };
             else
                 playerOptions.scenes = playerOptions.scenes = new string[] {
-            "Assets/Scenes/TestScene.unity"
+            "Assets/Scenes/TestScene.unity"//,
+            //"Assets/Scenes/TestScene2.unity"
         };
 
+          
             // set UTC build timestamp
             BuildInfo.Instance.UpdateLastBuildTimestamp();
 			BuildInfo.Instance.Save();

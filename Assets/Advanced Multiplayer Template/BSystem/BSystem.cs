@@ -168,14 +168,14 @@ namespace BSystem {
 
 			if (editMode) {
 				if (_keyboard.escapeKey.wasPressedThisFrame) {
-					Player.localPlayer.CmdEditDelete(_editTarget.netId);
+					PlacementModule.LocalPlayerB.CmdEditDelete(_editTarget.netId);
 					_editTarget.gameObject.SetActive(true); // ?
 					editMode = false;
 					currentPlaceableSO = null;
 					OnCurrentPlaceableSOChangedAction.Invoke();
 				}
 				if (_mouse.leftButton.wasPressedThisFrame) {
-					Player.localPlayer.CmdEdit(_editTarget.netId, position, rotation);
+					PlacementModule.LocalPlayerB.CmdEdit(_editTarget.netId, position, rotation);
 					_editTarget.gameObject.SetActive(true); // ?
 					editMode = false;
 					currentPlaceableSO = null;

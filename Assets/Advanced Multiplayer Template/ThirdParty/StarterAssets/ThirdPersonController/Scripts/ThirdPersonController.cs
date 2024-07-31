@@ -165,7 +165,7 @@ namespace StarterAssets
         {
             if (_blockMovement) return;
 
-            if (BSystemUI.Instance.Active || RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu || this.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop || this.GetComponent<Health>().isDeath == true)
+            if (RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu || this.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop || this.GetComponent<Health>().isDeath == true)
             {
                 LockCameraPosition = true;
                 return;
