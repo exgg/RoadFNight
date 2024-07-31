@@ -38,6 +38,13 @@ public class EmoteWheel : NetworkBehaviour
         }
     }
 
+    private bool CheckActions()
+    {
+        return !RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu &&
+               !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop &&
+               !RedicionStudio.InventorySystem.PlayerInventoryModule.inWeaponWheel &&
+               !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().chatWindow.isChatOpen;
+    }
     private void Update()
     {
         if (!isLocalPlayer)
@@ -126,7 +133,7 @@ public class EmoteWheel : NetworkBehaviour
         if (!_input.emoteWheel)
         {
             EmoteWheelUi.SetActive(false);
-            if (!BSystemUI.Instance.Active && !RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop && !RedicionStudio.InventorySystem.PlayerInventoryModule.inWeaponWheel && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().chatWindow.isChatOpen)
+            if (CheckActions())
             {
                 TPController.TPCameraController.LockCursor(true);
                 Cursor.lockState = CursorLockMode.Locked;
