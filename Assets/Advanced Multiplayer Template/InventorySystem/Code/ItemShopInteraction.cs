@@ -45,14 +45,14 @@ public class ItemShopInteraction : MonoBehaviour
                 {
                     if (itemShopUI.activeInHierarchy)
                     {
-                        player.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop = false;
+                        player.GetComponent<PlayerInventoryModule>().inShop = false;
                         itemShopUI.SetActive(false);
                         LockCursor(false);
                         interactionText.text = "Press 'E'";
                     }
                     else if (!itemShopUI.activeInHierarchy)
                     {
-                        player.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop = true;
+                        player.GetComponent<PlayerInventoryModule>().inShop = true;
                         itemShopUI.SetActive(true);
                         LockCursor(true);
                         interactionText.text = "Press 'E' to close";
@@ -69,7 +69,7 @@ public class ItemShopInteraction : MonoBehaviour
                 {
                     if (itemShopUI.activeInHierarchy)
                     {
-                        player.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop = false;
+                        player.GetComponent<PlayerInventoryModule>().inShop = false;
                         itemShopUI.SetActive(false);
                         LockCursor(false);
                         interactionText.text = "Press 'E'";
@@ -112,7 +112,7 @@ public class ItemShopInteraction : MonoBehaviour
                 interactUI.SetActive(false);
                 if (itemShopUI.activeInHierarchy)
                 {
-                    other.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop = false;
+                    other.GetComponent<PlayerInventoryModule>().inShop = false;
                     itemShopUI.SetActive(false);
                     LockCursor(false);
                     interactionText.text = "Press 'E'";

@@ -54,7 +54,7 @@ public class Health : NetworkBehaviour
     PlayerInteraction playerInteraction;
     CharacterController characterController;
     ThirdPersonController thirdPersonController;
-    RedicionStudio.InventorySystem.PlayerInventoryModule playerInventoryModule;
+    PlayerInventoryModule playerInventoryModule;
 
 
 
@@ -71,7 +71,7 @@ public class Health : NetworkBehaviour
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         thirdPersonController = GetComponent<ThirdPersonController>();
-        playerInventoryModule = GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>();
+        playerInventoryModule = GetComponent<PlayerInventoryModule>();
     }
 
     private void Update()
@@ -235,7 +235,7 @@ public class Health : NetworkBehaviour
 
         //this.GetComponent<Animator>().Rebind(); this messes up animations
         isDeath = false;
-        if (GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar)
+        if (GetComponent<PlayerInventoryModule>().inCar)
             GetComponent<PlayerInteraction>().ForceExitVehicle();
         GetComponent<CapsuleCollider>().enabled = true;
         animator.enabled = true;

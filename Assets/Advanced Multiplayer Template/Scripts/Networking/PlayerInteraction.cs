@@ -132,7 +132,7 @@ public class PlayerInteraction : NetworkBehaviour
 
                 //reanable player movement
                 BlockPlayer(false, false);
-                GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar = false;
+                GetComponent<PlayerInventoryModule>().inCar = false;
 
                 inVehicle = false;
 
@@ -155,7 +155,7 @@ public class PlayerInteraction : NetworkBehaviour
                 //reanable player movement
                 BlockPlayer(false, false);
 
-                GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar = false;
+                GetComponent<PlayerInventoryModule>().inCar = false;
 
                 inVehicle = false;
 
@@ -185,7 +185,7 @@ public class PlayerInteraction : NetworkBehaviour
         _anim.Play("KickOut");
 
         BlockPlayer(true, false);
-        GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar = true;
+        GetComponent<PlayerInventoryModule>().inCar = true;
 
         StartCoroutine(Teleport());
         IEnumerator Teleport()
@@ -208,7 +208,7 @@ public class PlayerInteraction : NetworkBehaviour
         //reanable player movement
         BlockPlayer(false, false);
 
-        GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar = false;
+        GetComponent<PlayerInventoryModule>().inCar = false;
 
         inVehicle = false;
 
@@ -240,7 +240,7 @@ public class PlayerInteraction : NetworkBehaviour
         }
         //disable player movement and collision when in car
         BlockPlayer(true, true);
-        GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar = true;
+        GetComponent<PlayerInventoryModule>().inCar = true;
 
         _myVehicle = vehicleToEnter;
         inVehicle = true;
