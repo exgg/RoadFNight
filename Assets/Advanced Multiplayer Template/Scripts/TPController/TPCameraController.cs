@@ -41,9 +41,10 @@ namespace TPController {
             if(_localPlayer == null)
                 _localPlayer = NetworkClient.localPlayer.gameObject;
 
-            if (_mouse == null || _cinemachineFreeLook.LookAt == null || BSystemUI.Instance.Active || RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu || RedicionStudio.InventorySystem.PlayerInventoryModule.inWeaponWheel || _localPlayer.GetComponent<EmoteWheel>().inEmoteWheel) {
+            if (_mouse == null || _cinemachineFreeLook.LookAt == null || _localPlayer.GetComponent<EmoteWheel>().inEmoteWheel) {
 				return;
 			}
+            //|| PlayerInventoryModule.inMenu || PlayerInventoryModule.inWeaponWheel 
 
 			Vector2 mouseDelta = _mouse.delta.ReadUnprocessedValue();
 			_cinemachineFreeLook.m_YAxis.Value -= mouseDelta.y * _mouseSensitivity / 100f; // TODO: ?

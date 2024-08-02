@@ -15,7 +15,7 @@ public class DroppedMoney : NetworkBehaviour
             if(isServer)
             {
                 collected = true;
-                other.GetComponent<PlayerInteractionModule>().AddMoney(other.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>(), moneyAmount);
+                other.GetComponent<PlayerInteractionModule>().AddMoney(other.GetComponent<PlayerInventoryModule>(), moneyAmount);
 
                 NetworkServer.Destroy(gameObject);
             }
