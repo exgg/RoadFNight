@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Mirror;
 using UnityEngine;
-
+using RedicionStudio.InventorySystem;
 public class WeaponWheel : NetworkBehaviour
 {
-   
+   /*
 	private PlayerInventoryModule _pIm;
 	private Player _player;
 	
@@ -111,5 +111,6 @@ public class WeaponWheel : NetworkBehaviour
         _pIm.isWeaponWheelActive = false;
         _pIm.inWeaponWheel = false;
     }
+    */
     
 }
