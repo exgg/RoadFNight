@@ -68,7 +68,7 @@ namespace RedicionStudio.InventorySystem {
 
 		private void OnUISlotPointerDown(ItemSlot slot, int slotIndex) {
 			if (4 <= slotIndex && slotIndex < playerInventory.slots.Count && playerInventory.slots[slotIndex].amount > 0 && playerInventory.slots[slotIndex].item.itemSO is UseableItemSO usableItemSO) {
-				//playerInventory.CmdUseItem(slotIndex);
+				playerInventory.CmdUseItem(slotIndex);
 			}
 		}
 
@@ -183,7 +183,7 @@ namespace RedicionStudio.InventorySystem {
 				_slot = playerInventory.slots[i];
 
 				if (_slot.amount > 0 && _slot.item.itemSO is UseableItemSO useableItemSO) {
-					_uISlot.cooldownIndicator.fillAmount =  0f; // useableItemSO.cooldownInSeconds > 0f ? playerInventory.GetCooldown(useableItemSO.cooldownTag.GetStableHashCode()) / useableItemSO.cooldownInSeconds :
+					_uISlot.cooldownIndicator.fillAmount = useableItemSO.cooldownInSeconds > 0f ? playerInventory.GetCooldown(useableItemSO.cooldownTag.GetStableHashCode()) / useableItemSO.cooldownInSeconds : 0f; // ?
 				}
 				else {
 					_uISlot.cooldownIndicator.fillAmount = 0f;

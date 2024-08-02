@@ -107,12 +107,10 @@ namespace BSystem {
 				if (!editMode || inMenu) {
 					inMenu = !inMenu;
 					if (inMenu) {
-						/*
-						if (PlayerInventoryModule.inMenu) {
-							//PlayerInventoryModule.inMenu = false;
-							//UIPlayerInventory.SetActive(false);
+						if (RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu) {
+							RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu = false;
+							RedicionStudio.InventorySystem.UIPlayerInventory.SetActive(false);
 						}
-						*/
 					}
 					TPController.TPCameraController.LockCursor(!inMenu);
 					BSystemUI.Instance.SetActive(inMenu);

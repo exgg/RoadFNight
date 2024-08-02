@@ -48,7 +48,7 @@ public class OutfitManager : NetworkBehaviour
             return;
         }
 
-        if (GetComponent<PlayerInventoryModule>().slots[2].item.itemSO != null) // expensive but we need to fire an event to update this when we change the slot to change to null or active
+        if (GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().slots[2].item.itemSO != null) // expensive but we need to fire an event to update this when we change the slot to change to null or active
         {
             if (inventoryModule.slots[2].item.itemSO is RedicionStudio.InventorySystem.OutfitItemSO)
             {

@@ -165,13 +165,13 @@ namespace StarterAssets
         {
             if (_blockMovement) return;
 
-            if (this.GetComponent<PlayerInventoryModule>().inShop || this.GetComponent<Health>().isDeath == true) //PlayerInventoryModule.inMenu || 
+            if (RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu || this.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop || this.GetComponent<Health>().isDeath == true)
             {
                 LockCameraPosition = true;
                 return;
             }
             LockCameraPosition = false;
-            if ( GetComponent<EmoteWheel>().inEmoteWheel) //PlayerInventoryModule.inWeaponWheel ||
+            if (RedicionStudio.InventorySystem.PlayerInventoryModule.inWeaponWheel || GetComponent<EmoteWheel>().inEmoteWheel)
             {
                 LockCameraPosition = true;
             }

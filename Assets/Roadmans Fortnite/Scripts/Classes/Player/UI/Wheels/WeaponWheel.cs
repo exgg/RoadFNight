@@ -48,17 +48,43 @@ public class WeaponWheel : NetworkBehaviour
     }
     private void EnterWeaponWheel()
     {
-        //UIPlayerInventory.WeaponWheel.SetActive(true);
+        UIPlayerInventory.WeaponWheel.SetActive(true);
         TPController.TPCameraController.LockCursor(false);
         
-	    _pIm.RegisterWeapon();
+        RegisterWeapon();
     }
 
-   
+    private void RegisterWeapon()
+    {
+        foreach (ItemSlot slot in _pIm.slots)
+        {
+	        if (!slot.item.itemSO) continue; // if null continue
+
+	        bool alreadyRegistered =
+		        _pIm.weaponWheelSystem.weapons.Any(item => item.WeaponName == slot.item.itemSO.uniqueName);
+
+	        if (!alreadyRegistered)
+	        {
+		        WeaponWheelItem weaponItem = new WeaponWheelItem
+		        {
+			        WeaponName = slot.item.itemSO.uniqueName,
+			        InfoText = slot.item.itemSO.tooltipText,
+			        type = slot.item.itemSO.weaponType
+		        };
+
+		        _pIm.weaponWheelSystem.weapons.Add(weaponItem);
+
+		        if (weaponItem.type == ItemSO.WeaponType.Item)
+		        {
+			        _pIm.weaponWheelSystem.weapons.Remove(weaponItem);
+		        }
+	        }
+        }
+    }
 
     private void ExitWeaponWheel()
     {
-        //UIPlayerInventory.WeaponWheel.SetActive(false);
+        UIPlayerInventory.WeaponWheel.SetActive(false);
         TPController.TPCameraController.LockCursor(true);
         _pIm.isWeaponWheelActive = false;
     }
@@ -73,7 +99,7 @@ public class WeaponWheel : NetworkBehaviour
     
     private void DeactivateWeaponWheel()
     {
-        //UIPlayerInventory.WeaponWheel.SetActive(false);
+        UIPlayerInventory.WeaponWheel.SetActive(false);
 
         if (!_pIm.inMenu && !_pIm.emoteWheel.inEmoteWheel && !_pIm.inShop && ! _pIm.chatSystem.isChatOpen)
         {

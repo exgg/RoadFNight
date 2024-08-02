@@ -9,7 +9,7 @@ public class CompanionManager : NetworkBehaviour
     [SyncVar] public string currentCompanionName;
     [SyncVar] public bool isCompanionInstantiated = false;
 
-    public PlayerInventoryModule inventoryModule;
+    public RedicionStudio.InventorySystem.PlayerInventoryModule inventoryModule;
 
     RedicionStudio.InventorySystem.UIPlayerInventory uiPlayerInventory;
 
@@ -23,7 +23,7 @@ public class CompanionManager : NetworkBehaviour
             return;
         }
 
-        if (GetComponent<PlayerInventoryModule>().slots[3].item.itemSO != null)
+        if (GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().slots[3].item.itemSO != null)
         {
             if (inventoryModule.slots[3].item.itemSO is RedicionStudio.InventorySystem.CompanionItemSO)
             {

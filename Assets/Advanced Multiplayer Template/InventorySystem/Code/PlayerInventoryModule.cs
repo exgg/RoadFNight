@@ -131,36 +131,8 @@ public class SyncDictionaryIntDouble : SyncDictionary<int, double> { }
         {
 	        if(!isLocalPlayer || Keyboard == null || Mouse == null) // if is not the current player of this player game object or inputs not set return
 		        return;
-	        
+
 	        if (inShop) return;
-        }
-        
-        public void RegisterWeapon()
-        {
-	        foreach (ItemSlot slot in slots)
-	        {
-		        if (!slot.item.itemSO) continue; // if null continue
-
-		        bool alreadyRegistered =
-			      weaponWheelSystem.weapons.Any(item => item.WeaponName == slot.item.itemSO.uniqueName);
-
-		        if (!alreadyRegistered)
-		        {
-			        WeaponWheelItem weaponItem = new WeaponWheelItem
-			        {
-				        WeaponName = slot.item.itemSO.uniqueName,
-				        InfoText = slot.item.itemSO.tooltipText,
-				        type = slot.item.itemSO.weaponType
-			        };
-
-			        weaponWheelSystem.weapons.Add(weaponItem);
-
-			        if (weaponItem.type == ItemSO.WeaponType.Item)
-			        {
-				        weaponWheelSystem.weapons.Remove(weaponItem);
-			        }
-		        }
-	        }
         }
         
         /// <summary>
