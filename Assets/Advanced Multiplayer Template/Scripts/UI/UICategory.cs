@@ -24,6 +24,7 @@ public class UICategory : MonoBehaviour {
 	private Dictionary<string, Option> _options = new Dictionary<string, Option>();
 
 	public System.Action<string> onOptionSelect;
+	public System.Action<BSystem.PlaceableSO> onItemSelect;
 
 	public void ClearOptions() {
 		foreach (Option option in _options.Values) {
@@ -31,9 +32,46 @@ public class UICategory : MonoBehaviour {
 		}
 		_options.Clear();
 	}
-	
 
-	
+	public void SelectOption(string categoryName) {
+		if (categoryName == null) {
+			foreach (Option option in _options.Values) {
+				option.gO.GetComponent<Image>().color = _color;
+			}
+			return;
+		}
+
+		if (_options.TryGetValue(categoryName, out Option value) && !value.item) {
+			foreach (Option option in _options.Values) {
+				option.gO.GetComponent<Image>().color = _color;
+			}
+			_options[categoryName].gO.GetComponent<Image>().color = _selectedColor;
+			onOptionSelect.Invoke(categoryName);
+			return;
+		}
+
+		onItemSelect.Invoke(BSystem.PlaceableSO.GetPlaceableSO(categoryName));
+	}
+
+	public void AddOption(string categoryName, BSystem.PlaceableSO placeableSO) {
+		GameObject gO;
+		if (placeableSO == null) {
+			gO = Instantiate(_categoryOptionPrefab);
+			gO.GetComponent<Image>().color = _color;
+			gO.GetComponentInChildren<TextMeshProUGUI>().text = categoryName;
+			gO.transform.SetParent(_content, false);
+		}
+		else {
+			gO = Instantiate(_categoryItemPrefab);
+			gO.GetComponentInChildren<Image>().sprite = placeableSO.sprite;
+			gO.GetComponentsInChildren<TextMeshProUGUI>()[0].text = placeableSO.uniqueName;
+			gO.GetComponentsInChildren<TextMeshProUGUI>()[1].text = placeableSO.price + "$";
+			gO.transform.SetParent(_itemContent, false);
+		}
+		gO.name = categoryName;
+		gO.GetComponent<UIButton>().onPressed = () => { SelectOption(categoryName); };
+		_options.Add(categoryName, new Option { gO = gO, item = placeableSO != null });
+	}
 
 	private static string EmptySpace(int length) {
 		string result = string.Empty;
@@ -43,5 +81,13 @@ public class UICategory : MonoBehaviour {
 		return result;
 	}
 
-	
+	public void AddOption(MasterServer.InstanceInfo instanceInfo) {
+		GameObject gO = Instantiate(_categoryOptionPrefab, _content);
+		gO.GetComponent<Image>().color = _color;
+		gO.GetComponentInChildren<TextMeshProUGUI>().text = instanceInfo.uniqueName + EmptySpace(72 - instanceInfo.uniqueName.Length) +
+			"Players: " + instanceInfo.numberOfPlayers + "/16" + EmptySpace(72 - instanceInfo.numberOfPlayers.ToString().Length) +
+			"Ping: " + instanceInfo.ping;
+		gO.GetComponent<UIButton>().onPressed = () => { SelectOption(instanceInfo.uniqueName); };
+		_options.Add(instanceInfo.uniqueName, new Option { gO = gO, item = false });
+	}
 }

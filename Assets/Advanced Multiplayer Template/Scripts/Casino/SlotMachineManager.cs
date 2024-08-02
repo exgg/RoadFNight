@@ -82,7 +82,7 @@ namespace RedicionStudio.Casino
                 {
                     if (usingSlotMachine && !isSpinning)
                     {
-                        player.GetComponent<PlayerInventoryModule>().inShop = false;
+                        player.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop = false;
                         usingSlotMachine = false;
                         LockCursor(false);
                         interactionText.text = "Press 'F'";
@@ -93,7 +93,7 @@ namespace RedicionStudio.Casino
                     }
                     else if (!usingSlotMachine)
                     {
-                        player.GetComponent<PlayerInventoryModule>().inShop = true;
+                        player.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop = true;
                         ResetBetValue();
                         usingSlotMachine = true;
                         LockCursor(true);
@@ -112,7 +112,7 @@ namespace RedicionStudio.Casino
                 {
                     if (usingSlotMachine && !isSpinning)
                     {
-                        player.GetComponent<PlayerInventoryModule>().inShop = false;
+                        player.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop = false;
                         usingSlotMachine = false;
                         LockCursor(false);
                         interactionText.text = "Press 'F'";
@@ -201,7 +201,7 @@ namespace RedicionStudio.Casino
                     interactUI.SetActive(false);
                     if (usingSlotMachine)
                     {
-                        other.GetComponent<PlayerInventoryModule>().inShop = false;
+                        other.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop = false;
                         usingSlotMachine = false;
                         LockCursor(false);
                         interactionText.text = "Press 'F'";
@@ -336,7 +336,7 @@ namespace RedicionStudio.Casino
 
             _localPlayer = NetworkClient.localPlayer.gameObject;
 
-            _localPlayer.GetComponent<PlayerInteractionModule>().AddMoney(_localPlayer.GetComponent<PlayerInventoryModule>(), amount);
+            _localPlayer.GetComponent<PlayerInteractionModule>().AddMoney(_localPlayer.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>(), amount);
         }
 
         private void RemoveMoney(int amount)
@@ -354,7 +354,7 @@ namespace RedicionStudio.Casino
 
                 return;
             }
-            _localPlayer.GetComponent<PlayerInteractionModule>().RemoveMoney(_localPlayer.GetComponent<PlayerInventoryModule>(), amount);
+            _localPlayer.GetComponent<PlayerInteractionModule>().RemoveMoney(_localPlayer.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>(), amount);
             isSpinning = true;
             StartCoroutine(SpinReels());
             slotMachineCanvas.SetActive(false);

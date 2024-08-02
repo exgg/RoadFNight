@@ -20,7 +20,7 @@ public class PlayerAiSensor : MonoBehaviour
                     {
                         if (!other.GetComponent<PlayerAI>().isSetAsAi)
                         {
-                            if(!other.GetComponent<PlayerInventoryModule>().inCar)
+                            if(!other.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar)
                             {
                                 currentPlayer = other.transform;
                             }

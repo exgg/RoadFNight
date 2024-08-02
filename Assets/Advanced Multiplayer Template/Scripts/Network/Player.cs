@@ -15,7 +15,7 @@ public class Player : NetworkBehaviour {
 	#endregion
 	
 	[Header("Player Modules")]
-	public PlayerInventoryModule playerInventory;
+	public RedicionStudio.InventorySystem.PlayerInventoryModule playerInventory;
 	public PlayerNutritionModule playerNutrition;
 
 	[Space]
@@ -123,7 +123,7 @@ public class Player : NetworkBehaviour {
     {
 	    if (GetComponent<PlayerAI>().isSetAsAi == true)
 	    {
-		    GetComponent<PlayerInventoryModule>().enabled = false;
+		    GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().enabled = false;
 		    return;
 	    }
 	    onlinePlayers[id] = this;

@@ -48,7 +48,7 @@ public class WeaponWheel : NetworkBehaviour
     }
     private void EnterWeaponWheel()
     {
-        //UIPlayerInventory.WeaponWheel.SetActive(true);
+        UIPlayerInventory.WeaponWheel.SetActive(true);
         TPController.TPCameraController.LockCursor(false);
         
         RegisterWeapon();
@@ -56,7 +56,6 @@ public class WeaponWheel : NetworkBehaviour
 
     private void RegisterWeapon()
     {
-	    /*
         foreach (ItemSlot slot in _pIm.slots)
         {
 	        if (!slot.item.itemSO) continue; // if null continue
@@ -81,12 +80,11 @@ public class WeaponWheel : NetworkBehaviour
 		        }
 	        }
         }
-        */
     }
 
     private void ExitWeaponWheel()
     {
-        //UIPlayerInventory.WeaponWheel.SetActive(false);
+        UIPlayerInventory.WeaponWheel.SetActive(false);
         TPController.TPCameraController.LockCursor(true);
         _pIm.isWeaponWheelActive = false;
     }
@@ -101,7 +99,7 @@ public class WeaponWheel : NetworkBehaviour
     
     private void DeactivateWeaponWheel()
     {
-        //UIPlayerInventory.WeaponWheel.SetActive(false);
+        UIPlayerInventory.WeaponWheel.SetActive(false);
 
         if (!_pIm.inMenu && !_pIm.emoteWheel.inEmoteWheel && !_pIm.inShop && ! _pIm.chatSystem.isChatOpen)
         {
