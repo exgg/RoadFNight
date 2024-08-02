@@ -10,7 +10,7 @@ public class OutfitManager : NetworkBehaviour
     [SyncVar] public string currentOutfitName = "defaultOutfit";
     public Sprite defaultInventoryCharacterSprite;
 
-    public PlayerInventoryModule inventoryModule;
+    public RedicionStudio.InventorySystem.PlayerInventoryModule inventoryModule;
 
     RedicionStudio.InventorySystem.UIPlayerInventory uiPlayerInventory;
 
