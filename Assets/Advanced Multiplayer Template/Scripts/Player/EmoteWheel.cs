@@ -40,10 +40,9 @@ public class EmoteWheel : NetworkBehaviour
 
     private bool CheckActions()
     {
-        return !RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu &&
-               !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop &&
-               !RedicionStudio.InventorySystem.PlayerInventoryModule.inWeaponWheel &&
-               !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().chatWindow.isChatOpen;
+        return //!PlayerInventoryModule.inMenu &&  !PlayerInventoryModule.inWeaponWheel &&
+               !GetComponent<PlayerInventoryModule>().inShop &&
+               !GetComponent<PlayerInventoryModule>().chatWindow.isChatOpen;
     }
     private void Update()
     {
@@ -55,7 +54,10 @@ public class EmoteWheel : NetworkBehaviour
         if (_input == null)
             _input = GameObject.FindGameObjectWithTag("InputManager").GetComponent<StarterAssets.StarterAssetsInputs>();
 
-        if (_input != null && _input.emoteWheel && !BSystemUI.Instance.Active && !RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop && GetComponent<Health>().isDeath == false && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().usesParachute && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().isAiming && !RedicionStudio.InventorySystem.PlayerInventoryModule.inWeaponWheel && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().chatWindow.isChatOpen)
+        if (_input != null && _input.emoteWheel && !BSystemUI.Instance.Active &&  !GetComponent<PlayerInventoryModule>().inShop && GetComponent<Health>().isDeath == false 
+            && !GetComponent<PlayerInventoryModule>().inCar && !GetComponent<PlayerInventoryModule>().usesParachute 
+            && !GetComponent<PlayerInventoryModule>().isAiming && 
+            !GetComponent<PlayerInventoryModule>().chatWindow.isChatOpen) //!PlayerInventoryModule.inMenu && !PlayerInventoryModule.inWeaponWheel && 
         {
             if (!isEmoteWheelActive)
             {

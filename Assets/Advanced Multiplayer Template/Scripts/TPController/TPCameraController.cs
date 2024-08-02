@@ -41,7 +41,8 @@ namespace TPController {
             if(_localPlayer == null)
                 _localPlayer = NetworkClient.localPlayer.gameObject;
 
-            if (_mouse == null || _cinemachineFreeLook.LookAt == null || BSystemUI.Instance.Active || RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu || RedicionStudio.InventorySystem.PlayerInventoryModule.inWeaponWheel || _localPlayer.GetComponent<EmoteWheel>().inEmoteWheel) {
+            if (_mouse == null || _cinemachineFreeLook.LookAt == null || BSystemUI.Instance.Active
+                || _localPlayer.GetComponent<EmoteWheel>().inEmoteWheel) { //PlayerInventoryModule.inMenu ||PlayerInventoryModule.inWeaponWheel 
 				return;
 			}
 
