@@ -27,14 +27,14 @@ namespace RedicionStudio.InventorySystem {
 
 			base.Use(playerInventory, slotIndex);
 
-			//playerInventory.RpcOnItemUsed(playerInventory.slots[0].item);
+			playerInventory.RpcOnItemUsed(playerInventory.slots[0].item);
 		}
 
 		public override void OnUsed(PlayerInventoryModule playerInventory) {
 			Debug.Log("WeaponItemSO->OnUsed");
             if(_shotSound != null)
 			    playerInventory.audioSource.PlayOneShot(_shotSound);
-            //playerInventory.ShootBullet();
+            playerInventory.ShootBullet();
 		}
 
 		public override string GetTooltipText() {

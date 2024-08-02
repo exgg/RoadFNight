@@ -154,7 +154,7 @@ public class PlayerInteractionModule : NetworkBehaviour
         instantiatedUIMessage = Instantiate(UIMessagePrefab);
 
         instantiatedUIMessage.GetComponent<UIMessage>().ShowMessage("Item: " + item.itemSO.uniqueName + " " + amount + "x" + " sold" + " for" + "$" + sellPrice);
-        //player.CmdDropAndRemoveItem(itemSlotIndex, true);
+        player.CmdDropAndRemoveItem(itemSlotIndex, true);
         playerToGiveFunds = player.GetComponent<Player>();
         CmdRemoveItem(player, playerToGiveFunds, sellPrice, item, amount);
     }

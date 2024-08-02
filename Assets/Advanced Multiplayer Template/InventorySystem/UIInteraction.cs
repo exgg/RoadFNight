@@ -9,7 +9,7 @@ public class UIInteraction : MonoBehaviour {
 	public static PlayerInteractionModule playerInteraction;
 
 	private void Update() {
-		if (playerInteraction == null || playerInteraction.currentInteractable == null) {
+		if (playerInteraction == null || playerInteraction.currentInteractable == null || RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu) {
 			_content.SetActive(false);
 			return;
 		}

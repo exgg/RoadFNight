@@ -9,9 +9,8 @@ namespace RedicionStudio.InventorySystem {
 		public float cooldownInSeconds;
 		public string cooldownTag;
 
-		public virtual bool CanBeUsed(PlayerInventoryModule playerInventory, int slotIndex)
-		{
-			return false;
+		public virtual bool CanBeUsed(PlayerInventoryModule playerInventory, int slotIndex) {
+			return playerInventory.GetCooldown(cooldownTag.GetStableHashCode()) <= 0f;
 		}
 
 		/// <summary>
@@ -19,7 +18,7 @@ namespace RedicionStudio.InventorySystem {
 		/// </summary>
 		public virtual void Use(PlayerInventoryModule playerInventory, int slotIndex) {
 			if (cooldownInSeconds > 0f) {
-				//playerInventory.SetCooldown(cooldownTag.GetStableHashCode(), cooldownInSeconds);
+				playerInventory.SetCooldown(cooldownTag.GetStableHashCode(), cooldownInSeconds);
 			}
 		}
 

@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 using RedicionStudio.InventorySystem;
 public class SyncDictionaryIntDouble : SyncDictionary<int, double> { }
 
-	public class PlayerInventoryModule : Inventory , IInitializeable, ITick, ILate
+	public class PlayerInventoryModule : Inventory , IIntializeable, ITick, ILate
 	{
 
 		#region Calls
