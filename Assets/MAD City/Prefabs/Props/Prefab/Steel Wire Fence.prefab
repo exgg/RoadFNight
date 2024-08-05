@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7030986921694267126}
   - component: {fileID: 8629848004706122965}
   - component: {fileID: 3724643942564306397}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Steele WireFence_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2470909949077647389}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: -0.032078266, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5652245851708745012}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8629848004706122965
 MeshFilter:
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7085051680894730792}
   - component: {fileID: 7924867811828132742}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,13 +108,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3724067119089837645}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0002, y: 1.1956, z: 0.0004}
   m_LocalScale: {x: 3.6278994, y: 2.3857465, z: 0.059772722}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5652245851708745012}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7924867811828132742
 BoxCollider:
@@ -124,9 +124,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3724067119089837645}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4988615144968175502
@@ -139,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5652245851708745012}
   - component: {fileID: 588511463724339781}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Steel Wire Fence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,6 +161,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4988615144968175502}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -164,7 +173,6 @@ Transform:
   - {fileID: 7283731586580805727}
   - {fileID: 7085051680894730792}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &588511463724339781
 LODGroup:
@@ -208,7 +216,7 @@ GameObject:
   - component: {fileID: 7283731586580805727}
   - component: {fileID: 925384407154311279}
   - component: {fileID: 3008516827397831412}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Steele WireFence_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,13 +230,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5150054790190129079}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5652245851708745012}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &925384407154311279
 MeshFilter:
@@ -291,7 +299,7 @@ GameObject:
   - component: {fileID: 7704755933219926334}
   - component: {fileID: 2823024410219691741}
   - component: {fileID: 4123190431151699963}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Steele WireFence_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,13 +313,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6542680751877100966}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5652245851708745012}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2823024410219691741
 MeshFilter:
@@ -375,7 +383,7 @@ GameObject:
   - component: {fileID: 3147056766541754411}
   - component: {fileID: 6539904037370331192}
   - component: {fileID: 2608446026881588014}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Steele WireFence_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,13 +397,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7408124232514373901}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5652245851708745012}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6539904037370331192
 MeshFilter:

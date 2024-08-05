@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4262730570191680325}
   - component: {fileID: 6438532220387652951}
   - component: {fileID: 5489638033956552796}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Flower Box_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480314036508225287}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5593381784160496772}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6438532220387652951
 MeshFilter:
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2427229541258068304}
   - component: {fileID: 5234572542309731734}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,13 +108,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3260888733046623770}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.4248, z: 0.0017}
   m_LocalScale: {x: 1.9745395, y: 0.8516, z: 0.7977902}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5593381784160496772}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5234572542309731734
 BoxCollider:
@@ -124,9 +124,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3260888733046623770}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3263762863902675791
@@ -140,7 +148,7 @@ GameObject:
   - component: {fileID: 4156559369125762005}
   - component: {fileID: 3323417388868874808}
   - component: {fileID: 5138077514646264365}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Flower Box_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,13 +162,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3263762863902675791}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5593381784160496772}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3323417388868874808
 MeshFilter:
@@ -224,7 +232,7 @@ GameObject:
   - component: {fileID: 8208181735359046621}
   - component: {fileID: 9009158764534218774}
   - component: {fileID: 1346874216573005748}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Flower Box_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,13 +246,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3332926560163210789}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5593381784160496772}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9009158764534218774
 MeshFilter:
@@ -307,7 +315,7 @@ GameObject:
   - component: {fileID: 1656426670844067812}
   - component: {fileID: 9020337715522200185}
   - component: {fileID: 4238026929145246937}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Flower Box_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,13 +329,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3551666182234849494}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5593381784160496772}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9020337715522200185
 MeshFilter:
@@ -390,7 +398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5593381784160496772}
   - component: {fileID: 848278376296242165}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Flower Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,6 +412,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5103844695645533758}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -415,7 +424,6 @@ Transform:
   - {fileID: 8208181735359046621}
   - {fileID: 2427229541258068304}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &848278376296242165
 LODGroup:

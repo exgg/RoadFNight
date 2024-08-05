@@ -10,6 +10,8 @@ public class ManageGenerate : MonoBehaviour
     public CityGen generateCity;
     public NavMeshSurface aISurface;
 
+    public bool navMeshCreated;
+    
     private void Start()
     {
         if (!generateCity)
@@ -37,5 +39,7 @@ public class ManageGenerate : MonoBehaviour
     {
         print("building navmesh");
         aISurface.BuildNavMesh();
+
+        navMeshCreated = true;
     }
 }

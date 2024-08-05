@@ -1,3 +1,4 @@
+using System;
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,17 @@ public class BotSpawner : NetworkBehaviour
 
     [SerializeField] public VehicleSync _targetedVehicle;
     [SerializeField] public Transform _targetedWaypoint;
-    [HideInInspector] public Instance instance;
+   // [HideInInspector]
+    public Instance instance;
+
+    private GameObject _instanceManagement;
+    
+    private void Start()
+    {
+        _instanceManagement = GameObject.FindGameObjectWithTag("InstanceTag");
+        instance = _instanceManagement.GetComponent<Instance>();
+        
+    }
 
     private void Update ()
     {
@@ -22,6 +33,7 @@ public class BotSpawner : NetworkBehaviour
             return;
 
         _spawnedBot = Instantiate(_playerPrefab, transform.position, transform.rotation).GetComponent<PlayerAI>();
+        
         NetworkServer.Spawn(_spawnedBot.gameObject);
 
         instance.instancedServerWorldObjects.Add(_spawnedBot.gameObject);

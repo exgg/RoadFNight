@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7513046046548494814}
   - component: {fileID: 3792640406902194526}
   - component: {fileID: 3341147626254953868}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Tree_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988318856302866570}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7689827907329177317}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3792640406902194526
 MeshFilter:
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7273537168669865633}
   - component: {fileID: 8158656093737814155}
   - component: {fileID: 912034271390950932}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Tree_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,13 +109,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2111649760795673305}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7689827907329177317}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8158656093737814155
 MeshFilter:
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 1277653092704834695}
   - component: {fileID: 4579086078722047105}
   - component: {fileID: 2786234327760280827}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,13 +193,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2426832054837436710}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.044632435, y: 2.0898445, z: -0.022643924}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7689827907329177317}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4579086078722047105
 MeshFilter:
@@ -217,9 +217,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2426832054837436710}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.15567917, y: 2.5896978, z: 0.2282381}
   m_Center: {x: -0.07255879, y: -0.7948489, z: 0.06266442}
 --- !u!1 &6519593291446705946
@@ -233,7 +241,7 @@ GameObject:
   - component: {fileID: 4808271359850045764}
   - component: {fileID: 5453678413614928272}
   - component: {fileID: 6348047211498259683}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Tree_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,13 +255,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6519593291446705946}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7689827907329177317}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5453678413614928272
 MeshFilter:
@@ -316,7 +324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7689827907329177317}
   - component: {fileID: 3237487885098877332}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,6 +338,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7060537084188945503}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -341,7 +350,6 @@ Transform:
   - {fileID: 6984836405132899328}
   - {fileID: 1277653092704834695}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &3237487885098877332
 LODGroup:
@@ -385,7 +393,7 @@ GameObject:
   - component: {fileID: 6984836405132899328}
   - component: {fileID: 1187867601611201687}
   - component: {fileID: 8098166636975388837}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Tree_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -399,13 +407,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7682842632308043323}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7689827907329177317}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1187867601611201687
 MeshFilter:
