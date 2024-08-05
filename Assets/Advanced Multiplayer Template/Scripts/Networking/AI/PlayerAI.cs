@@ -13,6 +13,8 @@ public class PlayerAI : NetworkBehaviour
     public Transform target;
 
     private VehicleSync _targetedVehicle;
+    
+    
 
     public Animator animator;
     [SyncVar] public bool isStopped = true;
