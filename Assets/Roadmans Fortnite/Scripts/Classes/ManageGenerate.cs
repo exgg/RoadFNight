@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using Unity.AI.Navigation;
 using UnityEngine.Serialization;
 
 public class ManageGenerate : MonoBehaviour
@@ -18,16 +18,13 @@ public class ManageGenerate : MonoBehaviour
         if (!aISurface)
             aISurface = FindObjectOfType<NavMeshSurface>();
 
-        if (generateCity && aISurface)
-        {
-            GenerateCity();
-            GenerateNavMesh();
-        }
+        GenerateCity();
+        GenerateNavMesh();
     }
 
     private void GenerateCity()
     {
-        print("Generating City");
+        print($"Generating City City Class:");
 
         generateCity.ClearBuildings();
         generateCity.ClearBlocks();
