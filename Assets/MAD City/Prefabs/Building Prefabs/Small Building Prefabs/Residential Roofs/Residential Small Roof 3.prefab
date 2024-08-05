@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 117039238895051768}
   - component: {fileID: 5171769785701209225}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Roof 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,6 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 780281886167497026}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +35,6 @@ Transform:
   - {fileID: 921705365302109433}
   - {fileID: 72176858269414014}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &5171769785701209225
 LODGroup:
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 72176858269414014}
   - component: {fileID: 5851039954507446257}
   - component: {fileID: 2203606905864129594}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Roof 3_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,13 +92,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4503173078294860462}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 117039238895051768}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5851039954507446257
 MeshFilter:
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 921705365302109433}
   - component: {fileID: 5147298379683002431}
   - component: {fileID: 1613947891058460842}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Roof 3_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,13 +175,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5244370850545510249}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 117039238895051768}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5147298379683002431
 MeshFilter:
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 7205305326895450656}
   - component: {fileID: 6087654652094915225}
   - component: {fileID: 4717365813384952171}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Roof 3_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,13 +258,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7367157724953702108}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 117039238895051768}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6087654652094915225
 MeshFilter:
@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 245589248373514424}
   - component: {fileID: 6683357224069606086}
   - component: {fileID: 3002004137271674699}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Roof 3_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,13 +342,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7724558051198867342}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 117039238895051768}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &245589248373514424
 MeshFilter:
@@ -408,9 +408,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7724558051198867342}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5260923009515822521, guid: 4ae788bc8608fc146b081abbbe3f8037, type: 3}

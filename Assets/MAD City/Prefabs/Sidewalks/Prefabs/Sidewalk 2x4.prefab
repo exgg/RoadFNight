@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 617277752154469874}
   - component: {fileID: 5677664126451942019}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sidewalk 2x4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,6 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277765725955518280}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,7 +33,6 @@ Transform:
   - {fileID: 1095505206518045984}
   - {fileID: 4578531663059757696}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &5677664126451942019
 LODGroup:
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 1095505206518045984}
   - component: {fileID: 3542903512672728296}
   - component: {fileID: 3006448887722149937}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sidewalk1x4_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,13 +82,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6965136106504437742}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 617277752154469874}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3542903512672728296
 MeshFilter:
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 4578531663059757696}
   - component: {fileID: 2426435646714918581}
   - component: {fileID: 2653989704089568900}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sidewalk1x4_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,13 +165,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8890703974120432907}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 617277752154469874}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2426435646714918581
 MeshFilter:

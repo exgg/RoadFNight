@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 765385089835888103}
   - component: {fileID: 5531878321803156118}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Roof 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,6 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131977694362220381}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +35,6 @@ Transform:
   - {fileID: 1475338729397783350}
   - {fileID: 2341703410364062849}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &5531878321803156118
 LODGroup:
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 7230267942685786482}
   - component: {fileID: 7589232030098374605}
   - component: {fileID: 8257711713590473754}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Roof 4_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,13 +93,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 906409950001128351}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765385089835888103}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7230267942685786482
 MeshFilter:
@@ -159,9 +159,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 906409950001128351}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4113782708088612682, guid: ad00a52acc519214dae14ae2f4184a6c, type: 3}
@@ -176,7 +184,7 @@ GameObject:
   - component: {fileID: 6931224706568208098}
   - component: {fileID: 7876719570899213863}
   - component: {fileID: 5090902640995535088}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Roof 4_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,13 +198,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4428711421329101273}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765385089835888103}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7876719570899213863
 MeshFilter:
@@ -259,7 +267,7 @@ GameObject:
   - component: {fileID: 2341703410364062849}
   - component: {fileID: 2443252688768924136}
   - component: {fileID: 1230761612068491876}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Roof 4_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,13 +281,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4976834445018320161}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765385089835888103}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2443252688768924136
 MeshFilter:
@@ -342,7 +350,7 @@ GameObject:
   - component: {fileID: 1475338729397783350}
   - component: {fileID: 8673070518296253089}
   - component: {fileID: 4162109750054249591}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Roof 4_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,13 +364,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8038214939598899964}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 765385089835888103}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8673070518296253089
 MeshFilter:

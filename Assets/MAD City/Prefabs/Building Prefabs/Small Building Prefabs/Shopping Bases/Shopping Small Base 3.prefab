@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1729530191650651815}
   - component: {fileID: 3018788299087397295}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3240080692652506257}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 2.5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7077655598882613386}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3018788299087397295
 BoxCollider:
@@ -40,9 +40,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3240080692652506257}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.8014898, y: 0.17737083, z: 0.09467268}
   m_Center: {x: -0.012030983, y: 0.88874245, z: 0.54590374}
 --- !u!1 &4452516154394701815
@@ -56,7 +64,7 @@ GameObject:
   - component: {fileID: 1732490245677663718}
   - component: {fileID: 6479593428899027679}
   - component: {fileID: 4047937416580660598}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shopping Small Base 3_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,13 +78,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4452516154394701815}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7077655598882613386}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6479593428899027679
 MeshFilter:
@@ -139,7 +147,7 @@ GameObject:
   - component: {fileID: 6792223958158059736}
   - component: {fileID: 3550653252602180398}
   - component: {fileID: 6459755770901411107}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shopping Small Base 3_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,13 +161,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5313879086086178260}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7077655598882613386}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3550653252602180398
 MeshFilter:
@@ -222,7 +230,7 @@ GameObject:
   - component: {fileID: 2810265709910912943}
   - component: {fileID: 4063179472342359262}
   - component: {fileID: 7174860643881557438}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shopping Small Base 3_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,13 +244,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6024278366188505242}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7077655598882613386}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4063179472342359262
 MeshFilter:
@@ -304,7 +312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3439266569860765502}
   - component: {fileID: 7951396355463274828}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,13 +326,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7436613690144793045}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 2.5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7077655598882613386}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7951396355463274828
 BoxCollider:
@@ -334,9 +342,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7436613690144793045}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1.2, z: 1}
   m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!1 &7450407550316997436
@@ -350,7 +366,7 @@ GameObject:
   - component: {fileID: 1344851408547270469}
   - component: {fileID: 7926569170505645660}
   - component: {fileID: 1670551899573505260}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shopping Small Base 3_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,13 +380,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7450407550316997436}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7077655598882613386}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7926569170505645660
 MeshFilter:
@@ -432,7 +448,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7077655598882613386}
   - component: {fileID: 2621937131697561595}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shopping Small Base 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,6 +462,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7598472969379361328}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -458,7 +475,6 @@ Transform:
   - {fileID: 3439266569860765502}
   - {fileID: 1729530191650651815}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &2621937131697561595
 LODGroup:

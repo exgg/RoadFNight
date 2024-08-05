@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 427552339561205227}
   - component: {fileID: 5238871819826914426}
   - component: {fileID: 8405439394209014067}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Mid 1_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2659776929758523827}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8754842296937076267}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5238871819826914426
 MeshFilter:
@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8239513967155379546}
   - component: {fileID: 2463962946060503798}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,13 +107,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2995363162881881452}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0.025000095}
   m_LocalScale: {x: 5, y: 2, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8754842296937076267}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2463962946060503798
 BoxCollider:
@@ -123,9 +123,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2995363162881881452}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4595854318236633972
@@ -139,7 +147,7 @@ GameObject:
   - component: {fileID: 3895886045319574240}
   - component: {fileID: 23816117985983921}
   - component: {fileID: 9201977462334435769}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Mid 1_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,13 +161,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4595854318236633972}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8754842296937076267}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &23816117985983921
 MeshFilter:
@@ -222,7 +230,7 @@ GameObject:
   - component: {fileID: 6029137255233054314}
   - component: {fileID: 2785316699465295408}
   - component: {fileID: 7958097108579936064}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Mid 1_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,13 +244,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6054898235859296846}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8754842296937076267}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2785316699465295408
 MeshFilter:
@@ -305,7 +313,7 @@ GameObject:
   - component: {fileID: 5884321021069363385}
   - component: {fileID: 156944501949251928}
   - component: {fileID: 7181917518748024559}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Mid 1_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,13 +327,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7659927043115890231}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8754842296937076267}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &156944501949251928
 MeshFilter:
@@ -387,7 +395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8754842296937076267}
   - component: {fileID: 4550162872385233242}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Mid 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,6 +409,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8229380555294084241}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -412,7 +421,6 @@ Transform:
   - {fileID: 3895886045319574240}
   - {fileID: 8239513967155379546}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &4550162872385233242
 LODGroup:

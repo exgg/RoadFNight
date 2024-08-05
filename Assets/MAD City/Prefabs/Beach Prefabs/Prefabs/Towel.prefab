@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9175221876479738724}
   - component: {fileID: 3566794087860897609}
   - component: {fileID: 2157808984605743817}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Towel_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5174071494525211341}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8369361158381272247}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3566794087860897609
 MeshFilter:
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8754863158653235241}
   - component: {fileID: 6822451404139601535}
   - component: {fileID: 7144711542533541096}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Towel_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,13 +108,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5958813714312861550}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8369361158381272247}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6822451404139601535
 MeshFilter:
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 2227154986515491257}
   - component: {fileID: 7548950472769161711}
   - component: {fileID: 6168047338266199}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Towel_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,13 +191,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8336556516067322126}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8369361158381272247}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7548950472769161711
 MeshFilter:
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 7950256020156316992}
   - component: {fileID: 1286046653609094412}
   - component: {fileID: 3006936969807825429}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Towel_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,13 +274,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8979778994037600971}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8369361158381272247}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1286046653609094412
 MeshFilter:
@@ -342,7 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8369361158381272247}
   - component: {fileID: 3638888742628543430}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Towel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,6 +356,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9182313033747408397}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -366,7 +367,6 @@ Transform:
   - {fileID: 9175221876479738724}
   - {fileID: 7950256020156316992}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &3638888742628543430
 LODGroup:
