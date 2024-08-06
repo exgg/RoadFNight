@@ -2108,6 +2108,7 @@ GameObject:
   - component: {fileID: 6620923452658758675}
   - component: {fileID: 1415447536970342930}
   - component: {fileID: -1612451488991402610}
+  - component: {fileID: -7177926160971466215}
   - component: {fileID: 5630967227957478435}
   - component: {fileID: -8157208296288239210}
   - component: {fileID: -8999880934896529054}
@@ -2255,6 +2256,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0
+  _emoteWheel: {fileID: 0}
+  _chatSystem: {fileID: 0}
   player: {fileID: 6620923452658758675}
   playerNutrition: {fileID: 5630967227957478435}
   audioSource: {fileID: -8999880934896529054}
@@ -2273,6 +2276,20 @@ MonoBehaviour:
   isAiming: 0
   chatWindow: {fileID: 0}
   _gFX: {fileID: 2610227527127011296}
+--- !u!114 &-7177926160971466215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224220879548419888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c44506505f9fc5047b2452ab1e1b2405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!114 &5630967227957478435
 MonoBehaviour:
   m_ObjectHideFlags: 0
