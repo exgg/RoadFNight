@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2048499464583131649}
   - component: {fileID: 6500845738229007728}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Roof 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,6 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668139202748770491}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +35,6 @@ Transform:
   - {fileID: 8956892581905547904}
   - {fileID: 1439345983864661849}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &6500845738229007728
 LODGroup:
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 1126849831904029759}
   - component: {fileID: 1680724375973072046}
   - component: {fileID: 4150273872512794461}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Top 5_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,13 +92,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3369482897136953966}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2048499464583131649}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1680724375973072046
 MeshFilter:
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 8956892581905547904}
   - component: {fileID: 9155758279754076007}
   - component: {fileID: 2617688136582219584}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Top 5_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,13 +175,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4288141566302945145}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2048499464583131649}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9155758279754076007
 MeshFilter:
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 1439345983864661849}
   - component: {fileID: 4573496631038076911}
   - component: {fileID: 2433633777432118060}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Top 5_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,13 +258,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4650086217414916871}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2048499464583131649}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4573496631038076911
 MeshFilter:
@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 3252250133333452158}
   - component: {fileID: 6687631035554366378}
   - component: {fileID: 6566643546294402072}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Top 5_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,13 +342,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8852080179380768998}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2048499464583131649}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3252250133333452158
 MeshFilter:
@@ -408,9 +408,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8852080179380768998}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6170509843815328386, guid: a637c991e60c00848b4478895c82ffb3, type: 3}

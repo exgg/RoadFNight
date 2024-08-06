@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6245123328956066106}
   - component: {fileID: 7139471208436968057}
   - component: {fileID: 4710276910133061047}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Roof 3_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1497311466263770009}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3254545158241582691}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7139471208436968057
 MeshFilter:
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3254545158241582691}
   - component: {fileID: 7741802360547723538}
   - component: {fileID: 6645990452853897496}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Roof 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,6 +108,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2765675536897582297}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -118,7 +119,6 @@ Transform:
   - {fileID: 1330607342744311459}
   - {fileID: 4502172974349398344}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &7741802360547723538
 LODGroup:
@@ -159,9 +159,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2765675536897582297}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
@@ -177,7 +185,7 @@ GameObject:
   - component: {fileID: 8702608370005434680}
   - component: {fileID: 8264669867342181755}
   - component: {fileID: 6982203072203172509}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Roof 3_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,13 +199,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2847062572489917114}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3254545158241582691}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8702608370005434680
 MeshFilter:
@@ -257,9 +265,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2847062572489917114}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2996976940226215664, guid: aba358df8b6e6bb4295160277bc041f0, type: 3}
@@ -274,7 +290,7 @@ GameObject:
   - component: {fileID: 1330607342744311459}
   - component: {fileID: 1019038427173956735}
   - component: {fileID: 7275108231495289796}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Roof 3_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,13 +304,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6717407461916141450}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3254545158241582691}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1019038427173956735
 MeshFilter:
@@ -357,7 +373,7 @@ GameObject:
   - component: {fileID: 4502172974349398344}
   - component: {fileID: 7866288827038952572}
   - component: {fileID: 8295413116458277629}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Roof 3_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,13 +387,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8584542165729974314}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3254545158241582691}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7866288827038952572
 MeshFilter:

@@ -113,8 +113,8 @@ namespace UnityEngine {
         };
             else
                 playerOptions.scenes = playerOptions.scenes = new string[] {
-            "Assets/Scenes/TestScene.unity"//,
-            //"Assets/Scenes/TestScene2.unity"
+            //"Assets/Scenes/TestScene.unity"//,
+            "Assets/Scenes/TestScene1.unity"
         };
 
           

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4166072601005882876}
   - component: {fileID: 6947497468080546029}
   - component: {fileID: 7588430722298127075}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Top 2_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130440282722353793}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4206277317360449291}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6947497468080546029
 MeshFilter:
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8077815638162888777}
   - component: {fileID: 2997544785355239830}
   - component: {fileID: 6031959339964151364}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Top 2_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,13 +109,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2266942827320661510}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4206277317360449291}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8077815638162888777
 MeshFilter:
@@ -175,9 +175,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2266942827320661510}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2108348031947262725, guid: ca1bdd73724a0fe4c8440e472528c250, type: 3}
@@ -192,7 +200,7 @@ GameObject:
   - component: {fileID: 4206277317360449291}
   - component: {fileID: 8936739553553924218}
   - component: {fileID: 1863347630629054998}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Roof 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,6 +214,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3536559650159537585}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -216,7 +225,6 @@ Transform:
   - {fileID: 2482851548602417993}
   - {fileID: 4166072601005882876}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &8936739553553924218
 LODGroup:
@@ -257,9 +265,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3536559650159537585}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
@@ -274,7 +290,7 @@ GameObject:
   - component: {fileID: 2482851548602417993}
   - component: {fileID: 4576205081768932490}
   - component: {fileID: 6525898558763477043}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Top 2_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,13 +304,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6522133191006340408}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4206277317360449291}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4576205081768932490
 MeshFilter:
@@ -357,7 +373,7 @@ GameObject:
   - component: {fileID: 4830845286716025613}
   - component: {fileID: 3612427886418574170}
   - component: {fileID: 4935937660618634852}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Industrial Small Top 2_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,13 +387,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8196024654404268260}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4206277317360449291}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3612427886418574170
 MeshFilter:

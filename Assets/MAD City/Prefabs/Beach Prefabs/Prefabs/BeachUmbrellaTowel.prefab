@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5783800324177102575}
   - component: {fileID: 5056241947535960544}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 702040415578220489}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.078372024, w: 0.99692416}
   m_LocalPosition: {x: 0.211, y: 1.0269, z: -0.0076}
   m_LocalScale: {x: 0.08178, y: 2.08472, z: 0.03289}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4408502876550858850}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -8.99}
 --- !u!65 &5056241947535960544
 BoxCollider:
@@ -40,9 +40,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 702040415578220489}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1300446754117128960
@@ -56,7 +64,7 @@ GameObject:
   - component: {fileID: 5773147702987004335}
   - component: {fileID: 190132131875796776}
   - component: {fileID: 4733598295077797188}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Beach UmbrellaWT_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,13 +78,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300446754117128960}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4408502876550858850}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &190132131875796776
 MeshFilter:
@@ -138,7 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4408502876550858850}
   - component: {fileID: 8895798570965581587}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BeachUmbrellaTowel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,6 +160,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3919810281482113752}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -164,7 +173,6 @@ Transform:
   - {fileID: 5783800324177102575}
   - {fileID: 2522202546259805235}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &8895798570965581587
 LODGroup:
@@ -208,7 +216,7 @@ GameObject:
   - component: {fileID: 1258560386683180717}
   - component: {fileID: 5235595353687394674}
   - component: {fileID: 7689464230511651519}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Beach UmbrellaWT_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,13 +230,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4001845635667753511}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4408502876550858850}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5235595353687394674
 MeshFilter:
@@ -291,7 +299,7 @@ GameObject:
   - component: {fileID: 2171298525168098026}
   - component: {fileID: 8938758950923277489}
   - component: {fileID: 5032375547612422669}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Beach UmbrellaWT_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,13 +313,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5630695098322731442}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4408502876550858850}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8938758950923277489
 MeshFilter:
@@ -374,7 +382,7 @@ GameObject:
   - component: {fileID: 7400541884282999227}
   - component: {fileID: 5030376056855851022}
   - component: {fileID: 6146835856031313543}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Beach UmbrellaWT_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,13 +396,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7267618434865627693}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4408502876550858850}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5030376056855851022
 MeshFilter:
@@ -456,7 +464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2522202546259805235}
   - component: {fileID: 779257384152639557}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,13 +478,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7783486410144409143}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.078372024, w: 0.99692416}
   m_LocalPosition: {x: 0.3494, y: 1.911, z: 0.0195}
   m_LocalScale: {x: 1.5104499, y: 0.21191, z: 1.61314}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4408502876550858850}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -8.99}
 --- !u!65 &779257384152639557
 BoxCollider:
@@ -486,8 +494,16 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7783486410144409143}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6675288638403935950}
   - component: {fileID: 5624882237542939507}
   - component: {fileID: 5693388889817348258}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sidewalk_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115905086375652783}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5318960045862422554}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5624882237542939507
 MeshFilter:
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1397233527447300227}
   - component: {fileID: 747708445709997932}
   - component: {fileID: 6030217957624495052}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sidewalk_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,13 +108,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3445788219126425176}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5318960045862422554}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &747708445709997932
 MeshFilter:
@@ -176,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5318960045862422554}
   - component: {fileID: 1119885931901271915}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sidewalk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,6 +190,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4799550050849018528}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -198,7 +199,6 @@ Transform:
   - {fileID: 6675288638403935950}
   - {fileID: 1397233527447300227}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &1119885931901271915
 LODGroup:

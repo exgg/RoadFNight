@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6216217698546729781}
   - component: {fileID: 150156071040292915}
   - component: {fileID: 2208442355440191434}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Mid 4_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1582035373956466315}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3990962801546965234}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &150156071040292915
 MeshFilter:
@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7894601099716122305}
   - component: {fileID: 3335279154238293534}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,13 +107,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881235685343320797}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 2.5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3990962801546965234}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3335279154238293534
 BoxCollider:
@@ -123,9 +123,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881235685343320797}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 0.9547643, z: 1}
   m_Center: {x: 0, y: 0.47738215, z: 0}
 --- !u!1 &2041028349042560109
@@ -139,7 +147,7 @@ GameObject:
   - component: {fileID: 772184070366447534}
   - component: {fileID: 2517888261742697817}
   - component: {fileID: 7592481846171492113}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Mid 4_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,13 +161,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041028349042560109}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3990962801546965234}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2517888261742697817
 MeshFilter:
@@ -221,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3990962801546965234}
   - component: {fileID: 8158446838938044291}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Mid 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,6 +243,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4335118340230048328}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -246,7 +255,6 @@ Transform:
   - {fileID: 772184070366447534}
   - {fileID: 7894601099716122305}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &8158446838938044291
 LODGroup:
@@ -290,7 +298,7 @@ GameObject:
   - component: {fileID: 1848526279294976678}
   - component: {fileID: 3542553665493030564}
   - component: {fileID: 1446226264057067438}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Mid 4_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,13 +312,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6287155133075897365}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3990962801546965234}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3542553665493030564
 MeshFilter:
@@ -373,7 +381,7 @@ GameObject:
   - component: {fileID: 5837606220491980699}
   - component: {fileID: 4720616357222330633}
   - component: {fileID: 2752762449911608144}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Residential Small Mid 4_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,13 +395,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7396133704936546467}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3990962801546965234}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4720616357222330633
 MeshFilter:

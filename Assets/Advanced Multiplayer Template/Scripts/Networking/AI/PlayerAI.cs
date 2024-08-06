@@ -12,6 +12,8 @@ public class PlayerAI : NetworkBehaviour
     public UnityEngine.AI.NavMeshAgent agent;
     public Transform target;
 
+    public ManageGenerate _manageGenerate;
+    
     private VehicleSync _targetedVehicle;
 
     public Animator animator;
@@ -38,6 +40,8 @@ public class PlayerAI : NetworkBehaviour
         agent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
         _playerInteraction = GetComponent<PlayerInteraction>();
 
+        _manageGenerate = FindObjectOfType<ManageGenerate>();
+        
         agent.updateRotation = true;
         agent.updatePosition = true;
     }
@@ -65,6 +69,9 @@ public class PlayerAI : NetworkBehaviour
 
     private void Update()
     {
+        if(!_manageGenerate.navMeshCreated)
+            return;
+        
         if (isSetAsAi)
         {
             var colliders = Physics.OverlapSphere(transform.position, 5f, 1 << 6);

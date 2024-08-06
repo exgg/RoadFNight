@@ -25,10 +25,13 @@ public class Instance : NetworkBehaviour {
 		GameObject gO = Instantiate(((CustomNetManager)NetworkManager.singleton).instancePrefab);
 		gO.transform.position = Vector3.forward * _boundsSize.z * instances.Count;
 		Instance instance = gO.GetComponent<Instance>();
+		
 		instance.uniqueName = uniqueName;
+		
 		NetworkServer.Spawn(gO);
         instance.CreateWorldObjects(instance);
         instances[uniqueName] = instance;
+        
         return instance;
 	}
 

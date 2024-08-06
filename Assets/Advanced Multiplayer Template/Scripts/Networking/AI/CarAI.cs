@@ -33,14 +33,24 @@ public class CarAI : NetworkBehaviour
     public GameObject LeftTurnLights;
     public GameObject RightTurnLights;
 
+    private ManageGenerate _manageGenerate;
+    
     private void Awake()
     {
         if (carController == null & GetComponent<CarController>() != null)
             carController = GetComponent<CarController>();
     }
 
+    private void Start()
+    {
+        _manageGenerate = FindObjectOfType<ManageGenerate>();
+    }
+
     private void FixedUpdate()
     {
+        if (!_manageGenerate.navMeshCreated)
+            return;
+        
         if (currentWaypoint == null || !canDrive)
         {
             //Brake(true);

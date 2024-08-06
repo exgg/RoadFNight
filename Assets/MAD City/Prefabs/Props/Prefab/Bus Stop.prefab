@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2520058581824458374}
   - component: {fileID: 4349281902822598037}
   - component: {fileID: 7809627939800679796}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Bus Stop_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223368928086520695}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 1.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1281288439239243905}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4349281902822598037
 MeshFilter:
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3245423287616922524}
   - component: {fileID: 4555077693589040371}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,13 +108,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829337389915384468}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.3994, y: 1.154, z: -0.1671}
   m_LocalScale: {x: 0.13696064, y: 2.283487, z: 1.5754014}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1281288439239243905}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4555077693589040371
 BoxCollider:
@@ -124,9 +124,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829337389915384468}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1910614348768420411
@@ -139,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1281288439239243905}
   - component: {fileID: 6310126529261457392}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Bus Stop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,6 +161,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910614348768420411}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -167,7 +176,6 @@ Transform:
   - {fileID: 1157178909624597964}
   - {fileID: 4313676366021656820}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &6310126529261457392
 LODGroup:
@@ -210,7 +218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7050356267317515024}
   - component: {fileID: 3387017147834341738}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,13 +232,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3489482840466624575}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.421, y: 1.154, z: -0.1671}
   m_LocalScale: {x: 0.13696064, y: 2.283487, z: 1.5754014}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1281288439239243905}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3387017147834341738
 BoxCollider:
@@ -240,9 +248,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3489482840466624575}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5998731673664432164
@@ -255,7 +271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1157178909624597964}
   - component: {fileID: 1945692176123531101}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,13 +285,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5998731673664432164}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0158, y: 2.2189, z: -0.1671}
   m_LocalScale: {x: 2.9472697, y: 0.15367869, z: 1.5754014}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1281288439239243905}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1945692176123531101
 BoxCollider:
@@ -285,9 +301,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5998731673664432164}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7535549085088222134
@@ -301,7 +325,7 @@ GameObject:
   - component: {fileID: 7076646871621853027}
   - component: {fileID: 2290967892131124249}
   - component: {fileID: 6128321052874663898}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Bus Stop_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,13 +339,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7535549085088222134}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1281288439239243905}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2290967892131124249
 MeshFilter:
@@ -384,7 +408,7 @@ GameObject:
   - component: {fileID: 3787816967736576763}
   - component: {fileID: 4774618099559879577}
   - component: {fileID: 8010789703505928483}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Bus Stop_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -398,13 +422,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7625692606135831272}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 1.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1281288439239243905}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4774618099559879577
 MeshFilter:
@@ -467,7 +491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4313676366021656820}
   - component: {fileID: 7443876915140023023}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,13 +505,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8404477222560916086}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0158, y: 1.1484, z: 0.5493}
   m_LocalScale: {x: 2.9472697, y: 2.2946072, z: 0.14257382}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1281288439239243905}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7443876915140023023
 BoxCollider:
@@ -497,9 +521,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8404477222560916086}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8435008927652079783
@@ -513,7 +545,7 @@ GameObject:
   - component: {fileID: 5934039841236227627}
   - component: {fileID: 2902021562305489543}
   - component: {fileID: 139772887313707165}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Bus Stop_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,13 +559,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8435008927652079783}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1281288439239243905}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2902021562305489543
 MeshFilter:

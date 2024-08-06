@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3774879657337382757}
   - component: {fileID: 7082497573055028715}
   - component: {fileID: 4124218738730003141}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Surf Boards_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 431597728557545526}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3478079649474465157}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7082497573055028715
 MeshFilter:
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3682990021823899713}
   - component: {fileID: 7651111708817722528}
   - component: {fileID: 7830360405951111672}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Surf Boards_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,13 +108,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087824375268478957}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3478079649474465157}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7651111708817722528
 MeshFilter:
@@ -176,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6788868925767458095}
   - component: {fileID: 1856933662996860154}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,13 +190,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2159173982116248058}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.083937, y: 0.79859936, z: 0.24163891}
   m_LocalScale: {x: 0.25442, y: 1.6599, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3478079649474465157}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1856933662996860154
 BoxCollider:
@@ -206,9 +206,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2159173982116248058}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4255707789915100991
@@ -221,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3478079649474465157}
   - component: {fileID: 8511381814160292596}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Surf Board
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,6 +243,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4255707789915100991}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -246,7 +255,6 @@ Transform:
   - {fileID: 9099306324559681721}
   - {fileID: 6788868925767458095}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &8511381814160292596
 LODGroup:
@@ -290,7 +298,7 @@ GameObject:
   - component: {fileID: 9099306324559681721}
   - component: {fileID: 2986642951258651983}
   - component: {fileID: 4238293265365599221}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Surf Boards_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,13 +312,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6982575857907734315}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3478079649474465157}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2986642951258651983
 MeshFilter:
@@ -373,7 +381,7 @@ GameObject:
   - component: {fileID: 6441104790271430057}
   - component: {fileID: 2115791949747265922}
   - component: {fileID: 935945928983613045}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Surf Boards_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,13 +395,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7183326420961433143}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3478079649474465157}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2115791949747265922
 MeshFilter:

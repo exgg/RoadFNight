@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1118660336279056201}
   - component: {fileID: 2500396057617010560}
   - component: {fileID: 7926423743517289749}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Roof 2_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103516135087542338}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3800581164321842770}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1118660336279056201
 MeshFilter:
@@ -92,9 +92,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103516135087542338}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6331895746472613159, guid: 5e79a025f31bf794199a2d257024711e, type: 3}
@@ -109,7 +117,7 @@ GameObject:
   - component: {fileID: 4030582266476682397}
   - component: {fileID: 6430464261874661307}
   - component: {fileID: 7928547298576813920}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Roof 2_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,13 +131,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986066330018427271}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3800581164321842770}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6430464261874661307
 MeshFilter:
@@ -192,7 +200,7 @@ GameObject:
   - component: {fileID: 1244419882896848252}
   - component: {fileID: 1382644111237236427}
   - component: {fileID: 8104344458652522683}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Roof 2_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,13 +214,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2931431262644220864}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3800581164321842770}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1382644111237236427
 MeshFilter:
@@ -275,7 +283,7 @@ GameObject:
   - component: {fileID: 1439633543224916034}
   - component: {fileID: 8009569523153591242}
   - component: {fileID: 7248941521183277207}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Roof 2_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,13 +297,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2981652377006717381}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3800581164321842770}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8009569523153591242
 MeshFilter:
@@ -358,7 +366,7 @@ GameObject:
   - component: {fileID: 3800581164321842770}
   - component: {fileID: 8278882511526760739}
   - component: {fileID: 8436975611895698677}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Roof 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,6 +380,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4608784141587184872}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -382,7 +391,6 @@ Transform:
   - {fileID: 1439633543224916034}
   - {fileID: 4030582266476682397}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &8278882511526760739
 LODGroup:
@@ -423,9 +431,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4608784141587184872}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}

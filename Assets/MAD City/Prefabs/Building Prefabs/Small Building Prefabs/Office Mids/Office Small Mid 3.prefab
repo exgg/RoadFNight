@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2942710878084834610}
   - component: {fileID: 3052017348735468523}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3663994287956776859}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 2.5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5792388262773817142}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3052017348735468523
 BoxCollider:
@@ -40,9 +40,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3663994287956776859}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &3995768337796069452
@@ -56,7 +64,7 @@ GameObject:
   - component: {fileID: 8519916559785976465}
   - component: {fileID: 4792636480895802677}
   - component: {fileID: 9079587240154977948}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Mid 3_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,13 +78,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3995768337796069452}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5792388262773817142}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4792636480895802677
 MeshFilter:
@@ -139,7 +147,7 @@ GameObject:
   - component: {fileID: 7843959317928411974}
   - component: {fileID: 5781740686554640365}
   - component: {fileID: 9195835941207869936}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Mid 3_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,13 +161,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5589276082367099705}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5792388262773817142}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5781740686554640365
 MeshFilter:
@@ -221,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5792388262773817142}
   - component: {fileID: 1601220737069795399}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Mid 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,6 +243,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6568890121581897100}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -246,7 +255,6 @@ Transform:
   - {fileID: 8519916559785976465}
   - {fileID: 2942710878084834610}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &1601220737069795399
 LODGroup:
@@ -290,7 +298,7 @@ GameObject:
   - component: {fileID: 1648497080919867414}
   - component: {fileID: 383965149569202715}
   - component: {fileID: 7035257825787760570}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Mid 3_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,13 +312,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6717851577988267983}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5792388262773817142}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &383965149569202715
 MeshFilter:
@@ -373,7 +381,7 @@ GameObject:
   - component: {fileID: 5018310458847022247}
   - component: {fileID: 8400173588172733448}
   - component: {fileID: 4597076971883859216}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Office Small Mid 3_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,13 +395,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9114259803281116677}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5792388262773817142}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8400173588172733448
 MeshFilter:
