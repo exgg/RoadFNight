@@ -48,8 +48,7 @@ public class PlayerAI : NetworkBehaviour
 
     public void SetAsBot()
     {
-        GetComponent<ThirdPersonController>().enabled = false;
-        GetComponent<ManageTPController>().enabled = false;
+       
 
         animator.SetFloat("MotionSpeed", 1);
 

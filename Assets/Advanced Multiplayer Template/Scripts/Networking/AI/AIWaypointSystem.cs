@@ -19,7 +19,17 @@ public class AIWaypointSystem : MonoBehaviour
             if (other.GetComponent<CarAI>() != null)
             {
                 nextWaypointIndex = Random.Range(0, nextWaypoints.Length);
-
+                
+                // if nextWaypoint != previous waypoint cont. if it does, repeat random range till it 
+                // finds one that is not the previous waypoint 
+                // once it finds the next waypoint, set the previous waypoint to this waypoint
+                // then proceed to set the waypoint
+                
+                // this will predominantly work, however, I will also need to include a workout for direction
+                // checking, as currently this will still sometimes cause a U turn to occur since if a AI starts 
+                // at the first location and it is a cross roads, this will need to figure out which are at max 
+                // 100 degrees, otherwise we will be doing full U turns still, this is more optimisation than fixes tho
+                
                 other.GetComponent<CarAI>().SetWaypoint(nextWaypoints[nextWaypointIndex]);
             }
         }

@@ -17,6 +17,8 @@ public class CarAI : NetworkBehaviour
     [Space]
     [Header("Waypoint")]
     public Transform currentWaypoint = null;
+    
+    // create a public previousWaypoint
 
     [Space]
     [Header("Dependencies")]
