@@ -48,8 +48,6 @@ public class PlayerAI : NetworkBehaviour
 
     public void SetAsBot()
     {
-       
-
         animator.SetFloat("MotionSpeed", 1);
 
         Walk();

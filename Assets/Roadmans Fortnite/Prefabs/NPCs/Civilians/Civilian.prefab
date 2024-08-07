@@ -2117,10 +2117,8 @@ GameObject:
   - component: {fileID: -653677055324496180}
   - component: {fileID: 7039401830842898382}
   - component: {fileID: 6354997286238542217}
-  - component: {fileID: 8381775988047641593}
   - component: {fileID: 1259385525680972353}
   - component: {fileID: 7614280651161682071}
-  - component: {fileID: 5479138105933174491}
   - component: {fileID: 8093793598253397024}
   - component: {fileID: 7317107082554866767}
   - component: {fileID: 8246131965209314447}
@@ -2136,7 +2134,7 @@ GameObject:
   - component: {fileID: 5799319892276963001}
   - component: {fileID: -2118898167159860066}
   m_Layer: 6
-  m_Name: AI
+  m_Name: Civilian
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2261,7 +2259,7 @@ MonoBehaviour:
   player: {fileID: 6620923452658758675}
   playerNutrition: {fileID: 5630967227957478435}
   audioSource: {fileID: -8999880934896529054}
-  TPControllerManager: {fileID: 5479138105933174491}
+  TPControllerManager: {fileID: 0}
   bulletPrefab: {fileID: 714747561125627176, guid: e25626da315cf924195fb7a077f58e19,
     type: 3}
   rocketPrefab: {fileID: 6158105052195522411, guid: a81b091a24e6e894c8c3ce13e0a08236,
@@ -2605,39 +2603,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &8381775988047641593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224220879548419888}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shouldRotateToCameraFaceInputDirection: 0
-  MoveSpeed: 2
-  SprintSpeed: 5.335
-  RotationSmoothTime: 0.12
-  SpeedChangeRate: 10
-  Sensitivity: 1
-  JumpHeight: 1.2
-  Gravity: -15
-  JumpTimeout: 0.3
-  FallTimeout: 0.15
-  Grounded: 1
-  GroundedOffset: -0.14
-  GroundedRadius: 0.28
-  GroundLayers:
-    serializedVersion: 2
-    m_Bits: 6529
-  CinemachineCameraTarget: {fileID: 3597099315043464437}
-  TopClamp: 70
-  BottomClamp: -30
-  CameraAngleOverride: 0
-  LockCameraPosition: 0
 --- !u!114 &1259385525680972353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2680,43 +2645,6 @@ MonoBehaviour:
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
---- !u!114 &5479138105933174491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224220879548419888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c7ee16d9a3d7f4994caa77fe8b5deb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  CurrentWeaponManager: {fileID: 0}
-  Weapons: {fileID: 3418993767949686106}
-  AllFoundWeapons: []
-  CurrentWeaponBulletSpawnPoint: {fileID: 0}
-  CurrentCartridgeEjectSpawnPoint: {fileID: 0}
-  PlayerRig: {fileID: 7962390186403929653}
-  SecondHandRig_target: {fileID: 4012478451116995162}
-  thirdPersonController: {fileID: 8381775988047641593}
-  PlayerAnimator: {fileID: 629454742471315189}
-  IdleCamera: {fileID: 0}
-  WeaponIdleCamera: {fileID: 0}
-  WeaponAimCamera: {fileID: 0}
-  FirstPersonIdleCamera: {fileID: 6221495999441298634}
-  target: {fileID: 3597099315043464434}
-  isFirstPerson: 0
-  headMeshes:
-  - {fileID: 2398140834543118770}
-  - {fileID: 457348549091446055}
-  - {fileID: 4875503360592941476}
-  loadingScreenPrefab: {fileID: 7743044019569160017, guid: cbf5add0ce9509e4994c4446d13981b1,
-    type: 3}
-  carTheftCamera: {fileID: 8188493419514185695}
-  aimValue: 0
 --- !u!114 &8093793598253397024
 MonoBehaviour:
   m_ObjectHideFlags: 0
