@@ -26,11 +26,9 @@ public class BotSpawner : NetworkBehaviour
 
     private void Update ()
     {
-        if (!isServer)
+        if (!isServer || _spawnedBot != null)
             return;
-
-        if (_spawnedBot != null)
-            return;
+        
 
         _spawnedBot = Instantiate(_playerPrefab, transform.position, transform.rotation).GetComponent<PlayerAI>();
         

@@ -2117,8 +2117,10 @@ GameObject:
   - component: {fileID: -653677055324496180}
   - component: {fileID: 7039401830842898382}
   - component: {fileID: 6354997286238542217}
+  - component: {fileID: 8381775988047641593}
   - component: {fileID: 1259385525680972353}
   - component: {fileID: 7614280651161682071}
+  - component: {fileID: 5479138105933174491}
   - component: {fileID: 8093793598253397024}
   - component: {fileID: 7317107082554866767}
   - component: {fileID: 8246131965209314447}
@@ -2133,8 +2135,6 @@ GameObject:
   - component: {fileID: 676599841136226035}
   - component: {fileID: 5799319892276963001}
   - component: {fileID: -2118898167159860066}
-  - component: {fileID: -4634759982474983789}
-  - component: {fileID: 7230244444876769371}
   m_Layer: 6
   m_Name: Civilian
   m_TagString: Untagged
@@ -2186,7 +2186,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: ad6e5542ea7fd434fa8458408cfa05c1
+  m_AssetId: 4ed2af14285c5f047906f13be4cb1e70
   hasSpawned: 0
 --- !u!114 &6620923452658758675
 MonoBehaviour:
@@ -2261,7 +2261,7 @@ MonoBehaviour:
   player: {fileID: 6620923452658758675}
   playerNutrition: {fileID: 5630967227957478435}
   audioSource: {fileID: -8999880934896529054}
-  TPControllerManager: {fileID: 0}
+  TPControllerManager: {fileID: 5479138105933174491}
   bulletPrefab: {fileID: 714747561125627176, guid: e25626da315cf924195fb7a077f58e19,
     type: 3}
   rocketPrefab: {fileID: 6158105052195522411, guid: a81b091a24e6e894c8c3ce13e0a08236,
@@ -2605,6 +2605,39 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &8381775988047641593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224220879548419888}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldRotateToCameraFaceInputDirection: 0
+  MoveSpeed: 2
+  SprintSpeed: 5.335
+  RotationSmoothTime: 0.12
+  SpeedChangeRate: 10
+  Sensitivity: 1
+  JumpHeight: 1.2
+  Gravity: -15
+  JumpTimeout: 0.3
+  FallTimeout: 0.15
+  Grounded: 1
+  GroundedOffset: -0.14
+  GroundedRadius: 0.28
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 6529
+  CinemachineCameraTarget: {fileID: 3597099315043464437}
+  TopClamp: 70
+  BottomClamp: -30
+  CameraAngleOverride: 0
+  LockCameraPosition: 0
 --- !u!114 &1259385525680972353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2647,6 +2680,43 @@ MonoBehaviour:
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
+--- !u!114 &5479138105933174491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224220879548419888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c7ee16d9a3d7f4994caa77fe8b5deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  CurrentWeaponManager: {fileID: 0}
+  Weapons: {fileID: 3418993767949686106}
+  AllFoundWeapons: []
+  CurrentWeaponBulletSpawnPoint: {fileID: 0}
+  CurrentCartridgeEjectSpawnPoint: {fileID: 0}
+  PlayerRig: {fileID: 7962390186403929653}
+  SecondHandRig_target: {fileID: 4012478451116995162}
+  thirdPersonController: {fileID: 8381775988047641593}
+  PlayerAnimator: {fileID: 629454742471315189}
+  IdleCamera: {fileID: 0}
+  WeaponIdleCamera: {fileID: 0}
+  WeaponAimCamera: {fileID: 0}
+  FirstPersonIdleCamera: {fileID: 6221495999441298634}
+  target: {fileID: 3597099315043464434}
+  isFirstPerson: 0
+  headMeshes:
+  - {fileID: 2398140834543118770}
+  - {fileID: 457348549091446055}
+  - {fileID: 4875503360592941476}
+  loadingScreenPrefab: {fileID: 7743044019569160017, guid: cbf5add0ce9509e4994c4446d13981b1,
+    type: 3}
+  carTheftCamera: {fileID: 8188493419514185695}
+  aimValue: 0
 --- !u!114 &8093793598253397024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2926,8 +2996,9 @@ MonoBehaviour:
   _aiAnimator: {fileID: 629454742471315189}
   playerInteraction: {fileID: 1438205081448632773}
   networkTransform: {fileID: 1415447536970342930}
-  thirdPersonController: {fileID: -4634759982474983789}
-  manageTpController: {fileID: 7230244444876769371}
+  thirdPersonController: {fileID: 8381775988047641593}
+  manageTpController: {fileID: 5479138105933174491}
+  health: {fileID: 3240651003413124115}
 --- !u!114 &4888422653724446150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3065,75 +3136,6 @@ MonoBehaviour:
   currentCompanionName: 
   isCompanionInstantiated: 0
   inventoryModule: {fileID: -1612451488991402610}
---- !u!114 &-4634759982474983789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224220879548419888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shouldRotateToCameraFaceInputDirection: 0
-  MoveSpeed: 2
-  SprintSpeed: 5.335
-  RotationSmoothTime: 0.12
-  SpeedChangeRate: 10
-  Sensitivity: 1
-  JumpHeight: 1.2
-  Gravity: -15
-  JumpTimeout: 0.5
-  FallTimeout: 0.15
-  Grounded: 1
-  GroundedOffset: -0.14
-  GroundedRadius: 0.28
-  GroundLayers:
-    serializedVersion: 2
-    m_Bits: 229376
-  CinemachineCameraTarget: {fileID: 0}
-  TopClamp: 70
-  BottomClamp: -30
-  CameraAngleOverride: 0
-  LockCameraPosition: 0
---- !u!114 &7230244444876769371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224220879548419888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c7ee16d9a3d7f4994caa77fe8b5deb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  CurrentWeaponManager: {fileID: 0}
-  Weapons: {fileID: 3418993767949686106}
-  AllFoundWeapons: []
-  CurrentWeaponBulletSpawnPoint: {fileID: 0}
-  CurrentCartridgeEjectSpawnPoint: {fileID: 0}
-  PlayerRig: {fileID: 7962390186403929653}
-  SecondHandRig_target: {fileID: 4012478451116995162}
-  thirdPersonController: {fileID: -4634759982474983789}
-  PlayerAnimator: {fileID: 629454742471315189}
-  IdleCamera: {fileID: 0}
-  WeaponIdleCamera: {fileID: 0}
-  WeaponAimCamera: {fileID: 0}
-  FirstPersonIdleCamera: {fileID: 6221495999441298634}
-  target: {fileID: 3597099315043464434}
-  isFirstPerson: 0
-  headMeshes:
-  - {fileID: 2398140834543118770}
-  - {fileID: 457348549091446055}
-  - {fileID: 4875503360592941476}
-  loadingScreenPrefab: {fileID: 0}
-  carTheftCamera: {fileID: 8188493419514185695}
-  aimValue: 0
 --- !u!1 &1280215549901539037
 GameObject:
   m_ObjectHideFlags: 0
@@ -25588,6 +25590,7 @@ GameObject:
   - component: {fileID: 5709884487979944247}
   - component: {fileID: 9004774675587868020}
   - component: {fileID: 1110899589669262049}
+  - component: {fileID: 2827268961969981092}
   m_Layer: 0
   m_Name: CarTheftCamera
   m_TagString: Untagged
@@ -25709,6 +25712,50 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 537644173888313490}
+--- !u!114 &2827268961969981092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8188493419514185695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &8235831792777906849
 GameObject:
   m_ObjectHideFlags: 0

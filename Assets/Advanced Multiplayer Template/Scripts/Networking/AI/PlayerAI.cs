@@ -35,6 +35,7 @@ public class PlayerAI : NetworkBehaviour
     [SerializeField] private NetworkTransform networkTransform;
     [SerializeField] private ThirdPersonController thirdPersonController;
     [SerializeField] private ManageTPController manageTpController;
+    [SerializeField] private Health health;
     
     delegate void DestinationReached();
     DestinationReached Event_DestinationReached;
@@ -55,34 +56,29 @@ public class PlayerAI : NetworkBehaviour
 
     public void SetAsBot()
     {
-        print("Setting up bot");
-
-        if (_aiAnimator == null)
-        {
-            Debug.LogError("Animator component is missing!");
-            return;
-        }
-        
         thirdPersonController.enabled = false;
         manageTpController.enabled = false;
-
+        
+        Debug.Log(manageTpController.enabled + "ManageTP");
+        Debug.Log(thirdPersonController.enabled + "Third person Controller");
+        
         _aiAnimator.SetFloat("MotionSpeed", 1);
         Walk();
-        print("Setting bot to walk");
 
         isSetAsAi = true;
         RpcSetAsBot(true);
-        print("Setting up bot as a bot");
-
-        if (networkTransform == null)
-        {
-            Debug.LogError("NetworkTransform component is missing!");
-            return;
-        }
-
+        ToggleClassServer();
+        
         networkTransform.clientAuthority = false;
     }
 
+    [ClientRpc]
+    void ToggleClassServer()
+    {
+        thirdPersonController.enabled = false;
+        manageTpController.enabled = false;
+    }
+    
     [ClientRpc]
     void RpcSetAsBot(bool status)
     {
@@ -91,12 +87,6 @@ public class PlayerAI : NetworkBehaviour
 
     private void Update()
     {
-       if (_manageGenerate == null)
-       {
-           Debug.LogError("_manageGenerate is null");
-           return;
-       }
-
        if (!_manageGenerate.navMeshCreated)
        {
            return;
@@ -104,26 +94,77 @@ public class PlayerAI : NetworkBehaviour
 
        if (isSetAsAi)
        {
+          CheckForPlayerWeapon();
+          CheckIfShot();
+       }
+
+       MoveAI();
+       AIDestinationReached();
+       AiRunAway();
+       AiDeath();
+    }
+
+    private void MoveAI()
+    {
+        if (!HasHandsUp && !isStopped && target != null)
+            agent.SetDestination(target.position);
+    }
+
+    private void AIDestinationReached()
+    {
+        if (!HasHandsUp && _travellingToTarget)
+        {
+            if (Vector3.Distance(transform.position, target.position) < 0.3f)
+            {
+                _travellingToTarget = false;
+                Event_DestinationReached?.Invoke();
+            }
+        }
+    }
+
+    private void AiDeath()
+    {
+        if (isSetAsAi && health.isDeath)
+        {
+            _aiAnimator.ResetTrigger("FearfulRunning");
+            _aiAnimator.ResetTrigger("FearfulWalk");
+            _aiAnimator.ResetTrigger("Walk");
+            _aiAnimator.ResetTrigger("Run");
+            _aiAnimator.SetTrigger("Idle");
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+            Stop();
+            _aiAnimator.SetLayerWeight(2, 0);
+        }
+    }
+    
+    private void AiRunAway() 
+    {
+        if (HasHandsUp && _aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning"))
+        {
+            _aiAnimator.SetLayerWeight(2, 1);
+            if (!_aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("HandsUp"))
+                _aiAnimator.Play("HandsUp");
+        }
+        
+        if (_aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning") && !_aiAnimator.GetBool("Run")) // this is causing a null reference error for some reason
+        {
+            Run();
+        }
+      
+    }
+    
+    private void CheckForPlayerWeapon()
+    {
            var colliders = Physics.OverlapSphere(transform.position, 5f, 1 << 6);
            foreach (var collider in colliders)
            {
                if (collider != null && collider.tag == "Player" && collider.GetComponent<Player>() != null)
                {
-                   if (playerInteraction == null)
-                   {
-                       Debug.LogError("_playerInteraction is null");
-                       return;
-                   }
-
                    if (!playerInteraction.inVehicle && !isfearfulWalking && !isfearful && !HasHandsUp)
                    {
                        var manageTPController = collider.GetComponent<ManageTPController>();
-                       if (manageTPController == null)
-                       {
-                           Debug.LogError("ManageTPController is null");
-                           return;
-                       }
-
+                       
                        foreach (Transform wps in manageTPController.AllFoundWeapons)
                        {
                            if (wps.gameObject.activeInHierarchy && !isfearfulWalking)
@@ -167,94 +208,54 @@ public class PlayerAI : NetworkBehaviour
                    }
                }
            }
-           var ProjectileColliders = Physics.OverlapSphere(transform.position, 20f, 1 << 8);
-           foreach (var pCollider in ProjectileColliders)
-           {
-               if (pCollider.CompareTag("Bullet"))
-               {
-                   if (pCollider.GetComponent<NetworkBullet>() != null)
-                   {
-                       if (!HasHandsUp && !isfearful)
-                       {
-                           if (!playerInteraction.inVehicle)
-                           {
-                               isfearful = true;
-                               StartCoroutine(EndFearfulness());
-                               if (_aiAnimator == null)
-                               {
-                                   Debug.LogError("_aiAnimator is null");
-                                   return;
-                               }
-                               _aiAnimator.SetLayerWeight(2, 1);
-                               Run();
-                           }
-                           else
-                           {
-                               isfearful = true;
-                               StartCoroutine(EndFearfulness());
-                               Event_DestinationReached += OnReachedDefaultTarget;
-
-                               if (_targetedVehicle == null)
-                               {
-                                   Debug.LogError("_targetedVehicle is null");
-                                   return;
-                               }
-
-                               _targetedVehicle.RequestExiting(playerInteraction, false);
-                               SetNavmeshTarget(GameObject.FindGameObjectWithTag("BOTWAYPOINT").transform);
-                               _aiAnimator.SetLayerWeight(2, 0);
-                               RunOutOfVehicle();
-                           }
-                       }
-                   }
-               }
-           }
-       }
-
-       if (!HasHandsUp && !isStopped && target != null)
-           agent.SetDestination(target.position);
-
-       if (!HasHandsUp && _travellingToTarget)
-       {
-           if (Vector3.Distance(transform.position, target.position) < 0.3f)
-           {
-               _travellingToTarget = false;
-               Event_DestinationReached?.Invoke();
-           }
-       }
-
-       if (HasHandsUp && _aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning"))
-       {
-           _aiAnimator.SetLayerWeight(2, 1);
-           if (!_aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("HandsUp"))
-               _aiAnimator.Play("HandsUp");
-       }
-       if (_aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning") && !_aiAnimator.GetBool("Run"))
-       {
-           Run();
-       }
-
-       var health = GetComponent<Health>();
-       if (health == null)
-       {
-           Debug.LogError("Health component is null");
-           return;
-       }
-
-       if (isSetAsAi && health.isDeath)
-       {
-           _aiAnimator.ResetTrigger("FearfulRunning");
-           _aiAnimator.ResetTrigger("FearfulWalk");
-           _aiAnimator.ResetTrigger("Walk");
-           _aiAnimator.ResetTrigger("Run");
-           _aiAnimator.SetTrigger("Idle");
-           agent.isStopped = true;
-           agent.velocity = Vector3.zero;
-           Stop();
-           _aiAnimator.SetLayerWeight(2, 0);
-       }
     }
 
+    private void CheckIfShot()
+    {
+        var ProjectileColliders = Physics.OverlapSphere(transform.position, 20f, 1 << 8);
+        foreach (var pCollider in ProjectileColliders)
+        {
+            if (pCollider.CompareTag("Bullet"))
+            {
+                if (pCollider.GetComponent<NetworkBullet>() != null)
+                {
+                    if (!HasHandsUp && !isfearful)
+                    {
+                        if (!playerInteraction.inVehicle)
+                        {
+                            isfearful = true;
+                            StartCoroutine(EndFearfulness());
+                            if (_aiAnimator == null)
+                            {
+                                Debug.LogError("_aiAnimator is null");
+                                return;
+                            }
+                            _aiAnimator.SetLayerWeight(2, 1);
+                            Run();
+                        }
+                        else
+                        {
+                            isfearful = true;
+                            StartCoroutine(EndFearfulness());
+                            Event_DestinationReached += OnReachedDefaultTarget;
+
+                            if (_targetedVehicle == null)
+                            {
+                                Debug.LogError("_targetedVehicle is null");
+                                return;
+                            }
+
+                            _targetedVehicle.RequestExiting(playerInteraction, false);
+                            SetNavmeshTarget(GameObject.FindGameObjectWithTag("BOTWAYPOINT").transform);
+                            _aiAnimator.SetLayerWeight(2, 0);
+                            RunOutOfVehicle();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     IEnumerator EndFastDriving()
     {
         yield return new WaitForSeconds(20f);
