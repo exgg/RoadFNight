@@ -143,16 +143,10 @@ public class PlayerAI : NetworkBehaviour
                 _aiAnimator.Play("HandsUp");
         }
         
-        
-      
-        
-        
         if ( !_aiAnimator.GetBool("Run") && _aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning")) // Run is not within the animator so causes a null reference error
         {
             Run();
         }
-        
-      
     }
     
     private void CheckForPlayerWeapon()
@@ -198,7 +192,7 @@ public class PlayerAI : NetworkBehaviour
 
                                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(towardsPlayer), Time.deltaTime * 1);
 
-                               transform.position += transform.forward * 1 * Time.deltaTime;
+                               transform.position += transform.forward * (1 * Time.deltaTime);
                            }
                        }
                    }
@@ -208,8 +202,8 @@ public class PlayerAI : NetworkBehaviour
 
     private void CheckIfShot()
     {
-        var ProjectileColliders = Physics.OverlapSphere(transform.position, 20f, 1 << 8);
-        foreach (var pCollider in ProjectileColliders)
+        var projectileColliders = Physics.OverlapSphere(transform.position, 20f, 1 << 8);
+        foreach (var pCollider in projectileColliders)
         {
             if (pCollider.CompareTag("Bullet"))
             {
@@ -221,11 +215,7 @@ public class PlayerAI : NetworkBehaviour
                         {
                             isfearful = true;
                             StartCoroutine(EndFearfulness());
-                            if (_aiAnimator == null)
-                            {
-                                Debug.LogError("_aiAnimator is null");
-                                return;
-                            }
+                       
                             _aiAnimator.SetLayerWeight(2, 1);
                             Run();
                         }
@@ -234,12 +224,6 @@ public class PlayerAI : NetworkBehaviour
                             isfearful = true;
                             StartCoroutine(EndFearfulness());
                             Event_DestinationReached += OnReachedDefaultTarget;
-
-                            if (_targetedVehicle == null)
-                            {
-                                Debug.LogError("_targetedVehicle is null");
-                                return;
-                            }
 
                             _targetedVehicle.RequestExiting(playerInteraction, false);
                             SetNavmeshTarget(GameObject.FindGameObjectWithTag("BOTWAYPOINT").transform);
@@ -320,31 +304,10 @@ public class PlayerAI : NetworkBehaviour
             SetNavmeshTarget(GameObject.FindGameObjectWithTag("BOTWAYPOINT").transform);
             _aiAnimator.SetLayerWeight(2, 0);
             RunOutOfVehicle();
-
-            /*int mode = Random.Range(134, 523);
-            if (mode > 250)
-            {
-                isfearful = true;
-                StartCoroutine(EndFearfulness());
-                animator.SetTrigger("FearfulRunning");
-                GetComponent<Animator>().SetLayerWeight(2, 1);
-                Event_DestinationReached += OnReachedDefaultTarget;
-                _targetedVehicle.RequestExiting(_playerInteraction, false);
-                SetNavmeshTarget(GameObject.FindGameObjectWithTag("BOTWAYPOINT").transform);
-                Run();
-            }
-            else if (mode < 250)
-            {
-                isfearful = true;
-                StartCoroutine(EndFastDriving());
-                _targetedVehicle.GetComponent<CarAI>().desiredSpeed = 100f;
-                _targetedVehicle.GetComponent<CarAI>().ignoreObstacles = true;
-            }
-            mode = 0;*/
         }
     }
 
-    public void Stop()
+    private void Stop()
     {
         isStopped = true;
         _aiAnimator.SetTrigger("Idle");
@@ -374,7 +337,7 @@ public class PlayerAI : NetworkBehaviour
         agent.speed = 6;
     }
 
-    public void RunOutOfVehicle()
+    private void RunOutOfVehicle()
     {
         isStopped = false;
         if (agent.isStopped == true)
@@ -400,7 +363,7 @@ public class PlayerAI : NetworkBehaviour
         StopCoroutine(RunOutOfVehicleCoroutine());
     }
 
-    public void RunToCar()
+    private void RunToCar()
     {
         isStopped = false;
         if (agent.isStopped == true)
@@ -418,7 +381,7 @@ public class PlayerAI : NetworkBehaviour
         agent.speed = 6;
     }
 
-    public void Walk()
+    private void Walk()
     {
         isStopped = false;
         if (agent.isStopped == true)
@@ -438,7 +401,7 @@ public class PlayerAI : NetworkBehaviour
         agent.speed = 2;
     }
 
-    public void FearfulWalk()
+    private void FearfulWalk()
     {
         isStopped = false;
         if (agent.isStopped == true)
