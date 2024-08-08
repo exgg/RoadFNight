@@ -32,7 +32,7 @@ public class EmoteWheel : NetworkBehaviour
 
     private void Start()
     {
-        foreach(EmoteWheelItem emoteItem in emotes)
+        foreach (EmoteWheelItem emoteItem in emotes)
         {
             emoteItem.Load();
         }
@@ -42,7 +42,7 @@ public class EmoteWheel : NetworkBehaviour
     {
         return !RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu &&
                !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop &&
-               !RedicionStudio.InventorySystem.PlayerInventoryModule.inWeaponWheel &&
+               !RedicionStudio.InventorySystem.WeaponWheelManager.inWeaponWheel &&
                !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().chatWindow.isChatOpen;
     }
     private void Update()
@@ -55,7 +55,7 @@ public class EmoteWheel : NetworkBehaviour
         if (_input == null)
             _input = GameObject.FindGameObjectWithTag("InputManager").GetComponent<StarterAssets.StarterAssetsInputs>();
 
-        if (_input != null && _input.emoteWheel && !BSystemUI.Instance.Active && !RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop && GetComponent<Health>().isDeath == false && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().usesParachute && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().isAiming && !RedicionStudio.InventorySystem.PlayerInventoryModule.inWeaponWheel && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().chatWindow.isChatOpen)
+        if (_input != null && _input.emoteWheel && !BSystemUI.Instance.Active && !RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop && GetComponent<Health>().isDeath == false && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inCar && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().usesParachute && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().isAiming && !RedicionStudio.InventorySystem.WeaponWheelManager.inWeaponWheel && !GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().chatWindow.isChatOpen)
         {
             if (!isEmoteWheelActive)
             {
@@ -88,9 +88,9 @@ public class EmoteWheel : NetworkBehaviour
                 {
                     currentEmoteName.text = emotes[0].EmoteName;
                     currentEmoteInfo.text = emotes[0].InfoText;
-                    foreach(EmoteWheelItem emoteItem in emotes)
+                    foreach (EmoteWheelItem emoteItem in emotes)
                     {
-                        if(emoteItem.EmoteName != emotes[0].EmoteName)
+                        if (emoteItem.EmoteName != emotes[0].EmoteName)
                             emoteItem.Deselect();
                     }
                     emotes[0].Select();
@@ -190,7 +190,7 @@ public class EmoteWheel : NetworkBehaviour
     public void PlayEmote(string _animationTriggerName, float _animationLength, bool _isOnlyUpperBodyAnimation)
     {
         isPlayingAnimation = true;
-        if(!_isOnlyUpperBodyAnimation)
+        if (!_isOnlyUpperBodyAnimation)
             BlockPlayer(true, false);
         else
             GetComponent<Animator>().SetLayerWeight(2, 1);
@@ -220,7 +220,7 @@ public class EmoteWheel : NetworkBehaviour
     [ClientRpc]
     void RpcPlayEmote(string _animationTriggerName, bool _isOnlyUpperBodyAnimation)
     {
-        if(_isOnlyUpperBodyAnimation)
+        if (_isOnlyUpperBodyAnimation)
             GetComponent<Animator>().SetLayerWeight(2, 1);
         GetComponent<Animator>().SetTrigger(_animationTriggerName);
     }

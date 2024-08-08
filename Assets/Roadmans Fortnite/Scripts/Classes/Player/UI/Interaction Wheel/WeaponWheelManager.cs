@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Mirror;
 using RedicionStudio.UIUtils;
 using StarterAssets;
 
@@ -18,9 +19,9 @@ namespace RedicionStudio.InventorySystem
 
         private StarterAssets.StarterAssetsInputs _inputs;
 
-        private ItemSlot _slot;
+        public ItemSlot _slot;
 
-        public static bool inWeaponWheel;
+        public static bool inWeaponWheel = false;
 
         private bool isWeaponWheelActive = false;
 
@@ -28,12 +29,16 @@ namespace RedicionStudio.InventorySystem
 
 
         // Start is called before the first frame update
-        void Start()
-        {
-            Initialisation();
-        }
+        // private void Start()
+        // {
+        //     if (isLocalPlayer)
+        //     {
+        //         Initialisation();
+        //         slots.Callback += PlayerInventoryModule.Slots_Callback;
+        //     }
+        // }
 
-        void Initialisation()
+        public void Initialisation()
         {
             _inputs = GameObject.FindGameObjectWithTag("InputManager").GetComponent<StarterAssets.StarterAssetsInputs>();
 
@@ -43,17 +48,12 @@ namespace RedicionStudio.InventorySystem
             _rectTransform.anchorMax = new Vector2(0, 0);
 
             playerInventoryModule = GetComponent<PlayerInventoryModule>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
 
         }
 
-        public void WeaponWheelUIToggle()
+        public void WeaponWheelUIToggle(ItemSlot slot)
         {
-            _slot = slots[0];
+            _slot = slot;
 
             if (!_inputs.weaponWheel)
             {
