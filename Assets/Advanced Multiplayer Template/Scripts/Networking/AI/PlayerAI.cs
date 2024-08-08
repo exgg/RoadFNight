@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +37,9 @@ public class PlayerAI : NetworkBehaviour
     [SerializeField] private ThirdPersonController thirdPersonController;
     [SerializeField] private ManageTPController manageTpController;
     [SerializeField] private Health health;
+
+    private float _weaponCheckSphere = 5f;
+    private bool startedDebug = false;
     
     delegate void DestinationReached();
     DestinationReached Event_DestinationReached;
@@ -49,6 +53,8 @@ public class PlayerAI : NetworkBehaviour
         //_networkTransform = GetComponent<NetworkTransform>();
         //_aiAnimator = GetComponent<Animator>();
         _manageGenerate = FindObjectOfType<ManageGenerate>();
+
+        startedDebug = true;
         
         agent.updateRotation = true;
         agent.updatePosition = true;
@@ -59,25 +65,15 @@ public class PlayerAI : NetworkBehaviour
         thirdPersonController.enabled = false;
         manageTpController.enabled = false;
         
-        Debug.Log(manageTpController.enabled + "ManageTP");
-        Debug.Log(thirdPersonController.enabled + "Third person Controller");
-        
         _aiAnimator.SetFloat("MotionSpeed", 1);
         Walk();
 
         isSetAsAi = true;
         RpcSetAsBot(true);
-        ToggleClassServer();
         
         networkTransform.clientAuthority = false;
     }
 
-    [ClientRpc]
-    void ToggleClassServer()
-    {
-        thirdPersonController.enabled = false;
-        manageTpController.enabled = false;
-    }
     
     [ClientRpc]
     void RpcSetAsBot(bool status)
@@ -147,7 +143,7 @@ public class PlayerAI : NetworkBehaviour
                 _aiAnimator.Play("HandsUp");
         }
         
-        if (_aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning") && !_aiAnimator.GetBool("Run")) // this is causing a null reference error for some reason
+        if (_aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning")) //&& !_aiAnimator.GetBool("Run")) // Run is not within the animator so causes a null reference error
         {
             Run();
         }
@@ -156,10 +152,10 @@ public class PlayerAI : NetworkBehaviour
     
     private void CheckForPlayerWeapon()
     {
-           var colliders = Physics.OverlapSphere(transform.position, 5f, 1 << 6);
+           var colliders = Physics.OverlapSphere(transform.position, _weaponCheckSphere, 1 << 6);
            foreach (var collider in colliders)
            {
-               if (collider != null && collider.tag == "Player" && collider.GetComponent<Player>() != null)
+               if (collider != null && collider.CompareTag("Player") && collider.GetComponent<Player>() != null)
                {
                    if (!playerInteraction.inVehicle && !isfearfulWalking && !isfearful && !HasHandsUp)
                    {
@@ -187,12 +183,7 @@ public class PlayerAI : NetworkBehaviour
                                if (!playerInteraction.inVehicle)
                                    isfearful = true;
                                StartCoroutine(EndHandsUpCoroutine());
-
-                               if (_aiAnimator == null)
-                               {
-                                   Debug.LogError("_aiAnimator is null");
-                                   return;
-                               }
+                               
                                _aiAnimator.SetLayerWeight(2, 1);
                                HandsUp();
                            }
@@ -507,6 +498,17 @@ public class PlayerAI : NetworkBehaviour
         agent.SetDestination(destination.position);
         target = destination;
         _travellingToTarget = true;
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        if (startedDebug)
+        {
+            Gizmos.DrawSphere(transform.position, _weaponCheckSphere);
+        }
     }
 }
 
