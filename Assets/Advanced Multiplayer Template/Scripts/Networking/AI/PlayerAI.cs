@@ -92,12 +92,11 @@ public class PlayerAI : NetworkBehaviour
        {
           CheckForPlayerWeapon();
           CheckIfShot();
+          MoveAI();
+          AIDestinationReached();
+          AiRunAway();
+          AiDeath();
        }
-
-       MoveAI();
-       AIDestinationReached();
-       AiRunAway();
-       AiDeath();
     }
 
     private void MoveAI()
@@ -136,6 +135,7 @@ public class PlayerAI : NetworkBehaviour
     
     private void AiRunAway() 
     {
+        
         if (HasHandsUp && _aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning"))
         {
             _aiAnimator.SetLayerWeight(2, 1);
@@ -143,10 +143,15 @@ public class PlayerAI : NetworkBehaviour
                 _aiAnimator.Play("HandsUp");
         }
         
-        if (_aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning")) //&& !_aiAnimator.GetBool("Run")) // Run is not within the animator so causes a null reference error
+        
+      
+        
+        
+        if ( !_aiAnimator.GetBool("Run") && _aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning")) // Run is not within the animator so causes a null reference error
         {
             Run();
         }
+        
       
     }
     
