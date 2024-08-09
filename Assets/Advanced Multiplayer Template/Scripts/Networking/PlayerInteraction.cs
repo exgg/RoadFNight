@@ -81,6 +81,7 @@ public class PlayerInteraction : NetworkBehaviour
             CmdRequestExiting();
         }
     }
+
     [Command]
     void CmdRequestEntering(VehicleSync vehicleSync, int seatID, bool forcedEnter, bool driverKickedOut)
     {
