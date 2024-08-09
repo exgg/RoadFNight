@@ -103,7 +103,7 @@ namespace StarterAssets
         private CharacterController _controller;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
-        private bool _rotateOnMove = true; 
+        private bool _rotateOnMove = true;
 
         private const float _threshold = 0.01f;
 
@@ -119,7 +119,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
                 return _playerInput.currentControlScheme == "KeyboardMouse";
 #else
-				return false;
+                return false;
 #endif
             }
         }
@@ -143,7 +143,7 @@ namespace StarterAssets
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             //_input = GetComponent<StarterAssetsInputs>();
@@ -151,7 +151,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
             _playerInput = GameObject.FindGameObjectWithTag("InputManager").GetComponent<PlayerInput>();
 #else
-			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
+            Debug.LogError("Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
 
             AssignAnimationIDs();
@@ -171,7 +171,7 @@ namespace StarterAssets
                 return;
             }
             LockCameraPosition = false;
-            if (RedicionStudio.InventorySystem.PlayerInventoryModule.inWeaponWheel || GetComponent<EmoteWheel>().inEmoteWheel)
+            if (RedicionStudio.InventorySystem.WeaponWheelManager.inWeaponWheel || GetComponent<EmoteWheel>().inEmoteWheel)
             {
                 LockCameraPosition = true;
             }
@@ -185,7 +185,7 @@ namespace StarterAssets
         private void LateUpdate()
         {
             if (_blockCamera) return;
-                CameraRotation();
+            CameraRotation();
         }
 
         /// <summary>
@@ -293,7 +293,7 @@ namespace StarterAssets
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                if(_rotateOnMove)
+                if (_rotateOnMove)
                 {
                     transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
                 }
@@ -396,7 +396,7 @@ namespace StarterAssets
             if (lfAngle > 360f) lfAngle -= 360f;
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
-        
+
         /// <summary>
         /// Draws gizmos in the Unity editor to visualize the grounding status of the object.
         /// When the object is grounded, a green transparent sphere is drawn; otherwise, a red transparent sphere is drawn.
@@ -422,9 +422,9 @@ namespace StarterAssets
         /// <param name="newSensitivity"></param>
         public void SetSensitivity(float newSensitivity)
         {
-            Sensitivity = newSensitivity; 
+            Sensitivity = newSensitivity;
         }
-        
+
         public void SetRotateOnMove(bool newRotateOnMove)
         {
             _rotateOnMove = newRotateOnMove;

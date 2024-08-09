@@ -3,19 +3,23 @@ using UnityEngine.InputSystem;
 using Cinemachine;
 using Mirror;
 
-namespace TPController {
+namespace TPController
+{
 
 	[RequireComponent(typeof(CinemachineFreeLook))]
-	public class TPCameraController : MonoBehaviour {
+	public class TPCameraController : MonoBehaviour
+	{
 
 		private static CinemachineFreeLook _cinemachineFreeLook;
 
-        private GameObject _localPlayer;
+		private GameObject _localPlayer;
 
 		[SerializeField] private float _mouseSensitivity = .9f;
 
-		public static void LockCursor(bool value) {
-			if (value) {
+		public static void LockCursor(bool value)
+		{
+			if (value)
+			{
 				Cursor.lockState = CursorLockMode.Locked;
 				Cursor.visible = false;
 				return;
@@ -24,24 +28,28 @@ namespace TPController {
 			Cursor.visible = true;
 		}
 
-		public static void ResetAxis() {
+		public static void ResetAxis()
+		{
 			_cinemachineFreeLook.m_YAxis.Value = .5f;
 			_cinemachineFreeLook.m_XAxis.Value = 0f;
 		}
 
-		private void Awake() {
+		private void Awake()
+		{
 			_cinemachineFreeLook = GetComponent<CinemachineFreeLook>();
-        }
+		}
 
 		private static Mouse _mouse;
 
-		private void Update() {
+		private void Update()
+		{
 			_mouse = Mouse.current;
 
-            if(_localPlayer == null)
-                _localPlayer = NetworkClient.localPlayer.gameObject;
+			if (_localPlayer == null)
+				_localPlayer = NetworkClient.localPlayer.gameObject;
 
-            if (_mouse == null || _cinemachineFreeLook.LookAt == null || BSystemUI.Instance.Active || RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu || RedicionStudio.InventorySystem.PlayerInventoryModule.inWeaponWheel || _localPlayer.GetComponent<EmoteWheel>().inEmoteWheel) {
+			if (_mouse == null || _cinemachineFreeLook.LookAt == null || BSystemUI.Instance.Active || RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu || RedicionStudio.InventorySystem.WeaponWheelManager.inWeaponWheel || _localPlayer.GetComponent<EmoteWheel>().inEmoteWheel)
+			{
 				return;
 			}
 

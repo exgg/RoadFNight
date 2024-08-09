@@ -2109,6 +2109,7 @@ GameObject:
   - component: {fileID: 1415447536970342930}
   - component: {fileID: -1612451488991402610}
   - component: {fileID: -7177926160971466215}
+  - component: {fileID: 3708651623189312706}
   - component: {fileID: 5630967227957478435}
   - component: {fileID: -8157208296288239210}
   - component: {fileID: -8999880934896529054}
@@ -2256,6 +2257,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0
+  weaponWheelManager: {fileID: 0}
+  shopManager: {fileID: 0}
   _emoteWheel: {fileID: 0}
   _chatSystem: {fileID: 0}
   player: {fileID: 6620923452658758675}
@@ -2275,6 +2278,11 @@ MonoBehaviour:
   usesParachute: 0
   isAiming: 0
   chatWindow: {fileID: 0}
+  _slot:
+    item:
+      hash: 0
+      currentShelfLifeInSeconds: 0
+    amount: 0
   _gFX: {fileID: 2610227527127011296}
 --- !u!114 &-7177926160971466215
 MonoBehaviour:
@@ -2286,6 +2294,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c44506505f9fc5047b2452ab1e1b2405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  _slot:
+    item:
+      hash: 0
+      currentShelfLifeInSeconds: 0
+    amount: 0
+--- !u!114 &3708651623189312706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224220879548419888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cacfa8d9b7cdb21429079eca010690c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
@@ -25584,6 +25611,7 @@ GameObject:
   - component: {fileID: 5709884487979944247}
   - component: {fileID: 9004774675587868020}
   - component: {fileID: 1110899589669262049}
+
   - component: {fileID: 2827268961969981092}
   m_Layer: 0
   m_Name: CarTheftCamera
@@ -25647,7 +25675,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 16375
+    m_Bits: 245751
   m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -25706,6 +25734,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 537644173888313490}
+
 --- !u!114 &2827268961969981092
 MonoBehaviour:
   m_ObjectHideFlags: 0

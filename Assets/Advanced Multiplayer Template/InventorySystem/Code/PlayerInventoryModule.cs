@@ -23,10 +23,12 @@ namespace RedicionStudio.InventorySystem
 		private Health _health;
 
 		// weapon wheel components
-		private WeaponWheelSystem _weaponWheelSystem;
-		private RectTransform _rectTransform;
+		[HideInInspector]
+		public WeaponWheelManager weaponWheelManager;
 
-		WeaponWheelManager weaponWheelManager;
+		// shop components
+		[HideInInspector]
+		public ShopManager shopManager;
 
 		// emote wheel components
 		[HideInInspector]
@@ -73,23 +75,18 @@ namespace RedicionStudio.InventorySystem
 		[Space]
 		public bool isAiming = false;
 
-		private bool isWeaponWheelActive = false;
-		RectTransform rectTransform;
-
-
 
 		public ChatSystem chatWindow;
 
-		private static Keyboard _keyboard;
+		public static Keyboard _keyboard;
 		private static Mouse _mouse;
 
 		public static bool inMenu;
-		public static bool inWeaponWheel;
 
 		private int _index;
 		private double _interval = 60f;
 		private double _lastTime;
-		private ItemSlot _slot;
+		public ItemSlot _slot;
 
 		[Space]
 		[SerializeField] private Transform _gFX;
@@ -100,11 +97,11 @@ namespace RedicionStudio.InventorySystem
 		{
 			if (isLocalPlayer)
 			{
-				Initialisation();
-
 				UIPlayerInventory.playerInventory = this;
 				slots.Callback += Slots_Callback;
 				UIPlayerInventory.InstanceRefresh();
+
+				Initialisation();
 
 				UIDragAndDrop.OnDragAndClearAction = CmdDropItem;
 				UIDragAndDrop.OnDragAndDropAction = (from, to) =>
@@ -141,6 +138,9 @@ namespace RedicionStudio.InventorySystem
 			_health = GetComponent<Health>();
 
 			weaponWheelManager = GetComponent<WeaponWheelManager>();
+			weaponWheelManager.Initialisation();
+
+			shopManager = GetComponent<ShopManager>();
 
 			// emote system
 			_emoteWheel = GetComponent<EmoteWheel>();
@@ -163,8 +163,8 @@ namespace RedicionStudio.InventorySystem
 			ShelfLifeCalculation();
 
 			if (inShop) return;
-			ShopUIToggle();
-			weaponWheelManager.WeaponWheelUIToggle();
+			shopManager.ShopUIToggle();
+			weaponWheelManager.WeaponWheelUIToggle(slots[0]);
 			EmoteWheelUIToggle();
 			AimWeapon();
 		}
@@ -235,167 +235,67 @@ namespace RedicionStudio.InventorySystem
 			_lastTime = NetworkTime.time;
 		}
 
-		#region Shop UI
+		// #region Shop UI
 
-		/// <summary>
-		/// Activation toggle for the UI of the ShopUI, can be done in event based instead of this but that can happen in phase 3
-		/// </summary>
-		public void ShopUIToggle()
-		{
-			// PSEUDO
-			// allow for expanding to event based later PHASE 3
-
-			if (!_keyboard.tabKey.wasPressedThisFrame) return;
-
-			inMenu = !inMenu;
-
-			switch (inMenu)
-			{
-				case true:
-					EnterShopMenu();
-					break;
-				case false:
-					ExitShopMenu();
-					break;
-
-			}
-		}
-
-		/// <summary>
-		/// Toggle on the Shop Menu, checking if BSsystem has in menu to toggle another instance
-		/// </summary>
-		private void EnterShopMenu()
-		{
-			if (BSystem.BSystem.inMenu)
-			{
-				BSystem.BSystem.inMenu = false;
-				BSystemUI.Instance.SetActive(false);
-
-			}
-
-			UIPlayerInventory.SetActive(true);
-			UIPlayerInventory.InventoryUI.SetActive(true);
-			TPController.TPCameraController.LockCursor(false);
-		}
-
-		/// <summary>
-		/// Toggle off the shop menu
-		/// </summary>
-		private void ExitShopMenu()
-		{
-			UIPlayerInventory.SetActive(false);
-			UIPlayerInventory.InventoryUI.SetActive(false);
-			TPController.TPCameraController.LockCursor(true);
-		}
-
-		#endregion
-
-
-		// public void WeaponWheelUIToggle()
+		// /// <summary>
+		// /// Activation toggle for the UI of the ShopUI, can be done in event based instead of this but that can happen in phase 3
+		// /// </summary>
+		// public void ShopUIToggle()
 		// {
-		// 	_slot = slots[0];
+		// 	// PSEUDO
+		// 	// allow for expanding to event based later PHASE 3
 
-		// 	if (!_inputs.weaponWheel)
-		// 	{
-		// 		DeactivateWeaponWheel();
-		// 		return;
-		// 	}
-		// 	if (!isWeaponWheelActive)
-		// 	{
-		// 		ToggleWeaponWheel();
-		// 	}
+		// 	if (!_keyboard.tabKey.wasPressedThisFrame) return;
 
-		// 	if (isWeaponWheelActive)
+		// 	inMenu = !inMenu;
+
+		// 	switch (inMenu)
 		// 	{
-		// 		UpdateWeaponWheel();
+		// 		case true:
+		// 			EnterShopMenu();
+		// 			break;
+		// 		case false:
+		// 			ExitShopMenu();
+		// 			break;
+
 		// 	}
 		// }
 
-		// private void ToggleWeaponWheel()
+		// /// <summary>
+		// /// Toggle on the Shop Menu, checking if BSsystem has in menu to toggle another instance
+		// /// </summary>
+		// private void EnterShopMenu()
 		// {
-		// 	inWeaponWheel = !inWeaponWheel;
-		// 	isWeaponWheelActive = !isWeaponWheelActive;
+		// 	if (BSystem.BSystem.inMenu)
+		// 	{
+		// 		BSystem.BSystem.inMenu = false;
+		// 		BSystemUI.Instance.SetActive(false);
 
-		// 	if (inWeaponWheel) EnterWeaponWheel();
-		// 	else ExitWeaponWheel();
-		// }
-		// private void EnterWeaponWheel()
-		// {
-		// 	UIPlayerInventory.WeaponWheel.SetActive(true);
+		// 	}
+
+		// 	UIPlayerInventory.SetActive(true);
+		// 	UIPlayerInventory.InventoryUI.SetActive(true);
 		// 	TPController.TPCameraController.LockCursor(false);
-
-		// 	RegisterWeapon();
-
-		// 	if (!BSystem.BSystem.inMenu) return; // only continue if in menu
-		// 	BSystem.BSystem.inMenu = false;
-		// 	BSystemUI.Instance.SetActive(false);
 		// }
 
-		// private void RegisterWeapon()
+		// /// <summary>
+		// /// Toggle off the shop menu
+		// /// </summary>
+		// private void ExitShopMenu()
 		// {
-		// 	foreach (ItemSlot slot in slots)
-		// 	{
-		// 		if (!slot.item.itemSO) continue; // if null continue
-
-		// 		bool alreadyRegistered =
-		// 			_weaponWheelSystem.weapons.Any(item => item.WeaponName == slot.item.itemSO.uniqueName);
-
-		// 		if (!alreadyRegistered)
-		// 		{
-		// 			WeaponWheelItem weaponItem = new WeaponWheelItem
-		// 			{
-		// 				WeaponName = slot.item.itemSO.uniqueName,
-		// 				InfoText = slot.item.itemSO.tooltipText,
-		// 				type = slot.item.itemSO.weaponType
-		// 			};
-
-		// 			_weaponWheelSystem.weapons.Add(weaponItem);
-
-		// 			if (weaponItem.type == ItemSO.WeaponType.Item)
-		// 			{
-		// 				_weaponWheelSystem.weapons.Remove(weaponItem);
-		// 			}
-		// 		}
-		// 	}
-		// }
-
-		// private void ExitWeaponWheel()
-		// {
-		// 	UIPlayerInventory.WeaponWheel.SetActive(false);
+		// 	UIPlayerInventory.SetActive(false);
+		// 	UIPlayerInventory.InventoryUI.SetActive(false);
 		// 	TPController.TPCameraController.LockCursor(true);
-		// 	isWeaponWheelActive = false;
 		// }
 
-		// private void UpdateWeaponWheel()
-		// {
-		// 	_rectTransform.anchoredPosition3D = Input.mousePosition;
-		// 	_weaponWheelSystem.MousePositionText.text = Input.mousePosition.ToString(); // set text of weapon system to mouse position on screen
-		// 	Cursor.lockState = CursorLockMode.None;
-		// 	Cursor.visible = true;
-		// }
-
-		// private void DeactivateWeaponWheel()
-		// {
-		// 	UIPlayerInventory.WeaponWheel.SetActive(false);
-
-		// 	if (!BSystem.BSystem.inMenu && !inMenu && !_emoteWheel.inEmoteWheel && !inShop && !_chatSystem.isChatOpen)
-		// 	{
-		// 		TPController.TPCameraController.LockCursor(true);
-		// 		Cursor.lockState = CursorLockMode.Locked;
-		// 		Cursor.visible = false;
-		// 	}
-
-		// 	isWeaponWheelActive = false;
-		// 	inWeaponWheel = false;
-		// }
-
+		// #endregion
 
 		/// <summary>
 		/// Toggles the emote wheel. This looks a mess. And must have a massive amount of other ways to do this
 		/// </summary>
 		public void EmoteWheelUIToggle()
 		{
-			if (!BSystem.BSystem.inMenu && !inWeaponWheel && !GetComponent<EmoteWheel>().inEmoteWheel &&
+			if (!BSystem.BSystem.inMenu && !WeaponWheelManager.inWeaponWheel && !GetComponent<EmoteWheel>().inEmoteWheel &&
 				!inPropertyArea && !inShop && !inCar && !usesParachute && !this.GetComponent<EmoteWheel>().isPlayingAnimation &&
 				isAiming && !this.GetComponent<Health>().isDeath && _inputs.shoot && _slot.amount > 0 && _slot.item.itemSO != null && _slot.item.itemSO is WeaponItemSO weaponItemSO)
 			{
@@ -552,7 +452,7 @@ namespace RedicionStudio.InventorySystem
 		/// <param name="itemIndex">The index of the item that was changed</param>
 		/// <param name="oldItem">The old item before the change</param>
 		/// <param name="newItem">The new item after the change</param>
-		private void Slots_Callback(SyncList<ItemSlot>.Operation op, int itemIndex, ItemSlot oldItem, ItemSlot newItem)
+		public static void Slots_Callback(SyncList<ItemSlot>.Operation op, int itemIndex, ItemSlot oldItem, ItemSlot newItem)
 		{
 			UIPlayerInventory.InstanceRefresh();
 		}
