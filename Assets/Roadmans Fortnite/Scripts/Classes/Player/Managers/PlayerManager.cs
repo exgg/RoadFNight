@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Mirror;
 using Roadmans_Fortnite.EditorClasses;
+using Roadmans_Fortnite.Scripts.Classes.ScriptableObjects.Characters.Player_Characters;
+using Roadmans_Fortnite.Scripts.Classes.Stats;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,13 +17,18 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
         public List<ClassReference> classRef = new List<ClassReference>();
 
         public static Dictionary<ClassReference.Category, Dictionary<ClassReference.Keys, NetworkBehaviour>> CategorisedClasses;
-
-
+    
         private ClassReference _classReference;
+
+        public BasePlayerStats chosenCharacter;
+        public PlayableCharacterStats PlayerStats;
         
         private void Awake()
         {
+            PlayerStats = new PlayableCharacterStats(chosenCharacter);
             
+            
+            print($"Player Health: {PlayerStats.Health} Player Agility: {PlayerStats.Agility} Player Charisma: {PlayerStats.Charisma}");
         }
 
         private void Start()
