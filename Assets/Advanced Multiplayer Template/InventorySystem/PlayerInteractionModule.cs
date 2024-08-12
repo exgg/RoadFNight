@@ -100,7 +100,7 @@ public class PlayerInteractionModule : NetworkBehaviour
     /// <param name="itemPrice">price of the item</param>
     /// <param name="item">item information</param>
     /// <param name="amount">number of items purchased</param>
-    public void AddItem(PlayerInventoryModule player, int itemPrice, Item item, int amount)
+    public void AddItem(PlayerInventoryModule player, int itemPrice, RedicionStudio.InventorySystem.Item item, int amount)
     {
         if (instantiatedUIMessage != null)
             Destroy(instantiatedUIMessage);
@@ -121,7 +121,7 @@ public class PlayerInteractionModule : NetworkBehaviour
     }
 
     [Command]
-    public void CmdAddItem(PlayerInventoryModule player, int itemPrice, Item item, int amount)
+    public void CmdAddItem(PlayerInventoryModule player, int itemPrice, RedicionStudio.InventorySystem.Item item, int amount)
     {
         Player playerToGiveFunds;
         playerToGiveFunds = player.GetComponent<Player>();
