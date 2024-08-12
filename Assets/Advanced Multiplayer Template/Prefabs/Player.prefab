@@ -2105,10 +2105,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6144582471373555661}
   - component: {fileID: 3577237673956646845}
+  - component: {fileID: 7980001624564680849}
   - component: {fileID: 6620923452658758675}
   - component: {fileID: 1415447536970342930}
   - component: {fileID: -1612451488991402610}
-  - component: {fileID: -7177926160971466215}
   - component: {fileID: 3708651623189312706}
   - component: {fileID: 5630967227957478435}
   - component: {fileID: -8157208296288239210}
@@ -2189,6 +2189,26 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 39e0d3ebf059014429e8868a8d7f3d82
   hasSpawned: 0
+--- !u!114 &7980001624564680849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224220879548419888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93b006de7c100af45ae5ae79995d49ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  classRef:
+  - aClass: {fileID: 6620923452658758675}
+    className: 
+    key: 0
+    category: 2
+  chosenCharacter: {fileID: 11400000, guid: 8edeb45af08a71141bcfa1a6d978edfb, type: 2}
 --- !u!114 &6620923452658758675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2284,25 +2304,6 @@ MonoBehaviour:
       currentShelfLifeInSeconds: 0
     amount: 0
   _gFX: {fileID: 2610227527127011296}
---- !u!114 &-7177926160971466215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224220879548419888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c44506505f9fc5047b2452ab1e1b2405, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  _slot:
-    item:
-      hash: 0
-      currentShelfLifeInSeconds: 0
-    amount: 0
 --- !u!114 &3708651623189312706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3020,6 +3021,12 @@ MonoBehaviour:
   HasHandsUp: 0
   isfearful: 0
   isfearfulWalking: 0
+  _aiAnimator: {fileID: 0}
+  playerInteraction: {fileID: 0}
+  networkTransform: {fileID: 0}
+  thirdPersonController: {fileID: 0}
+  manageTpController: {fileID: 0}
+  health: {fileID: 0}
 --- !u!114 &4888422653724446150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25611,7 +25618,6 @@ GameObject:
   - component: {fileID: 5709884487979944247}
   - component: {fileID: 9004774675587868020}
   - component: {fileID: 1110899589669262049}
-
   - component: {fileID: 2827268961969981092}
   m_Layer: 0
   m_Name: CarTheftCamera
@@ -25734,7 +25740,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 537644173888313490}
-
 --- !u!114 &2827268961969981092
 MonoBehaviour:
   m_ObjectHideFlags: 0
