@@ -11,7 +11,9 @@ public class NewPlayerInventoryModule : NewInventory
 
     public int money;
 
-    private GameObject[] weapons = new GameObject[];
+    public static int maxWeapons = 10;
+
+    private GameObject[] weapons = new GameObject[maxWeapons];
 
     GameObject currentWeapon = null;
 
