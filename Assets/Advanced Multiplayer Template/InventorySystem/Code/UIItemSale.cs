@@ -9,7 +9,7 @@ public class UIItemSale : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(saleMode)
+        if (saleMode)
         {
             SellItem();
         }
@@ -17,9 +17,9 @@ public class UIItemSale : MonoBehaviour, IPointerClickHandler
 
     public void SellItem()
     {
-        RedicionStudio.InventorySystem.UISlot uiSlot;
-        uiSlot = GetComponent<RedicionStudio.InventorySystem.UISlot>();
+        // RedicionStudio.InventorySystem.UISlot uiSlot;
+        // uiSlot = GetComponent<RedicionStudio.InventorySystem.UISlot>();
 
-        uiSlot.playerInteractionModule.RemoveItem(uiSlot.playerInteractionModule.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>(), uiSlot.sellPrice, uiSlot.item, 1, uiSlot.itemSlotIndex);
+        // uiSlot.playerInteractionModule.RemoveItem(uiSlot.playerInteractionModule.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>(), uiSlot.sellPrice, uiSlot.item, 1, uiSlot.itemSlotIndex);
     }
 }
