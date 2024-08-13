@@ -1,11 +1,10 @@
 using Mirror;
-using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using Roadmans_Fortnite.EditorClasses;
 using Roadmans_Fortnite.Scripts.Classes.Player.Managers;
 using UnityEditor;
 using UnityEngine;
 
-namespace Roadmans_Fortnite.Editor.Editor_Addons
+namespace Roadmans_Fortnite.Editor.EditorAddons
 {
     [CustomEditor(typeof(PlayerManager))]
     public class PlayerManagerEditor : UnityEditor.Editor
