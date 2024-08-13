@@ -7,15 +7,23 @@ using Mirror;
 
 public class NewPlayerInventoryModule : NewInventory
 {
-    public int ammo;
+    public int ammoAmount;
 
     public int money;
 
     public static int maxWeapons = 10;
 
+    public static int maxSlots = 30;
+
     private GameObject[] weapons = new GameObject[maxWeapons];
 
+    private Item[] item = new Item[maxSlots];
+
     GameObject currentWeapon = null;
+
+    public static bool inMenu = false;
+
+    ItemSlot _slot;
 
     // Start is called before the first frame update
     void Start()
@@ -28,4 +36,19 @@ public class NewPlayerInventoryModule : NewInventory
     {
 
     }
+
+    void ShelfLifeCalculation()
+    {
+
+    }
+
+    void LoadInventory()
+    {
+        for (int i = 0; i < maxSlots; i++)
+        {
+
+        }
+    }
+
+
 }
