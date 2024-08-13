@@ -303,6 +303,15 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb3a8d51-a372-4dce-a2a9-17b6350ab232"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -347,6 +356,28 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""WeaponWheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a053148-2bf5-442f-be35-c2e9755e6f9a"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ada29f0f-8925-4dcd-a625-f469197bd662"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -407,6 +438,7 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
         m_Player_UI_Actions = asset.FindActionMap("Player_UI_Actions", throwIfNotFound: true);
         m_Player_UI_Actions_EmoteWheel = m_Player_UI_Actions.FindAction("EmoteWheel", throwIfNotFound: true);
         m_Player_UI_Actions_WeaponWheel = m_Player_UI_Actions.FindAction("WeaponWheel", throwIfNotFound: true);
+        m_Player_UI_Actions_Inventory = m_Player_UI_Actions.FindAction("Inventory", throwIfNotFound: true);
         // Player_Camera_Movement
         m_Player_Camera_Movement = asset.FindActionMap("Player_Camera_Movement", throwIfNotFound: true);
         m_Player_Camera_Movement_Look = m_Player_Camera_Movement.FindAction("Look", throwIfNotFound: true);
@@ -589,12 +621,14 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
     private List<IPlayer_UI_ActionsActions> m_Player_UI_ActionsActionsCallbackInterfaces = new List<IPlayer_UI_ActionsActions>();
     private readonly InputAction m_Player_UI_Actions_EmoteWheel;
     private readonly InputAction m_Player_UI_Actions_WeaponWheel;
+    private readonly InputAction m_Player_UI_Actions_Inventory;
     public struct Player_UI_ActionsActions
     {
         private @Player_Controls m_Wrapper;
         public Player_UI_ActionsActions(@Player_Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @EmoteWheel => m_Wrapper.m_Player_UI_Actions_EmoteWheel;
         public InputAction @WeaponWheel => m_Wrapper.m_Player_UI_Actions_WeaponWheel;
+        public InputAction @Inventory => m_Wrapper.m_Player_UI_Actions_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_Player_UI_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -610,6 +644,9 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
             @WeaponWheel.started += instance.OnWeaponWheel;
             @WeaponWheel.performed += instance.OnWeaponWheel;
             @WeaponWheel.canceled += instance.OnWeaponWheel;
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
         }
 
         private void UnregisterCallbacks(IPlayer_UI_ActionsActions instance)
@@ -620,6 +657,9 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
             @WeaponWheel.started -= instance.OnWeaponWheel;
             @WeaponWheel.performed -= instance.OnWeaponWheel;
             @WeaponWheel.canceled -= instance.OnWeaponWheel;
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
         }
 
         public void RemoveCallbacks(IPlayer_UI_ActionsActions instance)
@@ -698,6 +738,7 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
     {
         void OnEmoteWheel(InputAction.CallbackContext context);
         void OnWeaponWheel(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
     public interface IPlayer_Camera_MovementActions
     {
