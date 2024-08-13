@@ -2106,6 +2106,7 @@ GameObject:
   - component: {fileID: 6144582471373555661}
   - component: {fileID: 3577237673956646845}
   - component: {fileID: 7980001624564680849}
+  - component: {fileID: 533594922165006867}
   - component: {fileID: 6620923452658758675}
   - component: {fileID: 1415447536970342930}
   - component: {fileID: -1612451488991402610}
@@ -2209,6 +2210,36 @@ MonoBehaviour:
     key: 0
     category: 2
   chosenCharacter: {fileID: 11400000, guid: 8edeb45af08a71141bcfa1a6d978edfb, type: 2}
+--- !u!114 &533594922165006867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224220879548419888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e4f498219ea1764c90595a749424610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontal: 0
+  vertical: 0
+  moveAmount: 0
+  sprintInput: 0
+  jumpInput: 0
+  aimInput: 0
+  shootInput: 0
+  jump: 0
+  roll: 0
+  emoteWheelInput: 0
+  weaponWheelInput: 0
+  camHorizontal: 0
+  camVertical: 0
+  camMoveAmount: 0
+  isAiming: 0
+  isShooting: 0
+  isInteracting: 0
+  isInMenu: 0
 --- !u!114 &6620923452658758675
 MonoBehaviour:
   m_ObjectHideFlags: 0

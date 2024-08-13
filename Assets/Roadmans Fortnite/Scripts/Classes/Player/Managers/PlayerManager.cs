@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Mirror;
 using Roadmans_Fortnite.EditorClasses;
+using Roadmans_Fortnite.Scripts.Classes.Player.Input;
 using Roadmans_Fortnite.Scripts.Classes.ScriptableObjects.Characters.Player_Characters;
 using Roadmans_Fortnite.Scripts.Classes.Stats;
 using Unity.VisualScripting;
@@ -22,11 +23,14 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
 
         public BasePlayerStats chosenCharacter;
         public PlayableCharacterStats PlayerStats;
+
+        private InputHandler _inputHandler;
         
         private void Awake()
         {
             PlayerStats = new PlayableCharacterStats(chosenCharacter);
-            
+
+            _inputHandler = GetComponent<InputHandler>();
             
             print($"Player Health: {PlayerStats.Health} Player Agility: {PlayerStats.Agility} Player Charisma: {PlayerStats.Charisma}");
         }
@@ -44,7 +48,9 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
         
         private void Update()
         {
+            var delta = Time.deltaTime;
             
+            _inputHandler.TickInput(delta);
         }
 
         private void FixedUpdate()

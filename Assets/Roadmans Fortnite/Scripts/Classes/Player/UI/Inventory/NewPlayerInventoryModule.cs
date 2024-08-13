@@ -11,7 +11,7 @@ public class NewPlayerInventoryModule : NewInventory
 
     public int money;
 
-    private GameObject[] weapons = new GameObject[];
+    private GameObject[] weapons = new GameObject[10];
 
     GameObject currentWeapon = null;
 
