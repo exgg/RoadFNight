@@ -169,16 +169,7 @@ public class ManageTPController : NetworkBehaviour
 
                 CurrentWeaponManager.debugTransform.position = ray.GetPoint(20f);
                 mouseWorldPosition = ray.GetPoint(20f);
-                /*if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, CurrentWeaponManager.aimColliderLayerMask))
-                {
-                    CurrentWeaponManager.debugTransform.position = raycastHit.point;
-                    mouseWorldPosition = raycastHit.point;
-                }
-                else
-                {
-                    CurrentWeaponManager.debugTransform.position = ray.GetPoint(20f);
-                    mouseWorldPosition = ray.GetPoint(20f);
-                }*/
+              
 
                 Vector3 worldAimTarget = mouseWorldPosition;
                 worldAimTarget.y = CurrentWeaponManager.Player.position.y;
