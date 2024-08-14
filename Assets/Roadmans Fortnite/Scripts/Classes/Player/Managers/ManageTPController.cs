@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Mirror;
 using Cinemachine;
+using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
 using StarterAssets;
 using UnityEngine.Animations.Rigging;
 

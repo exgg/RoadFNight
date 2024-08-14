@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
 using UnityEngine;
 
 public class ItemShopInteraction : MonoBehaviour
@@ -92,7 +93,7 @@ public class ItemShopInteraction : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if(other.GetComponent<StarterAssets.ThirdPersonController>().enabled == true)
+            if(other.GetComponent<ThirdPersonController>().enabled == true)
             {
                 player = other.gameObject;
                 inTrigger = true;
@@ -105,7 +106,7 @@ public class ItemShopInteraction : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (other.GetComponent<StarterAssets.ThirdPersonController>().enabled == true)
+            if (other.GetComponent<ThirdPersonController>().enabled == true)
             {
                 player = null;
                 inTrigger = false;

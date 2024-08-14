@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
 using StarterAssets;
 
 public class EmoteWheel : NetworkBehaviour

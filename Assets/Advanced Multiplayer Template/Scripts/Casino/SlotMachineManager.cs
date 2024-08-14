@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 using Mirror;
+using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
 
 namespace RedicionStudio.Casino
 {
@@ -181,7 +182,7 @@ namespace RedicionStudio.Casino
         {
             if (other.tag == "Player")
             {
-                if (other.GetComponent<StarterAssets.ThirdPersonController>().enabled == true)
+                if (other.GetComponent<ThirdPersonController>().enabled == true)
                 {
                     player = other.gameObject;
                     inTrigger = true;
@@ -194,7 +195,7 @@ namespace RedicionStudio.Casino
         {
             if (other.tag == "Player")
             {
-                if (other.GetComponent<StarterAssets.ThirdPersonController>().enabled == true)
+                if (other.GetComponent<ThirdPersonController>().enabled == true)
                 {
                     player = null;
                     inTrigger = false;

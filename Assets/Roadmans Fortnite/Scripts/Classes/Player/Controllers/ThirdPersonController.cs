@@ -1,13 +1,11 @@
 ﻿using Roadmans_Fortnite.Scripts.Classes.Player.Input;
 using UnityEngine;
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
-#endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
-namespace StarterAssets
+namespace Roadmans_Fortnite.Scripts.Classes.Player.Controllers
 {
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
@@ -142,7 +140,7 @@ namespace StarterAssets
             _blockCamera = blockCamera;
         }
 
-        private void Start()
+        public void TPStart()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
@@ -168,6 +166,10 @@ namespace StarterAssets
         {
             if (_blockMovement) return;
             
+            if(_input == null)
+                Debug.Log("There is an issue with input reference");
+            
+            
             _hasAnimator = TryGetComponent(out _animator);
             
             JumpAndGravity();
@@ -184,12 +186,7 @@ namespace StarterAssets
             CameraRotation();
         }
 
-        private void LateUpdate()
-        {
-            if (_blockCamera) return;
-           
-        }
-
+    
         /// <summary>
         /// sets up the IDs for animations for later use in the animator and
         /// to project them onto the server
@@ -227,13 +224,14 @@ namespace StarterAssets
         private void CameraRotation()
         {
             // if there is an input and camera position is not fixed
+            
             if (_input.camMoveInput.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.camHorizontal * deltaTimeMultiplier * Sensitivity;
-                _cinemachineTargetPitch += _input.camVertical * deltaTimeMultiplier * Sensitivity;
+                _cinemachineTargetYaw += _input.camMoveInput.x * deltaTimeMultiplier * Sensitivity;
+                _cinemachineTargetPitch += _input.camMoveInput.y * deltaTimeMultiplier * Sensitivity;
             }
 
             // clamp our rotations so our values are limited 360 degrees

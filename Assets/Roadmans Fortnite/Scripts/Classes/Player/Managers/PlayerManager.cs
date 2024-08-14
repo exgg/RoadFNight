@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using Mirror;
 using Roadmans_Fortnite.EditorClasses;
+using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
 using Roadmans_Fortnite.Scripts.Classes.Player.Input;
 using Roadmans_Fortnite.Scripts.Classes.ScriptableObjects.Characters.Player_Characters;
 using Roadmans_Fortnite.Scripts.Classes.Stats;
+using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
+using StarterAssets;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
 {
@@ -23,6 +27,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
 
         public BasePlayerStats chosenCharacter;
         public PlayableCharacterStats PlayerStats;
+        public ThirdPersonController thirdPersonController;
 
         private InputHandler _inputHandler;
         
@@ -31,6 +36,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
             PlayerStats = new PlayableCharacterStats(chosenCharacter);
 
             _inputHandler = GetComponent<InputHandler>();
+            thirdPersonController = GetComponent<ThirdPersonController>();
             
             print($"Player Health: {PlayerStats.Health} Player Agility: {PlayerStats.Agility} Player Charisma: {PlayerStats.Charisma}");
         }
@@ -38,7 +44,9 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
         private void Start()
         {
             InitializeClasses();
-
+            
+            thirdPersonController.TPStart();
+            
             var tester = GetClass<global::Player>(ClassReference.Category.Player, ClassReference.Keys.PlayerBase);
 
             if (tester == null) return;
@@ -51,11 +59,12 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
             var delta = Time.deltaTime;
             
             _inputHandler.TickInput(delta);
+            thirdPersonController.TickUpdate();
         }
 
         private void FixedUpdate()
         {
-            
+            thirdPersonController.TickLateUpdate();
         }
 
         private void LateUpdate()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
 using UnityEngine.InputSystem;
 using StarterAssets;
 

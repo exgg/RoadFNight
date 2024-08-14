@@ -112,6 +112,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Input
         private void PlayerCameraMovementInputs()
         {
             _playerControls.Player_Camera_Movement.Look.performed += ctx => camMoveInput = ctx.ReadValue<Vector2>();
+            _playerControls.Player_Camera_Movement.Look.canceled += ctx => camMoveInput = ctx.ReadValue<Vector2>();
         }
         
         #endregion

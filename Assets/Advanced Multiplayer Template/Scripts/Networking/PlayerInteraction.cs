@@ -3,6 +3,7 @@ using Mirror;
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
+using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VehicleEnterExit;
