@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Roadmans_Fortnite.Scripts.Classes.Player.Input;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -15,6 +16,7 @@ namespace StarterAssets
     public class ThirdPersonController : MonoBehaviour
     {
         public bool shouldRotateToCameraFaceInputDirection = false;
+        
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -101,7 +103,7 @@ namespace StarterAssets
 #endif
         private Animator _animator;
         private CharacterController _controller;
-        private StarterAssetsInputs _input;
+        private InputHandler _input;
         private GameObject _mainCamera;
         private bool _rotateOnMove = true;
 
@@ -146,8 +148,9 @@ namespace StarterAssets
 
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
-            //_input = GetComponent<StarterAssetsInputs>();
-            _input = GameObject.FindGameObjectWithTag("InputManager").GetComponent<StarterAssetsInputs>();
+            
+            _input = GetComponent<InputHandler>();
+            
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
             _playerInput = GameObject.FindGameObjectWithTag("InputManager").GetComponent<PlayerInput>();
 #else
@@ -161,31 +164,30 @@ namespace StarterAssets
             _fallTimeoutDelta = FallTimeout;
         }
 
-        private void Update()
+        public void TickUpdate()
         {
             if (_blockMovement) return;
-
-            if (RedicionStudio.InventorySystem.PlayerInventoryModule.inMenu || this.GetComponent<RedicionStudio.InventorySystem.PlayerInventoryModule>().inShop || this.GetComponent<Health>().isDeath == true)
-            {
-                LockCameraPosition = true;
-                return;
-            }
-            LockCameraPosition = false;
-            if (RedicionStudio.InventorySystem.WeaponWheelManager.inWeaponWheel || GetComponent<EmoteWheel>().inEmoteWheel)
-            {
-                LockCameraPosition = true;
-            }
+            
             _hasAnimator = TryGetComponent(out _animator);
-
+            
             JumpAndGravity();
             GroundedCheck();
             Move();
+            
+            
+        }
+
+        public void TickLateUpdate()
+        {
+            if (_blockMovement) return;
+            
+            CameraRotation();
         }
 
         private void LateUpdate()
         {
             if (_blockCamera) return;
-            CameraRotation();
+           
         }
 
         /// <summary>
@@ -225,13 +227,13 @@ namespace StarterAssets
         private void CameraRotation()
         {
             // if there is an input and camera position is not fixed
-            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+            if (_input.camMoveInput.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * Sensitivity;
-                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * Sensitivity;
+                _cinemachineTargetYaw += _input.camHorizontal * deltaTimeMultiplier * Sensitivity;
+                _cinemachineTargetPitch += _input.camVertical * deltaTimeMultiplier * Sensitivity;
             }
 
             // clamp our rotations so our values are limited 360 degrees
@@ -246,19 +248,19 @@ namespace StarterAssets
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = _input.sprintInput ? SprintSpeed : MoveSpeed; // CHANGE THIS TO ACCOMMODATE FOR PLAYER STATS
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+            if (_input.moveInput == Vector2.zero) targetSpeed = 0.0f;
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
             float speedOffset = 0.1f;
-            float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
+            float inputMagnitude = _input.analogMovement ? _input.moveInput.magnitude : 1f;
 
             // accelerate or decelerate to target speed
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
@@ -281,11 +283,11 @@ namespace StarterAssets
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             // normalise input direction
-            Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+            Vector3 inputDirection = new Vector3(_input.moveInput.x, 0.0f, _input.moveInput.y).normalized;
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (_input.move != Vector2.zero || shouldRotateToCameraFaceInputDirection)
+            if (_input.moveInput != Vector2.zero || shouldRotateToCameraFaceInputDirection)
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _mainCamera.transform.eulerAngles.y;
@@ -335,7 +337,7 @@ namespace StarterAssets
                 }
 
                 // Jump
-                if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+                if (_input.jumpInput && _jumpTimeoutDelta <= 0.0f)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -373,7 +375,7 @@ namespace StarterAssets
                 }
 
                 // if we are not grounded, do not jump
-                _input.jump = false;
+                _input.jumpInput = false;
             }
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)

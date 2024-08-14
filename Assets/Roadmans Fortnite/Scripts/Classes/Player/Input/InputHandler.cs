@@ -5,10 +5,22 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Input
 {
     public class InputHandler : MonoBehaviour
     {
+        [Header("Movement Settings")] 
+        public bool analogMovement;
+
+        [Header("Mouse Cursor Settings")] 
+        public bool cursorLocked = true;
+        public bool cursorInputForLook = true;
+        
         [Header("Movement Input")]
         public float horizontal;
         public float vertical;
         public float moveAmount;
+        
+        [Header("Camera Inputs")] 
+        public float camHorizontal;
+        public float camVertical;
+        public float camMoveAmount;
         
         [Space]
         public bool sprintInput;
@@ -21,17 +33,16 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Input
         [Header("UI Inputs")]
         public bool emoteWheelInput;
         public bool weaponWheelInput;
-
-        [Header("Camera Inputs")] 
-        public float camHorizontal;
-        public float camVertical;
-        public float camMoveAmount;
+        public bool escapeMenuInput;
+        public bool inventoryInput;
+        
+     
         
         // public bool findCover;  this is pseudo
 
         //private vector 2s
-        private Vector2 _moveInput;
-        private Vector2 _camMoveInput;
+        public Vector2 moveInput;
+        public Vector2 camMoveInput;
         
         private Player_Controls _playerControls;
 
@@ -64,8 +75,8 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Input
         private void PlayerMovementInputs()
         {
             // movement input, this will need modification to allow for a virtual joystick adaptation
-            _playerControls.Player_Movement.Move.performed += ctx => _moveInput = ctx.ReadValue<Vector2>();
-            _playerControls.Player_Movement.Move.canceled += ctx => _moveInput = ctx.ReadValue<Vector2>();
+            _playerControls.Player_Movement.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+            _playerControls.Player_Movement.Move.canceled += ctx => moveInput = ctx.ReadValue<Vector2>();
                 
             _playerControls.Player_Movement.Sprint.performed += ctx => sprintInput = true;
             _playerControls.Player_Movement.Sprint.canceled += ctx => sprintInput = false;
@@ -91,11 +102,16 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Input
             
             _playerControls.Player_UI_Actions.WeaponWheel.performed += ctx => weaponWheelInput = true;
             _playerControls.Player_UI_Actions.WeaponWheel.canceled += ctx => weaponWheelInput = false;
+
+            _playerControls.Player_UI_Actions.Inventory.performed += ctx => inventoryInput = !inventoryInput; // this should toggle the inventory bool
+            _playerControls.Player_UI_Actions.Menu.performed += ctx => escapeMenuInput = !escapeMenuInput;
+
+
         }
 
         private void PlayerCameraMovementInputs()
         {
-            _playerControls.Player_Camera_Movement.Look.performed += ctx => _camMoveInput = ctx.ReadValue<Vector2>();
+            _playerControls.Player_Camera_Movement.Look.performed += ctx => camMoveInput = ctx.ReadValue<Vector2>();
         }
         
         #endregion
@@ -117,8 +133,8 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Input
 
         private void HandleMoveInput()
         {
-            horizontal = _moveInput.x;
-            vertical = _moveInput.y;
+            horizontal = moveInput.x;
+            vertical = moveInput.y;
 
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
         }
@@ -126,8 +142,8 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Input
 
         private void HandleCameraMoveInput()
         {
-            camHorizontal = _camMoveInput.x;
-            camVertical = _camMoveInput.y;
+            camHorizontal = camMoveInput.x;
+            camVertical = camMoveInput.y;
 
             camMoveAmount = Mathf.Clamp01(Mathf.Abs(camHorizontal) + camVertical);
         }

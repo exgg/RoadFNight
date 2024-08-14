@@ -312,6 +312,15 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""89acffde-4874-4e5a-b1b1-2e59378d0bfa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -380,6 +389,28 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a4f7b4a-26cc-4f53-a231-65072781b4a2"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c865c746-b202-400f-ae98-e31e7babcdf8"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -423,7 +454,55 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""KeyboardMouse"",
+            ""bindingGroup"": ""KeyboardMouse"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<XInputController>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<DualShockGamepad>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""PS4 Controller"",
+            ""bindingGroup"": ""PS4 Controller"",
+            ""devices"": []
+        },
+        {
+            ""name"": ""Xbox Controller"",
+            ""bindingGroup"": ""Xbox Controller"",
+            ""devices"": []
+        }
+    ]
 }");
         // Player_Movement
         m_Player_Movement = asset.FindActionMap("Player_Movement", throwIfNotFound: true);
@@ -439,6 +518,7 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
         m_Player_UI_Actions_EmoteWheel = m_Player_UI_Actions.FindAction("EmoteWheel", throwIfNotFound: true);
         m_Player_UI_Actions_WeaponWheel = m_Player_UI_Actions.FindAction("WeaponWheel", throwIfNotFound: true);
         m_Player_UI_Actions_Inventory = m_Player_UI_Actions.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_UI_Actions_Menu = m_Player_UI_Actions.FindAction("Menu", throwIfNotFound: true);
         // Player_Camera_Movement
         m_Player_Camera_Movement = asset.FindActionMap("Player_Camera_Movement", throwIfNotFound: true);
         m_Player_Camera_Movement_Look = m_Player_Camera_Movement.FindAction("Look", throwIfNotFound: true);
@@ -622,6 +702,7 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_UI_Actions_EmoteWheel;
     private readonly InputAction m_Player_UI_Actions_WeaponWheel;
     private readonly InputAction m_Player_UI_Actions_Inventory;
+    private readonly InputAction m_Player_UI_Actions_Menu;
     public struct Player_UI_ActionsActions
     {
         private @Player_Controls m_Wrapper;
@@ -629,6 +710,7 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
         public InputAction @EmoteWheel => m_Wrapper.m_Player_UI_Actions_EmoteWheel;
         public InputAction @WeaponWheel => m_Wrapper.m_Player_UI_Actions_WeaponWheel;
         public InputAction @Inventory => m_Wrapper.m_Player_UI_Actions_Inventory;
+        public InputAction @Menu => m_Wrapper.m_Player_UI_Actions_Menu;
         public InputActionMap Get() { return m_Wrapper.m_Player_UI_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -647,6 +729,9 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @Menu.started += instance.OnMenu;
+            @Menu.performed += instance.OnMenu;
+            @Menu.canceled += instance.OnMenu;
         }
 
         private void UnregisterCallbacks(IPlayer_UI_ActionsActions instance)
@@ -660,6 +745,9 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @Menu.started -= instance.OnMenu;
+            @Menu.performed -= instance.OnMenu;
+            @Menu.canceled -= instance.OnMenu;
         }
 
         public void RemoveCallbacks(IPlayer_UI_ActionsActions instance)
@@ -723,6 +811,42 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
         }
     }
     public Player_Camera_MovementActions @Player_Camera_Movement => new Player_Camera_MovementActions(this);
+    private int m_KeyboardMouseSchemeIndex = -1;
+    public InputControlScheme KeyboardMouseScheme
+    {
+        get
+        {
+            if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("KeyboardMouse");
+            return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
+        }
+    }
+    private int m_GamepadSchemeIndex = -1;
+    public InputControlScheme GamepadScheme
+    {
+        get
+        {
+            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+            return asset.controlSchemes[m_GamepadSchemeIndex];
+        }
+    }
+    private int m_PS4ControllerSchemeIndex = -1;
+    public InputControlScheme PS4ControllerScheme
+    {
+        get
+        {
+            if (m_PS4ControllerSchemeIndex == -1) m_PS4ControllerSchemeIndex = asset.FindControlSchemeIndex("PS4 Controller");
+            return asset.controlSchemes[m_PS4ControllerSchemeIndex];
+        }
+    }
+    private int m_XboxControllerSchemeIndex = -1;
+    public InputControlScheme XboxControllerScheme
+    {
+        get
+        {
+            if (m_XboxControllerSchemeIndex == -1) m_XboxControllerSchemeIndex = asset.FindControlSchemeIndex("Xbox Controller");
+            return asset.controlSchemes[m_XboxControllerSchemeIndex];
+        }
+    }
     public interface IPlayer_MovementActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -739,6 +863,7 @@ public partial class @Player_Controls: IInputActionCollection2, IDisposable
         void OnEmoteWheel(InputAction.CallbackContext context);
         void OnWeaponWheel(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
     }
     public interface IPlayer_Camera_MovementActions
     {
