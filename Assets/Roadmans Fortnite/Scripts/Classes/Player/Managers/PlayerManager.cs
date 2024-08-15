@@ -6,6 +6,7 @@ using Roadmans_Fortnite.Scripts.Classes.Player.Input;
 using Roadmans_Fortnite.Scripts.Classes.ScriptableObjects.Characters.Player_Characters;
 using Roadmans_Fortnite.Scripts.Classes.Stats;
 using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
+using Roadmans_Fortnite.Scripts.Classes.Stats.Enums;
 using StarterAssets;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,6 +31,8 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
         public ThirdPersonController thirdPersonController;
 
         private InputHandler _inputHandler;
+
+        private BulletType _bulletUSed;
         
         private void Awake()
         {
@@ -64,17 +67,17 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
 
         private void FixedUpdate()
         {
-            thirdPersonController.TickLateUpdate();
+           
         }
 
         private void LateUpdate()
         {
-            
+            thirdPersonController.TickLateUpdate();
         }
 
         private void OnDestroy()
         {
-            
+          
         }
 
         private void OnEnable()

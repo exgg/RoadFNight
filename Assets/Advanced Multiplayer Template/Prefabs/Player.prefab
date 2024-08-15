@@ -2210,6 +2210,7 @@ MonoBehaviour:
     key: 0
     category: 2
   chosenCharacter: {fileID: 11400000, guid: 8edeb45af08a71141bcfa1a6d978edfb, type: 2}
+  thirdPersonController: {fileID: 0}
 --- !u!114 &533594922165006867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2222,20 +2223,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4f498219ea1764c90595a749424610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  analogMovement: 0
+  cursorLocked: 1
+  cursorInputForLook: 1
   horizontal: 0
   vertical: 0
   moveAmount: 0
+  camHorizontal: 0
+  camVertical: 0
+  camMoveAmount: 0
   sprintInput: 0
   jumpInput: 0
   aimInput: 0
   shootInput: 0
-  jump: 0
-  roll: 0
   emoteWheelInput: 0
   weaponWheelInput: 0
-  camHorizontal: 0
-  camVertical: 0
-  camMoveAmount: 0
+  escapeMenuInput: 0
+  inventoryInput: 0
+  moveInput: {x: 0, y: 0}
+  camMoveInput: {x: 0, y: 0}
   isAiming: 0
   isShooting: 0
   isInteracting: 0
@@ -2404,7 +2410,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 5
+  MaxDistance: 4.8890905
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

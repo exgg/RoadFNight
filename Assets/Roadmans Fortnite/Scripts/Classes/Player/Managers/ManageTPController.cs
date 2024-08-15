@@ -17,24 +17,30 @@ public class ManageTPController : NetworkBehaviour
     public Transform CurrentCartridgeEjectSpawnPoint;
     bool hasActiveWeapon;
     [HideInInspector] bool isShooting = false;
+    
     [Header("Player")]
     public Rig PlayerRig;
     public Transform SecondHandRig_target;
     public ThirdPersonController thirdPersonController;
     private StarterAssetsInputs _input;
     public Animator PlayerAnimator;
+    
     [Header("Camera")]
     public GameObject IdleCamera;
     public GameObject WeaponIdleCamera;
     public GameObject WeaponAimCamera;
     public GameObject FirstPersonIdleCamera;
     public Transform target;
+    
     [Header("Camera Modes")]
     public bool isFirstPerson = false;
+    
     [Header("Head Mesh")]
     public GameObject[] headMeshes;
+    
     [Header("Loading Screen")]
     public GameObject loadingScreenPrefab;
+    
     [Header("Car Theft")]
     public GameObject carTheftCamera;
 
@@ -85,57 +91,9 @@ public class ManageTPController : NetworkBehaviour
             this.GetComponent<Animator>().SetLayerWeight(1, 0);
         }
     }
-
-    /// <summary>
-    /// Toggles the camera to the players character camera and turns off the vehicle camera for the cinema-chine
-    /// sets the camera to follow the player character
-    /// </summary>
-    public void StickCameraToPlayer()
-    {
-        Camera vehicleCam = GetVehicleCamera();
-        vehicleCam.enabled = false;
-
-        CinemachineVirtualCamera playerCam = GetPlayerCamera();
-        playerCam.enabled = true;
-        playerCam.Follow = target;
-    }
-
-    /// <summary>
-    /// Toggles the camera to the vehicle camera and turns off the players character camera for the cinema-chine
-    /// sets the camera to follow the vehicle the player is in
-    /// </summary>
-    public void StickCameraToVehicle(Transform followTransform)
-    {
-        Camera vehicleCam = GetVehicleCamera();
-        vehicleCam.GetComponent<CameraFollow>().car = followTransform;
-        vehicleCam.enabled = true;
-
-        CinemachineVirtualCamera playerCam = GetPlayerCamera();
-        playerCam.enabled = false;
-    }
-
-    /// <summary>
-    /// Finds the vehicle camera via GameObject.Find then gets its camera component and returns it
-    /// </summary>
-    /// <returns></returns>
-    Camera GetVehicleCamera()
-    {
-        GameObject pfc = GameObject.Find("Camera_Vehicle");
-        Camera cvc = pfc.GetComponent<Camera>();
-        return cvc;
-    }
-    /// <summary>
-    /// Finds the player camera via GameObject.Find and finds the cinema-chine camera 
-    /// </summary>
-    /// <returns></returns>
-    CinemachineVirtualCamera GetPlayerCamera()
-    {
-        GameObject pfc = GameObject.Find("PlayerFollowCamera");
-        CinemachineVirtualCamera cvc = pfc.GetComponent<CinemachineVirtualCamera>();
-        return cvc;
-    }
-
-    void Update()
+    
+    
+      void Update()
     {
         if (isLocalPlayer)
         {
@@ -315,6 +273,57 @@ public class ManageTPController : NetworkBehaviour
             Weapons.SetActive(false);
     }
     
+
+    /// <summary>
+    /// Toggles the camera to the players character camera and turns off the vehicle camera for the cinema-chine
+    /// sets the camera to follow the player character
+    /// </summary>
+    public void StickCameraToPlayer()
+    {
+        Camera vehicleCam = GetVehicleCamera();
+        vehicleCam.enabled = false;
+
+        CinemachineVirtualCamera playerCam = GetPlayerCamera();
+        playerCam.enabled = true;
+        playerCam.Follow = target;
+    }
+
+    /// <summary>
+    /// Toggles the camera to the vehicle camera and turns off the players character camera for the cinema-chine
+    /// sets the camera to follow the vehicle the player is in
+    /// </summary>
+    public void StickCameraToVehicle(Transform followTransform)
+    {
+        Camera vehicleCam = GetVehicleCamera();
+        vehicleCam.GetComponent<CameraFollow>().car = followTransform;
+        vehicleCam.enabled = true;
+
+        CinemachineVirtualCamera playerCam = GetPlayerCamera();
+        playerCam.enabled = false;
+    }
+
+    /// <summary>
+    /// Finds the vehicle camera via GameObject.Find then gets its camera component and returns it
+    /// </summary>
+    /// <returns></returns>
+    Camera GetVehicleCamera()
+    {
+        GameObject pfc = GameObject.Find("Camera_Vehicle");
+        Camera cvc = pfc.GetComponent<Camera>();
+        return cvc;
+    }
+    /// <summary>
+    /// Finds the player camera via GameObject.Find and finds the cinema-chine camera 
+    /// </summary>
+    /// <returns></returns>
+    CinemachineVirtualCamera GetPlayerCamera()
+    {
+        GameObject pfc = GameObject.Find("PlayerFollowCamera");
+        CinemachineVirtualCamera cvc = pfc.GetComponent<CinemachineVirtualCamera>();
+        return cvc;
+    }
+
+  
     /// <summary>
     /// Begins shooting, then starts a coroutine to stop shooting after the animation length.
     /// This can be changed into a loop based style. So long as we log the animation length before we parse it
