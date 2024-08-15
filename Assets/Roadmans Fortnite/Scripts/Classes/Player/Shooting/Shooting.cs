@@ -1,34 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Mirror;
 
-public class Shooting : NetworkBehaviour
+namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Shooting : NetworkBehaviour
     {
 
-    }
+        public GameObject bulletPrefab;
+        public GameObject rocketPrefab;
+        public float bulletSpeed;
+        Transform _bulletSpawnPointPosition;
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Start is called before the first frame update
+        void Start()
+        {
 
-    }
+        }
 
-    public void AimWeapon()
-    {
-        // if (player NOT in any menu && NOT emoting && NOT dead && has weapon equiped) {CmdAim()}
-    }
+        // Update is called once per frame
+        void Update()
+        {
 
-    public ShootWeapon()
-    {
+        }
 
-    }
+        public void AimWeapon()
+        {
+            // if (player NOT in any menu && NOT emoting && NOT dead && has weapon equiped) {CmdAim()}
+        }
 
-    [Command]
-    public void CmdAim()
-    {
-        TPControllerManager.aimValue = 1;
+        public void ShootWeapon()
+        {
+
+        }
+
+        [Command]
+        public void CmdAim()
+        {
+            // TPControllerManager.aimValue = 1;
+        }
     }
 }

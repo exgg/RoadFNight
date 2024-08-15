@@ -7,7 +7,7 @@ using Mirror;
 namespace Roadmans_Fortnite.Scripts.Classes.Player.UI.Inventory
 {
 
-    public abstract class NewInventory : NetworkBehaviour
+    public class NewInventory : MonoBehaviour
     {
         public int cash;
 
@@ -36,6 +36,11 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.UI.Inventory
 
         }
 
-        public abstract class LoadInventory : NetworkBehaviour { }
+        public virtual void LoadInventory()
+        {
+
+        }
+
     }
+
 }
