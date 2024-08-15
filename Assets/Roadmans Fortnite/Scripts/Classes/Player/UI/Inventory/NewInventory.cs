@@ -38,7 +38,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.UI.Inventory
 
         public virtual void LoadInventory()
         {
-
+            
         }
 
     }
