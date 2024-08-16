@@ -2105,17 +2105,17 @@ GameObject:
   m_Component:
   - component: {fileID: 6144582471373555661}
   - component: {fileID: 3577237673956646845}
+  - component: {fileID: 1415447536970342930}
+  - component: {fileID: 2839856928493419607}
   - component: {fileID: 7980001624564680849}
   - component: {fileID: 533594922165006867}
   - component: {fileID: 6620923452658758675}
-  - component: {fileID: 1415447536970342930}
   - component: {fileID: -1612451488991402610}
   - component: {fileID: 3708651623189312706}
   - component: {fileID: 5630967227957478435}
   - component: {fileID: -8157208296288239210}
   - component: {fileID: -8999880934896529054}
   - component: {fileID: 629454742471315189}
-  - component: {fileID: 2839856928493419607}
   - component: {fileID: -653677055324496180}
   - component: {fileID: 7039401830842898382}
   - component: {fileID: 6354997286238542217}
@@ -2190,6 +2190,51 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 39e0d3ebf059014429e8868a8d7f3d82
   hasSpawned: 0
+--- !u!114 &1415447536970342930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224220879548419888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 0
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &2839856928493419607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224220879548419888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  animator: {fileID: 629454742471315189}
 --- !u!114 &7980001624564680849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2271,35 +2316,6 @@ MonoBehaviour:
   propertyArea: {fileID: 0}
   _nameplateCanvas: {fileID: 2944359548063354205}
   _nameplateText: {fileID: 6879471369532616423}
---- !u!114 &1415447536970342930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224220879548419888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 1
-  sendInterval: 0.05
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 0
-  bufferTimeMultiplier: 1
-  bufferSizeLimit: 64
-  catchupThreshold: 4
-  catchupMultiplier: 0.1
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!114 &-1612451488991402610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2506,22 +2522,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2839856928493419607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224220879548419888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 1
-  animator: {fileID: 629454742471315189}
 --- !u!136 &-653677055324496180
 CapsuleCollider:
   m_ObjectHideFlags: 0
