@@ -2,6 +2,9 @@ using System;
 using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.Serialization;
+
 
 namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
 {
@@ -12,6 +15,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
         public GameObject signUpPanel;
         public GameObject mainMenuPanel;
         public GameObject invalidUserPass;
+
+        public Button rememberMeButton;
+        public Button signupButton;
         
         public InputField emailField;
         public InputField passwordField;
@@ -21,6 +27,8 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
         public Text playerLevelText;
         
         public Text playerStatsText; // this is incorrect, I will need more for this, a full new UI
+
+        private bool _rememberMe;
         
         // Check if logged in
         // check player-prefs if logged in before,
@@ -84,10 +92,20 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
 
             CreateAccount(email, password, username);
         }
-
+        
         public void OnRetryLogin()
         {
             invalidUserPass.SetActive(false);
+        }
+
+        public void OnRememberMe()
+        {
+            _rememberMe = !_rememberMe;
+            if(_rememberMe)
+                rememberMeButton.image.color = Color.green;
+            else
+                rememberMeButton.image.color = Color.white;
+
         }
         
         // make an account
