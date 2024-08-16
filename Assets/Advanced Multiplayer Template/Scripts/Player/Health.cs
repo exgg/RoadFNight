@@ -46,7 +46,7 @@ public class Health : NetworkBehaviour
 
     GameObject[] playerSpawnPoints;
 
-    Player player;
+    NetPlayer _netPlayer;
 
     PlayerAI playerAI;
     CapsuleCollider myCapsuleCollider;
@@ -61,7 +61,7 @@ public class Health : NetworkBehaviour
 
     private void Start()
     {
-        username = this.GetComponent<Player>().username;
+        username = this.GetComponent<NetPlayer>().username;
 
         playerSpawnPoints = GameObject.FindGameObjectsWithTag("PlayerSpawnPoint");
 

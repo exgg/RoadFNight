@@ -21,9 +21,9 @@ public class MaterialIdentifier : MonoBehaviour
             ContactPoint contact = collision.contacts[0];
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
             Vector3 pos = contact.point;
-            if (collision.gameObject.GetComponent<NetworkBullet>() != null & GetComponent<Player>() != null)
+            if (collision.gameObject.GetComponent<NetworkBullet>() != null & GetComponent<NetPlayer>() != null)
             {
-                if (collision.gameObject.GetComponent<NetworkBullet>().shooterUsername != GetComponent<Player>().username)
+                if (collision.gameObject.GetComponent<NetworkBullet>().shooterUsername != GetComponent<NetPlayer>().username)
                     SpawnHitEffect(pos, rot);
             }
         }

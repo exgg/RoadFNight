@@ -50,7 +50,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
             
             thirdPersonController.TPStart();
             
-            var tester = GetClass<global::Player>(ClassReference.Category.Player, ClassReference.Keys.PlayerBase);
+            var tester = GetClass<global::NetPlayer>(ClassReference.Category.Player, ClassReference.Keys.PlayerBase);
 
             if (tester == null) return;
             

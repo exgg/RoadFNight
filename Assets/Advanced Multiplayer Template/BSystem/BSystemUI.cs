@@ -88,10 +88,10 @@ public class BSystemUI : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (Player.localPlayer == null) {
+		if (NetPlayer.LocalNetPlayer == null) {
 			return;
 		}
-		_accountInfoText.text = "Funds: " + Player.localPlayer.funds + '$';
+		_accountInfoText.text = "Funds: " + NetPlayer.LocalNetPlayer.funds + '$';
 	}
 
 	public bool Active => _content.activeSelf;

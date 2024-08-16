@@ -11,12 +11,12 @@ public class UIHUD : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI _healthText;
 
     private void Update() {
-		if (Player.localPlayer == null) {
+		if (NetPlayer.LocalNetPlayer == null) {
 			return;
 		}
 
-		_nutritionSlider.value = Player.localPlayer.playerNutrition.value;
-		_nutritionText.text = "Nutrition: " + Player.localPlayer.playerNutrition.value + "/100";
+		_nutritionSlider.value = NetPlayer.LocalNetPlayer.playerNutrition.value;
+		_nutritionText.text = "Nutrition: " + NetPlayer.LocalNetPlayer.playerNutrition.value + "/100";
 
         _healthSlider.value = Health.localPlayer.currentHealth;
         _healthText.text = "Health: " + Health.localPlayer.currentHealth + "/100";

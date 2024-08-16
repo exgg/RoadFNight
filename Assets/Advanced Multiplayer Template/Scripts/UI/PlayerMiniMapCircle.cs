@@ -12,7 +12,7 @@ public class PlayerMiniMapCircle : MonoBehaviour
 
     private void Update()
     {
-        SetCircleColor(Player.localPlayer != null);
+        SetCircleColor(NetPlayer.LocalNetPlayer != null);
     }
 
     public void SetCircleColor(bool isLocal)

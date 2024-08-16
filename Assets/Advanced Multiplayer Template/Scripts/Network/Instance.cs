@@ -35,7 +35,7 @@ public class Instance : NetworkBehaviour {
         return instance;
 	}
 
-    public Dictionary<int, Player> players = new Dictionary<int, Player>();
+    public Dictionary<int, NetPlayer> players = new Dictionary<int, NetPlayer>();
 
     [Server]
     public void CreateWorldObjects(Instance _instance)
@@ -87,8 +87,8 @@ public class Instance : NetworkBehaviour {
     }
 
 	[Server]
-	public void AddPlayer(int id, Player player) {
-		players[id] = player;
+	public void AddPlayer(int id, NetPlayer netPlayer) {
+		players[id] = netPlayer;
 	}
 
 	[Server]

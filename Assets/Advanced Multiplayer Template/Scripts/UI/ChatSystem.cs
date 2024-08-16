@@ -14,7 +14,7 @@ public class ChatSystem : MonoBehaviour
 
     public void Awake()
     {
-        Player.OnMessage += OnPlayerMessage;
+        NetPlayer.OnMessage += OnPlayerMessage;
     }
 
     private void Update()
@@ -52,11 +52,11 @@ public class ChatSystem : MonoBehaviour
         }
     }
 
-    void OnPlayerMessage(Player player, string message)
+    void OnPlayerMessage(NetPlayer netPlayer, string message)
     {
-        string prettyMessage = player.isLocalPlayer ?
-            $"<color=blue>{player.username}: </color> {message}" :
-            $"<color=blue>{player.username}: </color> {message}";
+        string prettyMessage = netPlayer.isLocalPlayer ?
+            $"<color=blue>{netPlayer.username}: </color> {message}" :
+            $"<color=blue>{netPlayer.username}: </color> {message}";
         AppendMessage(prettyMessage);
     }
 
@@ -66,10 +66,10 @@ public class ChatSystem : MonoBehaviour
             return;
 
         // get our player
-        Player player = NetworkClient.connection.identity.GetComponent<Player>();
+        NetPlayer netPlayer = NetworkClient.connection.identity.GetComponent<NetPlayer>();
 
         // send a message
-        player.CmdSend(chatMessage.text.Trim());
+        netPlayer.CmdSend(chatMessage.text.Trim());
 
         chatMessage.text = "";
     }

@@ -347,7 +347,7 @@ namespace RedicionStudio.Casino
             _localPlayer = NetworkClient.localPlayer.gameObject;
 
 
-            if (_localPlayer.GetComponent<Player>().funds < amount)
+            if (_localPlayer.GetComponent<NetPlayer>().funds < amount)
             {
                 instantiatedUIMessage = Instantiate(UIMessagePrefab);
 

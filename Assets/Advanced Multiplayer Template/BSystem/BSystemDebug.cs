@@ -31,7 +31,7 @@ namespace BSystem {
 				return;
 			}
 
-			if (Player.localPlayer == null || BSystem.editMode) {
+			if (NetPlayer.LocalNetPlayer == null || BSystem.editMode) {
 				return;
 			}
 

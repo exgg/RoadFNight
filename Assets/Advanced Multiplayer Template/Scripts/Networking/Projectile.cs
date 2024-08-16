@@ -56,7 +56,7 @@ public class Projectile : NetworkBehaviour
         }
         if (collision.gameObject.GetComponent<Health>() != null)
         {
-            if (collision.gameObject.GetComponent<Player>().username == shooterUsername)
+            if (collision.gameObject.GetComponent<NetPlayer>().username == shooterUsername)
             {
                 Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
                 // To prevent the fired projectile from causing damage upon contact with the player who fired the projectile.
@@ -65,7 +65,7 @@ public class Projectile : NetworkBehaviour
         }
         else if (collision.transform.root.GetComponent<Health>() != null)
         {
-            if (collision.transform.root.gameObject.GetComponent<Player>().username == shooterUsername)
+            if (collision.transform.root.gameObject.GetComponent<NetPlayer>().username == shooterUsername)
             {
                 Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
                 // To prevent the fired projectile from causing damage upon contact with the player who fired the projectile.
@@ -101,7 +101,7 @@ public class Projectile : NetworkBehaviour
 
         if (playerHealth != null)
         {
-            if(playerHealth.gameObject.GetComponent<Player>().username != shooterUsername)
+            if(playerHealth.gameObject.GetComponent<NetPlayer>().username != shooterUsername)
             {
                 if (hasAuthority)
                     CmdTakeDamage(playerHealth, Damage);

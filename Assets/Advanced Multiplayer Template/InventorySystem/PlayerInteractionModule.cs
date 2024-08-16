@@ -108,7 +108,7 @@ public class PlayerInteractionModule : NetworkBehaviour
         instantiatedUIMessage = Instantiate(UIMessagePrefab);
 
         // if the player doesn't have enough funds to make the purchase, this displays a message on the UI informing the player and returns to the calling method
-        if (player.GetComponent<Player>().funds < itemPrice)
+        if (player.GetComponent<NetPlayer>().funds < itemPrice)
         {
             instantiatedUIMessage.GetComponent<UIMessage>().ShowMessage("Not enough funds");
 
@@ -123,15 +123,15 @@ public class PlayerInteractionModule : NetworkBehaviour
     [Command]
     public void CmdAddItem(PlayerInventoryModule player, int itemPrice, RedicionStudio.InventorySystem.Item item, int amount)
     {
-        Player playerToGiveFunds;
-        playerToGiveFunds = player.GetComponent<Player>();
-        if (playerToGiveFunds.funds < itemPrice)
+        NetPlayer netPlayerToGiveFunds;
+        netPlayerToGiveFunds = player.GetComponent<NetPlayer>();
+        if (netPlayerToGiveFunds.funds < itemPrice)
         {
             //Not enough funds
         }
-        else if (playerToGiveFunds.funds == itemPrice || playerToGiveFunds.funds > itemPrice)
+        else if (netPlayerToGiveFunds.funds == itemPrice || netPlayerToGiveFunds.funds > itemPrice)
         {
-            playerToGiveFunds.funds -= itemPrice;
+            netPlayerToGiveFunds.funds -= itemPrice;
             player.Add(item, amount);
         }
     }
@@ -146,7 +146,7 @@ public class PlayerInteractionModule : NetworkBehaviour
     /// <param name="itemSlotIndex">position in inventory where item will be placed</param>
     public void RemoveItem(PlayerInventoryModule player, int sellPrice, Item item, int amount, int itemSlotIndex)
     {
-        Player playerToGiveFunds;
+        NetPlayer netPlayerToGiveFunds;
 
         if (instantiatedUIMessage != null)
             Destroy(instantiatedUIMessage);
@@ -155,12 +155,12 @@ public class PlayerInteractionModule : NetworkBehaviour
 
         instantiatedUIMessage.GetComponent<UIMessage>().ShowMessage("Item: " + item.itemSO.uniqueName + " " + amount + "x" + " sold" + " for" + "$" + sellPrice);
         player.CmdDropAndRemoveItem(itemSlotIndex, true);
-        playerToGiveFunds = player.GetComponent<Player>();
-        CmdRemoveItem(player, playerToGiveFunds, sellPrice, item, amount);
+        netPlayerToGiveFunds = player.GetComponent<NetPlayer>();
+        CmdRemoveItem(player, netPlayerToGiveFunds, sellPrice, item, amount);
     }
 
     [Command]
-    public void CmdRemoveItem(PlayerInventoryModule player, Player giveFunds, int sellPrice, Item item, int amount)
+    public void CmdRemoveItem(PlayerInventoryModule player, NetPlayer giveFunds, int sellPrice, Item item, int amount)
     {
         giveFunds.funds += sellPrice;
         //player.Remove(item, amount);
@@ -173,12 +173,12 @@ public class PlayerInteractionModule : NetworkBehaviour
     /// <param name="amount">amount of funds added</param>
     public void AddMoney(PlayerInventoryModule player, int amount)
     {
-        Player playerToGiveFunds;
-        playerToGiveFunds = player.GetComponent<Player>();
+        NetPlayer netPlayerToGiveFunds;
+        netPlayerToGiveFunds = player.GetComponent<NetPlayer>();
         if (isServer)
         {
-            playerToGiveFunds.funds += amount;
-            RpcAddMoney(playerToGiveFunds, amount);
+            netPlayerToGiveFunds.funds += amount;
+            RpcAddMoney(netPlayerToGiveFunds, amount);
         }
         else if (hasAuthority)
         {
@@ -188,20 +188,20 @@ public class PlayerInteractionModule : NetworkBehaviour
             instantiatedUIMessage = Instantiate(UIMessagePrefab);
 
             instantiatedUIMessage.GetComponent<UIMessage>().ShowMessage("Amount: " + "$" + amount + " added");
-            CmdAddMoney(playerToGiveFunds, amount);
+            CmdAddMoney(netPlayerToGiveFunds, amount);
         }
     }
 
     [Command]
-    public void CmdAddMoney(Player player, int amount)
+    public void CmdAddMoney(NetPlayer netPlayer, int amount)
     {
-        player.funds += amount;
+        netPlayer.funds += amount;
     }
 
     [ClientRpc]
-    public void RpcAddMoney(Player player, int amount)
+    public void RpcAddMoney(NetPlayer netPlayer, int amount)
     {
-        player.funds += amount;
+        netPlayer.funds += amount;
     }
 
     /// <summary>
@@ -217,7 +217,7 @@ public class PlayerInteractionModule : NetworkBehaviour
         instantiatedUIMessage = Instantiate(UIMessagePrefab);
 
 
-        if (player.GetComponent<Player>().funds < amount)
+        if (player.GetComponent<NetPlayer>().funds < amount)
         {
             instantiatedUIMessage.GetComponent<UIMessage>().ShowMessage("Not enough funds");
 
@@ -231,13 +231,13 @@ public class PlayerInteractionModule : NetworkBehaviour
     [Command]
     public void CmdRemoveMoney(PlayerInventoryModule player, int amount)
     {
-        if (player.GetComponent<Player>().funds < amount)
+        if (player.GetComponent<NetPlayer>().funds < amount)
         {
             // Amount cannot be removed because the player does not have sufficient funds.
         }
-        else if (player.GetComponent<Player>().funds == amount || player.GetComponent<Player>().funds > amount)
+        else if (player.GetComponent<NetPlayer>().funds == amount || player.GetComponent<NetPlayer>().funds > amount)
         {
-            player.GetComponent<Player>().funds -= amount;
+            player.GetComponent<NetPlayer>().funds -= amount;
         }
     }
 

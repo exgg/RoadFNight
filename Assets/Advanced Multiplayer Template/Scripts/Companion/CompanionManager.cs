@@ -35,7 +35,7 @@ public class CompanionManager : NetworkBehaviour
                         {
                             Vector3 companionSpawnPosition = new Vector3(transform.position.x - 2, transform.position.y, transform.position.z);
 
-                            CmdInstantiateCompanion(gameObject, GetComponent<Player>().username, inventoryModule.slots[3].item.itemSO.uniqueName, true, companionSpawnPosition, transform.rotation);
+                            CmdInstantiateCompanion(gameObject, GetComponent<NetPlayer>().username, inventoryModule.slots[3].item.itemSO.uniqueName, true, companionSpawnPosition, transform.rotation);
                         }
                     }
                 }

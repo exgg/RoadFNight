@@ -684,7 +684,7 @@ public class CarController : Vehicle
                             {
                                 if (seat.Player != null)
                                 {
-                                    RpcSetPlayerXP(20, seat.Player.GetComponent<Player>());
+                                    RpcSetPlayerXP(20, seat.Player.GetComponent<NetPlayer>());
                                 }
                             }
                         }
@@ -708,7 +708,7 @@ public class CarController : Vehicle
                             {
                                 if (seat.Player != null)
                                 {
-                                    CmdSetPlayerXP(20, seat.Player.GetComponent<Player>());
+                                    CmdSetPlayerXP(20, seat.Player.GetComponent<NetPlayer>());
                                 }
                             }
                         }
@@ -816,15 +816,15 @@ public class CarController : Vehicle
     }
 
     [Command]
-    void CmdSetPlayerXP(int _xp, Player _player)
+    void CmdSetPlayerXP(int _xp, NetPlayer netPlayer)
     {
-        _player.SetExperience(_xp);
+        netPlayer.SetExperience(_xp);
     }
 
     [ClientRpc]
-    void RpcSetPlayerXP(int _xp, Player _player)
+    void RpcSetPlayerXP(int _xp, NetPlayer netPlayer)
     {
-        _player.SetExperience(_xp);
+        netPlayer.SetExperience(_xp);
     }
 
     [Command]

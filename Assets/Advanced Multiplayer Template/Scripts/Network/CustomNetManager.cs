@@ -18,21 +18,21 @@ public class CustomNetManager : NetworkManager {
 		GameObject gO = Instantiate(playerPrefab);
 		gO.name = authData.accountData.Username;
 
-		Player player = gO.GetComponent<Player>();
+		NetPlayer netPlayer = gO.GetComponent<NetPlayer>();
 
-		player.id = authData.accountData.Id;
-		player.username = authData.accountData.Username;
-		player.status = authData.accountData.Status;
-		player.instance = authData.instance;
-		player.funds = authData.accountData.Funds;
-		player.playerNutrition.value = authData.accountData.Nutrition;
-        player.experiencePoints = authData.accountData.ExperiencePoints;
+		netPlayer.id = authData.accountData.Id;
+		netPlayer.username = authData.accountData.Username;
+		netPlayer.status = authData.accountData.Status;
+		netPlayer.instance = authData.instance;
+		netPlayer.funds = authData.accountData.Funds;
+		netPlayer.playerNutrition.value = authData.accountData.Nutrition;
+        netPlayer.experiencePoints = authData.accountData.ExperiencePoints;
 
-		player.playerInventory.LoadInventory();
+		netPlayer.playerInventory.LoadInventory();
 
 		gO.transform.position = authData.instance.transform.position;
 
-		player.instance.AddPlayer(player.id, player);
+		netPlayer.instance.AddPlayer(netPlayer.id, netPlayer);
 		Debug.Log(authData.accountData.Username + " has authenticated (" + authData.instance.uniqueName + ')');
 		NetworkServer.AddPlayerForConnection(conn, gO);
         NetworkManagerEvent_OnPlayerConnected?.Invoke(conn);

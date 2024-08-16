@@ -25,7 +25,7 @@ public class CameraFollow : MonoBehaviour
                 {
                     if (seat.Player != null)
                     {
-                        if (seat.Player.GetComponent<Player>().username == NetworkClient.localPlayer.gameObject.GetComponent<Player>().username)
+                        if (seat.Player.GetComponent<NetPlayer>().username == NetworkClient.localPlayer.gameObject.GetComponent<NetPlayer>().username)
                             return;
                     }
                 }
@@ -157,7 +157,7 @@ public class CameraFollow : MonoBehaviour
                 {
                     if (seat.Player != null)
                     {
-                        if (seat.Player.GetComponent<Player>().username == NetworkClient.localPlayer.gameObject.GetComponent<Player>().username)
+                        if (seat.Player.GetComponent<NetPlayer>().username == NetworkClient.localPlayer.gameObject.GetComponent<NetPlayer>().username)
                             return;
                     }
                 }

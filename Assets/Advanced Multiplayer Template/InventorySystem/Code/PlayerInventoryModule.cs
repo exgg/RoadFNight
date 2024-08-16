@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using Mirror;
 using RedicionStudio.UIUtils;
 using StarterAssets;
+using UnityEngine.Serialization;
 
 namespace RedicionStudio.InventorySystem
 {
@@ -40,8 +41,8 @@ namespace RedicionStudio.InventorySystem
 
 		#endregion
 
-		[Header("Player Modules")]
-		public Player player;
+		[FormerlySerializedAs("player")] [Header("Player Modules")]
+		public NetPlayer netPlayer;
 		public PlayerNutritionModule playerNutrition;
 
 		[Space]
@@ -339,7 +340,7 @@ namespace RedicionStudio.InventorySystem
 			}
 
 #if UNITY_SERVER || UNITY_EDITOR // ?
-			MasterServer.MSClient.GetInventory(player.id, (inventoryData) => {
+			MasterServer.MSClient.GetInventory(netPlayer.id, (inventoryData) => {
 				if (inventoryData == null || inventoryData.Length < 1) { // if inventory data not set or nothing in there return 
 					return;
 				}
@@ -770,7 +771,7 @@ namespace RedicionStudio.InventorySystem
 		/// <returns></returns>
 		public string currentPlayerUsername()
 		{
-			return GetComponent<Player>().username;
+			return GetComponent<NetPlayer>().username;
 		}
 
 		/*[Command]

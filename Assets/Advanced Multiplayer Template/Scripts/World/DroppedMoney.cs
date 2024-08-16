@@ -10,7 +10,7 @@ public class DroppedMoney : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!collected & other.tag == "Player" && other.GetComponent<Player>())
+        if(!collected & other.tag == "Player" && other.GetComponent<NetPlayer>())
         {
             if(isServer)
             {

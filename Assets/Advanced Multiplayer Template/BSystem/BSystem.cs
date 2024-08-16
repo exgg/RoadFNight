@@ -89,7 +89,7 @@ namespace BSystem {
 
 #if !UNITY_SERVER || UNITY_EDITOR // (Client)
 		private void Update() {
-			if (Player.localPlayer == null) {
+			if (NetPlayer.LocalNetPlayer == null) {
 				return;
 			}
 
@@ -149,7 +149,7 @@ namespace BSystem {
 			if (currentPlaceableSO == null && _forwardHitIsPlaceable) {
 				if (_keyboard.eKey.wasPressedThisFrame) {
 					_editTarget = _forwardHitGO.GetComponentInParent<PlaceableObject>();
-					if (_editTarget.ownerId == Player.localPlayer.id) {
+					if (_editTarget.ownerId == NetPlayer.LocalNetPlayer.id) {
 						editMode = true;
 						_editTarget.gameObject.SetActive(false); // ?
 						currentPlaceableSO = _editTarget.placeableSO;

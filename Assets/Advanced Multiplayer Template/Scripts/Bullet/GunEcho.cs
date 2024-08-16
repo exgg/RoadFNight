@@ -20,7 +20,7 @@ public class GunEcho : NetworkBehaviour
             audioSource.clip = longEcho;
         else
             audioSource.clip = shortEcho;
-        if (NetworkClient.localPlayer.GetComponent<Player>().username == shooter)
+        if (NetworkClient.localPlayer.GetComponent<NetPlayer>().username == shooter)
         {
             return;
         }

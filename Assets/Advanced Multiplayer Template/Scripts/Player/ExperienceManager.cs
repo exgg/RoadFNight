@@ -57,7 +57,7 @@ public class ExperienceManager : MonoBehaviour
     /// </summary>
     public void UpdateXpUI()
     {
-        currentXP = GetComponent<Player>().experiencePoints; // expensive again given it is in the update
+        currentXP = GetComponent<NetPlayer>().experiencePoints; // expensive again given it is in the update
 
         float xpfraction = currentXP / targetXP;
         float FXP = frontXPBar.fillAmount;

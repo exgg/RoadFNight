@@ -8,8 +8,8 @@ public class CustomInterestManagement : InterestManagement {
 	public float visRange = 30f;
 
 	private bool Check(NetworkIdentity identity, NetworkConnection observer) {
-		Player observerPlayer = observer.identity.GetComponent<Player>();
-		return (identity.TryGetComponent(out Instance instance) && instance.uniqueName == observerPlayer.instance.uniqueName) ||
+		NetPlayer observerNetPlayer = observer.identity.GetComponent<NetPlayer>();
+		return (identity.TryGetComponent(out Instance instance) && instance.uniqueName == observerNetPlayer.instance.uniqueName) ||
 			Vector3.Distance(identity.transform.position, observer.identity.transform.position) <= visRange;
 	}
 

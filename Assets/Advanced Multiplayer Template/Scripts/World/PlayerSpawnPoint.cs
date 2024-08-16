@@ -9,7 +9,7 @@ public class PlayerSpawnPoint : MonoBehaviour
 
     private void OnTriggerStay(Collider obj)
     {
-        if (obj.GetComponent<Player>() != null)
+        if (obj.GetComponent<NetPlayer>() != null)
         {
             isPlayerInTrigger = true;
         }

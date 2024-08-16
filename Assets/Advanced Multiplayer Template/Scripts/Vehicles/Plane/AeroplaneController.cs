@@ -198,7 +198,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
                             }
                         }
 
-                        if (seat.Player.GetComponent<Player>().username == GetComponent<VehicleEnterExit.VehicleSync>().DriverUsername)
+                        if (seat.Player.GetComponent<NetPlayer>().username == GetComponent<VehicleEnterExit.VehicleSync>().DriverUsername)
                         {
                             if (seat.Player.GetComponent<ManageTPController>().isFirstPerson == true)
                             {

@@ -157,7 +157,7 @@ namespace RedicionStudio.InventorySystem {
 
 #if !UNITY_SERVER || UNITY_EDITOR
 		public void Update() {
-			if (Player.localPlayer == null) {
+			if (NetPlayer.LocalNetPlayer == null) {
 				_content.SetActive(false);
 				TPController.TPCameraController.LockCursor(false);
 				return;

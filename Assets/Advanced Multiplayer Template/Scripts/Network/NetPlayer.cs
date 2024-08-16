@@ -4,7 +4,7 @@ using Mirror;
 using TMPro;
 using System;
 
-public class Player : NetworkBehaviour {
+public class NetPlayer : NetworkBehaviour {
 
 	#region Calls
 
@@ -27,13 +27,13 @@ public class Player : NetworkBehaviour {
     [HideInInspector] public Instance instance;
     [HideInInspector] public PropertyArea propertyArea;
     
-	public readonly Dictionary<int, Player> onlinePlayers = new Dictionary<int, Player>();
+	public readonly Dictionary<int, NetPlayer> onlinePlayers = new Dictionary<int, NetPlayer>();
 
-	public static Player localPlayer;
+	public static NetPlayer LocalNetPlayer;
 
 	
 
-    public static event Action<Player, string> OnMessage;
+    public static event Action<NetPlayer, string> OnMessage;
 
     [SerializeField] private Transform _nameplateCanvas;
     [SerializeField] private TextMeshProUGUI _nameplateText;
@@ -62,7 +62,7 @@ public class Player : NetworkBehaviour {
     public override void OnStartLocalPlayer() {
 		base.OnStartLocalPlayer(); // Calls the base method to ensure any base initialization is also performed.
 
-		localPlayer = this;  // Assigns this instance as the local player.
+		LocalNetPlayer = this;  // Assigns this instance as the local player.
 		
 		MasterServer.MSClient.State = MasterServer.MSClient.NetworkState.InGame;	// Updates the state of the MasterServer client to indicate the player is in-game.
 		TPController.TPCameraController.LockCursor(true);
@@ -140,7 +140,7 @@ public class Player : NetworkBehaviour {
 		    }
 	    }
 	    
-	    if (localPlayer != null && isLocalPlayer)
+	    if (LocalNetPlayer != null && isLocalPlayer)
 		    this.GetComponent<ExperienceManager>().ExperienceUI.SetActive(true);
     }
     

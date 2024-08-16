@@ -155,7 +155,7 @@ public class PlayerAI : NetworkBehaviour
            var colliders = Physics.OverlapSphere(transform.position, _weaponCheckSphere, 1 << 6);
            foreach (var collider in colliders)
            {
-               if (collider != null && collider.CompareTag("Player") && collider.GetComponent<Player>() != null)
+               if (collider != null && collider.CompareTag("Player") && collider.GetComponent<NetPlayer>() != null)
                {
                    if (!playerInteraction.inVehicle && !isfearfulWalking && !isfearful && !HasHandsUp)
                    {
