@@ -1,7 +1,6 @@
 using Roadmans_Fortnite.Scripts.Classes.Stats;
-using UnityEngine;
 
-namespace Roadmans_Fortnite.Scripts.Classes.Player.Data
+namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Data
 {
     public class LoadPlayerData
     {
@@ -14,14 +13,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Data
             // move speed, level, etc
         }
 
-        public void LoadAccountData()
-        {
-            //Account level
-            //Account Stats
-            //Kills
-            //Money Earned
-            //Other statistics
-        }
+
 
         public void LoadPlayerInventory()
         {
