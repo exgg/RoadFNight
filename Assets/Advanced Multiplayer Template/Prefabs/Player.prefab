@@ -2123,6 +2123,7 @@ GameObject:
   - component: {fileID: 1259385525680972353}
   - component: {fileID: 7614280651161682071}
   - component: {fileID: 5479138105933174491}
+  - component: {fileID: -3925247680885767683}
   - component: {fileID: 8093793598253397024}
   - component: {fileID: 7317107082554866767}
   - component: {fileID: 8246131965209314447}
@@ -2334,7 +2335,7 @@ MonoBehaviour:
   shopManager: {fileID: 0}
   _emoteWheel: {fileID: 0}
   _chatSystem: {fileID: 0}
-  player: {fileID: 6620923452658758675}
+  netPlayer: {fileID: 6620923452658758675}
   playerNutrition: {fileID: 5630967227957478435}
   audioSource: {fileID: -8999880934896529054}
   TPControllerManager: {fileID: 5479138105933174491}
@@ -2781,6 +2782,40 @@ MonoBehaviour:
   loadingScreenPrefab: {fileID: 7743044019569160017, guid: cbf5add0ce9509e4994c4446d13981b1,
     type: 3}
   carTheftCamera: {fileID: 8188493419514185695}
+  aimValue: 0
+--- !u!114 &-3925247680885767683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224220879548419888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f12f55ed2cc013498b80c70f65b4025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  bulletPrefab: {fileID: 0}
+  rocketPrefab: {fileID: 0}
+  bulletSpeed: 0
+  PlayerRig: {fileID: 0}
+  SecondHandRig_target: {fileID: 0}
+  thirdPersonController: {fileID: 0}
+  PlayerAnimator: {fileID: 0}
+  CurrentWeaponManager: {fileID: 0}
+  Weapons: {fileID: 0}
+  AllFoundWeapons: []
+  CurrentWeaponBulletSpawnPoint: {fileID: 0}
+  CurrentCartridgeEjectSpawnPoint: {fileID: 0}
+  cartridgeEjectPrefab: {fileID: 0}
+  IdleCamera: {fileID: 0}
+  WeaponIdleCamera: {fileID: 0}
+  WeaponAimCamera: {fileID: 0}
+  FirstPersonIdleCamera: {fileID: 0}
+  target: {fileID: 0}
+  isFirstPerson: 0
   aimValue: 0
 --- !u!114 &8093793598253397024
 MonoBehaviour:

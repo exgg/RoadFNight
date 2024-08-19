@@ -6,6 +6,7 @@ using Mirror;
 using RedicionStudio.UIUtils;
 using StarterAssets;
 using UnityEngine.Serialization;
+using Roadmans_Fortnite.Scripts.Classes.Player.Shooting;
 
 namespace RedicionStudio.InventorySystem
 {
@@ -41,7 +42,8 @@ namespace RedicionStudio.InventorySystem
 
 		#endregion
 
-		[FormerlySerializedAs("player")] [Header("Player Modules")]
+		[FormerlySerializedAs("player")]
+		[Header("Player Modules")]
 		public NetPlayer netPlayer;
 		public PlayerNutritionModule playerNutrition;
 
@@ -50,6 +52,8 @@ namespace RedicionStudio.InventorySystem
 
 		[Space]
 		public ManageTPController TPControllerManager;
+
+		public Shooting shooting;
 
 		[Space]
 		public GameObject bulletPrefab;
@@ -141,6 +145,8 @@ namespace RedicionStudio.InventorySystem
 			weaponWheelManager = GetComponent<WeaponWheelManager>();
 			weaponWheelManager.Initialisation();
 
+			shooting = GetComponent<Shooting>();
+
 			shopManager = GetComponent<ShopManager>();
 
 			// emote system
@@ -196,16 +202,16 @@ namespace RedicionStudio.InventorySystem
 					{
 						_gFX.GetChild(i).gameObject.SetActive(true);
 						_gFX.GetChild(i).GetComponent<WeaponManager>().enabled = true;
-						this.GetComponent<ManageTPController>().CurrentWeaponManager = _gFX.GetChild(i).GetComponent<WeaponManager>();
-						this.GetComponent<ManageTPController>().CurrentWeaponBulletSpawnPoint = _gFX.GetChild(i).GetComponent<WeaponManager>().CurrentWeaponBulletSpawnPoint;
-						this.GetComponent<ManageTPController>().CurrentCartridgeEjectSpawnPoint = _gFX.GetChild(i).GetComponent<WeaponManager>().CartridgeEjectEffectSpawnPoint;
+						shooting.CurrentWeaponManager = _gFX.GetChild(i).GetComponent<WeaponManager>();
+						shooting.CurrentWeaponBulletSpawnPoint = _gFX.GetChild(i).GetComponent<WeaponManager>().CurrentWeaponBulletSpawnPoint;
+						shooting.CurrentCartridgeEjectSpawnPoint = _gFX.GetChild(i).GetComponent<WeaponManager>().CartridgeEjectEffectSpawnPoint;
 					}
 				}
 			}
 			else
 			{
 				this.GetComponent<Animator>().SetLayerWeight(1, 0);
-				this.GetComponent<ManageTPController>().PlayerRig.weight = 0;
+				shooting.PlayerRig.weight = 0;
 			}
 		}
 
@@ -617,7 +623,7 @@ namespace RedicionStudio.InventorySystem
 		[Command]
 		public void CmdAim()
 		{
-			TPControllerManager.aimValue = 1;
+			//TPControllerManager.aimValue = 1;
 		}
 
 		/// <summary>
@@ -634,11 +640,11 @@ namespace RedicionStudio.InventorySystem
 		{
 			if (!base.hasAuthority) return;
 
-			_bulletSpawnPointPosition = this.GetComponent<ManageTPController>().CurrentWeaponBulletSpawnPoint;
-			_cartridgeEjectSpawnPointPosition = this.GetComponent<ManageTPController>().CurrentCartridgeEjectSpawnPoint;
-			string currentBulletName = this.GetComponent<ManageTPController>().CurrentWeaponManager.WeaponBulletPrefab.name;
+			_bulletSpawnPointPosition = shooting.CurrentWeaponBulletSpawnPoint;
+			_cartridgeEjectSpawnPointPosition = shooting.CurrentCartridgeEjectSpawnPoint;
+			string currentBulletName = shooting.CurrentWeaponManager.WeaponBulletPrefab.name;
 			//bulletSpeed = this.GetComponent<ManageTPController>().CurrentWeaponManager.BulletSpeed;
-			this.GetComponent<ManageTPController>().Shoot();
+			shooting.Shoot();
 			//CmdSetAttackerUsername(username);
 
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
