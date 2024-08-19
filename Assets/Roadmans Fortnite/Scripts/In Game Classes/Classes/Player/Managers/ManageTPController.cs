@@ -17,30 +17,30 @@ public class ManageTPController : NetworkBehaviour
     public Transform CurrentCartridgeEjectSpawnPoint;
     bool hasActiveWeapon;
     [HideInInspector] bool isShooting = false;
-    
+
     [Header("Player")]
     public Rig PlayerRig;
     public Transform SecondHandRig_target;
     public ThirdPersonController thirdPersonController;
     private StarterAssetsInputs _input;
     public Animator PlayerAnimator;
-    
+
     [Header("Camera")]
     public GameObject IdleCamera;
     public GameObject WeaponIdleCamera;
     public GameObject WeaponAimCamera;
     public GameObject FirstPersonIdleCamera;
     public Transform target;
-    
+
     [Header("Camera Modes")]
     public bool isFirstPerson = false;
-    
+
     [Header("Head Mesh")]
     public GameObject[] headMeshes;
-    
+
     [Header("Loading Screen")]
     public GameObject loadingScreenPrefab;
-    
+
     [Header("Car Theft")]
     public GameObject carTheftCamera;
 
@@ -59,7 +59,7 @@ public class ManageTPController : NetworkBehaviour
             StickCameraToPlayer();
 
             WeaponIdleCamera = GameObject.Find("PlayerFollowCameraWeapon");
-            if(WeaponIdleCamera != null)
+            if (WeaponIdleCamera != null)
                 WeaponIdleCamera.GetComponent<CinemachineVirtualCamera>().Follow = target;
             WeaponAimCamera = GameObject.Find("PlayerFollowCameraWeaponAim");
             if (WeaponAimCamera != null)
@@ -86,19 +86,19 @@ public class ManageTPController : NetworkBehaviour
             }
         }
 
-        if(hasActiveWeapon == false)
+        if (hasActiveWeapon == false)
         {
             this.GetComponent<Animator>().SetLayerWeight(1, 0);
         }
     }
-    
-    
-      void Update()
+
+
+    void Update()
     {
         if (isLocalPlayer)
         {
             //Toggle camera mode
-            if(Keyboard.current.vKey.wasPressedThisFrame || _input.toggleCamera)
+            if (Keyboard.current.vKey.wasPressedThisFrame || _input.toggleCamera)
             {
                 /*if(isFirstPerson)
                 {
@@ -120,7 +120,7 @@ public class ManageTPController : NetworkBehaviour
                 }*/
             }
 
-            if(CurrentWeaponManager != null)
+            if (CurrentWeaponManager != null)
             {
                 Vector3 mouseWorldPosition = Vector3.zero;
                 Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
@@ -128,7 +128,7 @@ public class ManageTPController : NetworkBehaviour
 
                 CurrentWeaponManager.debugTransform.position = ray.GetPoint(20f);
                 mouseWorldPosition = ray.GetPoint(20f);
-              
+
 
                 Vector3 worldAimTarget = mouseWorldPosition;
                 worldAimTarget.y = CurrentWeaponManager.Player.position.y;
@@ -151,12 +151,12 @@ public class ManageTPController : NetworkBehaviour
                         CurrentWeaponManager.Crosshair.SetActive(true);
                         if (PlayerAnimator != null & isShooting == false)
                             PlayerAnimator.Play(CurrentWeaponManager.WeaponAimTriggerName);
-                        if(thirdPersonController != null)
+                        if (thirdPersonController != null)
                         {
                             thirdPersonController.SetSensitivity(CurrentWeaponManager.aimSensitivity);
                             thirdPersonController.SetRotateOnMove(false);
                         }
-                        if(isFirstPerson)
+                        if (isFirstPerson)
                         {
                             if (WeaponAimCamera != null)
                                 WeaponAimCamera.SetActive(false);
@@ -175,14 +175,14 @@ public class ManageTPController : NetworkBehaviour
                 else
                 {
                     this.GetComponent<PlayerInteractionModule>().playerInventory.isAiming = false;
-                    if(isFirstPerson)
+                    if (isFirstPerson)
                         CurrentWeaponManager.Player.forward = Vector3.Lerp(CurrentWeaponManager.Player.forward, aimDirection, Time.deltaTime * 20f);
                     if (aimValue != 0)
                         CmdSetAimValue(0);
                     if (PlayerRig != null)
                         PlayerRig.weight = 0;
                     CurrentWeaponManager.isAiming = false;
-                    if(isFirstPerson)
+                    if (isFirstPerson)
                     {
                         if (FirstPersonIdleCamera != null)
                             FirstPersonIdleCamera.SetActive(true);
@@ -199,7 +199,7 @@ public class ManageTPController : NetworkBehaviour
                     CurrentWeaponManager.Crosshair.SetActive(false);
                     if (thirdPersonController != null)
                     {
-                        if(isFirstPerson)
+                        if (isFirstPerson)
                         {
                             thirdPersonController.SetSensitivity(CurrentWeaponManager.normalSensitivity);
                             thirdPersonController.SetRotateOnMove(false);
@@ -210,7 +210,7 @@ public class ManageTPController : NetworkBehaviour
                             thirdPersonController.SetRotateOnMove(true);
                         }
                     }
-                    if(PlayerAnimator != null)
+                    if (PlayerAnimator != null)
                     {
                         PlayerAnimator.ResetTrigger(CurrentWeaponManager.WeaponAimTriggerName);
                         PlayerAnimator.SetTrigger(CurrentWeaponManager.WeaponIdleTriggerName);
@@ -233,18 +233,18 @@ public class ManageTPController : NetworkBehaviour
         {
             if (aimValue == 1)//Aim
             {
-                if(PlayerRig != null)
+                if (PlayerRig != null)
                     PlayerRig.weight = 1;
-                if(SecondHandRig_target != null & CurrentWeaponManager != null)
+                if (SecondHandRig_target != null & CurrentWeaponManager != null)
                 {
                     SecondHandRig_target.localPosition = CurrentWeaponManager.LeftHandPosition;
                     SecondHandRig_target.localRotation = CurrentWeaponManager.LeftHandRotation;
                 }
-                if(CurrentWeaponManager != null)
+                if (CurrentWeaponManager != null)
                     CurrentWeaponManager.isAiming = true;
                 if (PlayerAnimator != null & CurrentWeaponManager != null & isShooting == false)
                     PlayerAnimator.Play(CurrentWeaponManager.WeaponAimTriggerName);
-                if(thirdPersonController != null & CurrentWeaponManager != null)
+                if (thirdPersonController != null & CurrentWeaponManager != null)
                 {
                     thirdPersonController.SetSensitivity(CurrentWeaponManager.aimSensitivity);
                     thirdPersonController.SetRotateOnMove(false);
@@ -272,7 +272,7 @@ public class ManageTPController : NetworkBehaviour
         if (this.GetComponent<PlayerAI>().isSetAsAi) // put this in start
             Weapons.SetActive(false);
     }
-    
+
 
     /// <summary>
     /// Toggles the camera to the players character camera and turns off the vehicle camera for the cinema-chine
@@ -323,7 +323,7 @@ public class ManageTPController : NetworkBehaviour
         return cvc;
     }
 
-  
+
     /// <summary>
     /// Begins shooting, then starts a coroutine to stop shooting after the animation length.
     /// This can be changed into a loop based style. So long as we log the animation length before we parse it
@@ -379,7 +379,7 @@ public class ManageTPController : NetworkBehaviour
 
         foreach (GameObject meshes in headMeshes)
         {
-            if(isFirstPerson == true)
+            if (isFirstPerson == true)
                 meshes.SetActive(false);
             else
                 meshes.SetActive(true);
