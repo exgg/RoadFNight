@@ -16,6 +16,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
         public GameObject bulletPrefab;
         public GameObject rocketPrefab;
         public float bulletSpeed;
+        public float bulletRange;
         Transform _bulletSpawnPointPosition;
 
         [Header("Player")]
@@ -265,13 +266,13 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
             LayerMask layerMask = ~(1 << layerToIgnore);
             RaycastHit hit;
             Vector3 collisionPoint;
-            if (Physics.Raycast(ray, out hit, 50f, layerMask))
+            if (Physics.Raycast(ray, out hit, bulletRange, layerMask))
             {
                 collisionPoint = hit.point;
             }
             else
             {
-                collisionPoint = ray.GetPoint(50f);
+                collisionPoint = ray.GetPoint(bulletRange);
             }
 
             Vector3 bulletVector = (collisionPoint - _bulletSpawnPointPosition.transform.position).normalized;
@@ -280,7 +281,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
 
 
             if (currentBulletName == "Bullet")
-                CmdShootBullet(_bulletSpawnPointPosition.position, _bulletSpawnPointPosition.rotation, _cartridgeEjectSpawnPointPosition.position, _cartridgeEjectSpawnPointPosition.rotation, bulletVector, bulletSpeed);
+                CmdShootBullet(_bulletSpawnPointPosition.position, _bulletSpawnPointPosition.rotation, _cartridgeEjectSpawnPointPosition.position, _cartridgeEjectSpawnPointPosition.rotation, bulletVector, bulletSpeed, bulletRange, layerMask);
             else
                 CmdShootRocket(_bulletSpawnPointPosition.position, _bulletSpawnPointPosition.rotation, bulletVector, bulletSpeed);
         }
@@ -295,29 +296,34 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
         /// <param name="_cartridgeEjectPosition"></param>
         /// <param name="_cartridgeEjectRotation"></param>
         /// <param name="_bulletVector"></param>
+        /// <param name="_bulletRange"></param>
         /// <param name="_bulletSpeed"></param>
+        /// <param name="_layerMask"></param>
         [Command]
-        void CmdShootBullet(Vector3 _position, Quaternion _rotation, Vector3 _cartridgeEjectPosition, Quaternion _cartridgeEjectRotation, Vector3 _bulletVector, float _bulletSpeed)
+        void CmdShootBullet(Vector3 _position, Quaternion _rotation, Vector3 _cartridgeEjectPosition, Quaternion _cartridgeEjectRotation, Vector3 _bulletVector, float _bulletSpeed, float _bulletRange, LayerMask _layerMask)
         {
-            GameObject Bullet = Instantiate(bulletPrefab, _position, _rotation) as GameObject;
+            // GameObject Bullet = Instantiate(bulletPrefab, _position, _rotation) as GameObject;
 
-            Bullet.GetComponent<Rigidbody>().velocity = _bulletVector * _bulletSpeed;
+            // Bullet.GetComponent<Rigidbody>().velocity = _bulletVector * _bulletSpeed;
 
-            //Bullet.GetComponent<NetworkBullet>().SetupProjectile(this.GetComponent<Player>().username, hasAuthority);
+            // //Bullet.GetComponent<NetworkBullet>().SetupProjectile(this.GetComponent<Player>().username, hasAuthority);
 
-            NetworkServer.Spawn(Bullet);
+            // NetworkServer.Spawn(Bullet);
 
-            NetworkBullet bullet = Bullet.GetComponent<NetworkBullet>();
-            bullet.netIdentity.AssignClientAuthority(this.connectionToClient);
+            // NetworkBullet bullet = Bullet.GetComponent<NetworkBullet>();
+            // bullet.netIdentity.AssignClientAuthority(this.connectionToClient);
 
-            bullet.SetupProjectile_ServerSide();
+            // bullet.SetupProjectile_ServerSide();
 
-            RpcBulletFired(bullet, _bulletVector, _bulletSpeed);
+            // RpcBulletFired(bullet, _bulletVector, _bulletSpeed);
 
+            RaycastHit hit;
+            if (Physics.Raycast(WeaponAimCamera.transform.position, WeaponAimCamera.transform.forward, out hit, _layerMask))
+            {
+                Debug.Log("hit something");
+            }
 
             GameObject _cartridgeEject = Instantiate(cartridgeEjectPrefab, _cartridgeEjectPosition, _cartridgeEjectRotation) as GameObject;
-
-
 
             NetworkServer.Spawn(_cartridgeEject, connectionToClient);
         }
