@@ -589,6 +589,7 @@ MonoBehaviour:
   playerNameText: {fileID: 0}
   playerLevelText: {fileID: 0}
   playerStatsText: {fileID: 0}
+  playerAccountManager: {fileID: 1694442500}
 --- !u!4 &412811090
 Transform:
   m_ObjectHideFlags: 0
@@ -1535,13 +1536,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 412811088}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 412811089}
+        m_TargetAssemblyTypeName: Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu.MainMenuManager,
+          Assembly-CSharp
+        m_MethodName: OnSignUpButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3133,6 +3135,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679476991}
   m_CullTransparentMesh: 1
+--- !u!1 &1694442499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1694442501}
+  - component: {fileID: 1694442500}
+  m_Layer: 0
+  m_Name: AccountManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1694442500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694442499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194928346b688284d915ae4bb52e2d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1694442501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694442499}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 423.67267, y: -297.44113, z: 145.79095}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1737230670
 GameObject:
   m_ObjectHideFlags: 0
@@ -3925,3 +3971,4 @@ SceneRoots:
   - {fileID: 1110098632}
   - {fileID: 177003599}
   - {fileID: 731289863}
+  - {fileID: 1694442501}

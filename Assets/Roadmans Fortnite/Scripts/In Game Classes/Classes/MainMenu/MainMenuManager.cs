@@ -1,5 +1,6 @@
 using System;
 using Mirror;
+using Roadmans_Fortnite.Scripts.Server_Classes.Account_Management;
 using Roadmans_Fortnite.Scripts.Server_Classes.Security;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +30,8 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
         public Text playerStatsText; // this is incorrect, I will need more for this, a full new UI
 
         private bool _rememberMe;
+
+        public AccountManager playerAccountManager;
         
         // Check if logged in
         // check player-prefs if logged in before,
@@ -83,7 +86,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
             string username = usernameField.text;
             string password = passwordField.text;
 
-            RememberMe(username, password);
+            RememberMe(username);
             
             AttemptLogin(username, password);
         }
@@ -95,8 +98,11 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
             string username = usernameField.text;
             
             // check dictionary of offencive words
-
-            CreateAccount(email, password, username);
+            
+            var (encryptedEmail, emailIv) = Encryption.Encrypt(email);
+            var (encryptedPassword, passwordIv) = Encryption.Encrypt(password);
+            
+            CreateAccount(encryptedEmail, emailIv, encryptedPassword, passwordIv, username);
         }
         
         public void OnRetryLogin()
@@ -132,27 +138,19 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
             }
             
         }
-        private void CreateAccount(string email, string password, string username)
+        private void CreateAccount(string encryptedEmail, string encryptedEmailIv, string encryptedPassword, string encryptedPasswordIv,  string username)
         {
-            RememberMe(username, password);
+            RememberMe(username);
             
-            // username
-            // password
-            
-            // Write to file the account folder for this player, then push this to the server for saving
-                // send email to server, encrypt then log as UniqueID.
-                // send password to server and encrypt
-                // send username to server, this does not need encryption
-                // this is where all the players account data will be stored, in a file write
-                // this needs to be as optimized as possible
+            playerAccountManager.CreateAccount(encryptedEmail, encryptedEmailIv, encryptedPassword,
+                encryptedPasswordIv, username);
         }
 
-        private void RememberMe(string username, string password)
+        private void RememberMe(string username)
         {
             if (_rememberMe)
             {
                 PlayerPrefs.SetString("PlayerUsername", username);
-                PlayerPrefs.SetString("PlayerPassword", password);
             }
         }
         

@@ -138,9 +138,9 @@ public class PlacementModule : NetworkBehaviour
 	private void LoadPlacement()
 	{
 #if UNITY_SERVER// || UNITY_EDITOR // (Server)
-		int propertyAreaId = PropertyArea.Assign(instance.uniqueName, _player.id);
+		int propertyAreaId = PropertyArea.Assign(instance.uniqueName, _netPlayer.id);
 		TargetAreaId(propertyAreaId);
-		_player.propertyArea = PropertyArea.GetPropertyArea(instance.uniqueName, _player.id); // ?????
+		_netPlayer.propertyArea = PropertyArea.GetPropertyArea(instance.uniqueName, _netPlayer.id); // ?????
 #endif
 
 	   
@@ -231,8 +231,8 @@ public class PlacementModule : NetworkBehaviour
 		// Refactor
 
 #if UNITY_SERVER// || UNITY_EDITOR // (Server)
-		_player.propertyArea?.AssignTo(0);
-		_player.propertyArea = null;
+		_netPlayer.propertyArea?.AssignTo(0);
+		_netPlayer.propertyArea = null;
 #endif
 	}
 
