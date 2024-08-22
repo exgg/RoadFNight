@@ -49,10 +49,6 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
             else
             {
                 ShowSignUpPanel();
-
-                var (encryptedText, iv)  = Encryption.Encrypt("SamuelCluttonWork@Gmail.com");
-                print(encryptedText);
-                print(Encryption.Decrypt(encryptedText, iv));
             }
         }
 
@@ -99,10 +95,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
             
             // check dictionary of offencive words
             
-            var (encryptedEmail, emailIv) = Encryption.Encrypt(email);
-            var (encryptedPassword, passwordIv) = Encryption.Encrypt(password);
-            
-            CreateAccount(encryptedEmail, emailIv, encryptedPassword, passwordIv, username);
+            CreateAccount(email, password, username);
         }
         
         public void OnRetryLogin()
@@ -138,12 +131,11 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
             }
             
         }
-        private void CreateAccount(string encryptedEmail, string encryptedEmailIv, string encryptedPassword, string encryptedPasswordIv,  string username)
+        private void CreateAccount(string email, string password,  string username)
         {
             RememberMe(username);
             
-            playerAccountManager.CreateAccount(encryptedEmail, encryptedEmailIv, encryptedPassword,
-                encryptedPasswordIv, username);
+            playerAccountManager.CreateAccount(email, password, username);
         }
 
         private void RememberMe(string username)

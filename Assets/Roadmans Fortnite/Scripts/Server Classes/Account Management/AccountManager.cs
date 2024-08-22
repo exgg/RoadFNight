@@ -14,25 +14,19 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
         
         // handle account creation
 
-        public void CreateAccount(string encryptedEmail, string encryptedEmailIv, string encryptedPassword, 
-            string encryptedPasswordIv,  string username)
+        public void CreateAccount(string email, string password,  string username)
         {
-            StartCoroutine(CheckUsernameAndCreateAccount(encryptedEmail, encryptedEmailIv,
-                encryptedPassword, encryptedPasswordIv, username));
+            StartCoroutine(CheckUsernameAndCreateAccount(email,password, username));
         }
         
-        private IEnumerator CheckUsernameAndCreateAccount(string pEncryptedEmail, string pEncryptedEmailIv, 
-            string pEncryptedPassword, string pEncryptedPasswordIv, string pUsername)
+        private IEnumerator CheckUsernameAndCreateAccount(string pEmail, string pPassword, string pUsername)
         {
             PulledAccountData newAccountData = new PulledAccountData
             {
                 username = pUsername,
-
-                encryptedEmail = pEncryptedEmail,
-                encryptedEmailIv = pEncryptedEmailIv,
-
-                encryptedPassword = pEncryptedPassword,
-                encryptedPasswordIv = pEncryptedPasswordIv,
+                email = pEmail,
+                password = pPassword,
+                
                 
                 playerData = new PulledPlayerData
                 {

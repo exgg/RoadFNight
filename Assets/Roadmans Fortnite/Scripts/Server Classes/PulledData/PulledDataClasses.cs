@@ -7,12 +7,9 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.PulledData
     {
         public int id;
         public string username;
-        
-        public string encryptedPassword;
-        public string encryptedPasswordIv;
 
-        public string encryptedEmail;
-        public string encryptedEmailIv;
+        public string email;
+        public string password;
 
         public PulledPlayerData playerData;
     }
