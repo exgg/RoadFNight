@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
-using Roadmans_Fortnite.Scripts.Classes.Player.Shooting;
 using VehicleEnterExit;
 using StarterAssets;
 using UnityEngine.AI;
@@ -17,9 +16,9 @@ public class PlayerAI : NetworkBehaviour
     public Transform target;
 
     public ManageGenerate _manageGenerate;
-
+    
     private VehicleSync _targetedVehicle;
-
+    
     [SyncVar] public bool isStopped = true;
 
     [SyncVar] public bool isSetAsAi = false;
@@ -42,7 +41,7 @@ public class PlayerAI : NetworkBehaviour
 
     private float _weaponCheckSphere = 5f;
     private bool startedDebug = false;
-
+    
     delegate void DestinationReached();
     DestinationReached Event_DestinationReached;
 
@@ -50,14 +49,14 @@ public class PlayerAI : NetworkBehaviour
     private void Start()
     {
         //agent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
-
+       
         //_playerInteraction = GetComponent<PlayerInteraction>();
         //_networkTransform = GetComponent<NetworkTransform>();
         //_aiAnimator = GetComponent<Animator>();
         _manageGenerate = FindObjectOfType<ManageGenerate>();
 
         startedDebug = true;
-
+        
         agent.updateRotation = true;
         agent.updatePosition = true;
     }
@@ -66,17 +65,17 @@ public class PlayerAI : NetworkBehaviour
     {
         thirdPersonController.enabled = false;
         manageTpController.enabled = false;
-
+        
         _aiAnimator.SetFloat("MotionSpeed", 1);
         Walk();
 
         isSetAsAi = true;
         RpcSetAsBot(true);
-
+        
         networkTransform.clientAuthority = false;
     }
 
-
+    
     [ClientRpc]
     void RpcSetAsBot(bool status)
     {
@@ -85,20 +84,20 @@ public class PlayerAI : NetworkBehaviour
 
     private void Update()
     {
-        if (!_manageGenerate.navMeshCreated)
-        {
-            return;
-        }
+       if (!_manageGenerate.navMeshCreated)
+       {
+           return;
+       }
 
-        if (isSetAsAi)
-        {
-            CheckForPlayerWeapon();
-            CheckIfShot();
-            MoveAI();
-            AIDestinationReached();
-            AiRunAway();
-            AiDeath();
-        }
+       if (isSetAsAi)
+       {
+          CheckForPlayerWeapon();
+          CheckIfShot();
+          MoveAI();
+          AIDestinationReached();
+          AiRunAway();
+          AiDeath();
+       }
     }
 
     private void MoveAI()
@@ -134,74 +133,72 @@ public class PlayerAI : NetworkBehaviour
             _aiAnimator.SetLayerWeight(2, 0);
         }
     }
-
-    private void AiRunAway()
+    
+    private void AiRunAway() 
     {
-
+        
         if (HasHandsUp && _aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning"))
         {
             _aiAnimator.SetLayerWeight(2, 1);
             if (!_aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("HandsUp"))
                 _aiAnimator.Play("HandsUp");
         }
-
-        if (!_aiAnimator.GetBool("Run") && _aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning")) // Run is not within the animator so causes a null reference error
+        
+        if ( !_aiAnimator.GetBool("Run") && _aiAnimator.GetCurrentAnimatorStateInfo(2).IsName("FearfulRunning")) // Run is not within the animator so causes a null reference error
         {
             Run();
         }
     }
-
+    
     private void CheckForPlayerWeapon()
     {
-        var colliders = Physics.OverlapSphere(transform.position, _weaponCheckSphere, 1 << 6);
+           var colliders = Physics.OverlapSphere(transform.position, _weaponCheckSphere, 1 << 6);
+           foreach (var collider in colliders)
+           {
+               if (collider != null && collider.CompareTag("Player") && collider.GetComponent<NetPlayer>() != null)
+               {
+                   if (!playerInteraction.inVehicle && !isfearfulWalking && !isfearful && !HasHandsUp)
+                   {
+                       var manageTPController = collider.GetComponent<ManageTPController>();
+                       
+                       foreach (Transform wps in manageTPController.AllFoundWeapons)
+                       {
+                           if (wps.gameObject.activeInHierarchy && !isfearfulWalking)
+                           {
+                               isfearfulWalking = true;
+                               StartCoroutine(EndFearfulWalking());
+                               FearfulWalk();
+                           }
+                       }
+                   }
 
-        foreach (var collider in colliders)
-        {
-            var shooting = collider.GetComponent<Shooting>();
-            if (collider != null && collider.CompareTag("Player") && collider.GetComponent<NetPlayer>() != null)
-            {
-                if (!playerInteraction.inVehicle && !isfearfulWalking && !isfearful && !HasHandsUp)
-                {
+                   if (collider.GetComponent<ManageTPController>().aimValue == 1 && !isfearful)
+                   {
+                       float dist = Vector3.Distance(transform.position, collider.transform.position);
+                       if (dist < 5)
+                       {
+                           if (!HasHandsUp)
+                           {
+                               HasHandsUp = true;
+                               if (!playerInteraction.inVehicle)
+                                   isfearful = true;
+                               StartCoroutine(EndHandsUpCoroutine());
+                               
+                               _aiAnimator.SetLayerWeight(2, 1);
+                               HandsUp();
+                           }
+                           if (!playerInteraction.inVehicle)
+                           {
+                               var towardsPlayer = collider.transform.position - transform.position;
 
+                               transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(towardsPlayer), Time.deltaTime * 1);
 
-                    foreach (Transform wps in shooting.AllFoundWeapons)
-                    {
-                        if (wps.gameObject.activeInHierarchy && !isfearfulWalking)
-                        {
-                            isfearfulWalking = true;
-                            StartCoroutine(EndFearfulWalking());
-                            FearfulWalk();
-                        }
-                    }
-                }
-
-                if (shooting.aimValue == 1 && !isfearful)
-                {
-                    float dist = Vector3.Distance(transform.position, collider.transform.position);
-                    if (dist < 5)
-                    {
-                        if (!HasHandsUp)
-                        {
-                            HasHandsUp = true;
-                            if (!playerInteraction.inVehicle)
-                                isfearful = true;
-                            StartCoroutine(EndHandsUpCoroutine());
-
-                            _aiAnimator.SetLayerWeight(2, 1);
-                            HandsUp();
-                        }
-                        if (!playerInteraction.inVehicle)
-                        {
-                            var towardsPlayer = collider.transform.position - transform.position;
-
-                            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(towardsPlayer), Time.deltaTime * 1);
-
-                            transform.position += transform.forward * (1 * Time.deltaTime);
-                        }
-                    }
-                }
-            }
-        }
+                               transform.position += transform.forward * (1 * Time.deltaTime);
+                           }
+                       }
+                   }
+               }
+           }
     }
 
     private void CheckIfShot()
@@ -219,7 +216,7 @@ public class PlayerAI : NetworkBehaviour
                         {
                             isfearful = true;
                             StartCoroutine(EndFearfulness());
-
+                       
                             _aiAnimator.SetLayerWeight(2, 1);
                             Run();
                         }
@@ -239,7 +236,7 @@ public class PlayerAI : NetworkBehaviour
             }
         }
     }
-
+    
     IEnumerator EndFastDriving()
     {
         yield return new WaitForSeconds(20f);
@@ -392,9 +389,9 @@ public class PlayerAI : NetworkBehaviour
             agent.isStopped = false;
         _aiAnimator.ResetTrigger("FearfulWalk");
         _aiAnimator.ResetTrigger("FearfulRunning");
-
+        
         _aiAnimator.SetLayerWeight(2, 0);
-
+        
         _aiAnimator.SetTrigger("Idle");
         _aiAnimator.ResetTrigger("Run");
         _aiAnimator.SetTrigger("Walk");

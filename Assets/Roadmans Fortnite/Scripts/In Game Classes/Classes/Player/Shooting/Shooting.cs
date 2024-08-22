@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Mirror;
 using Cinemachine;
-using UnityEngine.Animations.Rigging;
 using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
-using Roadmans_Fortnite.Scripts.Classes.Player.Input;
+using Player_Controls;
+using UnityEngine.Animations.Rigging;
 
 namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
 {
@@ -22,7 +22,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
         public Rig PlayerRig;
         public Transform SecondHandRig_target;
         public ThirdPersonController thirdPersonController;
-        private InputHandler _input;
+        private StarterAssetsInputs _input;
         public Animator PlayerAnimator;
 
         public WeaponManager CurrentWeaponManager;
@@ -31,7 +31,6 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
         public Transform CurrentWeaponBulletSpawnPoint;
         public Transform CurrentCartridgeEjectSpawnPoint;
         public GameObject cartridgeEjectPrefab;
-        NetPlayer _player;
 
         Transform _cartridgeEjectSpawnPointPosition;
         bool hasActiveWeapon;
@@ -53,9 +52,6 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
         // Start is called before the first frame update
         void Start()
         {
-            _player = GetComponent<NetPlayer>();
-            _input = GetComponent<InputHandler>();
-
             if (isLocalPlayer)
             {
                 WeaponIdleCamera = GameObject.Find("PlayerFollowCameraWeapon");
@@ -84,9 +80,6 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
             {
                 this.GetComponent<Animator>().SetLayerWeight(1, 0);
             }
-
-            if (this.GetComponent<PlayerAI>().isSetAsAi)
-                Weapons.SetActive(false);
         }
 
         // Update is called once per frame
@@ -108,7 +101,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
                     worldAimTarget.y = CurrentWeaponManager.Player.position.y;
                     Vector3 aimDirection = (worldAimTarget - CurrentWeaponManager.Player.position).normalized;
 
-                    if (_input.aimInput)// Manages the aiming of the character, however uses some very expensive calls within here, get components are even running in else
+                    if (_input.aim)// Manages the aiming of the character, however uses some very expensive calls within here, get components are even running in else
                     {
                         if (aimValue == 1)
                         {
@@ -332,7 +325,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
         [ClientRpc]
         void RpcBulletFired(NetworkBullet Bullet, Vector3 _bulletVector, float _bulletSpeed)
         {
-            Bullet.GetComponent<NetworkBullet>().SetupProjectile(_player.username, hasAuthority);
+            Bullet.GetComponent<NetworkBullet>().SetupProjectile(currentPlayerUsername(), hasAuthority);
 
             //Bullet.GetComponent<Rigidbody>().AddForce(_bulletVector * _bulletSpeed);
         }
@@ -376,7 +369,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
         [ClientRpc]
         void RpcRocketFired(NetworkRocket Bullet, Vector3 _bulletVector, float _bulletSpeed)
         {
-            Bullet.GetComponent<NetworkRocket>().SetupProjectile(_player.username, hasAuthority);
+            Bullet.GetComponent<NetworkRocket>().SetupProjectile(currentPlayerUsername(), hasAuthority);
 
             Bullet.GetComponent<Rigidbody>().AddForce(_bulletVector * _bulletSpeed);
         }
@@ -428,5 +421,9 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
             // TPControllerManager.aimValue = 1;
         }
 
+        public string currentPlayerUsername()
+        {
+            return null;// GetComponent<PlayerNet>().username;
+        }
     }
 }
