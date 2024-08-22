@@ -114,7 +114,7 @@ namespace UnityEngine {
             else
                 playerOptions.scenes = playerOptions.scenes = new string[] {
             //"Assets/Scenes/TestScene.unity"//,
-            "Assets/Scenes/PrototypeScenes/TestScene1.unity"
+            "Assets/Scenes/TestScene1.unity"
         };
 
           
@@ -227,9 +227,9 @@ namespace UnityEngine {
         {
             BuildWindows(true, true, false, true);
         }
-		#endregion
+        #endregion
 
-		#region Linux
+        #region Linux
         private static void BuildLinux(bool server, bool masterServer) {
 			Build(BuildTargetGroup.Standalone,
 				BuildTarget.StandaloneLinux64,
@@ -262,9 +262,9 @@ namespace UnityEngine {
         {
             BuildLinux(true, true);
         }
-		#endregion
+        #endregion
 
-		#region Android
+        #region Android
         private static void BuildAndroid(bool bundle, BuildOptions options) {
 			EditorUserBuildSettings.buildAppBundle = bundle;
 			Build(BuildTargetGroup.Android,

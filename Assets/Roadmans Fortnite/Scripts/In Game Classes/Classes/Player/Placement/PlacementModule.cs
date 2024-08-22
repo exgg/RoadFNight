@@ -8,16 +8,16 @@ using System;
 public class PlacementModule : NetworkBehaviour
 {
 	private NetPlayer _netPlayer;
-
+	
 	[HideInInspector] public Instance instance;
-
-
+	
+	
 	public List<GameObject> placedObjects = new List<GameObject>();
 
 	public static PlacementModule LocalPlayerB;
 	private void Start()
 	{
-
+		
 		_netPlayer = GetComponent<NetPlayer>();
 		LoadPlacement();
 	}
@@ -27,31 +27,27 @@ public class PlacementModule : NetworkBehaviour
 		LocalPlayerB = this;
 		// Sets up the action to be performed when a place request is made in the game.
 		// The CmdPlace command is called with the current placeable object's details.
-		BSystem.BSystem.OnPlaceRequestAction = () =>
-		{
+		BSystem.BSystem.OnPlaceRequestAction = () => {
 			CmdPlace(BSystem.BSystem.currentPlaceableSO.uniqueName, BSystem.BSystem.position, BSystem.BSystem.rotation);
 		};
 	}
 
 	/// <summary>
-	/// Attempts to place a placeable object at a specified position and rotation.
-	/// Checks if the player has the object, sufficient funds, and if the position is within the allowed area.
-	/// If conditions are met, the object is placed, added to the list of placed objects, and the cost is deducted from the player's funds.
-	/// </summary>
-	/// <param name="placeableSOUniqueName">Unique ID for the object to be placed</param>
-	/// <param name="position">The position of the object to be placed</param>
-	/// <param name="rotation">The rotation to apply to the placed object</param>
-	[Command]
-	private void CmdPlace(string placeableSOUniqueName, Vector3 position, Quaternion rotation)
-	{
+    /// Attempts to place a placeable object at a specified position and rotation.
+    /// Checks if the player has the object, sufficient funds, and if the position is within the allowed area.
+    /// If conditions are met, the object is placed, added to the list of placed objects, and the cost is deducted from the player's funds.
+    /// </summary>
+    /// <param name="placeableSOUniqueName">Unique ID for the object to be placed</param>
+    /// <param name="position">The position of the object to be placed</param>
+    /// <param name="rotation">The rotation to apply to the placed object</param>
+    [Command]
+	private void CmdPlace(string placeableSOUniqueName, Vector3 position, Quaternion rotation) {
 		BSystem.PlaceableSO placeableSO = BSystem.PlaceableSO.GetPlaceableSO(placeableSOUniqueName);
-		if (placeableSO == null)
+		if (placeableSO == null) 
 			return;
-
-		if (_netPlayer.funds >= placeableSO.price)
-		{
-			if (_netPlayer.propertyArea == null || !_netPlayer.propertyArea.Contains(new Bounds(position, Vector3.one * .1f)))
-			{
+		
+		if (_netPlayer.funds >= placeableSO.price) {
+			if (_netPlayer.propertyArea == null || !_netPlayer.propertyArea.Contains(new Bounds(position, Vector3.one * .1f))) {
 				return;
 			}
 			// place object and take funds
@@ -61,24 +57,21 @@ public class PlacementModule : NetworkBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Edits the position and rotation of a placeable object with a specified ID.
-	/// Validates if the object exists, belongs to the player, and the new position is within the allowed area.
-	/// If conditions are met, updates the object's position and rotation on the server and clients.
-	/// </summary>
-	/// <param name="id">The unique ID of the placeable object to be edited</param>
-	/// <param name="newPosition">The new position to place the object</param>
-	/// <param name="newRotation">The new rotation to apply to the object</param>
+    /// <summary>
+    /// Edits the position and rotation of a placeable object with a specified ID.
+    /// Validates if the object exists, belongs to the player, and the new position is within the allowed area.
+    /// If conditions are met, updates the object's position and rotation on the server and clients.
+    /// </summary>
+    /// <param name="id">The unique ID of the placeable object to be edited</param>
+    /// <param name="newPosition">The new position to place the object</param>
+    /// <param name="newRotation">The new rotation to apply to the object</param>
 	[Command]
-	public void CmdEdit(uint id, Vector3 newPosition, Quaternion newRotation)
-	{ // TODO: refactor
-	  // Check if the object exists in the network and retrieve its NetworkIdentity
-		if (NetworkServer.spawned.TryGetValue(id, out NetworkIdentity identity))
-		{
+	public void CmdEdit(uint id, Vector3 newPosition, Quaternion newRotation) { // TODO: refactor
+		// Check if the object exists in the network and retrieve its NetworkIdentity
+		if (NetworkServer.spawned.TryGetValue(id, out NetworkIdentity identity)) {
 			// Validate if the object is within the property area, belongs to the player, and is of the correct type
 			if (_netPlayer.propertyArea == null || !identity.TryGetComponent(out BSystem.PlaceableObject placeableObject) || placeableObject.ownerId != _netPlayer.id ||
-				!_netPlayer.propertyArea.Contains(new Bounds(newPosition, Vector3.one * .1f)))
-			{
+			    !_netPlayer.propertyArea.Contains(new Bounds(newPosition, Vector3.one * .1f))) {
 				return;
 			}
 			// Update the object's position and rotation
@@ -97,11 +90,9 @@ public class PlacementModule : NetworkBehaviour
 	/// <param name="newPosition">The new position to place the object</param>
 	/// <param name="newRotation">The new rotation to apply to the object</param>
 	[ClientRpc]
-	public void RpcEditUpdate(uint id, Vector3 newPosition, Quaternion newRotation)
-	{
+	public void RpcEditUpdate(uint id, Vector3 newPosition, Quaternion newRotation) {
 		// Check if the object exists on the client and retrieve its NetworkIdentity
-		if (NetworkClient.spawned.TryGetValue(id, out NetworkIdentity identity))
-		{
+		if (NetworkClient.spawned.TryGetValue(id, out NetworkIdentity identity)) {
 			// Update the object's position and rotation on the client
 			identity.transform.position = newPosition;
 			identity.transform.rotation = newRotation;
@@ -115,12 +106,9 @@ public class PlacementModule : NetworkBehaviour
 	/// </summary>
 	/// <param name="id">The unique ID of the placeable object to be deleted</param>
 	[Command]
-	public void CmdEditDelete(uint id)
-	{
-		if (NetworkServer.spawned.TryGetValue(id, out NetworkIdentity identity))
-		{
-			if (_netPlayer.propertyArea == null || !identity.TryGetComponent(out BSystem.PlaceableObject placeableObject) || placeableObject.ownerId != _netPlayer.id)
-			{
+	public void CmdEditDelete(uint id) {
+		if (NetworkServer.spawned.TryGetValue(id, out NetworkIdentity identity)) {
+			if (_netPlayer.propertyArea == null || !identity.TryGetComponent(out BSystem.PlaceableObject placeableObject) || placeableObject.ownerId != _netPlayer.id) {
 				return;
 			}
 
@@ -135,13 +123,12 @@ public class PlacementModule : NetworkBehaviour
 	/// This method is called on the client that owns the player object.
 	/// </summary>
 	[TargetRpc]
-	private void TargetAreaId(int id)
-	{
+	private void TargetAreaId(int id) {
 		Debug.Log(id);
 		PropertyArea.myIndex = id;
 	}
-
-
+	
+	
 	/// <summary>
 	/// Retrieves and places objects that the player has placed in the game world.
 	/// This function runs only on the server or within the Unity Editor for testing purposes. otherwise will never call
@@ -151,12 +138,12 @@ public class PlacementModule : NetworkBehaviour
 	private void LoadPlacement()
 	{
 #if UNITY_SERVER// || UNITY_EDITOR // (Server)
-		int propertyAreaId = PropertyArea.Assign(instance.uniqueName, _netPlayer.id);
+		int propertyAreaId = PropertyArea.Assign(instance.uniqueName, _player.id);
 		TargetAreaId(propertyAreaId);
-		_netPlayer.propertyArea = PropertyArea.GetPropertyArea(instance.uniqueName, _netPlayer.id); // ?????
+		_player.propertyArea = PropertyArea.GetPropertyArea(instance.uniqueName, _player.id); // ?????
 #endif
 
-
+	   
 #if UNITY_SERVER || UNITY_EDITOR
 	    
 		if (isServer) {
@@ -177,28 +164,24 @@ public class PlacementModule : NetworkBehaviour
 		}
 #endif
 	}
-
-
-
+	
+	
+	
 	/// <summary>
 	/// Toggles off the players controller and removes them from the server and the game
 	/// </summary>
-	private void OnDestroy()
-	{
+	private void OnDestroy() {
 		_ = _netPlayer.onlinePlayers.Remove(_netPlayer.id);
 
-		if (NetPlayer.LocalNetPlayer == _netPlayer)
-		{
+		if (NetPlayer.LocalNetPlayer == _netPlayer) {
 			NetPlayer.LocalNetPlayer = null;
 		}
 
-		if (isServer)
-		{
+		if (isServer) {
 			instance.RemovePlayer(_netPlayer.id);
 		}
 
-		if (isLocalPlayer)
-		{
+		if (isLocalPlayer) {
 			TPController.TPCameraController.LockCursor(false);
 			PropertyArea.myIndex = -1;
 		}
@@ -248,8 +231,8 @@ public class PlacementModule : NetworkBehaviour
 		// Refactor
 
 #if UNITY_SERVER// || UNITY_EDITOR // (Server)
-		_netPlayer.propertyArea?.AssignTo(0);
-		_netPlayer.propertyArea = null;
+		_player.propertyArea?.AssignTo(0);
+		_player.propertyArea = null;
 #endif
 	}
 
