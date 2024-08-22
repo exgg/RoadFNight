@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
-namespace Roadmans_Fortnite.Scripts.Server_Classes
+namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
 {
     public class NewMasterServer : NetworkManager
     {

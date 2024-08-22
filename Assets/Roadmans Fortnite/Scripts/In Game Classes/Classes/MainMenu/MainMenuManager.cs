@@ -1,5 +1,7 @@
 using System;
 using Mirror;
+using Roadmans_Fortnite.Scripts.Server_Classes.Account_Management;
+using Roadmans_Fortnite.Scripts.Server_Classes.Security;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -17,11 +19,10 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
         public GameObject invalidUserPass;
 
         public Button rememberMeButton;
-        public Button signupButton;
         
-        public InputField emailField;
-        public InputField passwordField;
-        public InputField usernameField;
+        public TMP_InputField emailField;
+        public TMP_InputField passwordField;
+        public TMP_InputField usernameField;
 
         public Text playerNameText;
         public Text playerLevelText;
@@ -29,6 +30,8 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
         public Text playerStatsText; // this is incorrect, I will need more for this, a full new UI
 
         private bool _rememberMe;
+
+        public AccountManager playerAccountManager;
         
         // Check if logged in
         // check player-prefs if logged in before,
@@ -36,12 +39,12 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
 
         private void Start()
         {
-            if (PlayerPrefs.HasKey("PlayerEmail") && PlayerPrefs.HasKey("PlayerPassword"))
+            if (PlayerPrefs.HasKey("PlayerUsername") && PlayerPrefs.HasKey("PlayerPassword"))
             {
-                string savedEmail = PlayerPrefs.GetString("PlayerEmail");
+                string savedUsername = PlayerPrefs.GetString("PlayerUsername");
                 string savedPassword = PlayerPrefs.GetString("PlayerPassword");
                 
-                AttemptLogin(savedEmail, savedPassword);
+                AttemptLogin(savedUsername, savedPassword);
             }
             else
             {
@@ -76,10 +79,12 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
 
         public void OnLoginButton()
         {
-            string email = emailField.text;
+            string username = usernameField.text;
             string password = passwordField.text;
+
+            RememberMe(username);
             
-            AttemptLogin(email, password);
+            AttemptLogin(username, password);
         }
 
         public void OnSignUpButton()
@@ -89,7 +94,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
             string username = usernameField.text;
             
             // check dictionary of offencive words
-
+            
             CreateAccount(email, password, username);
         }
         
@@ -110,16 +115,13 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
         
         // make an account
 
-        private void AttemptLogin(string email, string password)
+        private void AttemptLogin(string username, string password)
         {
-            bool loginSuccess = ServerLogin(email, password);
+            bool loginSuccess = ServerLogin(username, password);
 
             if (loginSuccess)
             {
-                PlayerPrefs.SetString("PlayerEmail", email);
-                PlayerPrefs.SetString("PlayerEmail", password);
-
-                LoadAccountData(email);
+                LoadAccountData(username);
                 ShowMainMenuPanel();
                     // find all account stats for this player - maybe give them a unique ID rather than make an email?
             }
@@ -129,14 +131,21 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
             }
             
         }
-        private void CreateAccount(string email, string password, string username)
+        private void CreateAccount(string email, string password,  string username)
         {
-            // email
-            // password
-            // account name
+            RememberMe(username);
+            
+            playerAccountManager.CreateAccount(email, password, username);
         }
 
-
+        private void RememberMe(string username)
+        {
+            if (_rememberMe)
+            {
+                PlayerPrefs.SetString("PlayerUsername", username);
+            }
+        }
+        
         private void LoadAccountData(string email)
         {
             // setup UI and Menus
@@ -148,7 +157,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
                 //Other statistics
         }
         
-        bool ServerLogin(string email, string password)
+        bool ServerLogin(string username, string password)
         {
             // check for server login
             return true; // simulation of login
