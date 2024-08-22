@@ -1,5 +1,6 @@
 using Mirror;
 using Roadmans_Fortnite.Scripts.Server_Classes;
+using Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation;
 using UnityEngine;
 
 namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Client_Creation
