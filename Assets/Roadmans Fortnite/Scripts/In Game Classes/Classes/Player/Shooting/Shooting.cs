@@ -4,10 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Mirror;
-using Cinemachine;
-using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
-using Player_Controls;
-using UnityEngine.Animations.Rigging;
 
 namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
 {
@@ -18,213 +14,31 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
         public float bulletSpeed;
         Transform _bulletSpawnPointPosition;
 
-        [Header("Player")]
-        public Rig PlayerRig;
-        public Transform SecondHandRig_target;
-        public ThirdPersonController thirdPersonController;
-        private StarterAssetsInputs _input;
-        public Animator PlayerAnimator;
-
         public WeaponManager CurrentWeaponManager;
         public GameObject Weapons;
         public List<Transform> AllFoundWeapons = new List<Transform>();
         public Transform CurrentWeaponBulletSpawnPoint;
         public Transform CurrentCartridgeEjectSpawnPoint;
         public GameObject cartridgeEjectPrefab;
-
         Transform _cartridgeEjectSpawnPointPosition;
         bool hasActiveWeapon;
-
         [HideInInspector] bool isShooting = false;
 
-        [Header("Camera")]
         public GameObject IdleCamera;
         public GameObject WeaponIdleCamera;
         public GameObject WeaponAimCamera;
         public GameObject FirstPersonIdleCamera;
         public Transform target;
-
-        [Header("Camera Modes")]
-        public bool isFirstPerson = false;
-
-        [SyncVar] public int aimValue;
-
         // Start is called before the first frame update
         void Start()
         {
-            if (isLocalPlayer)
-            {
-                WeaponIdleCamera = GameObject.Find("PlayerFollowCameraWeapon");
-                if (WeaponIdleCamera != null)
-                    WeaponIdleCamera.GetComponent<CinemachineVirtualCamera>().Follow = target;
-                WeaponAimCamera = GameObject.Find("PlayerFollowCameraWeaponAim");
-                if (WeaponAimCamera != null)
-                    WeaponAimCamera.GetComponent<CinemachineVirtualCamera>().Follow = target;
-                IdleCamera = GameObject.Find("PlayerFollowCamera");
-                if (IdleCamera != null)
-                    IdleCamera.GetComponent<CinemachineVirtualCamera>().Follow = target;
-                if (WeaponIdleCamera != null)
-                    WeaponIdleCamera.SetActive(false);
-                if (WeaponAimCamera != null)
-                    WeaponAimCamera.SetActive(false);
-            }
-            foreach (Transform wps in AllFoundWeapons)
-            {
-                if (wps.gameObject.activeInHierarchy)
-                {
-                    hasActiveWeapon = true;
-                }
-            }
 
-            if (hasActiveWeapon == false)
-            {
-                this.GetComponent<Animator>().SetLayerWeight(1, 0);
-            }
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (isLocalPlayer)
-            {
-                if (CurrentWeaponManager != null)
-                {
-                    Vector3 mouseWorldPosition = Vector3.zero;
-                    Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
-                    Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
 
-                    CurrentWeaponManager.debugTransform.position = ray.GetPoint(20f);
-                    mouseWorldPosition = ray.GetPoint(20f);
-
-
-                    Vector3 worldAimTarget = mouseWorldPosition;
-                    worldAimTarget.y = CurrentWeaponManager.Player.position.y;
-                    Vector3 aimDirection = (worldAimTarget - CurrentWeaponManager.Player.position).normalized;
-
-                    if (_input.aim)// Manages the aiming of the character, however uses some very expensive calls within here, get components are even running in else
-                    {
-                        if (aimValue == 1)
-                        {
-                            this.GetComponent<PlayerInteractionModule>().playerInventory.isAiming = true;
-                            CurrentWeaponManager.Player.forward = Vector3.Lerp(CurrentWeaponManager.Player.forward, aimDirection, Time.deltaTime * 20f);
-                            if (PlayerRig != null)
-                                PlayerRig.weight = 1;
-                            if (SecondHandRig_target != null)
-                            {
-                                SecondHandRig_target.localPosition = CurrentWeaponManager.LeftHandPosition;
-                                SecondHandRig_target.localRotation = CurrentWeaponManager.LeftHandRotation;
-                            }
-                            CurrentWeaponManager.isAiming = true;
-                            CurrentWeaponManager.Crosshair.SetActive(true);
-                            if (PlayerAnimator != null & isShooting == false)
-                                PlayerAnimator.Play(CurrentWeaponManager.WeaponAimTriggerName);
-                            if (thirdPersonController != null)
-                            {
-                                thirdPersonController.SetSensitivity(CurrentWeaponManager.aimSensitivity);
-                                thirdPersonController.SetRotateOnMove(false);
-                            }
-                            if (isFirstPerson)
-                            {
-                                if (WeaponAimCamera != null)
-                                    WeaponAimCamera.SetActive(false);
-                                if (FirstPersonIdleCamera != null)
-                                    FirstPersonIdleCamera.SetActive(true);
-                            }
-                            else
-                            {
-                                if (FirstPersonIdleCamera != null)
-                                    FirstPersonIdleCamera.SetActive(false);
-                                if (WeaponAimCamera != null)
-                                    WeaponAimCamera.SetActive(true);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        this.GetComponent<PlayerInteractionModule>().playerInventory.isAiming = false;
-                        if (isFirstPerson)
-                            CurrentWeaponManager.Player.forward = Vector3.Lerp(CurrentWeaponManager.Player.forward, aimDirection, Time.deltaTime * 20f);
-                        if (aimValue != 0)
-                            CmdSetAimValue(0);
-                        if (PlayerRig != null)
-                            PlayerRig.weight = 0;
-                        CurrentWeaponManager.isAiming = false;
-                        if (isFirstPerson)
-                        {
-                            if (FirstPersonIdleCamera != null)
-                                FirstPersonIdleCamera.SetActive(true);
-                            if (WeaponAimCamera != null)
-                                WeaponAimCamera.SetActive(false);
-                        }
-                        else
-                        {
-                            if (FirstPersonIdleCamera != null)
-                                FirstPersonIdleCamera.SetActive(false);
-                            if (WeaponAimCamera != null)
-                                WeaponAimCamera.SetActive(false);
-                        }
-                        CurrentWeaponManager.Crosshair.SetActive(false);
-                        if (thirdPersonController != null)
-                        {
-                            if (isFirstPerson)
-                            {
-                                thirdPersonController.SetSensitivity(CurrentWeaponManager.normalSensitivity);
-                                thirdPersonController.SetRotateOnMove(false);
-                            }
-                            else
-                            {
-                                thirdPersonController.SetSensitivity(CurrentWeaponManager.normalSensitivity);
-                                thirdPersonController.SetRotateOnMove(true);
-                            }
-                        }
-                        if (PlayerAnimator != null)
-                        {
-                            PlayerAnimator.ResetTrigger(CurrentWeaponManager.WeaponAimTriggerName);
-                            PlayerAnimator.SetTrigger(CurrentWeaponManager.WeaponIdleTriggerName);
-                        }
-                    }
-                }
-            }
-
-            if (!isLocalPlayer)
-            {
-                if (aimValue == 1)//Aim
-                {
-                    if (PlayerRig != null)
-                        PlayerRig.weight = 1;
-                    if (SecondHandRig_target != null & CurrentWeaponManager != null)
-                    {
-                        SecondHandRig_target.localPosition = CurrentWeaponManager.LeftHandPosition;
-                        SecondHandRig_target.localRotation = CurrentWeaponManager.LeftHandRotation;
-                    }
-                    if (CurrentWeaponManager != null)
-                        CurrentWeaponManager.isAiming = true;
-                    if (PlayerAnimator != null & CurrentWeaponManager != null & isShooting == false)
-                        PlayerAnimator.Play(CurrentWeaponManager.WeaponAimTriggerName);
-                    if (thirdPersonController != null & CurrentWeaponManager != null)
-                    {
-                        thirdPersonController.SetSensitivity(CurrentWeaponManager.aimSensitivity);
-                        thirdPersonController.SetRotateOnMove(false);
-                    }
-                }
-                else if (aimValue == 0)
-                {
-                    if (PlayerRig != null)
-                        PlayerRig.weight = 0;
-                    if (CurrentWeaponManager != null)
-                        CurrentWeaponManager.isAiming = false;
-                    if (thirdPersonController != null & CurrentWeaponManager != null)
-                    {
-                        thirdPersonController.SetSensitivity(CurrentWeaponManager.normalSensitivity);
-                        thirdPersonController.SetRotateOnMove(true);
-                    }
-                    if (PlayerAnimator != null & CurrentWeaponManager != null)
-                    {
-                        PlayerAnimator.ResetTrigger(CurrentWeaponManager.WeaponAimTriggerName);
-                        PlayerAnimator.SetTrigger(CurrentWeaponManager.WeaponIdleTriggerName);
-                    }
-                }
-            }
         }
 
         public void AimWeapon()
@@ -398,24 +212,6 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
         }
 
         [Command]
-        void CmdSetAimValue(int value)
-        {
-            aimValue = value;
-
-            RpcSetAimValue(value);
-        }
-
-        /// <summary>
-        /// Remote call to push this to the server via the client
-        /// </summary>
-        /// <param name="value"></param>
-        [ClientRpc]
-        void RpcSetAimValue(int value)
-        {
-            aimValue = value;
-        }
-
-        [Command]
         public void CmdAim()
         {
             // TPControllerManager.aimValue = 1;
@@ -423,7 +219,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Shooting
 
         public string currentPlayerUsername()
         {
-            return null;// GetComponent<PlayerNet>().username;
+            return null; // GetComponent<PlayerNet>().username;
         }
     }
 }
