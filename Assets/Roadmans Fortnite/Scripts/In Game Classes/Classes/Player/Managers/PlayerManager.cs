@@ -36,43 +36,60 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
         
         private void Awake()
         {
-            PlayerStats = new PlayableCharacterStats(chosenCharacter);
+            if (isLocalPlayer) // make sure this only occurs within the local player
+            {
+                PlayerStats = new PlayableCharacterStats(chosenCharacter);
 
-            _inputHandler = GetComponent<InputHandler>();
-            thirdPersonController = GetComponent<ThirdPersonController>();
+                _inputHandler = GetComponent<InputHandler>();
+                thirdPersonController = GetComponent<ThirdPersonController>();
             
-            print($"Player Health: {PlayerStats.Health} Player Agility: {PlayerStats.Agility} Player Charisma: {PlayerStats.Charisma}");
+                print($"Player Health: {PlayerStats.Health} Player Agility: {PlayerStats.Agility} Player Charisma: {PlayerStats.Charisma}");
+            }
         }
 
         private void Start()
         {
-            InitializeClasses();
+            if (isLocalPlayer)
+            {
+                InitializeClasses();
             
-            thirdPersonController.TPStart();
+                thirdPersonController.TPStart();
             
-            var tester = GetClass<global::NetPlayer>(ClassReference.Category.Player, ClassReference.Keys.PlayerBase);
+                var tester = GetClass<global::NetPlayer>(ClassReference.Category.Player, ClassReference.Keys.PlayerBase);
 
-            if (tester == null) return;
+                if (tester == null) return;
             
-            Debug.Log("Funds are" + tester.funds + " Player username " + tester.username);
+                Debug.Log("Funds are" + tester.funds + " Player username " + tester.username);
+            }
+            
         }
         
         private void Update()
         {
-            var delta = Time.deltaTime;
+            if (isLocalPlayer)
+            {
+                var delta = Time.deltaTime;
             
-            _inputHandler.TickInput(delta);
-            thirdPersonController.TickUpdate();
+                _inputHandler.TickInput(delta);
+                thirdPersonController.TickUpdate();
+            }
         }
 
         private void FixedUpdate()
         {
-           
+            if (isLocalPlayer)
+            {
+                
+            }
         }
 
         private void LateUpdate()
         {
-            thirdPersonController.TickLateUpdate();
+            if (isLocalPlayer)
+            {
+                thirdPersonController.TickLateUpdate();
+            }
+           
         }
 
         private void OnDestroy()

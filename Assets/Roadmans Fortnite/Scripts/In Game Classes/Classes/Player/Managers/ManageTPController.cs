@@ -97,29 +97,6 @@ public class ManageTPController : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            //Toggle camera mode
-            if(Keyboard.current.vKey.wasPressedThisFrame || _input.toggleCamera)
-            {
-                /*if(isFirstPerson)
-                {
-                    isFirstPerson = false;
-                    foreach (GameObject meshes in headMeshes)
-                    {
-                        StopCoroutine(HideHeadMesh());
-                        meshes.SetActive(true);
-                    }
-                }
-                else
-                {
-                    isFirstPerson = true;
-                    foreach(GameObject meshes in headMeshes)
-                    {
-                        //meshes.SetActive(false);
-                        StartCoroutine(HideHeadMesh());
-                    }
-                }*/
-            }
-
             if(CurrentWeaponManager != null)
             {
                 Vector3 mouseWorldPosition = Vector3.zero;
