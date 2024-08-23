@@ -36,15 +36,13 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
         
         private void Awake()
         {
-            if (isLocalPlayer) // make sure this only occurs within the local player
-            {
-                PlayerStats = new PlayableCharacterStats(chosenCharacter);
+            PlayerStats = new PlayableCharacterStats(chosenCharacter);
 
-                _inputHandler = GetComponent<InputHandler>();
-                thirdPersonController = GetComponent<ThirdPersonController>();
+            _inputHandler = GetComponent<InputHandler>();
+            thirdPersonController = GetComponent<ThirdPersonController>();
+        
+            print($"Player Health: {PlayerStats.Health} Player Agility: {PlayerStats.Agility} Player Charisma: {PlayerStats.Charisma}");
             
-                print($"Player Health: {PlayerStats.Health} Player Agility: {PlayerStats.Agility} Player Charisma: {PlayerStats.Charisma}");
-            }
         }
 
         private void Start()
@@ -85,10 +83,10 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
 
         private void LateUpdate()
         {
-
-            thirdPersonController.TickLateUpdate();
-
-           
+            if (isLocalPlayer)
+            {
+                thirdPersonController.TickLateUpdate();
+            }
         }
 
         private void OnDestroy()
