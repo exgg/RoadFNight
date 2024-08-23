@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Mirror;
 using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
 using Roadmans_Fortnite.Scripts.Classes.Player.Input;
@@ -184,7 +185,58 @@ public class TPManagerNew : NetworkBehaviour
     {
         
     }
+
+    public void FindPlayerCamera()
+    {
+        
+    }
+
+    public void FindVehicleCamera()
+    {
+        
+    }
+
+    public void Shoot()
+    {
+        StopCoroutine(EndShooting());
+        _isShooting = true;
+        
+        playerAnimator.Play(currentWeaponManager.WeaponShootAnimationName);
+        StartCoroutine(EndShooting());
+    }
     
+    IEnumerator EndShooting()
+    {
+        yield return new WaitForSeconds(currentWeaponManager.WeaponShootAnimationLength);
+
+        _isShooting = false;
+    }
+
     
-    
+    // push current aim value to server to display animation on all sides
+    [Command]
+    private void CmdSetAimValue(int value)
+    {
+        aimValue = value;
+        RpcSetValue(value);
+    }
+
+    [ClientRpc]
+    private void RpcSetValue(int value)
+    {
+        aimValue = value;
+    }
+
+    IEnumerator HideHeadMesh()
+    {
+        yield return new WaitForSeconds(0.7f);
+
+        foreach (GameObject mesh in headMeshes)
+        {
+            if(isFirstPerson)
+                mesh.SetActive(false);
+            else
+                mesh.SetActive(true);
+        }
+    }
 }

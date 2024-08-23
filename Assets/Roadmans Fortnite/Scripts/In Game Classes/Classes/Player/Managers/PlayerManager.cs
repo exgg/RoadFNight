@@ -85,10 +85,9 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
 
         private void LateUpdate()
         {
-            if (isLocalPlayer)
-            {
-                thirdPersonController.TickLateUpdate();
-            }
+
+            thirdPersonController.TickLateUpdate();
+
            
         }
 
