@@ -16,8 +16,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
         private TpManagerNew _tpManagerNew;
        
     
-        [Header("Car Theft Cams")] 
-        public GameObject carTheftCamera;
+     
         
         [Header("Controllers")] 
         public ThirdPersonController thirdPersonController;
@@ -27,6 +26,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
         public void Initialize()
         {
             _tpManagerNew = GetComponent<TpManagerNew>();
+            thirdPersonController = GetComponent<ThirdPersonController>();
         }
         
         
@@ -85,13 +85,13 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
                 {
                     if (_tpManagerNew.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("KickOut"))
                     {
-                        if(!carTheftCamera.activeInHierarchy)
-                            carTheftCamera.SetActive(true);
+                        if(!_tpManagerNew.carTheftCamera.activeInHierarchy)
+                            _tpManagerNew.carTheftCamera.SetActive(true);
                     }
                     else
                     {
-                        if(carTheftCamera.activeInHierarchy)
-                            carTheftCamera.SetActive(false);
+                        if(_tpManagerNew.carTheftCamera.activeInHierarchy)
+                            _tpManagerNew.carTheftCamera.SetActive(false);
                     }
                 }
             }

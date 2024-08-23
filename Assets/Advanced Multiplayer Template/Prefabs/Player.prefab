@@ -2107,6 +2107,9 @@ GameObject:
   - component: {fileID: 3577237673956646845}
   - component: {fileID: 1415447536970342930}
   - component: {fileID: 2839856928493419607}
+  - component: {fileID: 649006491836229884}
+  - component: {fileID: 5479138105933174491}
+  - component: {fileID: 2868266451632133262}
   - component: {fileID: 7980001624564680849}
   - component: {fileID: 533594922165006867}
   - component: {fileID: 6620923452658758675}
@@ -2122,7 +2125,6 @@ GameObject:
   - component: {fileID: 8381775988047641593}
   - component: {fileID: 1259385525680972353}
   - component: {fileID: 7614280651161682071}
-  - component: {fileID: 5479138105933174491}
   - component: {fileID: 8093793598253397024}
   - component: {fileID: 7317107082554866767}
   - component: {fileID: 8246131965209314447}
@@ -2235,6 +2237,94 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 1
   animator: {fileID: 629454742471315189}
+--- !u!114 &649006491836229884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224220879548419888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 990fd16a6f2ea2d4d82ea2e5989201a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  currentWeaponManager: {fileID: 0}
+  weapons: {fileID: 3418993767949686106}
+  weaponsFound: []
+  shellEjectionPoint: {fileID: 0}
+  _isShooting: 0
+  playerRig: {fileID: 7962390186403929653}
+  secondHandRigTarget: {fileID: 4012478451116995162}
+  playerAnimator: {fileID: 629454742471315189}
+  idleCamera: {fileID: 0}
+  target: {fileID: 3597099315043464434}
+  weaponIdleCamera: {fileID: 0}
+  weaponAimCamera: {fileID: 0}
+  firstPersonControllerCamera: {fileID: 6221495999441298634}
+  firstPersonIdleCamera: {fileID: 0}
+  isFirstPerson: 0
+  headMeshes:
+  - {fileID: 2398140834543118770}
+  - {fileID: 457348549091446055}
+  - {fileID: 4875503360592941476}
+  loadingScreenPrefab: {fileID: 0}
+  carTheftCamera: {fileID: 8188493419514185695}
+  aimValue: 0
+--- !u!114 &5479138105933174491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224220879548419888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c7ee16d9a3d7f4994caa77fe8b5deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  CurrentWeaponManager: {fileID: 0}
+  Weapons: {fileID: 3418993767949686106}
+  AllFoundWeapons: []
+  CurrentWeaponBulletSpawnPoint: {fileID: 0}
+  CurrentCartridgeEjectSpawnPoint: {fileID: 0}
+  PlayerRig: {fileID: 7962390186403929653}
+  SecondHandRig_target: {fileID: 4012478451116995162}
+  thirdPersonController: {fileID: 8381775988047641593}
+  PlayerAnimator: {fileID: 629454742471315189}
+  IdleCamera: {fileID: 0}
+  WeaponIdleCamera: {fileID: 0}
+  WeaponAimCamera: {fileID: 0}
+  FirstPersonIdleCamera: {fileID: 6221495999441298634}
+  target: {fileID: 3597099315043464434}
+  isFirstPerson: 0
+  headMeshes:
+  - {fileID: 2398140834543118770}
+  - {fileID: 457348549091446055}
+  - {fileID: 4875503360592941476}
+  loadingScreenPrefab: {fileID: 7743044019569160017, guid: cbf5add0ce9509e4994c4446d13981b1,
+    type: 3}
+  carTheftCamera: {fileID: 8188493419514185695}
+  aimValue: 0
+--- !u!114 &2868266451632133262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224220879548419888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acaaedcdca720674cb22db45ed449588, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  thirdPersonController: {fileID: 0}
 --- !u!114 &7980001624564680849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2256,6 +2346,7 @@ MonoBehaviour:
     category: 2
   chosenCharacter: {fileID: 11400000, guid: 8edeb45af08a71141bcfa1a6d978edfb, type: 2}
   thirdPersonController: {fileID: 0}
+  tpManagerNew: {fileID: 0}
 --- !u!114 &533594922165006867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2334,7 +2425,7 @@ MonoBehaviour:
   shopManager: {fileID: 0}
   _emoteWheel: {fileID: 0}
   _chatSystem: {fileID: 0}
-  player: {fileID: 6620923452658758675}
+  netPlayer: {fileID: 6620923452658758675}
   playerNutrition: {fileID: 5630967227957478435}
   audioSource: {fileID: -8999880934896529054}
   TPControllerManager: {fileID: 5479138105933174491}
@@ -2745,43 +2836,6 @@ MonoBehaviour:
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
---- !u!114 &5479138105933174491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224220879548419888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c7ee16d9a3d7f4994caa77fe8b5deb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  CurrentWeaponManager: {fileID: 0}
-  Weapons: {fileID: 3418993767949686106}
-  AllFoundWeapons: []
-  CurrentWeaponBulletSpawnPoint: {fileID: 0}
-  CurrentCartridgeEjectSpawnPoint: {fileID: 0}
-  PlayerRig: {fileID: 7962390186403929653}
-  SecondHandRig_target: {fileID: 4012478451116995162}
-  thirdPersonController: {fileID: 8381775988047641593}
-  PlayerAnimator: {fileID: 629454742471315189}
-  IdleCamera: {fileID: 0}
-  WeaponIdleCamera: {fileID: 0}
-  WeaponAimCamera: {fileID: 0}
-  FirstPersonIdleCamera: {fileID: 6221495999441298634}
-  target: {fileID: 3597099315043464434}
-  isFirstPerson: 0
-  headMeshes:
-  - {fileID: 2398140834543118770}
-  - {fileID: 457348549091446055}
-  - {fileID: 4875503360592941476}
-  loadingScreenPrefab: {fileID: 7743044019569160017, guid: cbf5add0ce9509e4994c4446d13981b1,
-    type: 3}
-  carTheftCamera: {fileID: 8188493419514185695}
-  aimValue: 0
 --- !u!114 &8093793598253397024
 MonoBehaviour:
   m_ObjectHideFlags: 0

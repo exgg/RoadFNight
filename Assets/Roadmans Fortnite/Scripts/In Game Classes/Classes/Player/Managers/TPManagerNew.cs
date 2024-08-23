@@ -51,6 +51,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Managers
         [Header("LoadingScreen")] 
         public GameObject loadingScreenPrefab; // this may need removing
         
+        [Header("Car Theft Cams")] 
+        public GameObject carTheftCamera;
+        
         [SyncVar] 
         public int aimValue;
         

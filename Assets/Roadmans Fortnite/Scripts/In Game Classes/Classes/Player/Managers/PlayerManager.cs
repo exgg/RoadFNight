@@ -7,6 +7,8 @@ using Roadmans_Fortnite.Scripts.Classes.ScriptableObjects.Characters.Player_Char
 using Roadmans_Fortnite.Scripts.Classes.Stats;
 using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
 using Roadmans_Fortnite.Scripts.Classes.Stats.Enums;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Managers;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting;
 using StarterAssets;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -29,7 +31,10 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
         public BasePlayerStats chosenCharacter;
         public PlayableCharacterStats PlayerStats;
         public ThirdPersonController thirdPersonController;
-
+        public TpManagerNew tpManagerNew;
+        public Shooting shooting;
+        
+        
         private InputHandler _inputHandler;
 
         private BulletType _bulletUSed;
@@ -40,7 +45,8 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
 
             _inputHandler = GetComponent<InputHandler>();
             thirdPersonController = GetComponent<ThirdPersonController>();
-        
+            tpManagerNew = GetComponent<TpManagerNew>();
+            shooting = GetComponent<Shooting>();
             print($"Player Health: {PlayerStats.Health} Player Agility: {PlayerStats.Agility} Player Charisma: {PlayerStats.Charisma}");
             
         }
@@ -52,6 +58,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
                 InitializeClasses();
             
                 thirdPersonController.TPStart();
+                tpManagerNew.Initialize();
             
                 var tester = GetClass<global::NetPlayer>(ClassReference.Category.Player, ClassReference.Keys.PlayerBase);
 
