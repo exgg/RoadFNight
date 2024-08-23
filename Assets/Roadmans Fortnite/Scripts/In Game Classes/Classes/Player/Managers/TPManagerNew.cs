@@ -36,6 +36,11 @@ public class TPManagerNew : NetworkBehaviour
     public GameObject firstPersonIdleCamera;
     public Transform target;
 
+    // cashed cameras 
+
+    private Camera _vehicleCamera;
+    private CinemachineVirtualCamera _playerCamera;
+    
     [Header("Controllers")] 
     public ThirdPersonController thirdPersonController;
     
@@ -56,19 +61,29 @@ public class TPManagerNew : NetworkBehaviour
 
     public void Initialize()
     {
-        // toggle loading screen
+
+        _vehicleCamera = GameObject.Find("Camera_Vehicle").GetComponent<Camera>();
+        _playerCamera = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
         
-        // Find input handler and use this
+        // toggle loading screen
+
+        _input = GetComponent<InputHandler>();
+        
+        thirdPersonController = GetComponent<ThirdPersonController>();
+        thirdPersonController.enabled = true;
+        
+        StickCameraToPlayer();
+
         // get character controller 
         // enable cc
         // find third person controller
         // Find all cameras
         // find all weapons
-            // foreach weapon 
-            // blah blah
-            
+        // foreach weapon 
+        // blah blah
+
         // find if has an active weapon
-            // if no active weapon set the animator weight to 1
+        // if no active weapon set the animator weight to 1
     }
     public void TickUpdate()
     {
@@ -174,27 +189,34 @@ public class TPManagerNew : NetworkBehaviour
         }
        
         // this then sets to player ai weapon is false... we are getting rid of this
-    }
+    } // This needs moving into the shooting class:
 
     public void StickCameraToPlayer()
     {
-        
+        if(! _vehicleCamera || _playerCamera)
+            return;
+
+        _vehicleCamera.enabled = false;
+        _playerCamera.enabled = true;
+        _playerCamera.Follow = target;
     }
 
-    public void StickCameraToVehicle()
+    public void StickCameraToVehicle(Transform followTransform)
     {
-        
-    }
+        if(!_playerCamera || !_vehicleCamera)
+            return;
 
-    public void FindPlayerCamera()
-    {
+        var cameraFollow = _vehicleCamera.GetComponent<CameraFollow>();
         
-    }
+        if(!cameraFollow)
+            return;
 
-    public void FindVehicleCamera()
-    {
-        
+        cameraFollow.car = followTransform;
+
+        _vehicleCamera.enabled = true;
+        _playerCamera.enabled = false;
     }
+    
 
     public void Shoot()
     {
