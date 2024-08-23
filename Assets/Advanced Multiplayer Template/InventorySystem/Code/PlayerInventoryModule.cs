@@ -164,7 +164,7 @@ namespace RedicionStudio.InventorySystem
 			ShelfLifeCalculation();
 
 			if (inShop) return;
-			shopManager.ShopUIToggle();
+			//shopManager.ShopUIToggle();
 			weaponWheelManager.WeaponWheelUIToggle(slots[0]);
 			EmoteWheelUIToggle();
 			AimWeapon();

@@ -6,259 +6,129 @@ using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
 using Roadmans_Fortnite.Scripts.Classes.Player.Input;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
-using UnityEngine.UIElements;
 
-public class TPManagerNew : NetworkBehaviour
+namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Managers
 {
-    // weapon assembly stuff
-    [Header("Weapon Data")]
-    public WeaponManager currentWeaponManager;
-    public GameObject weapons;
-    public List<Transform> weaponsFound = new List<Transform>();
-    public Transform shellEjectionPoint;
-    private bool _hasActiveWeapon;
-    private bool _isShooting;
-    
-    // player rigging stuff
-    [Header("Player Animation")] 
-    public Rig playerRig;
-    public Transform secondHandRigTarget;
-    public Animator playerAnimator;
-    
-    private InputHandler _input;
-
-    // data for the camera. Aiming, idle, no weapon idle
-    [Header("Camera")]
-    public GameObject idleCamera;
-    public GameObject weaponIdleCamera;
-    public GameObject weaponAimCamera;
-    public GameObject firstPersonControllerCamera;
-    public GameObject firstPersonIdleCamera;
-    public Transform target;
-
-    // cashed cameras 
-
-    private Camera _vehicleCamera;
-    private CinemachineVirtualCamera _playerCamera;
-    
-    [Header("Controllers")] 
-    public ThirdPersonController thirdPersonController;
-    
-    [Header("Camera Modes")] 
-    public bool isFirstPerson = false;
-
-    [Header("HeadMesh")] 
-    public GameObject[] headMeshes;
-
-    [Header("LoadingScreen")] 
-    public GameObject loadingScreenPrefab; // this may need removing
-
-    [Header("Car Theft Cams")] 
-    public GameObject carTheftCamera;
-
-    [SyncVar] 
-    public int aimValue;
-
-    public void Initialize()
+    public class TpManagerNew : NetworkBehaviour
     {
+        private InputHandler _input;
 
-        _vehicleCamera = GameObject.Find("Camera_Vehicle").GetComponent<Camera>();
-        _playerCamera = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
         
-        // toggle loading screen
+        // weapon assembly stuff
+        [Header("Weapon Data")]
+        public WeaponManager currentWeaponManager;
+        public GameObject weapons;
+        public List<Transform> weaponsFound = new List<Transform>();
+        public Transform shellEjectionPoint;
+        private bool _hasActiveWeapon;
+        public bool _isShooting;
+    
+        // player rigging stuff
+        [Header("Player Animation")] 
+        public Rig playerRig;
+        public Transform secondHandRigTarget;
+        public Animator playerAnimator;
 
-        _input = GetComponent<InputHandler>();
         
-        thirdPersonController = GetComponent<ThirdPersonController>();
-        thirdPersonController.enabled = true;
+        // data for the camera. Aiming, idle, no weapon idle
+        [Header("Camera")]
+        public GameObject idleCamera;
+        public Transform target;
+        public GameObject weaponIdleCamera;
+        public GameObject weaponAimCamera;
+        public GameObject firstPersonControllerCamera;
+        public GameObject firstPersonIdleCamera;
+
+        private Camera _vehicleCamera;
+        private CinemachineVirtualCamera _playerCamera;
+    
+        [Header("Camera Modes")] 
+        public bool isFirstPerson = false;
+
+        [Header("HeadMesh")] 
+        public GameObject[] headMeshes;
+
+        [Header("LoadingScreen")] 
+        public GameObject loadingScreenPrefab; // this may need removing
         
-        StickCameraToPlayer();
-
-        // get character controller 
-        // enable cc
-        // find third person controller
-        // Find all cameras
-        // find all weapons
-        // foreach weapon 
-        // blah blah
-
-        // find if has an active weapon
-        // if no active weapon set the animator weight to 1
-    }
-    public void TickUpdate()
-    {
+        [SyncVar] 
+        public int aimValue;
         
-    }
-
-
-    private void AimingLogic()
-    {
-        if (!currentWeaponManager || !playerRig || !thirdPersonController || !weaponAimCamera || !secondHandRigTarget || !playerAnimator)
+        public void Initialize()
         {
-            Debug.LogError($"There is an issue with CurrentWeaponManager{currentWeaponManager == null} " +
-                  $"n/ or the PlayerRig: {playerRig == null} n/ or Third Person Controller {thirdPersonController == null} n/ or" +
-                  $"Weapon aim Camera {weaponAimCamera == null} n/ or SecondHandRigTarget {secondHandRigTarget == null} n/ or playerAnimator {playerAnimator == null}");
-            return;
-        }
-        if (isLocalPlayer)
-        {
-              Vector3 mouseWorldPosition = Vector3.zero;
-              Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
-              Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
-
-              currentWeaponManager.debugTransform.position = ray.GetPoint(20f);
-              mouseWorldPosition = ray.GetPoint(20f);
-
-              Vector3 worldAimTarget = mouseWorldPosition;
-              worldAimTarget.y = currentWeaponManager.Player.position.y;
-              Vector3 aimDirection = (worldAimTarget - currentWeaponManager.Player.position).normalized;
-
-              if (_input.aimInput) // why do we have 2 here?
-              {
-
-                  // use the inventory manager, this however will be using the player manager class: 
-
-                  currentWeaponManager.Player.forward = Vector3.Lerp(currentWeaponManager.Player.forward, aimDirection, Time.deltaTime * 20f);
-                  
-                  playerRig.weight = 1;
+            weaponIdleCamera = GameObject.Find("PlayerFollowCameraWeapon");
+            if(weaponIdleCamera != null)
+                weaponIdleCamera.GetComponent<CinemachineVirtualCamera>().Follow = target;
             
-                
-                  secondHandRigTarget.localPosition = currentWeaponManager.LeftHandPosition;
-                  secondHandRigTarget.localRotation = currentWeaponManager.LeftHandRotation;
-             
+            weaponAimCamera = GameObject.Find("PlayerFollowCameraWeaponAim");
+            if (weaponAimCamera != null)
+                weaponAimCamera.GetComponent<CinemachineVirtualCamera>().Follow = target;
+            
+            if (weaponIdleCamera != null)
+                weaponIdleCamera.SetActive(false);
+            
+            if (weaponIdleCamera != null)
+                weaponIdleCamera.SetActive(false);
+            
+            gameObject.AddComponent<AudioListener>();
+            
+            _vehicleCamera = GameObject.Find("Camera_Vehicle").GetComponent<Camera>();
+            _playerCamera = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
+            
+            idleCamera = GameObject.Find("PlayerFollowCamera");
+            
+            if (idleCamera != null)
+                idleCamera.GetComponent<CinemachineVirtualCamera>().Follow = target;
+            // toggle loading screen
 
-                  currentWeaponManager.isAiming = true;
-                  currentWeaponManager.Crosshair.SetActive(true);
-
-                  // use the animation set from the current weapon
-                  if (!_input.isShooting)
-                      playerAnimator.Play(currentWeaponManager.WeaponAimTriggerName);
-
-
-                  thirdPersonController.SetSensitivity(currentWeaponManager.aimSensitivity);
-                  thirdPersonController.SetRotateOnMove(false);
-  
-                  
-                  weaponAimCamera.SetActive(true);
-              }
-              
-              else
-              {
-                  if (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("KickOut"))
-                  {
-                      if(!carTheftCamera.activeInHierarchy)
-                          carTheftCamera.SetActive(true);
-                  }
-                  else
-                  {
-                      if(carTheftCamera.activeInHierarchy)
-                          carTheftCamera.SetActive(false);
-                  }
-              }
-        }
-        else
-        {
-            if (_input.aimInput)
-            {
-                
-                playerRig.weight = 1;
-                
-                // set target rig location / rotation 
-                secondHandRigTarget.localPosition = currentWeaponManager.LeftHandPosition;
-                secondHandRigTarget.localRotation = currentWeaponManager.LeftHandRotation;
-
-                // toggle is aiming
-                currentWeaponManager.isAiming = true;
-                
-                // play the animation of aiming
-                playerAnimator.Play(currentWeaponManager.WeaponAimTriggerName);
-
-                thirdPersonController.SetSensitivity(currentWeaponManager.aimSensitivity);
-            }
-            else
-            {
-                playerRig.weight = 0;
-                currentWeaponManager.isAiming = false;
-                
-                thirdPersonController.SetSensitivity(currentWeaponManager.normalSensitivity);
-                thirdPersonController.SetRotateOnMove(true);
-                
-                playerAnimator.ResetTrigger(currentWeaponManager.WeaponAimTriggerName);
-                playerAnimator.SetTrigger(currentWeaponManager.WeaponIdleTriggerName);
-            }
-        }
-       
-        // this then sets to player ai weapon is false... we are getting rid of this
-    } // This needs moving into the shooting class:
-
-    public void StickCameraToPlayer()
-    {
-        if(! _vehicleCamera || _playerCamera)
-            return;
-
-        _vehicleCamera.enabled = false;
-        _playerCamera.enabled = true;
-        _playerCamera.Follow = target;
-    }
-
-    public void StickCameraToVehicle(Transform followTransform)
-    {
-        if(!_playerCamera || !_vehicleCamera)
-            return;
-
-        var cameraFollow = _vehicleCamera.GetComponent<CameraFollow>();
+            _input = GetComponent<InputHandler>();
         
-        if(!cameraFollow)
-            return;
-
-        cameraFollow.car = followTransform;
-
-        _vehicleCamera.enabled = true;
-        _playerCamera.enabled = false;
-    }
-    
-
-    public void Shoot()
-    {
-        StopCoroutine(EndShooting());
-        _isShooting = true;
         
-        playerAnimator.Play(currentWeaponManager.WeaponShootAnimationName);
-        StartCoroutine(EndShooting());
-    }
-    
-    IEnumerator EndShooting()
-    {
-        yield return new WaitForSeconds(currentWeaponManager.WeaponShootAnimationLength);
+            StickCameraToPlayer();
 
-        _isShooting = false;
-    }
+           
+            // enable cc
+            
+            // blah blah
+        }
 
-    
-    // push current aim value to server to display animation on all sides
-    [Command]
-    private void CmdSetAimValue(int value)
-    {
-        aimValue = value;
-        RpcSetValue(value);
-    }
-
-    [ClientRpc]
-    private void RpcSetValue(int value)
-    {
-        aimValue = value;
-    }
-
-    IEnumerator HideHeadMesh()
-    {
-        yield return new WaitForSeconds(0.7f);
-
-        foreach (GameObject mesh in headMeshes)
+        public void StickCameraToPlayer()
         {
-            if(isFirstPerson)
-                mesh.SetActive(false);
-            else
-                mesh.SetActive(true);
+            if(! _vehicleCamera || _playerCamera)
+                return;
+
+            _vehicleCamera.enabled = false;
+            _playerCamera.enabled = true;
+            _playerCamera.Follow = target;
+        }
+
+        public void StickCameraToVehicle(Transform followTransform)
+        {
+            if(!_playerCamera || !_vehicleCamera)
+                return;
+
+            var cameraFollow = _vehicleCamera.GetComponent<CameraFollow>();
+        
+            if(!cameraFollow)
+                return;
+
+            cameraFollow.car = followTransform;
+
+            _vehicleCamera.enabled = true;
+            _playerCamera.enabled = false;
+        }
+
+        IEnumerator HideHeadMesh()
+        {
+            yield return new WaitForSeconds(0.7f);
+
+            foreach (GameObject mesh in headMeshes)
+            {
+                if(isFirstPerson)
+                    mesh.SetActive(false);
+                else
+                    mesh.SetActive(true);
+            }
         }
     }
 }
