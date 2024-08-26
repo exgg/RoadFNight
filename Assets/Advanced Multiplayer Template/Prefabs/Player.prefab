@@ -1017,7 +1017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd57d6345c4282438deb7e8c6bd57a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emoteWheel: {fileID: 4888422653724446150}
+  _emoteWheel: {fileID: 0}
   AreaID: 2
 --- !u!1 &533112671848082226
 GameObject:
@@ -2108,12 +2108,11 @@ GameObject:
   - component: {fileID: 1415447536970342930}
   - component: {fileID: 2839856928493419607}
   - component: {fileID: 649006491836229884}
-  - component: {fileID: 5479138105933174491}
   - component: {fileID: 2868266451632133262}
   - component: {fileID: 7980001624564680849}
   - component: {fileID: 533594922165006867}
   - component: {fileID: 6620923452658758675}
-  - component: {fileID: -1612451488991402610}
+  - component: {fileID: 3218384401488552578}
   - component: {fileID: 3708651623189312706}
   - component: {fileID: 5630967227957478435}
   - component: {fileID: -8157208296288239210}
@@ -2135,10 +2134,7 @@ GameObject:
   - component: {fileID: -8989466992905128445}
   - component: {fileID: -5838044583225881478}
   - component: {fileID: -1546138072967021058}
-  - component: {fileID: 4888422653724446150}
   - component: {fileID: 676599841136226035}
-  - component: {fileID: 5799319892276963001}
-  - component: {fileID: -2118898167159860066}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2251,7 +2247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  currentWeaponManager: {fileID: 0}
+  currentWeaponManager: {fileID: 8458576691406158694}
   weapons: {fileID: 3418993767949686106}
   weaponsFound: []
   shellEjectionPoint: {fileID: 0}
@@ -2273,43 +2269,6 @@ MonoBehaviour:
   loadingScreenPrefab: {fileID: 0}
   carTheftCamera: {fileID: 8188493419514185695}
   aimValue: 0
---- !u!114 &5479138105933174491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224220879548419888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c7ee16d9a3d7f4994caa77fe8b5deb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  CurrentWeaponManager: {fileID: 0}
-  Weapons: {fileID: 3418993767949686106}
-  AllFoundWeapons: []
-  CurrentWeaponBulletSpawnPoint: {fileID: 0}
-  CurrentCartridgeEjectSpawnPoint: {fileID: 0}
-  PlayerRig: {fileID: 7962390186403929653}
-  SecondHandRig_target: {fileID: 4012478451116995162}
-  thirdPersonController: {fileID: 8381775988047641593}
-  PlayerAnimator: {fileID: 629454742471315189}
-  IdleCamera: {fileID: 0}
-  WeaponIdleCamera: {fileID: 0}
-  WeaponAimCamera: {fileID: 0}
-  FirstPersonIdleCamera: {fileID: 6221495999441298634}
-  target: {fileID: 3597099315043464434}
-  isFirstPerson: 0
-  headMeshes:
-  - {fileID: 2398140834543118770}
-  - {fileID: 457348549091446055}
-  - {fileID: 4875503360592941476}
-  loadingScreenPrefab: {fileID: 7743044019569160017, guid: cbf5add0ce9509e4994c4446d13981b1,
-    type: 3}
-  carTheftCamera: {fileID: 8188493419514185695}
-  aimValue: 0
 --- !u!114 &2868266451632133262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2324,6 +2283,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  bulletPrefab: {fileID: 0}
+  rocketPrefab: {fileID: 0}
+  bulletSpeed: 0
+  cartridgeEjectPrefab: {fileID: 0}
   thirdPersonController: {fileID: 0}
 --- !u!114 &7980001624564680849
 MonoBehaviour:
@@ -2347,6 +2310,8 @@ MonoBehaviour:
   chosenCharacter: {fileID: 11400000, guid: 8edeb45af08a71141bcfa1a6d978edfb, type: 2}
   thirdPersonController: {fileID: 0}
   tpManagerNew: {fileID: 0}
+  shooting: {fileID: 0}
+  playerInventory: {fileID: 0}
 --- !u!114 &533594922165006867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2396,7 +2361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 2
-  playerInventory: {fileID: -1612451488991402610}
+  playerInventory: {fileID: 0}
   playerNutrition: {fileID: 5630967227957478435}
   id: 0
   username: 
@@ -2407,7 +2372,7 @@ MonoBehaviour:
   propertyArea: {fileID: 0}
   _nameplateCanvas: {fileID: 2944359548063354205}
   _nameplateText: {fileID: 6879471369532616423}
---- !u!114 &-1612451488991402610
+--- !u!114 &3218384401488552578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2416,38 +2381,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1224220879548419888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 572d19acdab362749af5b83709b9d53c, type: 3}
+  m_Script: {fileID: 11500000, guid: 226c6213d25083648a4874410ef5011c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0
-  weaponWheelManager: {fileID: 0}
-  shopManager: {fileID: 0}
-  _emoteWheel: {fileID: 0}
-  _chatSystem: {fileID: 0}
-  netPlayer: {fileID: 6620923452658758675}
-  playerNutrition: {fileID: 5630967227957478435}
-  audioSource: {fileID: -8999880934896529054}
-  TPControllerManager: {fileID: 5479138105933174491}
-  bulletPrefab: {fileID: 714747561125627176, guid: e25626da315cf924195fb7a077f58e19,
-    type: 3}
-  rocketPrefab: {fileID: 6158105052195522411, guid: a81b091a24e6e894c8c3ce13e0a08236,
-    type: 3}
-  bulletSpeed: 300
-  cartridgeEjectPrefab: {fileID: 1000013947318026, guid: 7ca96822084510147adb2aea03d45e3b,
-    type: 3}
-  inPropertyArea: 0
-  inShop: 0
-  inCar: 0
-  usesParachute: 0
-  isAiming: 0
-  chatWindow: {fileID: 0}
-  _slot:
-    item:
-      hash: 0
-      currentShelfLifeInSeconds: 0
-    amount: 0
-  _gFX: {fileID: 2610227527127011296}
+  weapons:
+  - {fileID: 1165446777811622831}
+  - {fileID: 7908928316952443084}
+  - {fileID: 7639964729338443597}
 --- !u!114 &3708651623189312706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2492,7 +2432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  playerInventory: {fileID: -1612451488991402610}
+  playerInventory: {fileID: 0}
   _maxDistance: 7
   UIMessagePrefab: {fileID: 3988554910629475873, guid: 4f141ce72a5ab8848bd38ab073332ffa,
     type: 3}
@@ -2653,7 +2593,7 @@ CharacterController:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.8
   m_Radius: 0.28
@@ -3118,71 +3058,6 @@ MonoBehaviour:
   thirdPersonController: {fileID: 0}
   manageTpController: {fileID: 0}
   health: {fileID: 0}
---- !u!114 &4888422653724446150
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224220879548419888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ddd2cad48f7f22479768cfbe55a154e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  EmoteWheelUi: {fileID: 5835332818328382541}
-  inEmoteWheel: 0
-  lineUiElement: {fileID: 3130622283501131373}
-  emotes:
-  - EmoteName: Waving
-    EmoteAnimationTriggerName: WavingEmote
-    EmoteAnimationLength: 3.03
-    InfoText: Wave to a player
-    isOnlyUpperBodyAnimation: 1
-    EmoteIcon: {fileID: 21300000, guid: e7ac82de55db23c409af35ce034cb90c, type: 3}
-    EmoteButtonImage: {fileID: 5791075460180042047}
-    EmoteButtonIconImage: {fileID: 3841145973698352716}
-    ButtonDeselectedColor: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 0.65882355}
-    ButtonSelectedColor: {r: 0.41451585, g: 0.49041384, b: 0.6509434, a: 0.78431374}
-  - EmoteName: Waving2
-    EmoteAnimationTriggerName: WavingEmote
-    EmoteAnimationLength: 3.03
-    InfoText: Wave to a player2
-    isOnlyUpperBodyAnimation: 1
-    EmoteIcon: {fileID: 21300000, guid: e7ac82de55db23c409af35ce034cb90c, type: 3}
-    EmoteButtonImage: {fileID: 7496154252894825996}
-    EmoteButtonIconImage: {fileID: 3079987230500629407}
-    ButtonDeselectedColor: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 0.65882355}
-    ButtonSelectedColor: {r: 0.41451585, g: 0.49041384, b: 0.6509434, a: 0.78431374}
-  - EmoteName: Waving3
-    EmoteAnimationTriggerName: WavingEmote
-    EmoteAnimationLength: 3.03
-    InfoText: Wave to a player3
-    isOnlyUpperBodyAnimation: 1
-    EmoteIcon: {fileID: 21300000, guid: e7ac82de55db23c409af35ce034cb90c, type: 3}
-    EmoteButtonImage: {fileID: 9123615612218309574}
-    EmoteButtonIconImage: {fileID: 5319614391652201064}
-    ButtonDeselectedColor: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 0.65882355}
-    ButtonSelectedColor: {r: 0.41451585, g: 0.49041384, b: 0.6509434, a: 0.78431374}
-  - EmoteName: Waving4
-    EmoteAnimationTriggerName: WavingEmote
-    EmoteAnimationLength: 3.03
-    InfoText: Wave to a player4
-    isOnlyUpperBodyAnimation: 1
-    EmoteIcon: {fileID: 21300000, guid: e7ac82de55db23c409af35ce034cb90c, type: 3}
-    EmoteButtonImage: {fileID: 596418421980416200}
-    EmoteButtonIconImage: {fileID: 1442852881195015305}
-    ButtonDeselectedColor: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 0.65882355}
-    ButtonSelectedColor: {r: 0.41451585, g: 0.49041384, b: 0.6509434, a: 0.78431374}
-  currentEmoteName: {fileID: 4792087297888152719}
-  currentEmoteInfo: {fileID: 68279977958598421}
-  isPlayingAnimation: 0
-  Top: 0
-  Down: 0
-  Right: 0
-  Left: 0
 --- !u!114 &676599841136226035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3208,53 +3083,6 @@ MonoBehaviour:
   powerMultiplier: 2
   divisionMultiplier: 7
   ExperienceUI: {fileID: 5268678914098193390}
---- !u!114 &5799319892276963001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224220879548419888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e16dbe9c9f0a06d48ae303a4c289a9cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  defaultOutfit: {fileID: 3900280037989702627}
-  outfits:
-  - name: Outfit0
-    itemSO: {fileID: 11400000, guid: e7f02614495f8564ea4f70f0e9b9c4d1, type: 2}
-    outfitGameObject: {fileID: 8110818872772569684}
-    inventoryCharacterSprite: {fileID: 21300000, guid: 02ec79cd1f6922846af1f8a15f84341e,
-      type: 3}
-  currentOutfitName: defaultOutfit
-  defaultInventoryCharacterSprite: {fileID: 21300000, guid: afb87b4d1a2449045b636284beb025ef,
-    type: 3}
-  inventoryModule: {fileID: -1612451488991402610}
---- !u!114 &-2118898167159860066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224220879548419888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb6810879e361a34195c1926ef427e48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  companions:
-  - name: Dog0
-    itemSO: {fileID: 11400000, guid: bf41ea794d7d2b640847ebee640f9dbe, type: 2}
-    companionPrefab: {fileID: 8256705065392475671, guid: ecbe481c76bb724408a2587c555aec5e,
-      type: 3}
-  currentCompanionName: 
-  isCompanionInstantiated: 0
-  inventoryModule: {fileID: -1612451488991402610}
 --- !u!1 &1280215549901539037
 GameObject:
   m_ObjectHideFlags: 0
@@ -5649,7 +5477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd57d6345c4282438deb7e8c6bd57a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emoteWheel: {fileID: 4888422653724446150}
+  _emoteWheel: {fileID: 0}
   AreaID: 3
 --- !u!1 &3561313101354433078
 GameObject:
@@ -13485,7 +13313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd57d6345c4282438deb7e8c6bd57a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emoteWheel: {fileID: 4888422653724446150}
+  _emoteWheel: {fileID: 0}
   AreaID: 4
 --- !u!1 &5794880415574358864
 GameObject:
@@ -14418,7 +14246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd57d6345c4282438deb7e8c6bd57a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emoteWheel: {fileID: 4888422653724446150}
+  _emoteWheel: {fileID: 0}
   AreaID: 0
 --- !u!1 &6554549454081181097
 GameObject:
@@ -24607,7 +24435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd57d6345c4282438deb7e8c6bd57a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emoteWheel: {fileID: 4888422653724446150}
+  _emoteWheel: {fileID: 0}
   AreaID: 1
 --- !u!1 &7436351050440845740
 GameObject:

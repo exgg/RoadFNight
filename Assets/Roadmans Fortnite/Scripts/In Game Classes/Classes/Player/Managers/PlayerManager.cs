@@ -7,6 +7,7 @@ using Roadmans_Fortnite.Scripts.Classes.ScriptableObjects.Characters.Player_Char
 using Roadmans_Fortnite.Scripts.Classes.Stats;
 using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
 using Roadmans_Fortnite.Scripts.Classes.Stats.Enums;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Inventory;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Managers;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting;
 using StarterAssets;
@@ -33,7 +34,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
         public ThirdPersonController thirdPersonController;
         public TpManagerNew tpManagerNew;
         public Shooting shooting;
-        
+        public PlayerInventory playerInventory;
         
         private InputHandler _inputHandler;
 
@@ -47,6 +48,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
             thirdPersonController = GetComponent<ThirdPersonController>();
             tpManagerNew = GetComponent<TpManagerNew>();
             shooting = GetComponent<Shooting>();
+            playerInventory = GetComponent<PlayerInventory>();
             print($"Player Health: {PlayerStats.Health} Player Agility: {PlayerStats.Agility} Player Charisma: {PlayerStats.Charisma}");
             
         }
@@ -57,7 +59,11 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
             {
                 InitializeClasses();
             
+                playerInventory.Initialize();
+                playerInventory.ActivateWeapon(0);
+                
                 thirdPersonController.TPStart();
+                shooting.Initialize();
                 tpManagerNew.Initialize();
             
                 var tester = GetClass<global::NetPlayer>(ClassReference.Category.Player, ClassReference.Keys.PlayerBase);
@@ -76,7 +82,10 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
                 var delta = Time.deltaTime;
             
                 _inputHandler.TickInput(delta);
+                
+                shooting.TickUpdate();
                 thirdPersonController.TickUpdate();
+                
             }
         }
 

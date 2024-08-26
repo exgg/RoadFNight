@@ -41,7 +41,7 @@ namespace RedicionStudio.InventorySystem
 
 		#endregion
 
-		[FormerlySerializedAs("player")] [Header("Player Modules")]
+		[Header("Player Modules")]
 		public NetPlayer netPlayer;
 		public PlayerNutritionModule playerNutrition;
 
@@ -75,7 +75,8 @@ namespace RedicionStudio.InventorySystem
 
 		[Space]
 		public bool isAiming = false;
-
+		
+		
 
 		public ChatSystem chatWindow;
 

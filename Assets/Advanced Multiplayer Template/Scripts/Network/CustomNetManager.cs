@@ -28,7 +28,7 @@ public class CustomNetManager : NetworkManager {
 		netPlayer.playerNutrition.value = authData.accountData.Nutrition;
         netPlayer.experiencePoints = authData.accountData.ExperiencePoints;
 
-		netPlayer.playerInventory.LoadInventory();
+		//netPlayer.playerInventory.LoadInventory();
 
 		gO.transform.position = authData.instance.transform.position;
 
