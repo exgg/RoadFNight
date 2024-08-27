@@ -75,7 +75,7 @@ public class PlayerInteractionModule : NetworkBehaviour
     {
         if (Physics.Raycast(position, forward, out RaycastHit hitInfo, _maxDistance, ignoreLayers))
         {
-           print("I found something to interact with");
+           print($"I found something to interact with: {hitInfo.transform.name}");
         }
     }
 
