@@ -10,6 +10,8 @@ public class PlayerInteractionModule : NetworkBehaviour
     [Header("Player Modules")]
     public PlayerInventoryModule playerInventory;
 
+    [SerializeField] private LayerMask ignoreLayers;
+    
     [HideInInspector] public INetInteractable<PlayerInventoryModule> currentInteractable;
 
     [SerializeField] private float _maxDistance;
@@ -71,13 +73,9 @@ public class PlayerInteractionModule : NetworkBehaviour
 
     private void Raycast(Vector3 position, Vector3 forward)
     {
-        if (Physics.Raycast(position, forward, out RaycastHit hitInfo, _maxDistance, 1 << LayerMask.NameToLayer("Ground")) && hitInfo.transform.TryGetComponent(out INetInteractable<PlayerInventoryModule> interactable))
+        if (Physics.Raycast(position, forward, out RaycastHit hitInfo, _maxDistance, ignoreLayers))
         {
-            currentInteractable = interactable;
-        }
-        else
-        {
-            currentInteractable = null;
+           print("I found something to interact with");
         }
     }
 

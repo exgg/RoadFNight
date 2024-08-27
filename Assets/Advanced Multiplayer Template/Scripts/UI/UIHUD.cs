@@ -15,8 +15,8 @@ public class UIHUD : MonoBehaviour {
 			return;
 		}
 
-		_nutritionSlider.value = NetPlayer.LocalNetPlayer.playerNutrition.value;
-		_nutritionText.text = "Nutrition: " + NetPlayer.LocalNetPlayer.playerNutrition.value + "/100";
+		//_nutritionSlider.value = NetPlayer.LocalNetPlayer.playerNutrition.value;
+		//_nutritionText.text = "Nutrition: " + NetPlayer.LocalNetPlayer.playerNutrition.value + "/100";
 
         _healthSlider.value = Health.localPlayer.currentHealth;
         _healthText.text = "Health: " + Health.localPlayer.currentHealth + "/100";

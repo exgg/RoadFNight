@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
-using Mirror;
 using TMPro;
 using System;
 public class PlacementModule : NetworkBehaviour
@@ -214,7 +213,7 @@ public class PlacementModule : NetworkBehaviour
 
 		if (isServer) {
 			// send account packet to the master server
-			MasterServer.MSManager.SendPacket(new MasterServer.AccountDataResponsePacket { Id = _netPlayer.id, Funds = _netPlayer.funds, OwnsProperty = true, Nutrition = _netPlayer.playerNutrition.value, ExperiencePoints = _netPlayer.experiencePoints });
+			MasterServer.MSManager.SendPacket(new MasterServer.AccountDataResponsePacket { Id = _netPlayer.id, Funds = _netPlayer.funds, OwnsProperty = true,  ExperiencePoints = _netPlayer.experiencePoints });
 			
 			// Prepare and save inventory data to master server
 			MasterServer.MServer.InventoryJSONData[] inventoryJSONData = new MasterServer.MServer.InventoryJSONData[_netPlayer.playerInventory.slots.Count];

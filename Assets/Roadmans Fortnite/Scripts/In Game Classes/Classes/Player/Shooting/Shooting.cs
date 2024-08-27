@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Mirror;
 using Roadmans_Fortnite.Scripts.Classes.Player.Controllers;
 using Roadmans_Fortnite.Scripts.Classes.Player.Input;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Inventory;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Managers;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -14,15 +15,17 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
         private InputHandler _input;
 
         private TpManagerNew _tpManagerNew;
-
+        private PlayerInventory _playerInventory;
+        
         private NetPlayer _netPlayer;
         
         [Space]
         public GameObject bulletPrefab;
         public GameObject rocketPrefab;
         public float bulletSpeed;
+        public string currentBulletName;
         Transform _bulletSpawnPointPosition;
-
+		
         
         [Space]
         public GameObject cartridgeEjectPrefab;
@@ -42,11 +45,17 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
             _tpManagerNew = GetComponent<TpManagerNew>();
             thirdPersonController = GetComponent<ThirdPersonController>();
             _netPlayer = GetComponent<NetPlayer>();
+            _playerInventory = GetComponent<PlayerInventory>();
+            
+            _bulletSpawnPointPosition = _playerInventory.weapons[_playerInventory.currentWeaponIndex].GetComponent<WeaponManager>().CurrentWeaponBulletSpawnPoint;
+            _cartridgeEjectSpawnPointPosition = _playerInventory.weapons[_playerInventory.currentWeaponIndex].GetComponent<WeaponManager>().CartridgeEjectEffectSpawnPoint;
+            currentBulletName = "Bullet";
         }
 
         public void TickUpdate()
         {
 	        AimingLogic();
+	        ShootBullet();
         }
         
 		/// <summary>
@@ -63,37 +72,40 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
 		{
 			if (!base.hasAuthority) return;
 
-			_bulletSpawnPointPosition = this.GetComponent<ManageTPController>().CurrentWeaponBulletSpawnPoint;
-			_cartridgeEjectSpawnPointPosition = this.GetComponent<ManageTPController>().CurrentCartridgeEjectSpawnPoint;
-			string currentBulletName = this.GetComponent<ManageTPController>().CurrentWeaponManager.WeaponBulletPrefab.name;
-			//bulletSpeed = this.GetComponent<ManageTPController>().CurrentWeaponManager.BulletSpeed;
-			this.GetComponent<ManageTPController>().Shoot();
-			//CmdSetAttackerUsername(username);
 
-			Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-
-			int layerToIgnore = 4; // Replace with the layer you want to ignore
-			LayerMask layerMask = ~(1 << layerToIgnore);
-			RaycastHit hit;
-			Vector3 collisionPoint;
-			if (Physics.Raycast(ray, out hit, 50f, layerMask))
+			if (_input.aimInput && _input.shootInput && _playerInventory.bulletCount > 0)
 			{
-				collisionPoint = hit.point;
+				
+				//bulletSpeed = this.GetComponent<ManageTPController>().CurrentWeaponManager.BulletSpeed;
+				Shoot();
+				//CmdSetAttackerUsername(username);
+
+				Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+
+				int layerToIgnore = 4; // Replace with the layer you want to ignore
+				LayerMask layerMask = ~(1 << layerToIgnore);
+				RaycastHit hit;
+				Vector3 collisionPoint;
+				if (Physics.Raycast(ray, out hit, 50f, layerMask))
+				{
+					collisionPoint = hit.point;
+				}
+				else
+				{
+					collisionPoint = ray.GetPoint(50f);
+				}
+
+				Vector3 bulletVector = (collisionPoint - _bulletSpawnPointPosition.transform.position).normalized;
+
+
+
+
+				if (currentBulletName == "Bullet")
+					CmdShootBullet(_bulletSpawnPointPosition.position, _bulletSpawnPointPosition.rotation, _cartridgeEjectSpawnPointPosition.position, _cartridgeEjectSpawnPointPosition.rotation, bulletVector, bulletSpeed);
+				else
+					CmdShootRocket(_bulletSpawnPointPosition.position, _bulletSpawnPointPosition.rotation, bulletVector, bulletSpeed);
 			}
-			else
-			{
-				collisionPoint = ray.GetPoint(50f);
-			}
-
-			Vector3 bulletVector = (collisionPoint - _bulletSpawnPointPosition.transform.position).normalized;
-
-
-
-
-			if (currentBulletName == "Bullet")
-				CmdShootBullet(_bulletSpawnPointPosition.position, _bulletSpawnPointPosition.rotation, _cartridgeEjectSpawnPointPosition.position, _cartridgeEjectSpawnPointPosition.rotation, bulletVector, bulletSpeed);
-			else
-				CmdShootRocket(_bulletSpawnPointPosition.position, _bulletSpawnPointPosition.rotation, bulletVector, bulletSpeed);
+			
 		}
 
 		

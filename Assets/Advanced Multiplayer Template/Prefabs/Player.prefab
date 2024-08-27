@@ -2283,10 +2283,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  bulletPrefab: {fileID: 0}
-  rocketPrefab: {fileID: 0}
-  bulletSpeed: 0
-  cartridgeEjectPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 714747561125627176, guid: e25626da315cf924195fb7a077f58e19,
+    type: 3}
+  rocketPrefab: {fileID: 142510393609287120, guid: 0d129251e7b0288488dfd43d6d926c12,
+    type: 3}
+  bulletSpeed: 10
+  currentBulletName: 5mm
+  cartridgeEjectPrefab: {fileID: 1000013947318026, guid: 7ca96822084510147adb2aea03d45e3b,
+    type: 3}
   thirdPersonController: {fileID: 0}
   aimValue: 0
 --- !u!114 &7980001624564680849
@@ -2389,7 +2393,9 @@ MonoBehaviour:
   - {fileID: 1165446777811622831}
   - {fileID: 7908928316952443084}
   - {fileID: 7639964729338443597}
+  currentWeaponIndex: 0
   tpManagerNew: {fileID: 0}
+  bulletCount: 0
 --- !u!114 &3708651623189312706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2435,6 +2441,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerInventory: {fileID: 0}
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 256
   _maxDistance: 7
   UIMessagePrefab: {fileID: 3988554910629475873, guid: 4f141ce72a5ab8848bd38ab073332ffa,
     type: 3}

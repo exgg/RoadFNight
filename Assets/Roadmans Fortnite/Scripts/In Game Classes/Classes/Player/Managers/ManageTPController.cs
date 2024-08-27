@@ -305,24 +305,7 @@ public class ManageTPController : NetworkBehaviour
     /// Begins shooting, then starts a coroutine to stop shooting after the animation length.
     /// This can be changed into a loop based style. So long as we log the animation length before we parse it
     /// </summary>
-    public void Shoot()
-    {
-        StopCoroutine(EndShooting());
-        isShooting = true;
-        GetComponent<Animator>().Play(CurrentWeaponManager.WeaponShootAnimationName);
-        StartCoroutine(EndShooting());
-    }
-
-    /// <summary>
-    /// Ends the shooting boolean after the coroutine has met the conditions on how long the shooting animation is.
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator EndShooting()
-    {
-        yield return new WaitForSeconds(CurrentWeaponManager.WeaponShootAnimationLength);
-
-        isShooting = false;
-    }
+  
 
     /// <summary>
     /// Sets the value of the aim, to tell the server and other classes that require this whether the player is aiming

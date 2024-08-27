@@ -7,7 +7,11 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Inventory
     {
         public GameObject[] weapons;
 
+        public int currentWeaponIndex;
+        
         public TpManagerNew tpManagerNew;
+
+        public int bulletCount;
         
         public void Initialize()
         {
@@ -31,6 +35,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Inventory
 
             if (index >= 0 && index < weapons.Length)
             {
+                currentWeaponIndex = index;
                 weapons[index].SetActive(true);
                 weapons[index].GetComponent<WeaponManager>().enabled = true;
                 tpManagerNew.currentWeaponManager = weapons[index].GetComponent<WeaponManager>();

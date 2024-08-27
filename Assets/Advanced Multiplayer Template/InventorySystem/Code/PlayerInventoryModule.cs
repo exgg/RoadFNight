@@ -639,7 +639,7 @@ namespace RedicionStudio.InventorySystem
 			_cartridgeEjectSpawnPointPosition = this.GetComponent<ManageTPController>().CurrentCartridgeEjectSpawnPoint;
 			string currentBulletName = this.GetComponent<ManageTPController>().CurrentWeaponManager.WeaponBulletPrefab.name;
 			//bulletSpeed = this.GetComponent<ManageTPController>().CurrentWeaponManager.BulletSpeed;
-			this.GetComponent<ManageTPController>().Shoot();
+			//this.GetComponent<ManageTPController>().Shoot();
 			//CmdSetAttackerUsername(username);
 
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
