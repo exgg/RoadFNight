@@ -31,9 +31,11 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
         
         [Header("Controllers")] 
         public ThirdPersonController thirdPersonController;
-        
-     
 
+        private bool _isShooting;
+
+        [SyncVar] public int aimValue;
+        
         public void Initialize()
         {
 	        _input = GetComponent<InputHandler>();
@@ -203,90 +205,130 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
             }
             if (isLocalPlayer)
             {
-                Vector3 mouseWorldPosition = Vector3.zero;
-                Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
-                Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+	            if(_tpManagerNew.currentWeaponManager != null)
+	            {
+		            Vector3 mouseWorldPosition = Vector3.zero;
+		            Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+		            Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
 
-                _tpManagerNew.currentWeaponManager.debugTransform.position = ray.GetPoint(20f);
-                mouseWorldPosition = ray.GetPoint(20f);
+		            _tpManagerNew.currentWeaponManager.debugTransform.position = ray.GetPoint(20f);
+		            mouseWorldPosition = ray.GetPoint(20f);
+				
+		            _tpManagerNew.playerAnimator.SetLayerWeight(1, 1f);
 
-                Vector3 worldAimTarget = mouseWorldPosition;
-                worldAimTarget.y = _tpManagerNew.currentWeaponManager.Player.position.y;
-                Vector3 aimDirection = (worldAimTarget - _tpManagerNew.currentWeaponManager.Player.position).normalized;
+		            Vector3 worldAimTarget = mouseWorldPosition;
+		            worldAimTarget.y = _tpManagerNew.currentWeaponManager.Player.position.y;
+		            Vector3 aimDirection = (worldAimTarget - _tpManagerNew.currentWeaponManager.Player.position).normalized;
 
-                if (_input.aimInput) // why do we have 2 here?
-                {
+		            if (_input.aimInput)// Manages the aiming of the character, however uses some very expensive calls within here, get components are even running in else
+		            {
+			           
+			            _tpManagerNew.currentWeaponManager.Player.forward = Vector3.Lerp(_tpManagerNew.currentWeaponManager.Player.forward, aimDirection, Time.deltaTime * 20f);
+			            if (_tpManagerNew.playerRig != null)
+				            _tpManagerNew.playerRig.weight = 1;
+			            if (_tpManagerNew.secondHandRigTarget != null)
+			            {
+				            _tpManagerNew.secondHandRigTarget.localPosition = _tpManagerNew.currentWeaponManager.LeftHandPosition;
+				            _tpManagerNew.secondHandRigTarget.localRotation = _tpManagerNew.currentWeaponManager.LeftHandRotation;
+			            }
+			            _tpManagerNew.currentWeaponManager.isAiming = true;
+			            _tpManagerNew.currentWeaponManager.Crosshair.SetActive(true);
+			            if (_tpManagerNew.playerAnimator != null & _isShooting == false)
+				            _tpManagerNew.playerAnimator.Play(_tpManagerNew.currentWeaponManager.WeaponAimTriggerName);
+			            if(thirdPersonController != null)
+			            {
+				            thirdPersonController.SetSensitivity(_tpManagerNew.currentWeaponManager.aimSensitivity);
+				            thirdPersonController.SetRotateOnMove(false);
+			            }
+			            
+			            if (_tpManagerNew.weaponAimCamera != null)
+				            _tpManagerNew.weaponAimCamera.SetActive(true);
+			       
+			            
+		            }
+		            else
+		            {
+			            if (aimValue != 0)
+				            CmdSetAimValue(0);
+			            if (_tpManagerNew.playerRig != null)
+				            _tpManagerNew.playerRig.weight = 0;
+			            _tpManagerNew.currentWeaponManager.isAiming = false;
+			            _tpManagerNew.playerAnimator.SetLayerWeight(1, 1f);
+			            
+			            
+			            if (_tpManagerNew.weaponAimCamera  != null)
+				            _tpManagerNew.weaponAimCamera.SetActive(false);
+			        
+			            _tpManagerNew.currentWeaponManager.Crosshair.SetActive(false);
+			            if (thirdPersonController != null)
+			            {
+				           
+				            thirdPersonController.SetSensitivity(_tpManagerNew.currentWeaponManager.normalSensitivity);
+				            thirdPersonController.SetRotateOnMove(true);
+				       
+			            }
+			            if(_tpManagerNew.playerAnimator != null)
+			            {
+				            _tpManagerNew.playerAnimator.ResetTrigger(_tpManagerNew.currentWeaponManager.WeaponAimTriggerName);
+				            _tpManagerNew.playerAnimator.SetTrigger(_tpManagerNew.currentWeaponManager.WeaponIdleTriggerName);
+			            }
+		            }
+	            }
 
-                    // use the inventory manager, this however will be using the player manager class: 
+	            else
+	            {
+		            Debug.LogError("The tp manager is null");
+	            }
 
-                    _tpManagerNew.currentWeaponManager.Player.forward = Vector3.Lerp(_tpManagerNew.currentWeaponManager.Player.forward, aimDirection, Time.deltaTime * 20f);
-              
-                    _tpManagerNew.playerRig.weight = 1;
-        
-            
-                    _tpManagerNew.secondHandRigTarget.localPosition = _tpManagerNew.currentWeaponManager.LeftHandPosition;
-                    _tpManagerNew.secondHandRigTarget.localRotation = _tpManagerNew.currentWeaponManager.LeftHandRotation;
-         
-
-                    _tpManagerNew.currentWeaponManager.isAiming = true;
-                    _tpManagerNew.currentWeaponManager.Crosshair.SetActive(true);
-
-                    // use the animation set from the current weapon
-                    if (!_input.isShooting)
-                        _tpManagerNew.playerAnimator.Play(_tpManagerNew.currentWeaponManager.WeaponAimTriggerName);
-
-
-                    thirdPersonController.SetSensitivity(_tpManagerNew.currentWeaponManager.aimSensitivity);
-                    thirdPersonController.SetRotateOnMove(false);
-
-              
-                    _tpManagerNew.weaponAimCamera.SetActive(true);
-                }
-          
-                else
-                {
-                    if (_tpManagerNew.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("KickOut"))
-                    {
-                        if(!_tpManagerNew.carTheftCamera.activeInHierarchy)
-                            _tpManagerNew.carTheftCamera.SetActive(true);
-                    }
-                    else
-                    {
-                        if(_tpManagerNew.carTheftCamera.activeInHierarchy)
-                            _tpManagerNew.carTheftCamera.SetActive(false);
-                    }
-                }
+	            if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("KickOut"))
+	            {
+		            if (!_tpManagerNew.carTheftCamera.activeInHierarchy)
+			            _tpManagerNew.carTheftCamera.SetActive(true);
+	            }
+	            else
+	            {
+		            if (_tpManagerNew.carTheftCamera.activeInHierarchy)
+			            _tpManagerNew.carTheftCamera.SetActive(false);
+	            }
             }
-            else
+            if (!isLocalPlayer)
             {
-                if (_input.aimInput)
-                {
-            
-                    _tpManagerNew.playerRig.weight = 1;
-            
-                    // set target rig location / rotation 
-                    _tpManagerNew.secondHandRigTarget.localPosition = _tpManagerNew.currentWeaponManager.LeftHandPosition;
-                    _tpManagerNew.secondHandRigTarget.localRotation = _tpManagerNew.currentWeaponManager.LeftHandRotation;
-
-                    // toggle is aiming
-                    _tpManagerNew.currentWeaponManager.isAiming = true;
-            
-                    // play the animation of aiming
-                    _tpManagerNew.playerAnimator.Play(_tpManagerNew.currentWeaponManager.WeaponAimTriggerName);
-
-                    thirdPersonController.SetSensitivity(_tpManagerNew.currentWeaponManager.aimSensitivity);
-                }
-                else
-                {
-                    _tpManagerNew.playerRig.weight = 0;
-                    _tpManagerNew.currentWeaponManager.isAiming = false;
-            
-                    thirdPersonController.SetSensitivity(_tpManagerNew.currentWeaponManager.normalSensitivity);
-                    thirdPersonController.SetRotateOnMove(true);
-            
-                    _tpManagerNew.playerAnimator.ResetTrigger(_tpManagerNew.currentWeaponManager.WeaponAimTriggerName);
-                    _tpManagerNew.playerAnimator.SetTrigger(_tpManagerNew.currentWeaponManager.WeaponIdleTriggerName);
-                }
+	            if (aimValue == 1)//Aim
+	            {
+		            if(_tpManagerNew.playerRig != null)
+			            _tpManagerNew.playerRig.weight = 1;
+		            if(_tpManagerNew.secondHandRigTarget != null & _tpManagerNew.currentWeaponManager != null)
+		            {
+			            _tpManagerNew.secondHandRigTarget.localPosition = _tpManagerNew.currentWeaponManager.LeftHandPosition;
+			            _tpManagerNew.secondHandRigTarget.localRotation = _tpManagerNew.currentWeaponManager.LeftHandRotation;
+		            }
+		            if(_tpManagerNew.currentWeaponManager != null)
+			            _tpManagerNew.currentWeaponManager.isAiming = true;
+		            if (_tpManagerNew.playerAnimator != null & _tpManagerNew.currentWeaponManager != null & _isShooting == false)
+			            _tpManagerNew.playerAnimator.Play(_tpManagerNew.currentWeaponManager.WeaponAimTriggerName);
+		            if(thirdPersonController != null & _tpManagerNew.currentWeaponManager != null)
+		            {
+			            thirdPersonController.SetSensitivity(_tpManagerNew.currentWeaponManager.aimSensitivity);
+			            thirdPersonController.SetRotateOnMove(false);
+		            }
+	            }
+	            else if (aimValue == 0)
+	            {
+		            if (_tpManagerNew.playerRig != null)
+			            _tpManagerNew.playerRig.weight = 0;
+		            if (_tpManagerNew.currentWeaponManager != null)
+			            _tpManagerNew.currentWeaponManager.isAiming = false;
+		            if (thirdPersonController != null & _tpManagerNew.currentWeaponManager != null)
+		            {
+			            thirdPersonController.SetSensitivity(_tpManagerNew.currentWeaponManager.normalSensitivity);
+			            thirdPersonController.SetRotateOnMove(true);
+		            }
+		            if (_tpManagerNew.playerAnimator != null & _tpManagerNew.currentWeaponManager != null)
+		            {
+			            _tpManagerNew.playerAnimator.ResetTrigger(_tpManagerNew.currentWeaponManager.WeaponAimTriggerName);
+			            _tpManagerNew.playerAnimator.SetTrigger(_tpManagerNew.currentWeaponManager.WeaponIdleTriggerName);
+		            }
+	            }
             }
    
             // this then sets to player ai weapon is false... we are getting rid of this

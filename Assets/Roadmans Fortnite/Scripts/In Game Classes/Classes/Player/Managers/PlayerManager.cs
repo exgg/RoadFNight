@@ -63,9 +63,9 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
                 playerInventory.ActivateWeapon(0);
                 
                 thirdPersonController.TPStart();
-                shooting.Initialize();
                 tpManagerNew.Initialize();
-            
+                shooting.Initialize();
+                
                 var tester = GetClass<global::NetPlayer>(ClassReference.Category.Player, ClassReference.Keys.PlayerBase);
 
                 if (tester == null) return;
@@ -83,8 +83,9 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Managers
             
                 _inputHandler.TickInput(delta);
                 
-                shooting.TickUpdate();
+                
                 thirdPersonController.TickUpdate();
+                shooting.TickUpdate();
                 
             }
         }

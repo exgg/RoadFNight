@@ -77,12 +77,16 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Managers
             
             _vehicleCamera = GameObject.Find("Camera_Vehicle").GetComponent<Camera>();
             _playerCamera = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
+            playerAnimator = GetComponent<Animator>();
+            
             
             idleCamera = GameObject.Find("PlayerFollowCamera");
             
             if (idleCamera != null)
                 idleCamera.GetComponent<CinemachineVirtualCamera>().Follow = target;
             // toggle loading screen
+            
+            
 
             _input = GetComponent<InputHandler>();
         

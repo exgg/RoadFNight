@@ -106,8 +106,6 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Input
 
             _playerControls.Player_UI_Actions.Inventory.performed += ctx => inventoryInput = !inventoryInput; // this should toggle the inventory bool
             _playerControls.Player_UI_Actions.Menu.performed += ctx => escapeMenuInput = !escapeMenuInput;
-
-
         }
 
         private void PlayerCameraMovementInputs()
