@@ -21,6 +21,8 @@ public class WeaponManager : MonoBehaviour
     public float BulletSpeed;
     public Transform MuzzleFlashEffectPosition;
 
+    public ParticleSystem particleSystem;
+    
     [Space]
     [Header("Triggers")]
     public string WeaponIdleTriggerName;

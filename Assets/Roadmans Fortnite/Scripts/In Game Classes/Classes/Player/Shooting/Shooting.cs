@@ -56,6 +56,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
                 
                 RaycastHit hit;
                 Transform bulletSpawnTransform = _tpManagerNew.currentWeaponManager.MuzzleFlashEffectPosition;
+                
                 Vector3 bulletDirection = bulletSpawnTransform.forward;
 
                 if (Physics.Raycast(bulletSpawnTransform.position, bulletDirection, out hit, 100f))
@@ -76,8 +77,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
         {
             if (muzzleFlashPrefab)
             {
-                GameObject flash = Instantiate(muzzleFlashPrefab, spawnPoint.position, spawnPoint.rotation);
-                Destroy(flash, 0.1f);  // Destroy the flash after a short time
+	            _tpManagerNew.currentWeaponManager.particleSystem.Play();
             }
         }
         
@@ -93,68 +93,59 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
 
             if (isLocalPlayer)
             {
-                if (_tpManagerNew.currentWeaponManager != null)
+                Vector3 mouseWorldPosition = Vector3.zero;
+                Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+                Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+
+                _tpManagerNew.currentWeaponManager.debugTransform.position = ray.GetPoint(20f);
+                mouseWorldPosition = ray.GetPoint(20f);
+			
+                _tpManagerNew.playerAnimator.SetLayerWeight(1, 1f);
+
+                Vector3 worldAimTarget = mouseWorldPosition;
+                worldAimTarget.y = _tpManagerNew.currentWeaponManager.Player.position.y;
+                Vector3 aimDirection = (worldAimTarget - _tpManagerNew.currentWeaponManager.Player.position).normalized;
+
+                if (_input.aimInput || isDebugger)
                 {
-                    Vector3 mouseWorldPosition = Vector3.zero;
-                    Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
-                    Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
-
-                    _tpManagerNew.currentWeaponManager.debugTransform.position = ray.GetPoint(20f);
-                    mouseWorldPosition = ray.GetPoint(20f);
-				
-                    _tpManagerNew.playerAnimator.SetLayerWeight(1, 1f);
-
-                    Vector3 worldAimTarget = mouseWorldPosition;
-                    worldAimTarget.y = _tpManagerNew.currentWeaponManager.Player.position.y;
-                    Vector3 aimDirection = (worldAimTarget - _tpManagerNew.currentWeaponManager.Player.position).normalized;
-
-                    if (_input.aimInput || isDebugger)
-                    {
-			            _tpManagerNew.currentWeaponManager.Player.forward = Vector3.Lerp(_tpManagerNew.currentWeaponManager.Player.forward, aimDirection, Time.deltaTime * 20f);
-			            if (_tpManagerNew.playerRig != null)
-				            _tpManagerNew.playerRig.weight = 1;
-			            if (_tpManagerNew.secondHandRigTarget != null)
-			            {
-				            _tpManagerNew.secondHandRigTarget.localPosition = _tpManagerNew.currentWeaponManager.LeftHandPosition;
-				            _tpManagerNew.secondHandRigTarget.localRotation = _tpManagerNew.currentWeaponManager.LeftHandRotation;
-			            }
-			            _tpManagerNew.currentWeaponManager.isAiming = true;
-			            _tpManagerNew.currentWeaponManager.Crosshair.SetActive(true);
-			            if (_tpManagerNew.playerAnimator != null & _isShooting == false)
-				            _tpManagerNew.playerAnimator.Play(_tpManagerNew.currentWeaponManager.WeaponAimTriggerName);
-			            if(thirdPersonController != null)
-			            {
-				            thirdPersonController.SetSensitivity(_tpManagerNew.currentWeaponManager.aimSensitivity);
-				            thirdPersonController.SetRotateOnMove(false);
-			            }
-			            
-			            if (_tpManagerNew.weaponAimCamera != null)
-				            _tpManagerNew.weaponAimCamera.SetActive(true);
-                    }
-                    else
-                    {
-			            if (aimValue != 0)
-				            CmdSetAimValue(0);
-			            if (_tpManagerNew.playerRig != null)
-				            _tpManagerNew.playerRig.weight = 0;
-			            _tpManagerNew.currentWeaponManager.isAiming = false;
-			            _tpManagerNew.playerAnimator.SetLayerWeight(1, 1f);
-			            
-			            if (_tpManagerNew.weaponAimCamera  != null)
-				            _tpManagerNew.weaponAimCamera.SetActive(false);
-			            _tpManagerNew.currentWeaponManager.Crosshair.SetActive(false);
-			            if (thirdPersonController != null)
-			            {
-				            thirdPersonController.SetSensitivity(_tpManagerNew.currentWeaponManager.normalSensitivity);
-				            thirdPersonController.SetRotateOnMove(true);
-			            }
-			            if(_tpManagerNew.playerAnimator != null)
-			            {
-				            _tpManagerNew.playerAnimator.ResetTrigger(_tpManagerNew.currentWeaponManager.WeaponAimTriggerName);
-				            _tpManagerNew.playerAnimator.SetTrigger(_tpManagerNew.currentWeaponManager.WeaponIdleTriggerName);
-			            }
-		            }
+		            _tpManagerNew.currentWeaponManager.Player.forward = Vector3.Lerp(_tpManagerNew.currentWeaponManager.Player.forward, aimDirection, Time.deltaTime * 20f);
+		            
+			        _tpManagerNew.playerRig.weight = 1;
+		        
+		            _tpManagerNew.secondHandRigTarget.localPosition = _tpManagerNew.currentWeaponManager.LeftHandPosition;
+		            _tpManagerNew.secondHandRigTarget.localRotation = _tpManagerNew.currentWeaponManager.LeftHandRotation;
+		           
+		            _tpManagerNew.currentWeaponManager.isAiming = true;
+		            _tpManagerNew.currentWeaponManager.Crosshair.SetActive(true);
+		            if (_isShooting == false)
+			            _tpManagerNew.playerAnimator.Play(_tpManagerNew.currentWeaponManager.WeaponAimTriggerName);
+	            
+		            thirdPersonController.SetSensitivity(_tpManagerNew.currentWeaponManager.aimSensitivity);
+		            thirdPersonController.SetRotateOnMove(false);
+		            
+			        _tpManagerNew.weaponAimCamera.SetActive(true);
                 }
+                else
+                {
+		            if (aimValue != 0)
+			            CmdSetAimValue(0);
+		           
+			        _tpManagerNew.playerRig.weight = 0;
+			        
+		            _tpManagerNew.currentWeaponManager.isAiming = false;
+		            _tpManagerNew.playerAnimator.SetLayerWeight(1, 1f);
+		            
+		           
+			        _tpManagerNew.weaponAimCamera.SetActive(false);
+		            _tpManagerNew.currentWeaponManager.Crosshair.SetActive(false);
+		          
+		            thirdPersonController.SetSensitivity(_tpManagerNew.currentWeaponManager.normalSensitivity);
+		            thirdPersonController.SetRotateOnMove(true);
+		            
+		           
+		            _tpManagerNew.playerAnimator.ResetTrigger(_tpManagerNew.currentWeaponManager.WeaponAimTriggerName);
+		            _tpManagerNew.playerAnimator.SetTrigger(_tpManagerNew.currentWeaponManager.WeaponIdleTriggerName);
+	            }
             }
         }
 
