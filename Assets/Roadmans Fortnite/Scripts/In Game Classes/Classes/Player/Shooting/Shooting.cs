@@ -21,6 +21,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
         public GameObject muzzleFlashPrefab;
         
         public bool isDebugger;
+
+        private AudioSource _audioSource;
+        public AudioClip[] shootingSounds;
         
         [Header("Controllers")] 
         public ThirdPersonController thirdPersonController;
@@ -35,6 +38,8 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
             thirdPersonController = GetComponent<ThirdPersonController>();
             _netPlayer = GetComponent<NetPlayer>();
             _playerInventory = GetComponent<PlayerInventory>();
+            _audioSource = GetComponent<AudioSource>();
+            _audioSource.clip = shootingSounds[0];
         }
 
         public void TickUpdate()
@@ -52,21 +57,27 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
 
             if (_input.aimInput && _input.shootInput && _playerInventory.bulletCount > 0)
             {
-                Shoot();
-                
-                RaycastHit hit;
-                Transform bulletSpawnTransform = _tpManagerNew.currentWeaponManager.MuzzleFlashEffectPosition;
-                
-                Vector3 bulletDirection = bulletSpawnTransform.forward;
+	            Shoot();
 
-                if (Physics.Raycast(bulletSpawnTransform.position, bulletDirection, out hit, 100f))
-                {
-                    Debug.Log("Hit " + hit.collider.name + " at position " + hit.point);
-                    // We can push to the server here if we hit an enemy or trigger some effect
-                }
+	            RaycastHit hit;
+	            Transform bulletSpawnTransform = _tpManagerNew.currentWeaponManager.MuzzleFlashEffectPosition;
 
-                // Trigger the muzzle flash effect
-                TriggerMuzzleFlash(bulletSpawnTransform);
+	            Vector3 bulletDirection = bulletSpawnTransform.forward;
+
+	            if (Physics.Raycast(bulletSpawnTransform.position, bulletDirection, out hit, 100f))
+	            {
+		            Debug.Log("Hit " + hit.collider.name + " at position " + hit.point);
+		            // We can push to the server here if we hit an enemy or trigger some effect
+	            }
+
+	            // Trigger the muzzle flash effect
+	            _audioSource.Play();
+	            _audioSource.loop = true;
+	            TriggerMuzzleFlash(bulletSpawnTransform);
+            }
+            else
+            {
+	            _audioSource.loop = false;
             }
         }
 
