@@ -71,13 +71,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
 	            }
 
 	            // Trigger the muzzle flash effect
-	            _audioSource.Play();
-	            _audioSource.loop = true;
+	            
+	         
 	            TriggerMuzzleFlash(bulletSpawnTransform);
-            }
-            else
-            {
-	            _audioSource.loop = false;
             }
         }
 
@@ -171,6 +167,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
         IEnumerator EndShooting()
         {
             yield return new WaitForSeconds(_tpManagerNew.currentWeaponManager.WeaponShootAnimationLength);
+            _audioSource.PlayOneShot(shootingSounds[0]);
             _tpManagerNew._isShooting = false;
         }
 
