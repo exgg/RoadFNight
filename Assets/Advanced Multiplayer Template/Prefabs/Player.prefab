@@ -2283,14 +2283,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  bulletPrefab: {fileID: 714747561125627176, guid: e25626da315cf924195fb7a077f58e19,
-    type: 3}
-  rocketPrefab: {fileID: 142510393609287120, guid: 0d129251e7b0288488dfd43d6d926c12,
-    type: 3}
   bulletSpeed: 10
-  currentBulletName: 5mm
-  cartridgeEjectPrefab: {fileID: 1000013947318026, guid: 7ca96822084510147adb2aea03d45e3b,
+  muzzleFlashPrefab: {fileID: 5387907189216774834, guid: fba335505a09924418bec5aa0f894631,
     type: 3}
+  isDebugger: 0
   thirdPersonController: {fileID: 0}
   aimValue: 0
 --- !u!114 &7980001624564680849
@@ -2395,7 +2391,7 @@ MonoBehaviour:
   - {fileID: 7639964729338443597}
   currentWeaponIndex: 0
   tpManagerNew: {fileID: 0}
-  bulletCount: 0
+  bulletCount: 400
 --- !u!114 &3708651623189312706
 MonoBehaviour:
   m_ObjectHideFlags: 0
