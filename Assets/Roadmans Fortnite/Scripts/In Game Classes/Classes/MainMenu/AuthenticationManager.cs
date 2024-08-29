@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 
 namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
 {
-    public class MainMenuManager : MonoBehaviour
+    public class AuthenticationManager : MonoBehaviour
     {
         [Header("UI References")]
         public GameObject loginPanel;
@@ -63,6 +63,11 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
             mainMenuPanel.SetActive(false);
         }
 
+        public void ShowEmailVerificationArea()
+        {
+            print("Show the area for please confirm email");
+        }
+        
         private void ShowSignUpPanel()
         {
             signUpPanel.SetActive(true); // this will have a button that allows for the player to login
