@@ -20,17 +20,19 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
 
         public Button rememberMeButton;
         
-        public TMP_InputField emailField;
-        public TMP_InputField passwordField;
-        public TMP_InputField usernameField;
-
-        public Text playerNameText;
-        public Text playerLevelText;
         
-        public Text playerStatsText; // this is incorrect, I will need more for this, a full new UI
+        [Header("Sign-Up Input Fields")]
+        public TMP_InputField sEmailField;
+        public TMP_InputField sPasswordField;
+        public TMP_InputField sUsernameField;
 
-        private bool _rememberMe;
-
+        [Header("Login Input Fields")] 
+        public TMP_InputField lPasswordField;
+        public TMP_InputField lUsernameField;
+        
+        
+        [Space]
+        public bool rememberMe;
         public AccountManager playerAccountManager;
         
         // Check if logged in
@@ -68,7 +70,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
             print("Show the area for please confirm email");
         }
         
-        private void ShowSignUpPanel()
+        public void ShowSignUpPanel()
         {
             signUpPanel.SetActive(true); // this will have a button that allows for the player to login
             loginPanel.SetActive(false);
@@ -84,19 +86,17 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
 
         public void OnLoginButton()
         {
-            string username = usernameField.text;
-            string password = passwordField.text;
-
-            RememberMe(username);
+            string username = lUsernameField.text;
+            string password = lPasswordField.text;
             
             AttemptLogin(username, password);
         }
 
         public void OnSignUpButton()
         {
-            string email = emailField.text;
-            string password = passwordField.text;
-            string username = usernameField.text;
+            string email = sEmailField.text;
+            string password = sPasswordField.text;
+            string username = sUsernameField.text;
             
             // check dictionary of offencive words
             
@@ -110,104 +110,36 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu
 
         public void OnRememberMe()
         {
-            _rememberMe = !_rememberMe;
-            if(_rememberMe)
-                rememberMeButton.image.color = Color.green;
-            else
-                rememberMeButton.image.color = Color.white;
-
+            rememberMe = !rememberMe;
+            rememberMeButton.image.color = rememberMe ? Color.green : Color.white;
         }
         
         // make an account
 
         private void AttemptLogin(string username, string password)
         {
-            bool loginSuccess = ServerLogin(username, password);
-
-            if (loginSuccess)
-            {
-                LoadAccountData(username);
-                ShowMainMenuPanel();
-                    // find all account stats for this player - maybe give them a unique ID rather than make an email?
-            }
-            else
-            {
-                invalidUserPass.SetActive(true);
-            }
-            
+            playerAccountManager.AttemptLogin(username, password);
         }
         private void CreateAccount(string email, string password,  string username)
         {
-            RememberMe(username);
-            
             playerAccountManager.CreateAccount(email, password, username);
         }
 
-        private void RememberMe(string username)
+        public void RememberMe(string username, string password)
         {
-            if (_rememberMe)
+            if (rememberMe)
             {
                 PlayerPrefs.SetString("PlayerUsername", username);
+                PlayerPrefs.SetString("PlayerPassword", password);
             }
         }
-        
-        private void LoadAccountData(string email)
-        {
-            // setup UI and Menus
-                //Account level
-                //Account username
-                //Account Stats
-                //Kills
-                //Money Earned
-                //Other statistics
-        }
-        
-        bool ServerLogin(string username, string password)
-        {
-            // check for server login
-            return true; // simulation of login
-        }
 
-        bool ServerCreateAccount(string email, string password, string username)
+        public void RememberID(int id)
         {
-            // check for account creation success
-            
-            return true; // simulate true
-        }
-
-        string ServerGetPlayerName(string email)
-        {
-            return "PlayerName"; // this is a sim, but will eventually fetch the player name from server written files
-        }
-        
-        int ServerGetPlayerLevel(string email)
-        {
-            return 1;  // Simulate fetching player level
-        }
-
-        string ServerGetPlayerStats(string email)
-        {
-            return "Kills: 10, Wins: 2";  // Simulate fetching player stats
-        }
-
-        public void OnJoinLobbyButton()
-        {
-            // attempt to join a lobby, if non are available create one
-            
-            NetworkManager.singleton.StartClient();
-        }
-
-        public void OnCreateLobby()
-        {
-            // create a lobby - private games ?
-            NetworkManager.singleton.StartHost();
-        }
-
-        public void OnOptionsButton()
-        {
-            // sound - Music, SFX, etc volume.
-            // ui
-            // other settings
+            if (rememberMe)
+            {
+                PlayerPrefs.SetInt("PlayerId", id);
+            }
         }
     }
 }

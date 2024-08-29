@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Roadmans_Fortnite.Scripts.Server_Classes.PulledData
 {
@@ -10,26 +11,22 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.PulledData
         public string username;
         public string password;
 
-        public PulledPlayerData playerData;
+        public PulledPlayerData playerData = new PulledPlayerData();
     }
 
     [System.Serializable]
     public class PulledPlayerData
     {
-        public int Id { get; set; }
-
-        public int Level { get; set; } = 0;
-        public int Exp { get; set; } = 0;
-    
-        public int Wins { get; set; } = 0;
-        public int Kills { get; set; } = 0;
-        public int Deaths { get; set; } = 0;
-        public float Kd { get; set; } = 0;
-    
-        public int MoneyEarned { get; set; } = 0;
-
-        public float ShotsFired { get; set; } = 0;
-        public float Accuracy { get; set; } = 1;
+        public int id = 0;
+        public int level = 0;
+        public int exp = 0;
+        public int wins = 0;
+        public int kills = 0;
+        public int deaths = 0;
+        public float kd = 0;
+        public int moneyEarned = 0;
+        public float shotsFired = 0;
+        public float accuracy = 1;
     }
 
     [System.Serializable]
@@ -51,7 +48,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.PulledData
     [System.Serializable]
     public class LoginResponse
     {
-        public int Id;
-        public string Username;
+        public int id;
+        public string username;
     }
 }

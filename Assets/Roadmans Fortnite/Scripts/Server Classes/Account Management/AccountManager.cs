@@ -7,6 +7,7 @@ using System.Text;
 using Mirror;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu;
 using Roadmans_Fortnite.Scripts.Server_Classes.PulledData;
+using Newtonsoft.Json;
 
 namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
 {
@@ -18,7 +19,8 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
 
 
         public PulledAccountData setupAccountData;
-
+        
+        
         private AuthenticationManager _authenticationManager;
         
         private void Awake()
@@ -167,6 +169,9 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
                 Debug.Log($"Fetched account ID : {accountId}");
                 setupAccountData.id = accountId; // log the account ID for less expensive SQL search
 
+                if(_authenticationManager.rememberMe)
+                    _authenticationManager.RememberID(setupAccountData.id);
+                
                 yield return StartCoroutine(LoadPlayerData(accountId));
             }
 
@@ -189,30 +194,31 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
         private IEnumerator LoadPlayerData(int accountId)
         {
             string requestUrl = $"{apiUrl}/PlayerData/{accountId}/GetPlayerData";
+            Debug.Log($"Fetching player data from URL: {requestUrl}");  // Log the URL
+
             UnityWebRequest request = UnityWebRequest.Get(requestUrl);
 
             yield return request.SendWebRequest();
-            
+    
             if (request.result == UnityWebRequest.Result.ConnectionError ||
                 request.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError($"Error fetching PlayerData : {request.error}");
+                Debug.LogError($"Error fetching PlayerData: {request.error}. Response: {request.downloadHandler.text}");
+                yield break;
             }
 
             if (request.responseCode == 200)
             {
+                Debug.Log($"Successfully fetched player data: {request.downloadHandler.text}");
                 PulledPlayerData playerData = JsonUtility.FromJson<PulledPlayerData>(request.downloadHandler.text);
 
                 setupAccountData.playerData = playerData;
                 
-                // once done show full main menu
-
-                Debug.Log("All is complete display front end");
+                Debug.Log("All is complete, displaying front end.");
             }
-
             else
             {
-                Debug.LogError($"Unexpected response code {request.responseCode} : {request.downloadHandler.text}");
+                Debug.LogError($"Unexpected response code {request.responseCode}: {request.downloadHandler.text}");
             }
         }
 
@@ -246,47 +252,52 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
             };
 
             string json = JsonUtility.ToJson(loginRequest);
+            Debug.Log("Sending JSON: " + json); // Add this line to check the JSON being sent
 
-            UnityWebRequest request = new UnityWebRequest(apiUrl, "POST");
-            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+            UnityWebRequest request = new UnityWebRequest(requestUrl, "POST");
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
 
             yield return request.SendWebRequest();
-            
+
             if (request.result == UnityWebRequest.Result.ConnectionError ||
                 request.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError($"Error fetching PlayerData : {request.error}");
+                Debug.LogError($"Error fetching PlayerData: {request.error}");
             }
             else if (request.responseCode == 200)
             {
-                Debug.Log($"Login successful! Response : {request.downloadHandler.text}");
-
-                var response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
+                Debug.Log($"Login successful! Response: {request.downloadHandler.text}");
                 
+                var response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
                 OnLoginSuccess(response);
             }
-
             else
             {
-                Debug.LogError($"Login failed with status code of: {request.responseCode}. Response : {request.downloadHandler.text}");
+                Debug.LogError($"Login failed with status code of: {request.responseCode}. Response: {request.downloadHandler.text}");
             }
         }
 
         private void OnLoginSuccess(LoginResponse loginResponse)
         {
-            Debug.Log($"Userid : {loginResponse.Id}, Username {loginResponse.Username}");
+            Debug.Log($"Userid : {loginResponse.id}, Username {loginResponse.username}");
 
-            setupAccountData.id = loginResponse.Id;
-            setupAccountData.username = loginResponse.Username;
+            setupAccountData.id = loginResponse.id;
+            setupAccountData.username = loginResponse.username;
 
-            StartCoroutine(LoadPlayerData(setupAccountData.id)); // use the new found ID to gather player data and load it
+            if (_authenticationManager.rememberMe)
+            {
+                _authenticationManager.RememberMe(setupAccountData.username, setupAccountData.password);
+                _authenticationManager.RememberID(setupAccountData.id);
+            }
+                
+            
+            StartCoroutine(LoadPlayerData(loginResponse.id)); // use the new found ID to gather player data and load it
         }
         
         #endregion
-     
         
         // checks if username contains offencive wording
         private bool CheckUsername(string username)
