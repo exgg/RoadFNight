@@ -41,11 +41,6 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Inventory
                 tpManagerNew.currentWeaponManager = weapons[index].GetComponent<WeaponManager>();
             }
         }
-        
-        public void LoadWeapons()
-        {
-            
-        }
 
         public void LoadCash()
         {

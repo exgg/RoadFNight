@@ -164,10 +164,9 @@ namespace Roadmans_Fortnite.Scripts.Classes.Player.Controllers
 
         public void TickUpdate()
         {
-            if (_blockMovement) return;
+            if (_blockMovement || !_input) return;
             
-            if(_input == null)
-                Debug.Log("There is an issue with input reference");
+         
             
             
             _hasAnimator = TryGetComponent(out _animator);

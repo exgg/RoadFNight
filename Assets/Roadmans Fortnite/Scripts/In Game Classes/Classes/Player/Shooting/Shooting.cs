@@ -31,6 +31,10 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
         private bool _isShooting;
         [SyncVar] public int aimValue;
         
+        private float _lastShotTime;
+        public float shotCooldown = 0.1f; // Adjust this value to control the minimum interval between sounds
+
+        
         public void Initialize()
         {
             _input = GetComponent<InputHandler>();
@@ -53,28 +57,25 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
         /// </summary>
         public void HandleShooting()
         {
-            if (!base.hasAuthority) return;
+	        if (!base.hasAuthority) return;
 
-            if (_input.aimInput && _input.shootInput && _playerInventory.bulletCount > 0)
-            {
-	            Shoot();
+	        if (_input.aimInput && _input.shootInput && _playerInventory.bulletCount > 0)
+	        {
+		        Shoot();
 
-	            RaycastHit hit;
-	            Transform bulletSpawnTransform = _tpManagerNew.currentWeaponManager.MuzzleFlashEffectPosition;
+		        RaycastHit hit;
+		        Transform bulletSpawnTransform = _tpManagerNew.currentWeaponManager.MuzzleFlashEffectPosition;
+		        Vector3 bulletDirection = bulletSpawnTransform.forward;
 
-	            Vector3 bulletDirection = bulletSpawnTransform.forward;
+		        if (Physics.Raycast(bulletSpawnTransform.position, bulletDirection, out hit, 100f))
+		        {
+			        Debug.Log("Hit " + hit.collider.name + " at position " + hit.point);
+			        // We can push to the server here if we hit an enemy or trigger some effect
+		        }
 
-	            if (Physics.Raycast(bulletSpawnTransform.position, bulletDirection, out hit, 100f))
-	            {
-		            Debug.Log("Hit " + hit.collider.name + " at position " + hit.point);
-		            // We can push to the server here if we hit an enemy or trigger some effect
-	            }
-
-	            // Trigger the muzzle flash effect
-	            
-	         
-	            TriggerMuzzleFlash(bulletSpawnTransform);
-            }
+		        // Trigger the muzzle flash effect
+		        TriggerMuzzleFlash(bulletSpawnTransform);
+	        }
         }
 
         /// <summary>
@@ -158,16 +159,24 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.Player.Shooting
 
         public void Shoot()
         {
-            StopCoroutine(EndShooting());
-            _tpManagerNew._isShooting = true;
-            _tpManagerNew.playerAnimator.Play(_tpManagerNew.currentWeaponManager.WeaponShootAnimationName);
-            StartCoroutine(EndShooting());
+	        StopCoroutine(EndShooting());
+	        _tpManagerNew._isShooting = true;
+	        _tpManagerNew.playerAnimator.Play(_tpManagerNew.currentWeaponManager.WeaponShootAnimationName);
+
+	        // Check if enough time has passed since the last shot
+	        if (Time.time >= _lastShotTime + shotCooldown)
+	        {
+		        // Play the shooting sound using PlayOneShot
+		        _audioSource.PlayOneShot(shootingSounds[0]);
+		        _lastShotTime = Time.time; // Update the last shot time
+	        }
+
+	        StartCoroutine(EndShooting());
         }
 
         IEnumerator EndShooting()
         {
             yield return new WaitForSeconds(_tpManagerNew.currentWeaponManager.WeaponShootAnimationLength);
-            _audioSource.PlayOneShot(shootingSounds[0]);
             _tpManagerNew._isShooting = false;
         }
 

@@ -51,14 +51,14 @@ public class Instance : NetworkBehaviour {
 
             if (vehicle.isNpc)
             {
-                GameObject _Npc = Instantiate(_instance.botSpawnerPrefab, vehicle.vehicleNpcSpawnPoint.position, vehicle.vehicleNpcSpawnPoint.rotation) as GameObject;
+                //GameObject _Npc = Instantiate(_instance.botSpawnerPrefab, vehicle.vehicleNpcSpawnPoint.position, vehicle.vehicleNpcSpawnPoint.rotation) as GameObject;
 
-                NetworkServer.Spawn(_Npc);
+                //NetworkServer.Spawn(_Npc);
 
-                _Npc.GetComponent<BotSpawner>()._targetedVehicle = _Vehicle.GetComponent<VehicleEnterExit.VehicleSync>();
-                _Npc.GetComponent<BotSpawner>().instance = _instance;
-                instancedServerWorldObjects.Add(_Npc);
-                Debug.Log("World object " + "'" +  _Npc.name + "'" + " instantiated");
+                //_Npc.GetComponent<BotSpawner>()._targetedVehicle = _Vehicle.GetComponent<VehicleEnterExit.VehicleSync>();
+                //_Npc.GetComponent<BotSpawner>().instance = _instance;
+                //instancedServerWorldObjects.Add(_Npc);
+                //Debug.Log("World object " + "'" +  _Npc.name + "'" + " instantiated");
             }
             instancedServerWorldObjects.Add(_Vehicle);
             Debug.Log("World object " + "'" + _Vehicle.name + "'" + " instantiated");
@@ -74,14 +74,14 @@ public class Instance : NetworkBehaviour {
         }
         foreach (NpcEntry npc in _instance.npcs)
         {
-            GameObject _Npc = Instantiate(npc.npcPrefab, npc.npcSpawnPoint.position, npc.npcSpawnPoint.rotation) as GameObject;
+           // GameObject _Npc = Instantiate(npc.npcPrefab, npc.npcSpawnPoint.position, npc.npcSpawnPoint.rotation) as GameObject;
 
-            NetworkServer.Spawn(_Npc);
+           // NetworkServer.Spawn(_Npc);
 
-            _Npc.GetComponent<BotSpawner>()._targetedWaypoint = npc.npcWayPoint;
-            _Npc.GetComponent<BotSpawner>().instance = _instance;
-            instancedServerWorldObjects.Add(_Npc);
-            Debug.Log("World object " + "'" + _Npc.name + "'" + " instantiated");
+            //_Npc.GetComponent<BotSpawner>()._targetedWaypoint = npc.npcWayPoint;
+            //_Npc.GetComponent<BotSpawner>().instance = _instance;
+           // instancedServerWorldObjects.Add(_Npc);
+            //Debug.Log("World object " + "'" + _Npc.name + "'" + " instantiated");
         }
         Debug.Log("Instanced world objects: " + instancedServerWorldObjects.Count);
     }
