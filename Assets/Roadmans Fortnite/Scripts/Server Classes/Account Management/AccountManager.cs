@@ -31,6 +31,8 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
             _authenticationManager = FindObjectOfType<AuthenticationManager>();
         }
 
+        #region Account Creation
+        
         public void CreateAccount(string email, string password,  string username)
         {
             StartCoroutine(CheckUsernameAndCreateAccount(email,password, username));
@@ -80,7 +82,6 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
                 StartCoroutine(PollEmailConfirmation(pUsername));
             }
         }
-        
         
         /// <summary>
         /// Once the email and username has been checked that they are available, then it will search for when the email has been verified, once the email has been verified
@@ -134,6 +135,10 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
             Debug.LogWarning("Max retries reached. Stopping email confirmation polling.");
         }
 
+        #endregion
+
+        #region Speed Optimization
+        
         /// <summary>
         /// Fetches the account ID from the SQL server in order to produce a less expensive search once logged
         /// this will allow the SQL server to only require an Int search using the key within the database
@@ -171,6 +176,10 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
             }
         }
 
+        #endregion
+        
+        #region Data Loading
+        
         /// <summary>
         /// This will fetch the player data to log it to the players account manager, this will eventually lead to use being able to
         /// write the data to the SQL server at a later data, allowing for ease of access with database manipulation
@@ -207,6 +216,15 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
             }
         }
 
+        #endregion
+        
+        #region Login
+
+        public void AttemptLogin(string username, string password)
+        {
+            StartCoroutine(CheckAuthentication(username, password));
+        }
+        
         /// <summary>
         /// This will check whether the input email and password are correct. It will lookup the username first, to find that
         /// account, encrypt the password with the same IV as is written for that username, if they are identical it will push the player
@@ -217,20 +235,58 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
         /// <param name="pUsername"></param>
         /// <param name="pPassword"></param>
         /// <returns></returns>
-        private IEnumerator CheckUsernameAndPasswordLogin(string pUsername, string pPassword)
+        private IEnumerator CheckAuthentication(string pUsername, string pPassword)
         {
+            string requestUrl = $"{apiUrl}/Login/CheckAuthentication";
+
+            var loginRequest = new AuthenticateRequest
+            {
+                Username = pUsername,
+                Password = pPassword
+            };
+
+            string json = JsonUtility.ToJson(loginRequest);
+
+            UnityWebRequest request = new UnityWebRequest(apiUrl, "POST");
+            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
             
-           
-            UnityWebRequest request = new UnityWebRequest($"{apiUrl}/AccountData/");
+            if (request.result == UnityWebRequest.Result.ConnectionError ||
+                request.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError($"Error fetching PlayerData : {request.error}");
+            }
+            else if (request.responseCode == 200)
+            {
+                Debug.Log($"Login successful! Response : {request.downloadHandler.text}");
 
+                var response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
+                
+                OnLoginSuccess(response);
+            }
 
-            yield return new WaitForSeconds(1);
+            else
+            {
+                Debug.LogError($"Login failed with status code of: {request.responseCode}. Response : {request.downloadHandler.text}");
+            }
+        }
+
+        private void OnLoginSuccess(LoginResponse loginResponse)
+        {
+            Debug.Log($"Userid : {loginResponse.Id}, Username {loginResponse.Username}");
+
+            setupAccountData.id = loginResponse.Id;
+            setupAccountData.username = loginResponse.Username;
+
+            StartCoroutine(LoadPlayerData(setupAccountData.id)); // use the new found ID to gather player data and load it
         }
         
-        private IEnumerator GetPasswordFromUsername()
-        {
-            yield return new WaitForSeconds(1);
-        }
+        #endregion
+     
         
         // checks if username contains offencive wording
         private bool CheckUsername(string username)

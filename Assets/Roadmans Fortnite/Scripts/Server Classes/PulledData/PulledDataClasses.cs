@@ -40,4 +40,18 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.PulledData
         public string TempEmailHold;  // Use the exact field names expected by the server
         public string TempPasswordHold;  // Use the exact field names expected by the server
     }
+
+    [System.Serializable]
+    public class AuthenticateRequest
+    {
+        public string Username;
+        public string Password;
+    }
+
+    [System.Serializable]
+    public class LoginResponse
+    {
+        public int Id;
+        public string Username;
+    }
 }
