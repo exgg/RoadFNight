@@ -8,6 +8,7 @@ using Mirror;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.MainMenu;
 using Roadmans_Fortnite.Scripts.Server_Classes.PulledData;
 using Newtonsoft.Json;
+using UnityEngine.SceneManagement;
 
 namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
 {
@@ -213,7 +214,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Account_Management
                 PulledPlayerData playerData = JsonUtility.FromJson<PulledPlayerData>(request.downloadHandler.text);
 
                 setupAccountData.playerData = playerData;
-                
+                SceneManager.LoadScene("MainMenu");
                 Debug.Log("All is complete, displaying front end.");
             }
             else
