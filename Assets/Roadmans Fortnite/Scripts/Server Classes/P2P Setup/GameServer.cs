@@ -14,7 +14,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
     }
     public class GameServer : NetworkManager
     {
-   public string masterServerAddress = "localhost"; // Master Server IP
+  public string masterServerAddress = "localhost"; // Master Server IP
         public int masterServerPort = 8888; // Master Server port
 
         public override void Start()
@@ -31,7 +31,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             base.OnStartHost();
             Debug.Log("Game Server started to host players.");
 
-            // Register the game server with the master server after starting the host
+            // After starting the host for players, register with the Master Server
             RegisterWithMasterServer();
         }
 
@@ -44,6 +44,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             if (NetworkServer.active)
             {
                 Debug.LogWarning("Server already started. Skipping StartHost().");
+                RegisterWithMasterServer();
                 return;
             }
 
@@ -62,22 +63,26 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             var transport = GetComponent<KcpTransport>();
             transport.Port = (ushort)masterServerPort;
 
-            // Register the client message handler for registration acknowledgment
-            NetworkClient.RegisterHandler<GameServerRegistrationMessage>(OnMasterServerResponse);
-
-            // Connect to the Master Server as a client to send the registration message
+            // Start the client to connect to the Master Server
             if (!NetworkClient.isConnected)
             {
-                StartClient(); // Connects the game server to the master server
+                StartClient();
                 Debug.Log("Client connecting to Master Server...");
             }
+        }
 
-            // Send the registration message to the Master Server once connected
-            SendRegistrationToMasterServer();
+        // This method will be called when the client successfully connects to the Master Server
+        public override void OnClientConnect(NetworkConnection conn)
+        {
+            base.OnClientConnect(conn);
+            Debug.Log("Game Server successfully connected to the Master Server.");
+
+            // Once connected, send the registration message to the Master Server
+            SendRegistrationToMasterServer(conn);
         }
 
         // Send registration message to Master Server
-        private void SendRegistrationToMasterServer()
+        private void SendRegistrationToMasterServer(NetworkConnection conn)
         {
             if (NetworkClient.isConnected)
             {
@@ -87,7 +92,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
                     serverName = "My Game Server",
                     maxPlayers = 10
                 };
-                NetworkClient.connection.Send(msg);
+                conn.Send(msg);
 
                 Debug.Log("Game Server registration message sent to the Master Server.");
             }

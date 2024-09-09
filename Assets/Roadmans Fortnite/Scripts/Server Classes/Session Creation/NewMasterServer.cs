@@ -11,6 +11,13 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
         // List to track registered game servers
         private List<string> availableGameServers = new List<string>();
 
+        public override void Start()
+        {
+            base.Start();
+            
+            StartServer();
+        }
+
         public override void OnStartServer()
         {
             base.OnStartServer();
