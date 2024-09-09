@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6446175025620135771}
   - component: {fileID: 3417701431213912739}
+  - component: {fileID: 3623515299962125497}
   m_Layer: 0
   m_Name: EmptyPlayerObject
   m_TagString: Untagged
@@ -49,3 +50,32 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 96fe6c8731f67a4439becf38e4f66b93
   hasSpawned: 0
+--- !u!114 &3623515299962125497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4664597487678599734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 0
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}

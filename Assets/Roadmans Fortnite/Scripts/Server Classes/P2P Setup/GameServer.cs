@@ -14,7 +14,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
     }
     public class GameServer : NetworkManager
     {
-  public string masterServerAddress = "localhost"; // Master Server IP
+        public string masterServerAddress = "localhost"; // Master Server IP
         public int masterServerPort = 8888; // Master Server port
 
         public override void Start()
@@ -23,7 +23,6 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             Debug.Log("Game Server starting...");
 
             // Start the game server and host players
-            StartGameServer();
         }
 
         public override void OnStartHost()
@@ -31,6 +30,8 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             base.OnStartHost();
             Debug.Log("Game Server started to host players.");
 
+            
+            
             // After starting the host for players, register with the Master Server
             RegisterWithMasterServer();
         }
@@ -69,6 +70,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
                 StartClient();
                 Debug.Log("Client connecting to Master Server...");
             }
+            
         }
 
         // This method will be called when the client successfully connects to the Master Server
