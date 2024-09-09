@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Port: 7777
+  Port: 8888
   DualMode: 1
   NoDelay: 1
   Interval: 10
@@ -201,7 +201,7 @@ MonoBehaviour:
   onlineScene: 
   transport: {fileID: 2141458813}
   networkAddress: localhost
-  maxConnections: 100
+  maxConnections: 2000
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 3366795239520554123, guid: 4cb900a4c2962714dbe1ee3d94ed2426,
     type: 3}
@@ -209,6 +209,7 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs: []
   maxPlayersPerGame: 8
+  masterServerPort: 8888
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

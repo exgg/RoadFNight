@@ -1092,8 +1092,6 @@ GameObject:
   - component: {fileID: 572216988}
   - component: {fileID: 572216987}
   - component: {fileID: 572216984}
-  - component: {fileID: 572216986}
-  - component: {fileID: 572216985}
   m_Layer: 5
   m_Name: Player_Lobby_Character (3)
   m_TagString: Untagged
@@ -1138,38 +1136,6 @@ MonoBehaviour:
   _notReady: {fileID: 21300000, guid: 56576f3de6f10174a83ddc0fee651a5d, type: 3}
   _ready: {fileID: 21300000, guid: 48fd0aec67745fd41afb0a9a7ce4b915, type: 3}
   _currentImage: {fileID: 502041217}
---- !u!114 &572216985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 572216982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faad0da6df861914a99adf34d7984e5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  playerOwnerId: 0
---- !u!114 &572216986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 572216982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 695997603
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &572216987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1560,8 +1526,6 @@ GameObject:
   - component: {fileID: 732548488}
   - component: {fileID: 732548487}
   - component: {fileID: 732548484}
-  - component: {fileID: 732548486}
-  - component: {fileID: 732548485}
   m_Layer: 5
   m_Name: Player_Lobby_Character (2)
   m_TagString: Untagged
@@ -1606,38 +1570,6 @@ MonoBehaviour:
   _notReady: {fileID: 21300000, guid: 56576f3de6f10174a83ddc0fee651a5d, type: 3}
   _ready: {fileID: 21300000, guid: 48fd0aec67745fd41afb0a9a7ce4b915, type: 3}
   _currentImage: {fileID: 1895107032}
---- !u!114 &732548485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732548482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faad0da6df861914a99adf34d7984e5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  playerOwnerId: 0
---- !u!114 &732548486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732548482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 1634766720
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &732548487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1868,8 +1800,6 @@ GameObject:
   - component: {fileID: 975613428}
   - component: {fileID: 975613427}
   - component: {fileID: 975613431}
-  - component: {fileID: 975613430}
-  - component: {fileID: 975613429}
   m_Layer: 5
   m_Name: Player_Lobby_Character (1)
   m_TagString: Untagged
@@ -1937,38 +1867,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975613425}
   m_CullTransparentMesh: 1
---- !u!114 &975613429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975613425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faad0da6df861914a99adf34d7984e5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  playerOwnerId: 0
---- !u!114 &975613430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975613425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 1957986070
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &975613431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2131,91 +2029,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123689850}
   m_CullTransparentMesh: 1
---- !u!1 &1167354902
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1167354905}
-  - component: {fileID: 1167354904}
-  - component: {fileID: 1167354903}
-  m_Layer: 0
-  m_Name: Lobby_Manager_Kcp
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1167354903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167354902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e33328728e2fbca4d9ec4d55b87d7665, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
-  PersistNetworkManagerToOfflineScene: 0
-  runInBackground: 1
-  autoStartServerBuild: 1
-  serverTickRate: 30
-  offlineScene: 
-  onlineScene: 
-  transport: {fileID: 1167354904}
-  networkAddress: localhost
-  maxConnections: 100
-  authenticator: {fileID: 0}
-  playerPrefab: {fileID: 0}
-  autoCreatePlayer: 1
-  playerSpawnMethod: 0
-  spawnPrefabs: []
---- !u!114 &1167354904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167354902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Port: 7777
-  DualMode: 1
-  NoDelay: 1
-  Interval: 10
-  Timeout: 10000
-  FastResend: 2
-  CongestionWindow: 0
-  SendWindowSize: 4096
-  ReceiveWindowSize: 4096
-  NonAlloc: 1
-  debugLog: 0
-  statisticsGUI: 0
-  statisticsLog: 0
---- !u!4 &1167354905
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167354902}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 420.58633, y: -10.5709305, z: 206.60263}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1207688517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2268,7 +2081,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  lobbyManager: {fileID: 1167354903}
 --- !u!114 &1207688520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3844,8 +3656,6 @@ GameObject:
   - component: {fileID: 1771190519}
   - component: {fileID: 1771190518}
   - component: {fileID: 1771190515}
-  - component: {fileID: 1771190517}
-  - component: {fileID: 1771190516}
   m_Layer: 5
   m_Name: Player_Lobby_Character (4)
   m_TagString: Untagged
@@ -3890,38 +3700,6 @@ MonoBehaviour:
   _notReady: {fileID: 21300000, guid: 56576f3de6f10174a83ddc0fee651a5d, type: 3}
   _ready: {fileID: 21300000, guid: 48fd0aec67745fd41afb0a9a7ce4b915, type: 3}
   _currentImage: {fileID: 411425959}
---- !u!114 &1771190516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1771190513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faad0da6df861914a99adf34d7984e5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  playerOwnerId: 0
---- !u!114 &1771190517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1771190513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 2234175641
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &1771190518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3972,8 +3750,6 @@ GameObject:
   - component: {fileID: 1869513120}
   - component: {fileID: 1869513119}
   - component: {fileID: 1869513116}
-  - component: {fileID: 1869513118}
-  - component: {fileID: 1869513117}
   m_Layer: 5
   m_Name: Player_Lobby_Character (5)
   m_TagString: Untagged
@@ -4018,38 +3794,6 @@ MonoBehaviour:
   _notReady: {fileID: 21300000, guid: 56576f3de6f10174a83ddc0fee651a5d, type: 3}
   _ready: {fileID: 21300000, guid: 48fd0aec67745fd41afb0a9a7ce4b915, type: 3}
   _currentImage: {fileID: 103097548}
---- !u!114 &1869513117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869513114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faad0da6df861914a99adf34d7984e5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  playerOwnerId: 0
---- !u!114 &1869513118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869513114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 980193004
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &1869513119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4398,8 +4142,6 @@ GameObject:
   - component: {fileID: 2138322892}
   - component: {fileID: 2138322891}
   - component: {fileID: 2138322888}
-  - component: {fileID: 2138322890}
-  - component: {fileID: 2138322889}
   m_Layer: 5
   m_Name: Player_Lobby_Character (6)
   m_TagString: Untagged
@@ -4444,38 +4186,6 @@ MonoBehaviour:
   _notReady: {fileID: 21300000, guid: 56576f3de6f10174a83ddc0fee651a5d, type: 3}
   _ready: {fileID: 21300000, guid: 48fd0aec67745fd41afb0a9a7ce4b915, type: 3}
   _currentImage: {fileID: 1748746236}
---- !u!114 &2138322889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2138322886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faad0da6df861914a99adf34d7984e5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  playerOwnerId: 0
---- !u!114 &2138322890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2138322886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 3961834286
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &2138322891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4523,5 +4233,4 @@ SceneRoots:
   - {fileID: 614580456}
   - {fileID: 277979626}
   - {fileID: 602578429}
-  - {fileID: 1167354905}
   - {fileID: 1207688521}
