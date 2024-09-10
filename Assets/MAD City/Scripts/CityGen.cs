@@ -855,6 +855,7 @@ public class CityGen : MonoBehaviour
         listOfPOIs = FindObjectsOfType<_poi>();
 
         int buildingnumber = 0;
+        int thisRegion = 0;
 
 
         foreach (_building mybuilding in listOfBuildings)
@@ -862,12 +863,12 @@ public class CityGen : MonoBehaviour
             buildingnumber++;
 
             //each building get its blocks region number
-            int thisRegion = (int)mybuilding.GetComponentInParent<_block>()._Region;
+            thisRegion = (int)mybuilding.GetComponentInParent<_block>()._Region;
 
             GameObject Building = Instantiate(BuildingEmptyGameObject, GeneratedBuildings.transform);//mybuilding.GetComponentInParent<_block>().gameObject.transform);
             Building.name = _regions[thisRegion].name + " Small - No:" + buildingnumber;
 
-            //Flip buildings on thex-axis
+            //Flip buildings on the x-axis
             if (mybuilding.corner == false)
             {
                 int[] array = { -1, 1 };
@@ -881,19 +882,18 @@ public class CityGen : MonoBehaviour
             int targetPieces = Random.Range(_regions[thisRegion].SmallBuildings[randomBuilding].minPieces, _regions[thisRegion].SmallBuildings[randomBuilding].maxPieces);
             float heightOffset = 0f;
 
-            //SpawnPieceLayer(_regions[thisRegion].SmallBuildings.baseProps, heightOffset, mybuilding.transform, Building.transform, rotation, RandomColor);
-
+            //base layer(one)
             heightOffset += SpawnPieceLayer(_regions[thisRegion].SmallBuildings[randomBuilding].baseParts, heightOffset, mybuilding.transform, Building.transform, rotation, RandomColor, randFlip);
 
+            //middle layers(multi)
             for (int i = 2; i < targetPieces; i++)
             {
-                //SpawnPieceLayer(_regions[thisRegion].SmallBuildings.midProps, heightOffset, mybuilding.transform, Building.transform, rotation, RandomColor);
                 if (_regions[thisRegion].SmallBuildings[randomBuilding].middleParts.Length > 0)
                 {
                     heightOffset += SpawnPieceLayer(_regions[thisRegion].SmallBuildings[randomBuilding].middleParts, heightOffset, mybuilding.transform, Building.transform, rotation, RandomColor, randFlip);
                 }
-
             }
+            //top layer(one)
             if (_regions[thisRegion].SmallBuildings[randomBuilding].topParts.Length > 0)
             {
                 SpawnPieceLayer(_regions[thisRegion].SmallBuildings[randomBuilding].topParts, heightOffset, mybuilding.transform, Building.transform, rotation, RandomColor, randFlip);
@@ -906,14 +906,14 @@ public class CityGen : MonoBehaviour
             buildingnumber++;
 
             //each building get its blocks region number
-            int thisRegion = (int)mybuilding.GetComponentInParent<_block>()._Region;
+            thisRegion = (int)mybuilding.GetComponentInParent<_block>()._Region;
 
             GameObject Building = Instantiate(BuildingEmptyGameObject, GeneratedBuildings.transform);
             Building.name = _regions[thisRegion].name + " Large - No:" + buildingnumber;
 
             int randomBuilding = Random.Range(0, _regions[thisRegion].LargeBuildings.Length);
 
-            //Flip buildings on thex-axis
+            //Flip buildings on the x-axis
             int[] array = { -1, 1 };
             int randFlip = array[Random.Range(0, 2)];
             // mybuilding.transform.localScale = new Vector3(array[rand], 1, 1);
@@ -924,10 +924,8 @@ public class CityGen : MonoBehaviour
             int targetPieces = Random.Range(_regions[thisRegion].LargeBuildings[randomBuilding].minPieces, _regions[thisRegion].LargeBuildings[randomBuilding].maxPieces);
             float heightOffset = 0f;
 
-            //SpawnPieceLayer(_regions[thisRegion].SmallBuildings.baseProps, heightOffset, mybuilding.transform, Building.transform, rotation, RandomColor);
-
             heightOffset += SpawnPieceLayer(_regions[thisRegion].LargeBuildings[randomBuilding].baseParts, heightOffset, mybuilding.transform, Building.transform, rotation, RandomColor, randFlip);
-
+            
             for (int i = 2; i < targetPieces; i++)
             {
                 if (_regions[thisRegion].LargeBuildings[randomBuilding].middleParts.Length > 0)
@@ -948,7 +946,7 @@ public class CityGen : MonoBehaviour
             buildingnumber++;
 
             //each building get its blocks region number
-            int thisRegion = (int)mybuilding.GetComponentInParent<_block>()._Region;
+            thisRegion = (int)mybuilding.GetComponentInParent<_block>()._Region;
 
             GameObject Building = Instantiate(BuildingEmptyGameObject, GeneratedBuildings.transform);
             Building.name = _regions[thisRegion].name + " POI - No:" + buildingnumber;
@@ -966,7 +964,6 @@ public class CityGen : MonoBehaviour
             int targetPieces = Random.Range(_regions[thisRegion].PointsOfInterest[randomBuilding].minPieces, _regions[thisRegion].PointsOfInterest[randomBuilding].maxPieces);
             float heightOffset = 0f;
 
-            //SpawnPieceLayer(_regions[thisRegion].SmallBuildings.baseProps, heightOffset, mybuilding.transform, Building.transform, rotation, RandomColor);
 
             heightOffset += SpawnPieceLayer(_regions[thisRegion].PointsOfInterest[randomBuilding].baseParts, heightOffset, mybuilding.transform, Building.transform, rotation, RandomColor, randFlip);
 
@@ -991,6 +988,7 @@ public class CityGen : MonoBehaviour
         float heightOffset = bounds.size.y;
 
         Material tempMaterial = new Material(clone.GetComponentInChildren<MeshRenderer>().sharedMaterial);
+        //Can't find "MAD_Color_Main"
         if (tempMaterial.GetColor("MAD_Color_Main") != null)
         {
             tempMaterial.SetColor("MAD_Color_Main", color);
