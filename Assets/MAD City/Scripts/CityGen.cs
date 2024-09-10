@@ -541,13 +541,13 @@ public class CityGen : MonoBehaviour
                 #endregion
 
                 #region Corners
-                pos = transform.position + gridOrigin +
-                    new Vector3(gridOffset * x - gridOffset / 2, 0, gridOffset * z - gridOffset / 2);
                 //Fill Corners - these are additional to the  grid size already stated
                 if (stagger == 0)
                 {
                     if (x == 0 && z == 0)
                     {
+                        pos = transform.position + gridOrigin +
+                            new Vector3(gridOffset * x - gridOffset / 2, 0, gridOffset * z - gridOffset / 2);
                         GameObject corner = Instantiate(cityPerimeterPrefabs.prefabCorner, pos, placementAngle[0]);
                         corner.transform.SetParent(Perimeter.transform);
                         col = corner.GetComponents<BoxCollider>();
@@ -571,6 +571,8 @@ public class CityGen : MonoBehaviour
 
                     if (x == gridX - 1 && z == 0)
                     {
+                        pos = transform.position + gridOrigin + 
+                            new Vector3(gridOffset * x + gridOffset / 2, 0, gridOffset * z - gridOffset / 2);
                         GameObject corner = Instantiate(cityPerimeterPrefabs.prefabCorner, pos, placementAngle[3]);
                         corner.transform.SetParent(Perimeter.transform);
                         col = corner.GetComponents<BoxCollider>();
@@ -596,7 +598,8 @@ public class CityGen : MonoBehaviour
                         new Vector3(gridOffset * x - gridOffset / 2, 0, gridOffset * z + gridOffset / 2);
                     if (x == 0 && z == gridZ - 1)
                     {
-                        
+                        pos = transform.position + gridOrigin +
+                            new Vector3(gridOffset * x - gridOffset / 2, 0, gridOffset * z + gridOffset / 2);
                         GameObject corner = Instantiate(cityPerimeterPrefabs.prefabCorner, pos, placementAngle[1]);
                         corner.transform.SetParent(Perimeter.transform);
                         col = corner.GetComponents<BoxCollider>();
@@ -620,6 +623,8 @@ public class CityGen : MonoBehaviour
 
                     if (x == gridX - 1 && z == gridZ - 1)
                     {
+                        pos = transform.position + gridOrigin + 
+                            new Vector3(gridOffset * x + gridOffset / 2, 0, gridOffset * z + gridOffset / 2);
                         GameObject corner = Instantiate(cityPerimeterPrefabs.prefabCorner, pos, placementAngle[2]);
                         corner.transform.SetParent(Perimeter.transform);
                         col = corner.GetComponents<BoxCollider>();
