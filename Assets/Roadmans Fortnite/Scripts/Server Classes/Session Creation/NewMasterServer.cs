@@ -9,14 +9,15 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
     public class GameServerInfo
     {
         public NetworkConnection connection;
-        public string serverName;
+        public string serverAddress;
         public int maxPlayers;
         public int currentPlayers;
 
-        public GameServerInfo(NetworkConnection conn, string name, int max)
+        
+        public GameServerInfo(NetworkConnection conn, string address, int max)
         {
             connection = conn;
-            serverName = name;
+            serverAddress = address;
             maxPlayers = max;
             currentPlayers = 0; // start with 0 players
         }
@@ -45,15 +46,18 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
             
             // Register handler for game server availability requests from clients
             NetworkServer.RegisterHandler<GameServerAvailabilityRequestMessage>(OnGameServerAvailabilityRequest);
+            
+            // register handler for game server joined
+            NetworkServer.RegisterHandler<GameServerPlayerJoinedServer>(OnServerPlayerJoinedMessage);
         }
 
         // Called when the Master Server receives a registration message from a Game Server
         private void OnGameServerRegistration(NetworkConnection conn, GameServerRegistrationMessage msg)
         {
-            Debug.Log($"Received registration from game server: {msg.serverName} with max players: {msg.maxPlayers}");
+            Debug.Log($"Received registration from game server: {msg.ServerAddress} with max players: {msg.maxPlayers}");
 
             // Add the server's connection along with its player capacity
-            var gameServerInfo = new GameServerInfo(conn, msg.serverName, msg.maxPlayers);
+            var gameServerInfo = new GameServerInfo(conn, msg.ServerAddress, msg.maxPlayers);
             availableGameServers.Add(gameServerInfo);
 
             Debug.Log($"Game server registered. Total available servers: {availableGameServers.Count}");
@@ -74,10 +78,10 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
                 {
                     // Found an available server
                     hostAvailable = true;
-                    serverAddress = server.serverName; // Use the actual address
+                    serverAddress = server.serverAddress; // Use the actual address
                     serverPort = ((KcpTransport)GetComponent<Transport>()).Port;
 
-                    Debug.Log($"Found an available game server: {server.serverName}");
+                    Debug.Log($"Found an available game server: {server.serverAddress}");
                     break;
                 }
             }
@@ -85,22 +89,53 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
             // Send back response to the client
             var response = new GameServerAvailabilityResponseMessage
             {
-                isHostAvailable = hostAvailable,
-                gameServerAddress = serverAddress,
-                gameServerPort = serverPort
+                IsHostAvailable = hostAvailable,
+                GameServerAddress = serverAddress,
+                GameServerPort = serverPort
             };
 
             conn.Send(response);
             Debug.Log($"Sent availability response: Host Available = {hostAvailable}");
         }
 
+        private void OnServerPlayerJoinedMessage(NetworkConnection conn, GameServerPlayerJoinedServer msg)
+        {
+            bool playerJoinSuccessful = false;
+            string serverAddress = string.Empty;
+    
+            foreach (var server in availableGameServers)
+            {
+                Debug.Log($"Comparing joined server address {msg.ServerAddress} with registered server {server.serverAddress}");
+        
+                if (msg.ServerAddress == server.serverAddress)
+                {
+                    server.currentPlayers++;
+                    playerJoinSuccessful = true;
+                    serverAddress = server.serverAddress;
+            
+                    Debug.Log($"Player has been added to the server: {server.serverAddress}. " +
+                              $"{server.maxPlayers - server.currentPlayers} slots available.");
+                    break;  // Stop after finding the matching server
+                }
+            }
+
+            var response = new PlayerJoinedSuccessfullyResponse
+            {
+                PlayerJoinedSuccessful = playerJoinSuccessful,
+                ServerAddress = serverAddress,
+            };
+    
+            conn.Send(response);
+            Debug.Log($"Sent join request response: Player Joined = {playerJoinSuccessful}");
+        }
+        
         public void CheckForAvailableGameServer(NetworkConnection playerconn)
         {
             foreach (var server in availableGameServers)
             {
                 if (server.currentPlayers < server.maxPlayers)
                 {
-                    Debug.Log($"Directing player: {playerconn.connectionId} to game server {server.serverName}");
+                    Debug.Log($"Directing player: {playerconn.connectionId} to game server {server.serverAddress}");
                     
                     // send player connection to the game server
                     RedirectPlayerToGameServer(playerconn, server.connection);
@@ -117,13 +152,13 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
             var message = new GameServerRedirectMessage()
             {
                 // Use the networkAddress from the NetworkManager singleton
-                gameServerAddress = NetworkManager.singleton.networkAddress, // Get the current network address
-                gameServerPort = ((KcpTransport)GetComponent<Transport>()).Port // Port remains the same as you're using
+                GameServerAddress = NetworkManager.singleton.networkAddress, // Get the current network address
+                GameServerPort = ((KcpTransport)GetComponent<Transport>()).Port // Port remains the same as you're using
             };
 
             // Send the redirect message to the player
             playerConn.Send(message);
-            Debug.Log($"Redirected player {playerConn.connectionId} to game server at {message.gameServerAddress}:{message.gameServerPort}");
+            Debug.Log($"Redirected player {playerConn.connectionId} to game server at {message.GameServerAddress}:{message.GameServerPort}");
         }
     }
     
@@ -135,14 +170,26 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
     
     public struct GameServerRedirectMessage : NetworkMessage
     {
-        public string gameServerAddress;
-        public ushort gameServerPort;
+        public string GameServerAddress;
+        public ushort GameServerPort;
     }
     
     public struct GameServerAvailabilityResponseMessage : NetworkMessage
     {
-        public bool isHostAvailable;
-        public string gameServerAddress;
-        public ushort gameServerPort;
+        public bool IsHostAvailable;
+        public string GameServerAddress;
+        public ushort GameServerPort;
+    }
+
+    public struct GameServerPlayerJoinedServer : NetworkMessage
+    {
+        public string ServerAddress;
+        public ushort ServerPort;
+    }
+
+    public struct PlayerJoinedSuccessfullyResponse : NetworkMessage
+    {
+        public bool PlayerJoinedSuccessful;
+        public string ServerAddress;
     }
 }
