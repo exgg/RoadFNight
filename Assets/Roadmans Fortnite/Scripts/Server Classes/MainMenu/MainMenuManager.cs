@@ -12,7 +12,8 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.MainMenu
 
         private NetworkManager _playerNetworkManager;
         private GameServer _gameServer;
-
+        
+        
         private void Start()
         {
             _playerNetworkManager = FindObjectOfType<NetworkManager>();
@@ -25,7 +26,12 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.MainMenu
             Debug.Log("Loading lobby scene...");
             //_gameServer.LoadLobbyScene(); // Load the lobby scene
             
-            
+            _gameServer.StartGameServer();    
+        }
+
+        public void TestSignalToDisconnect()
+        {
+            _gameServer.WantsToQuit();
         }
         
     }

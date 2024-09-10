@@ -1,5 +1,9 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Mirror;
 using kcp2k;
+using Roadmans_Fortnite.Scripts.Server_Classes.Account_Management;
 using Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,7 +21,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
     {
         public string masterServerAddress = "localhost"; // Master Server IP
         public int masterServerPort = 8888; // Master Server port
-
+        
         [SerializeField]
         private string _cashedServerName;
         
@@ -27,8 +31,11 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             Debug.Log("Game Server starting...");
 
             // Try to find an available server or register as a new one
-            StartGameServer();
+            //StartGameServer();
+            
+            Application.wantsToQuit += WantsToQuit; // register an event to the X button on the windowed mode
         }
+        
 
         // This function starts the Game Server to host players
         public void StartGameServer()
@@ -92,12 +99,17 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             // Set the network address and connect to the available server
             Debug.Log($"Connecting to game server at {msg.GameServerAddress}:{msg.GameServerPort}");
 
+            Debug.Log($"NetworkAddress : {networkAddress}");
+            
             _cashedServerName = msg.GameServerAddress;
             
             // Set the network address and port to connect to the available server
             networkAddress = msg.GameServerAddress;
             var transport = GetComponent<KcpTransport>();
             transport.Port = msg.GameServerPort;
+            
+            
+            Debug.Log($"Connecting to the server the Port is : {msg.GameServerPort}");
 
             // Now, connect the client to the available server
             if (!NetworkClient.isConnected)
@@ -110,6 +122,8 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
                 var gameServerJoinedMessage = new GameServerPlayerJoinedServer
                 {
                     ServerAddress = _cashedServerName,
+                    PlayerName = FindObjectOfType<AccountManager>().setupAccountData.username,
+                    IsHost = false
                 };
                 
                 NetworkClient.Send(gameServerJoinedMessage); // Send the message to update the servers player count
@@ -143,6 +157,8 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
                 var gameServerJoinedMessage = new GameServerPlayerJoinedServer
                 {
                     ServerAddress = _cashedServerName,
+                    PlayerName = FindObjectOfType<AccountManager>().setupAccountData.username,
+                    IsHost = true,
                 };
                 
                 NetworkClient.Send(registrationMessage);  // Send the registration message to the Master Server
@@ -163,16 +179,117 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
 
             // Register handler to listen for available game servers after the connection is established
             NetworkClient.RegisterHandler<GameServerAvailabilityResponseMessage>(OnServerAvailabilityResponse);
-
+            NetworkClient.RegisterHandler<PlayerJoinedSuccessfullyResponse>(OnPlayerJoinedResponse);
+            
             // Send a request to the Master Server to check for available servers
             var request = new GameServerAvailabilityRequestMessage();
             NetworkClient.Send(request);
             Debug.Log("Request for available game server sent to the Master Server.");
         }
 
+        public override void OnServerDisconnect(NetworkConnection conn)
+        {
+            base.OnServerDisconnect(conn);
+            
+            Debug.Log($"Player {conn.connectionId} has disconnected from the game, notifying the server");
+            
+            var _accountManager = FindObjectOfType<AccountManager>();
+            
+            NotifyMasterServerOfAbsence(_accountManager.setupAccountData.username);
+        }
+
+        public bool WantsToQuit()
+        {
+            Debug.Log("User clicked to close the game down trying to catch it to send master server a message");
+            
+            if (NetworkClient.isConnected)
+            {
+                Debug.Log("Sending disconnection message before quitting...");
+                
+                var _accountManager = FindObjectOfType<AccountManager>();
+                
+                // send master server the message of leaving
+                NotifyMasterServerOfAbsence(_accountManager.setupAccountData.username);
+                
+                // add delay to prevent application close
+
+                StartCoroutine(DelayedShutdown());
+
+                return false;
+            }
+            else
+            {
+                Debug.Log("Apparently the client is not connected??");
+            }
+
+            return true;
+        }
+
+        IEnumerator DelayedShutdown()
+        {
+            yield return new WaitForSeconds(2f);
+            
+            Debug.Log("Application will quit after a delay");
+            
+            Application.Quit();
+        }
+        
+        private void NotifyMasterServerOfAbsence(string playerName)
+        {
+            var PlayerLeftMessage = new GameServerPlayerLeftServerMessage
+            {
+                ServerAddress = _cashedServerName,
+                PlayerUsername = playerName,
+            };
+
+
+            if (NetworkClient.isConnected)
+            {
+                Debug.Log($"Attempting to send message to the server about player : {playerName} leaving");
+                
+                Debug.Log($"The client is connected to the server {NetworkClient.isConnected}");
+                NetworkClient.Send(PlayerLeftMessage);    
+                
+                Debug.Log($"Message to the server {PlayerLeftMessage.ServerAddress} {PlayerLeftMessage.PlayerUsername} Has left sent successfully");
+            }
+            else
+            {
+                Debug.Log("The connection to the server is unavailable");
+            }
+            
+        }
+
+        #region Tools
         private string GenerateServerName()
         {
             return "GameServer_" + System.DateTime.Now.Ticks + "_" + UnityEngine.Random.Range(1, 9999);
         }
+        
+        #endregion
+
+        #region Debug Tools
+
+        private void OnPlayerJoinedResponse(PlayerJoinedSuccessfullyResponse msg)
+        {
+            if (msg.PlayerJoinedSuccessful)
+            {
+                Debug.Log($"Player successfully joined the server at {msg.ServerAddress}");
+                // Add logic here to transition the player to the game scene, update UI, etc.
+            }
+            else
+            {
+                Debug.LogError("Player failed to join the server.");
+                // Handle failed join attempts here (e.g., retry or show an error message)
+            }
+        }
+        
+        public override void OnClientDisconnect(NetworkConnection conn)
+        {
+            base.OnClientDisconnect(conn);
+            
+            Debug.Log("The Client has Disconnected?");
+        }
+        
+        #endregion
     }
 }

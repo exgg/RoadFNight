@@ -13,21 +13,40 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
         public int maxPlayers;
         public int currentPlayers;
 
+        public bool initialHostMigaration;
+        public bool finalHostMigration;
         
+        
+        
+        public List<PlayerServerInfo> Players = new List<PlayerServerInfo>();
         public GameServerInfo(NetworkConnection conn, string address, int max)
         {
             connection = conn;
             serverAddress = address;
             maxPlayers = max;
             currentPlayers = 0; // start with 0 players
+            initialHostMigaration = false;
+            finalHostMigration = false;
         }
 
+    }
+
+    public class PlayerServerInfo
+    {
+        public string PlayerName;
+        public bool IsHost;
+
+        public PlayerServerInfo(string playerName, bool iH)
+        {
+            PlayerName = playerName;
+            IsHost = iH;
+        }
     }
     
     public class NewMasterServer : NetworkManager
     {
         // List to track registered game servers
-        private List<GameServerInfo> availableGameServers = new List<GameServerInfo>();
+        private readonly List<GameServerInfo> _availableGameServers = new List<GameServerInfo>();
 
         public override void Start()
         {
@@ -49,6 +68,9 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
             
             // register handler for game server joined
             NetworkServer.RegisterHandler<GameServerPlayerJoinedServer>(OnServerPlayerJoinedMessage);
+            
+            // Register handler for player leaving the server
+            NetworkServer.RegisterHandler<GameServerPlayerLeftServerMessage>(OnPlayerLeftServerMessage);
         }
 
         // Called when the Master Server receives a registration message from a Game Server
@@ -58,9 +80,9 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
 
             // Add the server's connection along with its player capacity
             var gameServerInfo = new GameServerInfo(conn, msg.ServerAddress, msg.maxPlayers);
-            availableGameServers.Add(gameServerInfo);
+            _availableGameServers.Add(gameServerInfo);
 
-            Debug.Log($"Game server registered. Total available servers: {availableGameServers.Count}");
+            Debug.Log($"Game server registered. Total available servers: {_availableGameServers.Count}");
         }
 
         private void OnGameServerAvailabilityRequest(NetworkConnection conn, GameServerAvailabilityRequestMessage msg)
@@ -72,7 +94,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
             ushort serverPort = 0;
 
             // Check for available servers and skip the server that sent the request
-            foreach (var server in availableGameServers)
+            foreach (var server in _availableGameServers)
             {
                 if (server.connection != conn && server.currentPlayers < server.maxPlayers)
                 {
@@ -103,7 +125,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
             bool playerJoinSuccessful = false;
             string serverAddress = string.Empty;
     
-            foreach (var server in availableGameServers)
+            foreach (var server in _availableGameServers)
             {
                 Debug.Log($"Comparing joined server address {msg.ServerAddress} with registered server {server.serverAddress}");
         
@@ -112,7 +134,20 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
                     server.currentPlayers++;
                     playerJoinSuccessful = true;
                     serverAddress = server.serverAddress;
-            
+
+                    var playerInfo = new PlayerServerInfo(msg.PlayerName, msg.IsHost)
+                    {
+                        PlayerName = msg.PlayerName,
+                        IsHost = msg.IsHost,
+                    };
+                    
+                    server.Players.Add(playerInfo);
+                    
+                    
+                    
+                    Debug.Log($"Player added to server connected Player Information : Player Name: {playerInfo.PlayerName}" +
+                              $" Player Conn ID : {conn.connectionId} Player is Host : {playerInfo.IsHost}");
+                    
                     Debug.Log($"Player has been added to the server: {server.serverAddress}. " +
                               $"{server.maxPlayers - server.currentPlayers} slots available.");
                     break;  // Stop after finding the matching server
@@ -131,7 +166,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
         
         public void CheckForAvailableGameServer(NetworkConnection playerconn)
         {
-            foreach (var server in availableGameServers)
+            foreach (var server in _availableGameServers)
             {
                 if (server.currentPlayers < server.maxPlayers)
                 {
@@ -160,6 +195,34 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
             playerConn.Send(message);
             Debug.Log($"Redirected player {playerConn.connectionId} to game server at {message.GameServerAddress}:{message.GameServerPort}");
         }
+
+        private void OnPlayerLeftServerMessage(NetworkConnection conn, GameServerPlayerLeftServerMessage msg)
+        {
+            Debug.Log("The Message to leave has been applied");
+            
+            foreach (var server in _availableGameServers)
+            {
+                if (msg.ServerAddress == server.serverAddress)
+                {
+                    server.currentPlayers--;
+                    server.Players.RemoveAll(player => player.PlayerName == msg.PlayerUsername); // remove the player from the list of player infos
+                    
+                    Debug.Log($"Player {msg.PlayerUsername} has left the server: {server.serverAddress}" +
+                              $" {server.maxPlayers - server.currentPlayers} slots now available");
+
+                    var hostPlayer = server.Players.Find(player => player.IsHost);
+
+                    if (hostPlayer == null)
+                    {
+                        Debug.Log($"The host has been disconnected, migrate server to a new player");
+                        //TODO: 
+                            // create logic here for the host transferal, or connect to the valid method required to perform this logic
+                            // this will need to ping check, find lowest ping for each player, then migrate to that host/
+                    }
+                    break; // leave the loop
+                }
+            }
+        }
     }
     
     
@@ -185,11 +248,19 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
     {
         public string ServerAddress;
         public ushort ServerPort;
+        public string PlayerName;
+        public bool IsHost;
     }
 
     public struct PlayerJoinedSuccessfullyResponse : NetworkMessage
     {
         public bool PlayerJoinedSuccessful;
         public string ServerAddress;
+    }
+
+    public struct GameServerPlayerLeftServerMessage : NetworkMessage
+    {
+        public string ServerAddress;
+        public string PlayerUsername;
     }
 }
