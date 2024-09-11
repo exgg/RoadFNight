@@ -1,16 +1,17 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
 {
     public class TestHostLobby : MonoBehaviour
     {
-        [SerializeField]
-        private GameServer _gameServer;
+        [FormerlySerializedAs("_gameServer")] [SerializeField]
+        private MasterServerLinkConnector masterServerLinkConnector;
         
         private void Start()
         {
-            _gameServer = FindObjectOfType<GameServer>();
+            masterServerLinkConnector = FindObjectOfType<MasterServerLinkConnector>();
             
             //_gameServer.StartHostOnLobby();
         }
