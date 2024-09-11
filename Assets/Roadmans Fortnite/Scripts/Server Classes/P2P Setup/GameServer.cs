@@ -179,7 +179,12 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
 
             // Register handler to listen for available game servers after the connection is established
             NetworkClient.RegisterHandler<GameServerAvailabilityResponseMessage>(OnServerAvailabilityResponse);
+            
+            // register handler for response of joining game
             NetworkClient.RegisterHandler<PlayerJoinedSuccessfullyResponse>(OnPlayerJoinedResponse);
+            
+            // register handler for response of leaving, which will push to leave the connection
+            NetworkClient.RegisterHandler<PlayerLeavingResponseMessage>(OnPlayerLeavingResponse);
             
             // Send a request to the Master Server to check for available servers
             var request = new GameServerAvailabilityRequestMessage();
@@ -256,9 +261,20 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             {
                 Debug.Log("The connection to the server is unavailable");
             }
-            
         }
 
+        private void OnPlayerLeavingResponse(PlayerLeavingResponseMessage msg)
+        {
+            if (NetworkClient.isConnected)
+            {
+                Debug.Log($"Player will now disconnect from the server and switch port");
+                
+                NetworkClient.Disconnect();
+                
+                Debug.Log("Player has now disconnected");
+            }
+        }
+        
         #region Tools
         private string GenerateServerName()
         {

@@ -163,6 +163,11 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
             conn.Send(response);
             Debug.Log($"Sent join request response: Player Joined = {playerJoinSuccessful}");
         }
+
+        private void BeginInitialHostMigration()
+        {
+            
+        }
         
         public void CheckForAvailableGameServer(NetworkConnection playerconn)
         {
@@ -212,16 +217,32 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
 
                     var hostPlayer = server.Players.Find(player => player.IsHost);
 
-                    if (hostPlayer == null)
+                    if (hostPlayer == null && server.currentPlayers > 0)
                     {
                         Debug.Log($"The host has been disconnected, migrate server to a new player");
                         //TODO: 
                             // create logic here for the host transferal, or connect to the valid method required to perform this logic
                             // this will need to ping check, find lowest ping for each player, then migrate to that host/
                     }
+                    else if (server.currentPlayers <= 0)
+                    {
+                        Debug.Log($"All players in server {server.serverAddress} have left the lobby" +
+                                  $"Proceeding to shut down the server");
+
+                        _availableGameServers.Remove(server);
+                        
+                        Debug.Log($"Server has now been removed there are now {_availableGameServers.Count} servers " +
+                                  $"availalbe");
+                    }
                     break; // leave the loop
                 }
             }
+
+            var playerLeavingResponse = new PlayerLeavingResponseMessage();
+            
+            conn.Send(playerLeavingResponse);
+            
+            Debug.Log("Player is leaving the game");
         }
     }
     
@@ -258,6 +279,11 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
         public string ServerAddress;
     }
 
+    public struct PlayerLeavingResponseMessage : NetworkMessage
+    {
+        // Add message if i need it
+    }
+    
     public struct GameServerPlayerLeftServerMessage : NetworkMessage
     {
         public string ServerAddress;
