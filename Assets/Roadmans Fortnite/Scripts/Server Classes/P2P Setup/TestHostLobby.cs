@@ -6,12 +6,12 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
 {
     public class TestHostLobby : MonoBehaviour
     {
-        [FormerlySerializedAs("_gameServer")] [SerializeField]
-        private MasterServerLinkConnector masterServerLinkConnector;
+        [FormerlySerializedAs("masterServerLinkConnector")] [FormerlySerializedAs("_gameServer")] [SerializeField]
+        private NetworkingConnectionManager networkingConnectionManager;
         
         private void Start()
         {
-            masterServerLinkConnector = FindObjectOfType<MasterServerLinkConnector>();
+            networkingConnectionManager = FindObjectOfType<NetworkingConnectionManager>();
             
             //_gameServer.StartHostOnLobby();
         }

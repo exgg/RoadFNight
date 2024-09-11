@@ -9,6 +9,7 @@ using Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
 {
@@ -18,16 +19,17 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
         public string ServerAddress;
         public int maxPlayers;
     }
-    public class MasterServerLinkConnector : NetworkManager
+    public class NetworkingConnectionManager : NetworkManager
     {
         public string masterServerAddress = "localhost"; // Master Server IP
         public int masterServerPort = 8888; // Master Server port
+
+        public string hostServerAddress;
         
         private string _cashedServerName;
-
         private IPManager _ipManager;
 
-        private string _loggedIP;
+        public bool isHost;
         
         public override void Start()
         {
@@ -41,9 +43,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             
             Debug.Log($"Testing IP Connection Finder {_ipManager.GetLocalIPAddress()}");
 
-            _loggedIP = _ipManager.GetLocalIPAddress();
-            
-            Debug.Log($"The logged IP is now {_loggedIP}");
+            hostServerAddress = _ipManager.GetLocalIPAddress();
             
             Application.wantsToQuit += WantsToQuit; // register an event to the X button on the windowed mode
         }
@@ -65,6 +65,54 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             ServerHostAvailable();
         }
 
+        public void ReadyToStartP2P()
+        {
+            // when all players are ready within this current server lobby
+
+            if (isHost)
+            {
+                Debug.Log("Host is starting the P2P server for the game");
+            }
+            else
+            {
+                Debug.Log("Player is ready to connect to the host");
+                // connect to the host via the cashed server name
+            }
+        }
+        
+        // TODO: Hook up a message to send all players the IP address for the hosting player
+
+        public void StartP2PHosting()
+        {
+            Debug.Log("Starting P2P Host");
+            
+            // disconnect from the master server
+            
+            NetworkClient.Disconnect();
+            
+            // Start Host
+                // The host needs to start both a client and a server
+                
+            Debug.Log("Started P2P host");
+        }
+
+        public void ConnectToP2PHost(string hostAddress)
+        {
+            Debug.Log($"Connecting to the P2P Host at the address {hostAddress}");
+            
+            // disconnect from the master server 
+            
+            NetworkClient.Disconnect();
+            
+            // change transport address to the host address
+
+            networkAddress = hostAddress;
+            
+            StartClient();
+            
+            Debug.Log($"Connected to the P2P host at {hostAddress}");
+        }
+        
         #region Actions
         
         public bool WantsToQuit()
@@ -105,7 +153,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
 
         #endregion
 
-        #region Response Handler
+        #region Request/Command/Response Handler
 
         // This method is called when the client successfully connects to the Master Server
         public override void OnClientConnect(NetworkConnection conn)
@@ -124,6 +172,15 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             
             // Register the handler for the response of the player readying up
             NetworkClient.RegisterHandler<PlayerReadyResponseMessage>(OnPlayerReadyResponse);
+            
+            //Register handler for the response of the ready check
+            NetworkClient.RegisterHandler<PlayersReadyCheckResponseMessage>(OnPlayersReadyCheckResponse);
+            
+            // Register handler for response for joining and checking if they are the host
+            NetworkClient.RegisterHandler<PlayerJoinedIsHostResponseMessage>(OnPlayerIsHostResponse);
+            
+            // Register handler for Command of the LobbyScene Change
+            NetworkClient.RegisterHandler<GameServerCommandPushToLobby>(OnLobbySceneCommand);
             
             // Send a request to the Master Server to check for available servers
             var request = new GameServerAvailabilityRequestMessage();
@@ -179,10 +236,23 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
                     PlayerUsername = accountManager.setupAccountData.username,
                     ServerAddress = _cashedServerName
                 };
-                
+
                 Debug.Log("Sending message that the ready button has been pressed");
-                
                 NetworkClient.Send(playerReadyPressedMessage);
+
+
+                var playersReadyCheckRequest = new GameServerPlayerReadyCheckMessageRequest
+                {
+                    ServerAddress = _cashedServerName
+                };
+                
+                
+                // Check if we are ready to start the game
+                // if this comes back as true we will use a handler to begin the migration to the best host.
+                NetworkClient.Send(playersReadyCheckRequest);
+                
+                //Start the P2P server up
+                //ReadyToStartP2P();
             }
         }
         
@@ -312,7 +382,13 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
                 RegisterWithMasterServerRequest();
             }
         }
-        
+
+        private void OnPlayerIsHostResponse(PlayerJoinedIsHostResponseMessage msg)
+        {
+            isHost = msg.IsHost;
+            
+            Debug.Log($"This player is classified as the host {msg.IsHost}");
+        }
         private void OnPlayerLeavingResponse(PlayerLeavingResponseMessage msg)
         {
             if (NetworkClient.isConnected)
@@ -345,7 +421,32 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             
             Debug.Log($"The Player is Ready: {msg.IsReady}");
         }
+
+        private void OnPlayersReadyCheckResponse(PlayersReadyCheckResponseMessage msg)
+        {
+            Debug.Log($"All the players are ready {msg.AllPlayersReady}");
+
+            if (msg.AllPlayersReady & msg.EnoughPlayersToStart)
+            {
+                // begin force to attempt host migration
+                
+                Debug.Log($"All players are ready and there are enough players to begin the game");
+            }
+            else
+            {
+                Debug.Log($"There are enough players {msg.EnoughPlayersToStart} and all players are ready {msg.AllPlayersReady}");
+            }
+        }
         
+        #endregion
+
+        #region Command Actions
+
+        private void OnLobbySceneCommand(GameServerCommandPushToLobby msg)
+        {
+            SceneManager.LoadScene("Lobby");
+        }
+
         #endregion
         
         #region Tools

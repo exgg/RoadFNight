@@ -54,22 +54,6 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
             StartServer();
         }
         
-        public void CheckForAvailableGameServer(NetworkConnection playerconn) // this seems redundant but I will look over if I have used it
-        {
-            foreach (var server in _availableGameServers)
-            {
-                if (server.CurrentPlayers < server.MaxPlayers)
-                {
-                    Debug.Log($"Directing player: {playerconn.connectionId} to game server {server.ServerAddress}");
-                    
-                    // send player connection to the game server
-                    RedirectPlayerToGameServer(playerconn, server.Connection);
-                    
-                    // exit method after completion
-                }
-            }
-        }
-        
         #region Request Handler
 
         // Called when the Master Server receives a registration message from a Game Server
@@ -92,6 +76,9 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
             
             // Register handler for player readying up on the lobby
             NetworkServer.RegisterHandler<GameServerPlayerReadiedUpMessageRequest>(OnServerPlayerReadyUpMessageRequest);
+            
+            // Register handler for players ready check
+            NetworkServer.RegisterHandler<GameServerPlayerReadyCheckMessageRequest>(OnServerReadyCheckMessageRequest);
         }
 
         #endregion
@@ -167,11 +154,15 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
                     
                     server.Players.Add(playerInfo);
 
-                    if (playerInfo.IsHost)
+                    if (playerInfo.IsHost) // send a message to the client who is classified as the host. This will then allow for the initial host migration
                     {
-                        // TODO: Host Migration : SIDE NOTE: This is no longer required until the server game is ready to start
-                            // This will require the game to shoot forwards back to the master server to log this again somehow
-                            // or we could actually assign a log for the game server to continue the process for this. This is going to be interesting to say the least for this...
+
+                        var isHostResponseMessage = new PlayerJoinedIsHostResponseMessage
+                        {
+                            IsHost = playerInfo.IsHost,
+                        };
+                        
+                        conn.Send(isHostResponseMessage);
                     }
                     
                     Debug.Log($"Player added to server connected Player Information : Player Name: {playerInfo.PlayerName}" +
@@ -188,8 +179,11 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
                 PlayerJoinedSuccessful = playerJoinSuccessful,
                 ServerAddress = serverAddress,
             };
-    
+
+            var commandSwitch = new GameServerCommandPushToLobby();
+            
             conn.Send(response);
+            conn.Send(commandSwitch);
             Debug.Log($"Sent join request response: Player Joined = {playerJoinSuccessful}");
         }
 
@@ -240,37 +234,66 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
 
         private void OnServerPlayerReadyUpMessageRequest(NetworkConnection conn, GameServerPlayerReadiedUpMessageRequest msg)
         {
-            //TODO: Handle logic to perceive the player is ready
-                // Look for player name, find the player name with lambda,
-                // Once player has assigned to be ready use a toggler
-                    // Toggle = Ready = !Ready - Allowing a flicker switch up
+         
+            foreach (var server in _availableGameServers)
+            {
+                if (server.ServerAddress == msg.ServerAddress)
+                {
+                    Debug.Log($"Server {msg.ServerAddress} found in servers ");
 
-                    foreach (var server in _availableGameServers)
+                    var targetPlayer = server.Players.Find(player => player.PlayerName == msg.PlayerUsername);
+
+                    if (targetPlayer != null)
                     {
-                        if (server.ServerAddress == msg.ServerAddress)
+                        targetPlayer.PlayerReady = !targetPlayer.PlayerReady; // toggle the ready
+                        Debug.Log($"Found Player {targetPlayer.PlayerName} player is ready : {targetPlayer.PlayerReady}");
+                    }
+                    else
+                    {
+                        Debug.Log("The player was not found");
+                    }
+
+                    var readyResponse = new PlayerReadyResponseMessage
+                    {
+                        IsReady = targetPlayer is { PlayerReady: true }
+                    };
+                    
+                    conn.Send(readyResponse);
+                }
+            }
+        }
+
+        private void OnServerReadyCheckMessageRequest(NetworkConnection conn, GameServerPlayerReadyCheckMessageRequest msg)
+        {
+            Debug.Log($"Received Ready check for the players");
+
+            foreach (var server in _availableGameServers)
+            {
+                if (server.ServerAddress == msg.ServerAddress)
+                {
+                    bool allPlayersReady = true;
+
+                    foreach (var player in server.Players)
+                    {
+                        if (!player.PlayerReady)
                         {
-                            Debug.Log($"Server {msg.ServerAddress} found in servers ");
-
-                            var targetPlayer = server.Players.Find(player => player.PlayerName == msg.PlayerUsername);
-
-                            if (targetPlayer != null)
-                            {
-                                targetPlayer.PlayerReady = !targetPlayer.PlayerReady; // toggle the ready
-                                Debug.Log($"Found Player {targetPlayer.PlayerName} player is ready : {targetPlayer.PlayerReady}");
-                            }
-                            else
-                            {
-                                Debug.Log("The player was not found");
-                            }
-
-                            var readyResponse = new PlayerReadyResponseMessage
-                            {
-                                IsReady = targetPlayer.PlayerReady
-                            };
-                            
-                            conn.Send(readyResponse);
+                            allPlayersReady = false;
+                            break;
                         }
                     }
+                    // check if all players are ready
+
+                    var playersReadyCheckResponse = new PlayersReadyCheckResponseMessage
+                    {
+                        AllPlayersReady = allPlayersReady,
+                        EnoughPlayersToStart = server.Players.Count >= server.MinimumPlayers,
+                    };
+                    
+                    conn.Send(playersReadyCheckResponse);
+                    
+                    break;
+                }
+            }
         }
         
         #endregion
@@ -293,5 +316,6 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation
         }
 
         #endregion
+        
     }
 }

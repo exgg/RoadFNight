@@ -2,7 +2,7 @@ using Mirror;
 
 namespace Roadmans_Fortnite.Scripts.Server_Classes.Server_Communication
 {
-    #region Requests
+    #region Requests E2E
 
     /// <summary>
     /// Used to find whether a server is available with free spaces, if not it will make one
@@ -41,11 +41,31 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Server_Communication
         public string PlayerUsername;
         public string ServerAddress;
     }
+
+
+    /// <summary>
+    /// This will send a request to check if all the players are ready, which in turn will allow the procedure
+    /// of finding the best host before host migration
+    /// </summary>
+    public struct GameServerPlayerReadyCheckMessageRequest : NetworkMessage
+    {
+        public string ServerAddress;
+
+        // Send request to check all players in the server
+    }
+
+    /// <summary>
+    /// Request to the master server to tell the server to change the IP address of the currently connected server
+    /// to the IP address of the upcoming new host
+    /// </summary>
+    public struct GameServerSwapNetworkAddressForHostMessageRequest : NetworkMessage
+    {
+        public string NewNetAddress;
+    }
     
     #endregion
 
-
-    #region Responses
+    #region Responses E2E
 
     /// <summary>
     /// Tells the client that there is a server available and allows them to join in
@@ -84,13 +104,63 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Server_Communication
     }
 
     /// <summary>
-    /// This is a response so that the client can perform an action once the server has recieved the ready up
+    /// This is a response so that the client can perform an action once the server has received the ready up
     /// </summary>
     public struct PlayerReadyResponseMessage : NetworkMessage
     {
         // add message area if needed
         public bool IsReady;
     }
-    #endregion
     
+    /// <summary>
+    /// Sends back information if the game can start or not, this is currently routed through the master server. This will
+    /// need to be moved to the handling of the P2P host instead, to then begin the game.
+    /// </summary>
+    public struct PlayersReadyCheckResponseMessage : NetworkMessage
+    {
+        public bool AllPlayersReady;
+        public bool EnoughPlayersToStart;
+    }
+
+    /// <summary>
+    /// Tells the client whether the player who has joined is to be classed as the host of the lobby
+    /// </summary>
+    public struct PlayerJoinedIsHostResponseMessage : NetworkMessage
+    {
+        public bool IsHost;
+    }
+    
+    /// <summary>
+    /// This is a response for the address swap, telling the client whom is the host to then begin the host migration.
+    /// this will now have the IP address setup in the master server for new players to connect to this server instead.
+    ///
+    /// IMPORTANT. SOMEHOW WE ARE GOING TO HAVE TO TELL THE MASTER SERVER PLAYERS HAVE LEFT???!!
+    /// </summary>
+    public struct GameServerSwapNetworkAddressForHostMessageResponse : NetworkMessage
+    {
+    }
+    
+    #endregion
+
+    #region Commands E2E
+
+    /// <summary>
+    /// this will push to the client that joined an available server to the lobby area
+    /// </summary>
+    public struct GameServerCommandPushToLobby : NetworkMessage
+    {
+        // Send players to lobby
+    }
+
+    #endregion
+
+
+  
+    //TODO: 
+        // Create messages to choose whether this is game start or game end
+        // more messages for handling different aspects of the switching into p2p or back into master server feed 
+        // make the master server handle the lobby controls
+    
+    
+        
 }
