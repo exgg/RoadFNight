@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static DistrictData;
 
 [ExecuteInEditMode]
 public class CityGen : MonoBehaviour
@@ -21,7 +22,7 @@ public class CityGen : MonoBehaviour
     public bool hasExit;
 
     public List<RegionsData> _regions;
-    public List<DistrictData> _districts;
+    public List<DistrictData> _districtData;
 
     [System.Serializable]
     public class CityPerimeterPrefabs
@@ -46,6 +47,7 @@ public class CityGen : MonoBehaviour
     [SerializeField] private Quaternion[] placementAngle;
 
     public _block[] listOfBlocks;
+    public District[] listOfDistricts;
     public _building[] listOfBuildings;
     public _buildingLarge[] listOfLargeBuildings;
     public _poi[] listOfPOIs;
@@ -187,7 +189,7 @@ public class CityGen : MonoBehaviour
 
             for (int z = 0; z < gridZ; z++)
             {
-
+                #region Blocks
                 //if line x-axis is even then stagger = 0 this means
                 //only odd numbers will move (stability of models joining together)
                 if (x % 2 == 0) { stagger = 0; }
@@ -202,6 +204,20 @@ public class CityGen : MonoBehaviour
 
                 clone.transform.SetParent(GeneratedBlocks.transform);
                 clone.GetComponentInParent<_block>()._Region = (_block.Regions)chooseRegion;
+                #endregion
+
+                #region District
+                DistrictData.Religion religion = (DistrictData.Religion)Random.Range(0, (int)DistrictData.Religion.RELIGION_NUM);
+                int district_num = 0;
+                foreach (var i in GeneratedBlocks.GetComponentsInChildren<District>())
+                {
+                    i.district_data = _districtData[i.level];
+                    i.name = "District - No:" + district_num;
+                    district_num++;
+                }
+
+                listOfDistricts = FindObjectsOfType<District>();
+                #endregion
 
                 Vector3 pos = transform.position + gridOrigin +
                     new Vector3(gridOffset * x, 0, gridOffset * z + stagger);
