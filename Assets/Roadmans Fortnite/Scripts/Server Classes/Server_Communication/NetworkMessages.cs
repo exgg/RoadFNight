@@ -18,7 +18,8 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Server_Communication
     /// </summary>
     public struct GameServerPlayerJoinedServerRequestMessage : NetworkMessage
     {
-        public string ServerAddress;
+        public string ServerName;
+        public string ServerIp;
         public ushort ServerPort;
         public string PlayerName;
         public bool IsHost;
@@ -54,6 +55,16 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Server_Communication
         // Send request to check all players in the server
     }
 
+    /// <summary>
+    ///  Used to send a request to the host of a server. This will then feed back that the server is active mid-way through. But through another form
+    /// Of communication
+    /// </summary>
+    public struct GameServerStartP2PHostingMessageRequest : NetworkMessage
+    {
+        // No information needed
+    }
+    
+    
     /// <summary>
     /// Request to the master server to tell the server to change the IP address of the currently connected server
     /// to the IP address of the upcoming new host

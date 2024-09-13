@@ -8,38 +8,53 @@ using UnityEngine.Networking;
 
 namespace Roadmans_Fortnite.Scripts.Server_Classes.NetworkMessenger
 {
-    public class MasterServerMessages : MonoBehaviour
+    public enum PlayerActions
     {
+        PlayerJoined,
+        PlayerLeft,
+        PlayerCheating,
+        PlayerBeganHosting
+    }
+
+    public class MasterServerMessenger : MonoBehaviour
+    {
+        private string _portAddress = "http://localhost:8088";
+        
         void Start()
         {
             DontDestroyOnLoad(gameObject);
-            
-            StartCoroutine(SendPostRequest());
         }
 
-        IEnumerator SendPostRequest()
+        public void NotifyMasterServerOfPlayerAction(string playerName, PlayerActions playerAction, string serverName)
         {
-            string jsonData = "{\"message\": \"Player has migrated host\"}";
+            StartCoroutine(SendPostRequest(playerName, playerAction, serverName));
+        }
+
+        IEnumerator SendPostRequest(string playerName, PlayerActions playerAction, string serverName)
+        {
+            // create a json data file containing player name, action and server name
+
+            string jsonData = $"{{\"playerName\" :\"{playerName}\", \"playerAction\" :\"{playerAction}\", \"serverName\" :\"{serverName}\"}}";
             byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
 
-            using (UnityWebRequest request = new UnityWebRequest("http://localhost:8088", "POST"))
+            using UnityWebRequest request = new UnityWebRequest(_portAddress, "POST");
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            // send request and wait for the response
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.ConnectionError ||
+                request.result == UnityWebRequest.Result.ProtocolError)
             {
-                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-                request.downloadHandler = new DownloadHandlerBuffer();
-                request.SetRequestHeader("Content-Type", "application/json");
-
-                // Send the request and wait for the response
-                yield return request.SendWebRequest();
-
-                if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-                {
-                    Debug.LogError($"Error: {request.error}");
-                }
-                else
-                {
-                    Debug.Log($"Response: {request.downloadHandler.text}");
-                }
+                Debug.LogError($"Error : {request.error}");
+            }
+            else
+            {
+                Debug.Log($"Response : {request.downloadHandler.text}");
             }
         }
     }
+            
 }

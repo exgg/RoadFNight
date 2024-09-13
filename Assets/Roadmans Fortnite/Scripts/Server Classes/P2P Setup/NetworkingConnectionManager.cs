@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Mirror;
 using kcp2k;
 using Roadmans_Fortnite.Scripts.Server_Classes.Account_Management;
+using Roadmans_Fortnite.Scripts.Server_Classes.NetworkMessenger;
 using Roadmans_Fortnite.Scripts.Server_Classes.Server_Communication;
 using Roadmans_Fortnite.Scripts.Server_Classes.Session_Creation;
 using Unity.VisualScripting;
@@ -18,6 +19,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
     {
         public string ServerAddress;
         public int maxPlayers;
+        public string hostPlayerIp;
     }
     public class NetworkingConnectionManager : NetworkManager
     {
@@ -25,11 +27,13 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
         public int masterServerPort = 8888; // Master Server port
 
         public string hostServerAddress;
-        
-        private string _cashedServerName;
-        private IPManager _ipManager;
 
         public bool isHost;
+        
+        public string cashedServerName;
+        
+        private IPManager _ipManager;
+        private MasterServerMessenger _masterServerMessenger;
         
         public override void Start()
         {
@@ -37,6 +41,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             Debug.Log("Game Server starting...");
 
             _ipManager = GetComponent<IPManager>();
+            _masterServerMessenger = FindObjectOfType<MasterServerMessenger>();
             
             // Try to find an available server or register as a new one
             //StartGameServer();
@@ -82,7 +87,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
         
         // TODO: Hook up a message to send all players the IP address for the hosting player
 
-        public void StartP2PHosting()
+        public void OnStartP2PHostingMessageRequest()
         {
             Debug.Log("Starting P2P Host");
             
@@ -92,7 +97,16 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             
             // Start Host
                 // The host needs to start both a client and a server
-                
+
+
+            if (isHost)
+            {
+                StartHost(); // start both server and client on the host device
+            }
+            
+            // TODO : Notify master server of hosted lobby is now running
+                // this will need to be using the Master Server Messenger
+            
             Debug.Log("Started P2P host");
         }
 
@@ -234,7 +248,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
                 var playerReadyPressedMessage = new GameServerPlayerReadiedUpMessageRequest
                 {
                     PlayerUsername = accountManager.setupAccountData.username,
-                    ServerAddress = _cashedServerName
+                    ServerAddress = cashedServerName
                 };
 
                 Debug.Log("Sending message that the ready button has been pressed");
@@ -243,7 +257,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
 
                 var playersReadyCheckRequest = new GameServerPlayerReadyCheckMessageRequest
                 {
-                    ServerAddress = _cashedServerName
+                    ServerAddress = cashedServerName
                 };
                 
                 
@@ -260,7 +274,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
         {
             var playerLeftMessage = new GameServerPlayerLeftServerRequestMessage
             {
-                ServerAddress = _cashedServerName,
+                ServerAddress = cashedServerName,
                 PlayerUsername = playerName,
             };
 
@@ -288,7 +302,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
 
             Debug.Log($"NetworkAddress : {networkAddress}");
             
-            _cashedServerName = msg.GameServerAddress;
+            cashedServerName = msg.GameServerAddress;
             
             // Set the network address and port to connect to the available server
             networkAddress = msg.GameServerAddress;
@@ -308,9 +322,10 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             {
                 var gameServerJoinedMessage = new GameServerPlayerJoinedServerRequestMessage
                 {
-                    ServerAddress = _cashedServerName,
+                    ServerName = cashedServerName,
                     PlayerName = FindObjectOfType<AccountManager>().setupAccountData.username,
-                    IsHost = false
+                    IsHost = false,
+                    ServerIp = string.Empty
                 };
                 
                 NetworkClient.Send(gameServerJoinedMessage); // Send the message to update the servers player count
@@ -326,7 +341,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
 
             var generatedServerName = GenerateServerName();
 
-            _cashedServerName = generatedServerName;
+            cashedServerName = generatedServerName;
             
             networkAddress = masterServerAddress;
             var kcpTransport = GetComponent<KcpTransport>();
@@ -338,14 +353,16 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
                 var registrationMessage = new GameServerRegistrationMessage
                 {
                     ServerAddress = generatedServerName,
-                    maxPlayers = 8
+                    maxPlayers = 8,
+                    hostPlayerIp = _ipManager.GetLocalIPAddress()
                 };
 
                 var gameServerJoinedMessage = new GameServerPlayerJoinedServerRequestMessage
                 {
-                    ServerAddress = _cashedServerName,
+                    ServerName = cashedServerName,
                     PlayerName = FindObjectOfType<AccountManager>().setupAccountData.username,
                     IsHost = true,
+                    ServerIp = _ipManager.GetLocalIPAddress()
                 };
                 
                 NetworkClient.Send(registrationMessage);  // Send the registration message to the Master Server
