@@ -21,6 +21,7 @@ public class CityGen : MonoBehaviour
     public bool hasExit;
 
     public List<RegionsData> _regions;
+    public List<DistrictData> _districts;
 
     [System.Serializable]
     public class CityPerimeterPrefabs

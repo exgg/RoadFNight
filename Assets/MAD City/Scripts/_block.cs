@@ -10,7 +10,7 @@ public class _block : MonoBehaviour
 
     public enum Regions {Region0, Region1, Region2,Region3,Region4,Region5,Region6,Region7}
     public Regions _Region = 0;
-
+    public List<DistrictData> _districts = new List<DistrictData>();
 
     private void OnDrawGizmos()
     {

@@ -6,17 +6,20 @@ using UnityEngine.UIElements;
 [CreateAssetMenu(fileName = "DistrictData", menuName = "CityGen/District", order = 4)]
 public class DistrictData : ScriptableObject
 {
-    PersonData.PersonRace dist_race; //predominant_race
-    PersonData.PersonReligion dist_religion;
-    int people_volume;
-
-    void Start()
+    public enum Religion
     {
+        CHRISTIAN,
+        ISLAM,
+        HINDU,
+        SIKH,
+        BUDDHIST,
+        NONE,
+        OTHER,
 
+        RELIGION_NUM
     }
 
-    void Update()
-    {
+    public Religion religion;
+    public int volume;
 
-    }
 }

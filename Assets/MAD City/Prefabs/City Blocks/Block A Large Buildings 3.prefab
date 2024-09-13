@@ -55,6 +55,7 @@ MonoBehaviour:
   color: {r: 0, g: 0, b: 1, a: 0.5}
   ShowBlockContainer: 1
   _Region: 0
+  _districts: []
 --- !u!1 &654458994647277378
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,6 +458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6247115321285388971}
+  - component: {fileID: 943190885527769751}
   m_Layer: 15
   m_Name: Small Block
   m_TagString: Untagged
@@ -488,6 +490,19 @@ Transform:
   - {fileID: 4740354451520019941}
   m_Father: {fileID: 1457139176047060166}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &943190885527769751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097551599965507097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d183d098574bd4ea535c83e2111923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
 --- !u!1 &3755741854868369129
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,6 +643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6580599873670318912}
+  - component: {fileID: 8034842561468225968}
   m_Layer: 15
   m_Name: Long Block
   m_TagString: Untagged
@@ -663,6 +679,19 @@ Transform:
   - {fileID: 16181839621984373}
   m_Father: {fileID: 1457139176047060166}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &8034842561468225968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4392467069299129790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d183d098574bd4ea535c83e2111923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 1
 --- !u!1 &5405261989748819423
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,6 +916,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 861460186976900031}
+  - component: {fileID: 8238455908262570260}
   m_Layer: 15
   m_Name: Small Block (1)
   m_TagString: Untagged
@@ -918,6 +948,19 @@ Transform:
   - {fileID: 5831965886956436985}
   m_Father: {fileID: 1457139176047060166}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &8238455908262570260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8725161873460029098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d183d098574bd4ea535c83e2111923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
 --- !u!1 &8829405053101811703
 GameObject:
   m_ObjectHideFlags: 0
