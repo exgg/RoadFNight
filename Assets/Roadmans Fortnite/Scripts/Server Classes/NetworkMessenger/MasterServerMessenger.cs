@@ -29,12 +29,10 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.NetworkMessenger
         {
             StartCoroutine(SendPostRequest(playerName, playerAction, serverName));
         }
-
         IEnumerator SendPostRequest(string playerName, PlayerActions playerAction, string serverName)
         {
-            // create a json data file containing player name, action and server name
-
-            string jsonData = $"{{\"playerName\" :\"{playerName}\", \"playerAction\" :\"{playerAction}\", \"serverName\" :\"{serverName}\"}}";
+            // Serialize the enum as an integer, not a string
+            string jsonData = $"{{\"playerName\" :\"{playerName}\", \"playerAction\" :{(int)playerAction}, \"serverName\" :\"{serverName}\"}}";
             byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
 
             using UnityWebRequest request = new UnityWebRequest(_portAddress, "POST");
@@ -42,11 +40,10 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.NetworkMessenger
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
 
-            // send request and wait for the response
+            // Send request and wait for the response
             yield return request.SendWebRequest();
 
-            if (request.result == UnityWebRequest.Result.ConnectionError ||
-                request.result == UnityWebRequest.Result.ProtocolError)
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
                 Debug.LogError($"Error : {request.error}");
             }

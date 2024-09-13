@@ -22,9 +22,6 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Testing
         }
 
 
-        public void TestCommunicationTasks()
-        {
-            _masterServerMessenger.NotifyMasterServerOfPlayerAction(_accountManager.setupAccountData.username, PlayerActions.PlayerBeganHosting, _networkingConnectionManager.cashedServerName);
-        }
+      
     }
 }

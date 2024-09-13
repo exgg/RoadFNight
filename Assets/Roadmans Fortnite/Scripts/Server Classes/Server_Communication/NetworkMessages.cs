@@ -9,7 +9,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Server_Communication
     /// </summary>
     public struct GameServerAvailabilityRequestMessage : NetworkMessage
     {
-        // You can add additional fields if necessary, but for now, this message is just a request
+        public string PlayerIP;
     }
     
     /// <summary>
@@ -165,7 +165,14 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.Server_Communication
 
     #endregion
 
+    #region Debug Messages P2P
 
+    public struct TellHostYouHaveArrivedMessage : NetworkMessage
+    {
+        public string MessageToHost;
+    }
+
+    #endregion
   
     //TODO: 
         // Create messages to choose whether this is game start or game end

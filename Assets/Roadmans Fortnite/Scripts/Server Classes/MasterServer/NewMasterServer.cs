@@ -108,10 +108,10 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.MasterServer
             string serverAddress = string.Empty;
             ushort serverPort = 0;
 
-            // Check for available servers and skip the server that sent the request
+            // Check for available servers
             foreach (var server in AvailableGameServers)
             {
-                if (server.Connection != conn && server.CurrentPlayers < server.MaxPlayers)
+                if (server.Connection != conn && server.CurrentPlayers < server.MaxPlayers && server.InitialHosting)
                 {
                     // Found an available server
                     hostAvailable = true;
@@ -120,6 +120,10 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.MasterServer
 
                     Debug.Log($"Found an available game server: {server.ServerName}");
                     break;
+                }
+                else
+                {
+                    Debug.Log($"The server {server.ServerName} has {server.CurrentPlayers} and the initial hosting has completed {server.InitialHosting}");
                 }
             }
 
@@ -142,13 +146,13 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.MasterServer
     
             foreach (var server in AvailableGameServers)
             {
-                Debug.Log($"Comparing joined server address {msg.ServerName} with registered server {server.ServerName}");
+                Debug.Log($"Comparing joined server address {msg.ServerName} with registered server {server.ServerName} The server IP is: {server.ServerIp}");
         
                 if (msg.ServerName == server.ServerName)
                 {
                     server.CurrentPlayers++;
                     playerJoinSuccessful = true;
-                    serverAddress = server.ServerName;
+                    serverAddress = server.ServerIp;
 
                     var playerInfo = new PlayerServerInfo(msg.PlayerName, msg.IsHost)
                     {
