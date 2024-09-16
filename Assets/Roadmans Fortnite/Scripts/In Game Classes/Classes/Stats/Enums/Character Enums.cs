@@ -13,7 +13,9 @@ namespace Roadmans_Fortnite.Scripts.Classes.Stats.Enums
         Black,
         White,
         Asian,
-        HalfCast
+        HalfCast,
+
+        RaceNum
     }
 
     public enum Gender

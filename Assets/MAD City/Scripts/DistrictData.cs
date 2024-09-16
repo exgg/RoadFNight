@@ -1,3 +1,4 @@
+using Roadmans_Fortnite.Scripts.Classes.Stats.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,5 +22,8 @@ public class DistrictData : ScriptableObject
 
     public Religion religion;
     public int volume;
+
+    
+    
 
 }

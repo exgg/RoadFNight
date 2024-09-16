@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Roadmans_Fortnite.Scripts.Classes.Stats.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -212,6 +213,7 @@ public class CityGen : MonoBehaviour
                 foreach (var i in GeneratedBlocks.GetComponentsInChildren<District>())
                 {
                     i.district_data = _districtData[i.level];
+                    i.predominant_race = (Race)Random.Range(0, (int)Race.RaceNum);
                     i.name = "District - No:" + district_num;
                     district_num++;
                 }
