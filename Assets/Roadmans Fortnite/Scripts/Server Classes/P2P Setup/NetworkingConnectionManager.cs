@@ -21,6 +21,13 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
         public int maxPlayers;
         public string hostPlayerIp;
     }
+    public class P2PPlayerInfo
+    {
+        public int connId;
+        public int ping;
+        public bool isHost;
+    }
+
     public class NetworkingConnectionManager : NetworkManager
     {
         public string masterServerAddress = "localhost"; // Master Server IP
@@ -36,6 +43,9 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
         private MasterServerMessenger _masterServerMessenger;
 
         private bool _foundHost;
+
+        private Dictionary<int, P2PPlayerInfo> _connectedClients = new Dictionary<int, P2PPlayerInfo>();
+        private Dictionary<int, int> _clientPings = new Dictionary<int, int>();
         
         public override void Start()
         {
@@ -191,6 +201,31 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
         }
         
         #endregion
+
+        #region Host Migration / Find Best Host
+
+        private void StartGameTimer()
+        {
+            // Start a timer to begin finding the best host
+            // Iterate through connected clients and send a ping request
+            // Each client responds with their ping data
+            // Collect and evaluate these results
+            OnFindBestHost(); // trigger the process to find the best host
+        }
+        
+        private void OnFindBestHost()
+        {
+            // Todo : Create logic to push to each client what ping they have for the server. Once this has been declared. Push it all out to the server host server into a list/dictionary
+        }
+
+        private void OnSwitchToBestHost()
+        {
+            // Todo once all messages have been received find the best ping (lowest ms)
+                // need a way to store all the players and log all of these players
+                // then once all stored and logged they all need to join the new host... This might need to make them pushed through the master again ?
+        }
+
+        #endregion
         public void JoinP2PHost()
         {
             _foundHost = true;
@@ -290,10 +325,33 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             var accountManager = FindObjectOfType<AccountManager>();
             
             NotifyMasterServerOfAbsence(accountManager.setupAccountData.username);
+
+            if (_connectedClients.ContainsKey(conn.connectionId))
+            {
+                _connectedClients.Remove(conn.connectionId);
+            }
+            
+            Debug.Log($"Player {conn.connectionId} Has left the server");
+        }
+
+
+        public override void OnServerConnect(NetworkConnection conn)
+        {
+            base.OnServerConnect(conn);
+
+            _connectedClients[conn.connectionId] = new P2PPlayerInfo
+            {
+                connId = conn.connectionId,
+                ping = 0,
+                isHost = false
+            };
+            
+            Debug.Log($"Player Connected {conn.connectionId}");
         }
         
         #endregion
 
+   
         #region Request Push
 
         public void ReadyUpButtonPressed()
@@ -514,7 +572,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
         
         #endregion
 
-        #region Command Actions
+        #region Forced Actions
 
         private void OnLobbySceneCommand(GameServerCommandPushToLobby msg)
         {
