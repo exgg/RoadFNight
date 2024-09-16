@@ -207,20 +207,6 @@ public class CityGen : MonoBehaviour
                 clone.GetComponentInParent<_block>()._Region = (_block.Regions)chooseRegion;
                 #endregion
 
-                #region District
-                DistrictData.Religion religion = (DistrictData.Religion)Random.Range(0, (int)DistrictData.Religion.RELIGION_NUM);
-                int district_num = 0;
-                foreach (var i in GeneratedBlocks.GetComponentsInChildren<District>())
-                {
-                    i.district_data = _districtData[i.level];
-                    i.predominant_race = (Race)Random.Range(0, (int)Race.RaceNum);
-                    i.name = "District - No:" + district_num;
-                    district_num++;
-                }
-
-                listOfDistricts = FindObjectsOfType<District>();
-                #endregion
-
                 Vector3 pos = transform.position + gridOrigin +
                     new Vector3(gridOffset * x, 0, gridOffset * z + stagger);
                 Collider[] col;
@@ -861,6 +847,17 @@ public class CityGen : MonoBehaviour
                 #endregion
             }
         }
+        #region District
+        DistrictData.Religion religion = (DistrictData.Religion)Random.Range(0, (int)DistrictData.Religion.RELIGION_NUM);
+        int district_num = 0;
+        foreach (var i in GeneratedBlocks.GetComponentsInChildren<District>())
+        {
+            i.init_district(_districtData, district_num);
+            district_num++;
+        }
+
+        listOfDistricts = FindObjectsOfType<District>();
+        #endregion
     }
 
     public void GenerateBuildings()
