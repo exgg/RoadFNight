@@ -18,7 +18,10 @@ namespace Roadmans_Fortnite.Scripts.Classes.ScriptableObjects.Characters.Player_
         public int shootingSkill;
 
         public int tradingSkill;
-        
+
+        [Header("Infamy")] 
+        [Range(0, 100)] public int infamyLevel;
+
         // add more skills here;
     }
 }

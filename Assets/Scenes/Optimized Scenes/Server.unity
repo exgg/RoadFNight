@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 2141458812}
   - component: {fileID: 2141458814}
   - component: {fileID: 2141458813}
+  - component: {fileID: 2141458815}
   m_Layer: 0
   m_Name: ServerManager
   m_TagString: Untagged
@@ -167,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Port: 7777
+  Port: 8888
   DualMode: 1
   NoDelay: 1
   Interval: 10
@@ -201,14 +202,25 @@ MonoBehaviour:
   onlineScene: 
   transport: {fileID: 2141458813}
   networkAddress: localhost
-  maxConnections: 100
+  maxConnections: 2000
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 3366795239520554123, guid: 4cb900a4c2962714dbe1ee3d94ed2426,
     type: 3}
-  autoCreatePlayer: 1
+  autoCreatePlayer: 0
   playerSpawnMethod: 0
   spawnPrefabs: []
-  maxPlayersPerGame: 8
+--- !u!114 &2141458815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141458811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf073c696d4651b419ff6b8ec7b2aceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
