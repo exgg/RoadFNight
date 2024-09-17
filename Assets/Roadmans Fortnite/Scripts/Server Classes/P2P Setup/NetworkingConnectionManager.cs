@@ -45,7 +45,6 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
         private bool _foundHost;
 
         private Dictionary<int, P2PPlayerInfo> _connectedClients = new Dictionary<int, P2PPlayerInfo>();
-        private Dictionary<int, int> _clientPings = new Dictionary<int, int>();
         
         public override void Start()
         {
@@ -62,6 +61,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             hostServerAddress = _ipManager.GetLocalIPAddress();
             
             Application.wantsToQuit += WantsToQuit; // register an event to the X button on the windowed mode
+            
         }
         
         // This function starts the Game Server to host players
@@ -81,6 +81,12 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
             ServerHostAvailable();
         }
 
+        #region Lobby Controls
+
+        
+
+        #endregion
+        
         #region Request/Command/Response Handler Client
 
         // This method is called when the client successfully connects to the Master Server
@@ -183,7 +189,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
 
         private IEnumerator DelayedStartHost()
         {
-            yield return new WaitForSeconds(3f);  // Increased delay
+            yield return new WaitForSeconds(0.1f);  // Increased delay
 
             networkAddress = _ipManager.GetLocalIPAddress();
 
@@ -243,7 +249,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
 
         private IEnumerator DelayConnect()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.1f);
             
             // Configure transport to connect to the host server
             networkAddress = hostServerAddress;
@@ -350,8 +356,7 @@ namespace Roadmans_Fortnite.Scripts.Server_Classes.P2P_Setup
         }
         
         #endregion
-
-   
+        
         #region Request Push
 
         public void ReadyUpButtonPressed()
