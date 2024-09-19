@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: e53f43da17cdb5f4db4f8c770150e09c
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       1: 100000
@@ -5947,6 +5947,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
@@ -5974,6 +5975,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -6454,7 +6456,7 @@ ModelImporter:
     - name: ORG-shoulder.L
       parentName: ORG-chest
       position: {x: -0.01827974, y: 0.26964036, z: 0.06541965}
-      rotation: {x: -0.5855344, y: 0.4137211, z: 0.3713935, w: 0.5899587}
+      rotation: {x: -0.5855344, y: 0.41372105, z: 0.3713935, w: 0.58995867}
       scale: {x: 0.9999998, y: 0.9999999, z: 1}
     - name: ORG-upper_arm.L
       parentName: ORG-shoulder.L
@@ -6519,7 +6521,7 @@ ModelImporter:
     - name: ORG-f_ring.01.L
       parentName: ORG-hand.L
       position: {x: -0.020150287, y: 0.1472378, z: 0.009850703}
-      rotation: {x: 0.10657707, y: 0.061561793, z: 0.011776301, w: 0.99232703}
+      rotation: {x: 0.10657705, y: 0.061561793, z: 0.011776299, w: 0.99232703}
       scale: {x: 0.99999964, y: 0.9999994, z: 0.9999999}
     - name: ORG-f_ring.02.L
       parentName: ORG-f_ring.01.L
@@ -6604,7 +6606,7 @@ ModelImporter:
     - name: ORG-f_middle.02.R
       parentName: ORG-f_middle.01.R
       position: {x: 0.00000002514571, y: 0.025283307, z: 0.000000034691766}
-      rotation: {x: 0.038921274, y: -0.022280166, z: 0.0033162863, w: 0.99898845}
+      rotation: {x: 0.03892127, y: -0.022280166, z: 0.0033162858, w: 0.99898845}
       scale: {x: 0.9999999, y: 1, z: 1}
     - name: ORG-f_middle.03.R
       parentName: ORG-f_middle.02.R
@@ -6661,6 +6663,11 @@ ModelImporter:
       position: {x: -0.0000000041909516, y: 0.19813581, z: 0.0000000017462298}
       rotation: {x: -0.000000090489905, y: 0.9412476, z: -0.33761325, w: 0.008389841}
       scale: {x: 0.99999994, y: 1.0000004, z: 1.0000001}
+    - name: ORG-heel.L
+      parentName: ORG-shin.L
+      position: {x: 0.000000004110916, y: 0.4304565, z: 0.0000000033178367}
+      rotation: {x: 0.004411375, y: 0.97996944, z: 0.19906624, w: -0.0036324258}
+      scale: {x: 1, y: 0.9999999, z: 1}
     - name: ORG-thigh.R
       parentName: ORG-hips
       position: {x: 0.09467858, y: 0.02167148, z: 0.025705166}
@@ -6681,11 +6688,11 @@ ModelImporter:
       position: {x: -0.0000000117579475, y: 0.1980978, z: 0.000000010826625}
       rotation: {x: 0.00000009340359, y: 0.9412475, z: -0.33761337, w: -0.008389843}
       scale: {x: 0.99999994, y: 1.0000002, z: 1.0000001}
-    - name: Empty
-      parentName: Atlas(Clone)
-      position: {x: -0, y: 0, z: 0}
-      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-      scale: {x: 1, y: 1, z: 1}
+    - name: ORG-heel.R
+      parentName: ORG-shin.R
+      position: {x: 0.000000007863491, y: 0.43045452, z: 0.000000001877197}
+      rotation: {x: -0.0044120857, y: 0.97997993, z: 0.19901451, w: 0.0036361245}
+      scale: {x: 1, y: 1, z: 0.99999994}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -6705,6 +6712,8 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
