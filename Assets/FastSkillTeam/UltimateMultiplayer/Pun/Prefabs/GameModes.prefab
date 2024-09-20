@@ -1,0 +1,1186 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1731776946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1731776947}
+  - component: {fileID: 1731776952}
+  - component: {fileID: 1731776953}
+  - component: {fileID: 1731776950}
+  - component: {fileID: 1731776948}
+  - component: {fileID: 1731776949}
+  - component: {fileID: 677418433134446137}
+  m_Layer: 0
+  m_Name: TeamDeathMatch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1731776947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731776946}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6599445661086646328}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1731776952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731776946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0d434a5b6e8ab449a1b0ec94ac6b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DefaultCharacter: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+  m_SpawnOnJoin: 1
+  m_Mode: 1
+  m_SpawnLocation: {fileID: 0}
+  m_SpawnLocationOffset: {x: 2, y: 0, z: 0}
+  m_SpawnPointGrouping: -1
+  m_InactiveTimeout: 60
+  m_AddPrefabs:
+    Local:
+    - Prefab: {fileID: 8099995115627435590, guid: a77dbc213f192fb44aafb0b066ffbc46, type: 3}
+      ParentName: 
+    Remote:
+    - Prefab: {fileID: 7746916027281605622, guid: ab0737ef589627943ae4016d4327c78f, type: 3}
+      ParentName: 
+    - Prefab: {fileID: 8099995115627435590, guid: a77dbc213f192fb44aafb0b066ffbc46, type: 3}
+      ParentName: 
+  m_AddComponents:
+    Local:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPDMPlayerStats
+      TransformName: 
+    Remote:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPDMPlayerStats
+      TransformName: 
+--- !u!114 &1731776953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731776946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a393322278d7f4cbc8b87b6a4c9ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GameStartDelay: -1
+  m_MinStartPlayers: 1
+  m_MaxPlayers: 8
+  m_RoundCount: 3
+  m_RoundDuration: 300
+  m_IntervalDuration: 20
+  m_GameType: 0
+--- !u!114 &1731776950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731776946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6482acb98c5dab847b29f54e6393b770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SyncPropHealth: 0
+  m_ScorePerFrag: 10
+  m_ScorePerDeath: -10
+  m_ScorePerTeamKill: -10
+--- !u!114 &1731776948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731776946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8dc18cbcc07c714e9b8f08e0b3f7a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Teams:
+  - Name: 'A Team '
+    Grouping: 0
+    ObjectiveGrouping: 0
+    Color: {r: 0, g: 0.1997869, b: 1, a: 1}
+    CharacterPrefab: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+    ModelIndex: -1
+  - Name: B Team
+    Grouping: 1
+    ObjectiveGrouping: 0
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    CharacterPrefab: {fileID: 1790365179804284297, guid: 1f5b7ebcc897d58458980094cb8910c9, type: 3}
+    ModelIndex: -1
+--- !u!114 &1731776949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731776946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &677418433134446137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731776946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f89c4c9d55011f74d9cbf7d74b00a6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowedChannel: 2
+  FilterMode: 0
+--- !u!1 &238443958708423005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7582401778728210391}
+  - component: {fileID: 7974205609582805225}
+  - component: {fileID: 886742515134463479}
+  - component: {fileID: 3695583497462041620}
+  - component: {fileID: 1912083349781082062}
+  - component: {fileID: 8457710069125240108}
+  - component: {fileID: 7566623047689192675}
+  m_Layer: 0
+  m_Name: TeamDeathMatchRush
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7582401778728210391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238443958708423005}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6599445661086646328}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7974205609582805225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238443958708423005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0d434a5b6e8ab449a1b0ec94ac6b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DefaultCharacter: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+  m_SpawnOnJoin: 0
+  m_Mode: 1
+  m_SpawnLocation: {fileID: 0}
+  m_SpawnLocationOffset: {x: 2, y: 0, z: 0}
+  m_SpawnPointGrouping: -1
+  m_InactiveTimeout: 60
+  m_AddPrefabs:
+    Local:
+    - Prefab: {fileID: 8099995115627435590, guid: a77dbc213f192fb44aafb0b066ffbc46, type: 3}
+      ParentName: 
+    Remote:
+    - Prefab: {fileID: 7746916027281605622, guid: ab0737ef589627943ae4016d4327c78f, type: 3}
+      ParentName: 
+    - Prefab: {fileID: 8099995115627435590, guid: a77dbc213f192fb44aafb0b066ffbc46, type: 3}
+      ParentName: 
+  m_AddComponents:
+    Local:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPDMPlayerStats
+      TransformName: 
+    Remote:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPDMPlayerStats
+      TransformName: 
+--- !u!114 &886742515134463479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238443958708423005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a393322278d7f4cbc8b87b6a4c9ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GameStartDelay: -1
+  m_MinStartPlayers: 1
+  m_MaxPlayers: 8
+  m_RoundCount: 3
+  m_RoundDuration: 300
+  m_IntervalDuration: 20
+  m_GameType: 2
+--- !u!114 &3695583497462041620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238443958708423005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6482acb98c5dab847b29f54e6393b770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SyncPropHealth: 0
+  m_ScorePerFrag: 10
+  m_ScorePerDeath: -10
+  m_ScorePerTeamKill: -10
+--- !u!114 &1912083349781082062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238443958708423005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8dc18cbcc07c714e9b8f08e0b3f7a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Teams:
+  - Name: 'A Team '
+    Grouping: 0
+    ObjectiveGrouping: 0
+    Color: {r: 0, g: 0.1997869, b: 1, a: 1}
+    CharacterPrefab: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+    ModelIndex: -1
+  - Name: B Team
+    Grouping: 1
+    ObjectiveGrouping: 0
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    CharacterPrefab: {fileID: 1790365179804284297, guid: 1f5b7ebcc897d58458980094cb8910c9, type: 3}
+    ModelIndex: -1
+--- !u!114 &8457710069125240108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238443958708423005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &7566623047689192675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238443958708423005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f89c4c9d55011f74d9cbf7d74b00a6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowedChannel: 2
+  FilterMode: 0
+--- !u!1 &4078412448724685395
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5075928033740697722}
+  - component: {fileID: 5697383514901772581}
+  - component: {fileID: 2761394556202060135}
+  - component: {fileID: 2425391013825496711}
+  - component: {fileID: 7607788644855657234}
+  - component: {fileID: 1356092594952989092}
+  - component: {fileID: 8588868890228502760}
+  m_Layer: 0
+  m_Name: TeamDeathMatchCTF
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5075928033740697722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4078412448724685395}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6599445661086646328}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5697383514901772581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4078412448724685395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0d434a5b6e8ab449a1b0ec94ac6b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DefaultCharacter: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+  m_SpawnOnJoin: 0
+  m_Mode: 1
+  m_SpawnLocation: {fileID: 0}
+  m_SpawnLocationOffset: {x: 2, y: 0, z: 0}
+  m_SpawnPointGrouping: -1
+  m_InactiveTimeout: 60
+  m_AddPrefabs:
+    Local:
+    - Prefab: {fileID: 8099995115627435590, guid: a77dbc213f192fb44aafb0b066ffbc46, type: 3}
+      ParentName: 
+    Remote:
+    - Prefab: {fileID: 7746916027281605622, guid: ab0737ef589627943ae4016d4327c78f, type: 3}
+      ParentName: 
+    - Prefab: {fileID: 8099995115627435590, guid: a77dbc213f192fb44aafb0b066ffbc46, type: 3}
+      ParentName: 
+  m_AddComponents:
+    Local:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPDMPlayerStats
+      TransformName: 
+    Remote:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPDMPlayerStats
+      TransformName: 
+--- !u!114 &2761394556202060135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4078412448724685395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a393322278d7f4cbc8b87b6a4c9ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GameStartDelay: -1
+  m_MinStartPlayers: 1
+  m_MaxPlayers: 8
+  m_RoundCount: 3
+  m_RoundDuration: 300
+  m_IntervalDuration: 20
+  m_GameType: 3
+--- !u!114 &2425391013825496711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4078412448724685395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6482acb98c5dab847b29f54e6393b770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SyncPropHealth: 0
+  m_ScorePerFrag: 10
+  m_ScorePerDeath: -10
+  m_ScorePerTeamKill: -10
+--- !u!114 &7607788644855657234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4078412448724685395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8dc18cbcc07c714e9b8f08e0b3f7a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Teams:
+  - Name: 'A Team '
+    Grouping: 0
+    ObjectiveGrouping: 0
+    Color: {r: 0, g: 0.1997869, b: 1, a: 1}
+    CharacterPrefab: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+    ModelIndex: -1
+  - Name: B Team
+    Grouping: 1
+    ObjectiveGrouping: 0
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    CharacterPrefab: {fileID: 1790365179804284297, guid: 1f5b7ebcc897d58458980094cb8910c9, type: 3}
+    ModelIndex: -1
+--- !u!114 &1356092594952989092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4078412448724685395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &8588868890228502760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4078412448724685395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f89c4c9d55011f74d9cbf7d74b00a6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowedChannel: 2
+  FilterMode: 0
+--- !u!1 &5463941267528573574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6286900897647451817}
+  - component: {fileID: 4852579128736427711}
+  - component: {fileID: 5162123356442340508}
+  - component: {fileID: 5677963985377516441}
+  - component: {fileID: 55624300809246793}
+  - component: {fileID: 7894699461932301038}
+  - component: {fileID: 29445916349940659}
+  m_Layer: 0
+  m_Name: TeamDeathMatchConquest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6286900897647451817
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5463941267528573574}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6599445661086646328}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4852579128736427711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5463941267528573574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0d434a5b6e8ab449a1b0ec94ac6b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DefaultCharacter: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+  m_SpawnOnJoin: 1
+  m_Mode: 1
+  m_SpawnLocation: {fileID: 0}
+  m_SpawnLocationOffset: {x: 2, y: 0, z: 0}
+  m_SpawnPointGrouping: -1
+  m_InactiveTimeout: 60
+  m_AddPrefabs:
+    Local:
+    - Prefab: {fileID: 8099995115627435590, guid: a77dbc213f192fb44aafb0b066ffbc46, type: 3}
+      ParentName: 
+    Remote:
+    - Prefab: {fileID: 7746916027281605622, guid: ab0737ef589627943ae4016d4327c78f, type: 3}
+      ParentName: 
+    - Prefab: {fileID: 8099995115627435590, guid: a77dbc213f192fb44aafb0b066ffbc46, type: 3}
+      ParentName: 
+  m_AddComponents:
+    Local:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPDMPlayerStats
+      TransformName: 
+    Remote:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPDMPlayerStats
+      TransformName: 
+--- !u!114 &5162123356442340508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5463941267528573574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a393322278d7f4cbc8b87b6a4c9ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GameStartDelay: -1
+  m_MinStartPlayers: 1
+  m_MaxPlayers: 8
+  m_RoundCount: 3
+  m_RoundDuration: 300
+  m_IntervalDuration: 20
+  m_GameType: 1
+--- !u!114 &5677963985377516441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5463941267528573574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6482acb98c5dab847b29f54e6393b770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SyncPropHealth: 0
+  m_ScorePerFrag: 10
+  m_ScorePerDeath: -10
+  m_ScorePerTeamKill: -10
+--- !u!114 &55624300809246793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5463941267528573574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8dc18cbcc07c714e9b8f08e0b3f7a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Teams:
+  - Name: 'A Team '
+    Grouping: 0
+    ObjectiveGrouping: 0
+    Color: {r: 0, g: 0.1997869, b: 1, a: 1}
+    CharacterPrefab: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+    ModelIndex: -1
+  - Name: B Team
+    Grouping: 1
+    ObjectiveGrouping: 1
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    CharacterPrefab: {fileID: 1790365179804284297, guid: 1f5b7ebcc897d58458980094cb8910c9, type: 3}
+    ModelIndex: -1
+--- !u!114 &7894699461932301038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5463941267528573574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &29445916349940659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5463941267528573574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f89c4c9d55011f74d9cbf7d74b00a6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowedChannel: 2
+  FilterMode: 0
+--- !u!1 &6599445661086646335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6599445661086646328}
+  - component: {fileID: 55401515017032882}
+  m_Layer: 0
+  m_Name: GameModes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6599445661086646328
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445661086646335}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.222909, y: 0.48278487, z: -1.0343924}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6599445661645619897}
+  - {fileID: 6599445662542801185}
+  - {fileID: 1731776947}
+  - {fileID: 654963947945342961}
+  - {fileID: 6286900897647451817}
+  - {fileID: 7582401778728210391}
+  - {fileID: 5075928033740697722}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &55401515017032882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445661086646335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf600ea328e4f484b9efdee3b5e22528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6599445661645619896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6599445661645619897}
+  - component: {fileID: 6599445661645619893}
+  - component: {fileID: 6599445661645619898}
+  - component: {fileID: 6599445661645619894}
+  - component: {fileID: 6599445661645619892}
+  - component: {fileID: 3934936658180472567}
+  m_Layer: 0
+  m_Name: Coop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6599445661645619897
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445661645619896}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6599445661086646328}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6599445661645619893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445661645619896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0d434a5b6e8ab449a1b0ec94ac6b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DefaultCharacter: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+  m_SpawnOnJoin: 1
+  m_Mode: 0
+  m_SpawnLocation: {fileID: 0}
+  m_SpawnLocationOffset: {x: 2, y: 0, z: 0}
+  m_SpawnPointGrouping: -1
+  m_InactiveTimeout: 60
+  m_AddPrefabs:
+    Local:
+    - Prefab: {fileID: 8099995115627435590, guid: 6bcd9597d73ff39458b0d3d5a824c75d, type: 3}
+      ParentName: 
+    Remote:
+    - Prefab: {fileID: 7746916027281605622, guid: ab0737ef589627943ae4016d4327c78f, type: 3}
+      ParentName: 
+    - Prefab: {fileID: 8099995115627435590, guid: 6bcd9597d73ff39458b0d3d5a824c75d, type: 3}
+      ParentName: 
+  m_AddComponents:
+    Local:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPPlayerStats
+      TransformName: 
+    Remote:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPPlayerStats
+      TransformName: 
+--- !u!114 &6599445661645619898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445661645619896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f9bb6d3a80450241a0827e0e9d6f179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GameStartDelay: -1
+  m_MinStartPlayers: 1
+  m_MaxPlayers: 8
+  m_RoundCount: 1
+  m_RoundDuration: 300
+  m_IntervalDuration: 20
+  m_GameType: 0
+--- !u!114 &6599445661645619894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445661645619896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4117e4fe816d18245a12a8515030bada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SyncPropHealth: 0
+--- !u!114 &6599445661645619892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445661645619896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &3934936658180472567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445661645619896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f89c4c9d55011f74d9cbf7d74b00a6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowedChannel: 2
+  FilterMode: 0
+--- !u!1 &6599445662542801184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6599445662542801185}
+  - component: {fileID: 6599445662542801181}
+  - component: {fileID: 6599445662542801182}
+  - component: {fileID: 6599445662542801187}
+  - component: {fileID: 6599445662542801186}
+  - component: {fileID: 8715040121558048490}
+  m_Layer: 0
+  m_Name: DeathMatch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6599445662542801185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445662542801184}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6599445661086646328}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6599445662542801181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445662542801184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0d434a5b6e8ab449a1b0ec94ac6b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DefaultCharacter: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+  m_SpawnOnJoin: 1
+  m_Mode: 1
+  m_SpawnLocation: {fileID: 0}
+  m_SpawnLocationOffset: {x: 2, y: 0, z: 0}
+  m_SpawnPointGrouping: -1
+  m_InactiveTimeout: 60
+  m_AddPrefabs:
+    Local:
+    - Prefab: {fileID: 8099995115627435590, guid: 6bcd9597d73ff39458b0d3d5a824c75d, type: 3}
+      ParentName: 
+    Remote:
+    - Prefab: {fileID: 7746916027281605622, guid: ab0737ef589627943ae4016d4327c78f, type: 3}
+      ParentName: 
+    - Prefab: {fileID: 2122470921840864794, guid: ec695ef922dee604faa3f818324b6086, type: 3}
+      ParentName: 
+  m_AddComponents:
+    Local:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPDMPlayerStats
+      TransformName: 
+    Remote:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPDMPlayerStats
+      TransformName: 
+--- !u!114 &6599445662542801182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445662542801184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a393322278d7f4cbc8b87b6a4c9ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GameStartDelay: -1
+  m_MinStartPlayers: 1
+  m_MaxPlayers: 8
+  m_RoundCount: 3
+  m_RoundDuration: 300
+  m_IntervalDuration: 20
+  m_GameType: 0
+--- !u!114 &6599445662542801187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445662542801184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6482acb98c5dab847b29f54e6393b770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SyncPropHealth: 0
+  m_ScorePerFrag: 10
+  m_ScorePerDeath: -10
+  m_ScorePerTeamKill: -10
+--- !u!114 &6599445662542801186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445662542801184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &8715040121558048490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599445662542801184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f89c4c9d55011f74d9cbf7d74b00a6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowedChannel: 2
+  FilterMode: 0
+--- !u!1 &9030318113847494982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 654963947945342961}
+  - component: {fileID: 9067318652639812931}
+  - component: {fileID: 2686316964737997805}
+  - component: {fileID: 2622929687054983661}
+  - component: {fileID: 6042203966641708763}
+  - component: {fileID: 3814959296809109630}
+  - component: {fileID: 1511603174822038294}
+  m_Layer: 0
+  m_Name: MultiTeamDeathMatch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &654963947945342961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9030318113847494982}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6599445661086646328}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9067318652639812931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9030318113847494982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0d434a5b6e8ab449a1b0ec94ac6b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DefaultCharacter: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+  m_SpawnOnJoin: 1
+  m_Mode: 1
+  m_SpawnLocation: {fileID: 0}
+  m_SpawnLocationOffset: {x: 2, y: 0, z: 0}
+  m_SpawnPointGrouping: -1
+  m_InactiveTimeout: 60
+  m_AddPrefabs:
+    Local:
+    - Prefab: {fileID: 8099995115627435590, guid: a77dbc213f192fb44aafb0b066ffbc46, type: 3}
+      ParentName: 
+    Remote:
+    - Prefab: {fileID: 7746916027281605622, guid: ab0737ef589627943ae4016d4327c78f, type: 3}
+      ParentName: 
+    - Prefab: {fileID: 8099995115627435590, guid: a77dbc213f192fb44aafb0b066ffbc46, type: 3}
+      ParentName: 
+  m_AddComponents:
+    Local:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPDMPlayerStats
+      TransformName: 
+    Remote:
+    - ComponentName: FastSkillTeam.UltimateMultiplayer.Pun.MPDMPlayerStats
+      TransformName: 
+--- !u!114 &2686316964737997805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9030318113847494982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a393322278d7f4cbc8b87b6a4c9ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GameStartDelay: -1
+  m_MinStartPlayers: 1
+  m_MaxPlayers: 8
+  m_RoundCount: 3
+  m_RoundDuration: 300
+  m_IntervalDuration: 20
+  m_GameType: 0
+--- !u!114 &2622929687054983661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9030318113847494982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6482acb98c5dab847b29f54e6393b770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SyncPropHealth: 0
+  m_ScorePerFrag: 10
+  m_ScorePerDeath: -10
+  m_ScorePerTeamKill: -10
+--- !u!114 &6042203966641708763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9030318113847494982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8dc18cbcc07c714e9b8f08e0b3f7a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Teams:
+  - Name: 'A Team '
+    Grouping: 0
+    ObjectiveGrouping: 0
+    Color: {r: 0, g: 0.1997869, b: 1, a: 1}
+    CharacterPrefab: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+    ModelIndex: 0
+  - Name: B Team
+    Grouping: 1
+    ObjectiveGrouping: 0
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    CharacterPrefab: {fileID: 1790365179804284297, guid: 1f5b7ebcc897d58458980094cb8910c9, type: 3}
+    ModelIndex: 0
+  - Name: C Team
+    Grouping: 2
+    ObjectiveGrouping: 0
+    Color: {r: 0, g: 1, b: 0, a: 1}
+    CharacterPrefab: {fileID: 1790365179804284297, guid: 1f5b7ebcc897d58458980094cb8910c9, type: 3}
+    ModelIndex: 1
+  - Name: D Team
+    Grouping: 3
+    ObjectiveGrouping: 0
+    Color: {r: 1, g: 0, b: 0.90588236, a: 1}
+    CharacterPrefab: {fileID: 1790365179804284297, guid: e46d55e28a5072340aee1aed5e19e17e, type: 3}
+    ModelIndex: 1
+--- !u!114 &3814959296809109630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9030318113847494982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &1511603174822038294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9030318113847494982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f89c4c9d55011f74d9cbf7d74b00a6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowedChannel: 2
+  FilterMode: 0
