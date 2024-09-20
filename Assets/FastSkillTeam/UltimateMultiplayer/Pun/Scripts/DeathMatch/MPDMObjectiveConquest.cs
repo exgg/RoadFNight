@@ -11,6 +11,9 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 
+using Photon.Pun;
+using Photon.Realtime;
+
 namespace FastSkillTeam.UltimateMultiplayer.Pun
 {
 #if PHOTON_UNITY_NETWORKING
