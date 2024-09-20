@@ -36,6 +36,9 @@ namespace Opsive.UltimateCharacterController.ThirdPersonController.Character.Abi
             base.Awake();
 
             m_Collider = GetComponent<Collider>();
+            if(m_Collider == null)
+                Debug.LogError("The collider is null");
+            
             if (!(m_Collider is CapsuleCollider) && !(m_Collider is SphereCollider)) {
                 Debug.LogWarning("Warning: The ItemPullbackCollider only supports capsule and sphere colliders.");
                 enabled = false;

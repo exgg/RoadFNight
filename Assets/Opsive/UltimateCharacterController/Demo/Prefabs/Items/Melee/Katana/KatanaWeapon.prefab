@@ -30,6 +30,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319129606718160}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -37,7 +38,6 @@ Transform:
   m_Children:
   - {fileID: 5502194317990151688}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114924824000632866
 MonoBehaviour:
@@ -374,15 +374,6 @@ MonoBehaviour:
         m_MaxCollisionCount: 20
         m_ForwardShieldSensitivity: -0.75
         m_Hitboxes:
-          m_FirstPerson:
-          - m_Collider: {fileID: 0}
-            m_DamageMultiplier: 1
-            m_ColliderObjectID: -1
-            m_MinimumYOffset: 0
-            m_MinimumZOffset: 0
-            m_RequireMovement: 0
-            m_SingleHit: 0
-            m_SurfaceImpact: {fileID: 0}
           m_ThirdPerson:
           - m_Collider: {fileID: 4154611102301500348}
             m_DamageMultiplier: 1
@@ -640,14 +631,9 @@ MonoBehaviour:
         m_Enabled: 1
         m_Delay: 0
         m_Prefab:
-          m_FirstPerson: {fileID: 2210633355119226477, guid: 77d65c47dea23ae46a78252e8839981b,
-            type: 3}
           m_ThirdPerson: {fileID: 6690014396777902469, guid: 5751af2b20021064f9603640c05c0b50,
             type: 3}
         m_Origin:
-          m_FirstPerson:
-            m_ID: 50099999
-            m_Object: {fileID: 0}
           m_ThirdPerson:
             m_ID: 50099999
             m_Object: {fileID: 0}
@@ -712,14 +698,9 @@ MonoBehaviour:
         m_Enabled: 1
         m_Delay: 0
         m_Prefab:
-          m_FirstPerson: {fileID: 680958677579385908, guid: e84e1fbbb66728a41a937942dd270f1b,
-            type: 3}
           m_ThirdPerson: {fileID: 8781562193646847428, guid: 2b465c13c7e4b6942b9d758557a848f2,
             type: 3}
         m_Origin:
-          m_FirstPerson:
-            m_ID: 50099999
-            m_Object: {fileID: 0}
           m_ThirdPerson:
             m_ID: 50099999
             m_Object: {fileID: 0}
@@ -742,13 +723,9 @@ MonoBehaviour:
         m_Enabled: 1
         m_Delay: 0
         m_Prefab:
-          m_FirstPerson: {fileID: 0}
           m_ThirdPerson: {fileID: 1396407771314826275, guid: 32484090b5d550a4088a4d1efa70ffca,
             type: 3}
         m_Origin:
-          m_FirstPerson:
-            m_ID: 50099999
-            m_Object: {fileID: 0}
           m_ThirdPerson:
             m_ID: 50099999
             m_Object: {fileID: 0}
@@ -1197,15 +1174,6 @@ MonoBehaviour:
         m_MaxCollisionCount: 20
         m_ForwardShieldSensitivity: -0.75
         m_Hitboxes:
-          m_FirstPerson:
-          - m_Collider: {fileID: 0}
-            m_DamageMultiplier: 1
-            m_ColliderObjectID: -1
-            m_MinimumYOffset: 0
-            m_MinimumZOffset: 0
-            m_RequireMovement: 0
-            m_SingleHit: 0
-            m_SurfaceImpact: {fileID: 0}
           m_ThirdPerson:
           - m_Collider: {fileID: 4154611102301500348}
             m_DamageMultiplier: 1
@@ -1460,15 +1428,6 @@ MonoBehaviour:
         m_MaxCollisionCount: 20
         m_ForwardShieldSensitivity: -0.75
         m_Hitboxes:
-          m_FirstPerson:
-          - m_Collider: {fileID: 0}
-            m_DamageMultiplier: 1
-            m_ColliderObjectID: -1
-            m_MinimumYOffset: 0
-            m_MinimumZOffset: 0
-            m_RequireMovement: 0
-            m_SingleHit: 0
-            m_SurfaceImpact: {fileID: 0}
           m_ThirdPerson:
           - m_Collider: {fileID: 4154611102301500348}
             m_DamageMultiplier: 1
@@ -1662,6 +1621,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 4563189728846314}
     m_Modifications:
     - target: {fileID: 4690597803236489944, guid: 75c7f76114ba1954fa1ecf1d58e94dee,
@@ -1730,6 +1690,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4690597803236489944, guid: 75c7f76114ba1954fa1ecf1d58e94dee,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4154611102301500348}
+    - targetCorrespondingSourceObject: {fileID: 4690597803236489944, guid: 75c7f76114ba1954fa1ecf1d58e94dee,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7156345844302822983}
+    - targetCorrespondingSourceObject: {fileID: 4690597803236489944, guid: 75c7f76114ba1954fa1ecf1d58e94dee,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 926161239225471542}
+    - targetCorrespondingSourceObject: {fileID: 4690597803236489944, guid: 75c7f76114ba1954fa1ecf1d58e94dee,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5676602436628939508}
   m_SourcePrefab: {fileID: 100100000, guid: 75c7f76114ba1954fa1ecf1d58e94dee, type: 3}
 --- !u!1 &5120707366220307634 stripped
 GameObject:
@@ -1745,9 +1724,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5120707366220307634}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.05104, y: 0.13593501, z: 1.2155579}
   m_Center: {x: 0, y: 0.017329501, z: 0.426181}
 --- !u!82 &7156345844302822983

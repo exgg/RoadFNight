@@ -2955,6 +2955,7 @@ GameObject:
   - component: {fileID: 939116506}
   - component: {fileID: 939116505}
   - component: {fileID: 939116504}
+  - component: {fileID: 939116508}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3044,6 +3045,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &939116508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939116503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &952753957
 GameObject:
   m_ObjectHideFlags: 0
@@ -5210,65 +5255,17 @@ MonoBehaviour:
   m_ClearGameChat: 0
   m_ClearGlobalChat: 0
   m_CharacterStartData:
-  - m_DisplayName: 'Atlas: Full Loadout'
-    m_Thumbnail: {fileID: 2800000, guid: 2dad08ad8769ebd418442fed48e26aa3, type: 3}
-    m_ModelIndex: 0
-    m_UseStartingLoadout: 0
-    m_StartingLoadout: []
-    m_Active: 1
-  - m_DisplayName: 'Rhea: Full Loadout'
-    m_Thumbnail: {fileID: 2800000, guid: 545a30e431f392d4b8edcca49b6704b4, type: 3}
-    m_ModelIndex: 1
-    m_UseStartingLoadout: 0
-    m_StartingLoadout: []
-    m_Active: 1
-  - m_DisplayName: 'Atlas: Assault'
+  - m_DisplayName: Roadman
     m_Thumbnail: {fileID: 2800000, guid: 2dad08ad8769ebd418442fed48e26aa3, type: 3}
     m_ModelIndex: 0
     m_UseStartingLoadout: 1
     m_StartingLoadout:
-    - ItemDefinition: {fileID: 114334400771614146, guid: 021c3ac03e797ee428e845933dca8c31,
+    - ItemDefinition: {fileID: 114334400771614146, guid: 16d30180d9012ca48889477ac8da5303,
         type: 2}
       Amount: 1
     - ItemDefinition: {fileID: 114399628520483710, guid: 021c3ac03e797ee428e845933dca8c31,
         type: 2}
-      Amount: 288
-    - ItemDefinition: {fileID: 114982450061250758, guid: 021c3ac03e797ee428e845933dca8c31,
-        type: 2}
-      Amount: 1
-    - ItemDefinition: {fileID: 114575177125770392, guid: 021c3ac03e797ee428e845933dca8c31,
-        type: 2}
-      Amount: 99
-    - ItemDefinition: {fileID: 114074367643677680, guid: 021c3ac03e797ee428e845933dca8c31,
-        type: 2}
-      Amount: 6
-    - ItemDefinition: {fileID: 114099228593570972, guid: 021c3ac03e797ee428e845933dca8c31,
-        type: 2}
-      Amount: 6
-    m_Active: 1
-  - m_DisplayName: 'Rhea: Sniper'
-    m_Thumbnail: {fileID: 2800000, guid: 545a30e431f392d4b8edcca49b6704b4, type: 3}
-    m_ModelIndex: 1
-    m_UseStartingLoadout: 1
-    m_StartingLoadout:
-    - ItemDefinition: {fileID: 114628928406164210, guid: 021c3ac03e797ee428e845933dca8c31,
-        type: 2}
-      Amount: 1
-    - ItemDefinition: {fileID: 114621131875131168, guid: 021c3ac03e797ee428e845933dca8c31,
-        type: 2}
-      Amount: 64
-    - ItemDefinition: {fileID: 114982450061250758, guid: 021c3ac03e797ee428e845933dca8c31,
-        type: 2}
-      Amount: 1
-    - ItemDefinition: {fileID: 114575177125770392, guid: 021c3ac03e797ee428e845933dca8c31,
-        type: 2}
-      Amount: 99
-    - ItemDefinition: {fileID: 114074367643677680, guid: 021c3ac03e797ee428e845933dca8c31,
-        type: 2}
-      Amount: 6
-    - ItemDefinition: {fileID: 114099228593570972, guid: 021c3ac03e797ee428e845933dca8c31,
-        type: 2}
-      Amount: 6
+      Amount: 500
     m_Active: 1
   m_SceneData:
   - m_DisplayName: America
@@ -5467,6 +5464,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 801
       objectReference: {fileID: 0}
+    - target: {fileID: 1731776952, guid: 178b6cf365f9d33419a1a9a0cf65abad, type: 3}
+      propertyPath: m_DefaultCharacter
+      value: 
+      objectReference: {fileID: 8885152735302451782, guid: 982bb58927ff6fd4991354396fcc1abc,
+        type: 3}
     - target: {fileID: 1731776953, guid: 178b6cf365f9d33419a1a9a0cf65abad, type: 3}
       propertyPath: m_GameLength
       value: 30
@@ -5503,9 +5505,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4852579128736427711, guid: 178b6cf365f9d33419a1a9a0cf65abad,
         type: 3}
+      propertyPath: m_DefaultCharacter
+      value: 
+      objectReference: {fileID: 8885152735302451782, guid: 982bb58927ff6fd4991354396fcc1abc,
+        type: 3}
+    - target: {fileID: 4852579128736427711, guid: 178b6cf365f9d33419a1a9a0cf65abad,
+        type: 3}
       propertyPath: m_IsInSceneSpawner
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5697383514901772581, guid: 178b6cf365f9d33419a1a9a0cf65abad,
+        type: 3}
+      propertyPath: m_DefaultCharacter
+      value: 
+      objectReference: {fileID: 8885152735302451782, guid: 982bb58927ff6fd4991354396fcc1abc,
+        type: 3}
     - target: {fileID: 6599445661086646328, guid: 178b6cf365f9d33419a1a9a0cf65abad,
         type: 3}
       propertyPath: m_RootOrder
@@ -5573,9 +5587,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6599445661645619893, guid: 178b6cf365f9d33419a1a9a0cf65abad,
         type: 3}
+      propertyPath: m_DefaultCharacter
+      value: 
+      objectReference: {fileID: 8885152735302451782, guid: 982bb58927ff6fd4991354396fcc1abc,
+        type: 3}
+    - target: {fileID: 6599445661645619893, guid: 178b6cf365f9d33419a1a9a0cf65abad,
+        type: 3}
       propertyPath: m_AddPrefabs.Local.Array.data[1].Prefab
       value: 
       objectReference: {fileID: 5947097724825286896, guid: 74d3f5789ce48c041b35b67b9f1e8064,
+        type: 3}
+    - target: {fileID: 6599445662542801181, guid: 178b6cf365f9d33419a1a9a0cf65abad,
+        type: 3}
+      propertyPath: m_DefaultCharacter
+      value: 
+      objectReference: {fileID: 8885152735302451782, guid: 982bb58927ff6fd4991354396fcc1abc,
         type: 3}
     - target: {fileID: 6599445662542801186, guid: 178b6cf365f9d33419a1a9a0cf65abad,
         type: 3}
@@ -5618,11 +5644,23 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 805
       objectReference: {fileID: 0}
+    - target: {fileID: 7974205609582805225, guid: 178b6cf365f9d33419a1a9a0cf65abad,
+        type: 3}
+      propertyPath: m_DefaultCharacter
+      value: 
+      objectReference: {fileID: 8885152735302451782, guid: 982bb58927ff6fd4991354396fcc1abc,
+        type: 3}
     - target: {fileID: 8457710069125240108, guid: 178b6cf365f9d33419a1a9a0cf65abad,
         type: 3}
       propertyPath: sceneViewId
       value: 806
       objectReference: {fileID: 0}
+    - target: {fileID: 9067318652639812931, guid: 178b6cf365f9d33419a1a9a0cf65abad,
+        type: 3}
+      propertyPath: m_DefaultCharacter
+      value: 
+      objectReference: {fileID: 8885152735302451782, guid: 982bb58927ff6fd4991354396fcc1abc,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
