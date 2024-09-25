@@ -35,7 +35,7 @@ public class PedestrianSystem : MonoBehaviour
         {
             foreach (var pedestrian in GetComponentsInChildren<Pedestrian>(true))
             {
-                //block.try_add_pedestrian(pedestrian);
+                block.try_add_pedestrian(pedestrian);
             }
         }
 
