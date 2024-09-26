@@ -852,7 +852,7 @@ public class CityGen : MonoBehaviour
             }
         }
         #region District
-        DistrictData.Religion religion = (DistrictData.Religion)Random.Range(0, (int)DistrictData.Religion.RELIGION_NUM);
+        Religion religion = (Religion)Random.Range(0, (int)Religion.RELIGION_NUM);
         int district_num = 0;
         foreach (var i in GeneratedBlocks.GetComponentsInChildren<District>())
         {
