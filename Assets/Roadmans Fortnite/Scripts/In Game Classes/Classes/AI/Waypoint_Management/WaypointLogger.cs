@@ -37,9 +37,12 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Waypoint_Manageme
             
             foreach (var waypoint in waypoints)
             {
-                Gizmos.color = waypoint.GetComponent<WaypointLogger>().waypoints.Contains(gameObject) ? Color.green : Color.red;
+                if (waypoint != null)
+                {
+                    Gizmos.color = waypoint.GetComponent<WaypointLogger>().waypoints.Contains(gameObject) ? Color.green : Color.red;
 
-                Gizmos.DrawLine(transform.position, waypoint.transform.position);
+                    Gizmos.DrawLine(transform.position, waypoint.transform.position);
+                }
             }
         }
     }
