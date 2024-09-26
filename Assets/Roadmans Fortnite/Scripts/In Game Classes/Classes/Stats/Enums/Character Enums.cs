@@ -32,4 +32,17 @@ namespace Roadmans_Fortnite.Scripts.Classes.Stats.Enums
         Gay,
         Bisexual
     }
+
+    public enum Religion
+    {
+        CHRISTIAN,
+        ISLAM,
+        HINDU,
+        SIKH,
+        BUDDHIST,
+        NONE,
+        OTHER,
+
+        RELIGION_NUM
+    }
 }
