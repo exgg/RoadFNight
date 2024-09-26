@@ -87,6 +87,9 @@ public class CityGen : MonoBehaviour
 
     public int ovrn = 0;
     private int randFlip = 0;
+
+    public PedestrianSystem pedestrianSystem;
+
     void OnEnable()
     {
         if (generateOnEnable)
@@ -205,6 +208,7 @@ public class CityGen : MonoBehaviour
 
                 clone.transform.SetParent(GeneratedBlocks.transform);
                 clone.GetComponentInParent<_block>()._Region = (_block.Regions)chooseRegion;
+                clone.GetComponentInParent<_block>().pedestrianSystem = pedestrianSystem;
                 #endregion
 
                 Vector3 pos = transform.position + gridOrigin +
