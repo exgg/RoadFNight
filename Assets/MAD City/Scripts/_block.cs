@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using RoadfnightPedestrian;
+using Gley.PedestrianSystem;
 
 public class _block : MonoBehaviour
 {

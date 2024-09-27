@@ -2,6 +2,7 @@ using Roadmans_Fortnite.Scripts.Classes.Stats.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gley.PedestrianSystem;
 
 /*
  * A group brain that controls specific groups
