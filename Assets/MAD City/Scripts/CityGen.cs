@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Roadmans_Fortnite.Scripts.Classes.Stats.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static DistrictData;
+using Random = UnityEngine.Random;
 
 [ExecuteInEditMode]
 public class CityGen : MonoBehaviour
@@ -90,6 +92,15 @@ public class CityGen : MonoBehaviour
 
     public PedestrianSystem pedestrianSystem;
 
+  
+    private void Awake()
+    {
+        listOfBlocks = FindObjectsOfType<_block>();
+        listOfBuildings = FindObjectsOfType<_building>();
+        listOfLargeBuildings = FindObjectsOfType<_buildingLarge>();
+        listOfPOIs = FindObjectsOfType<_poi>();
+    }
+    
     void OnEnable()
     {
         if (generateOnEnable)

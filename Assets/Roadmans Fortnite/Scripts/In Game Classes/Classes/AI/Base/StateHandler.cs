@@ -54,6 +54,15 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
             HandleMovementStateMachine();
         }
 
+        private void ControlAllAgents() // Master brain
+        {
+            //list of groups
+        }
+        public void GroupFixedUpdate()
+        {
+            // list agents
+        }
+
         private void HandleMovementStateMachine()
         {
             if(_aiStats.isDead)
