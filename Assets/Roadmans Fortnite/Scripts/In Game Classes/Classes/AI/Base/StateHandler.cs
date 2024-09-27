@@ -49,12 +49,12 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
             agent = GetComponent<NavMeshAgent>();
         }
 
-        private void FixedUpdate()
+        /*private void FixedUpdate()
         {
             HandleMovementStateMachine();
-        }
+        }*/
 
-        private void HandleMovementStateMachine()
+        public void HandleMovementStateMachine()
         {
             if(_aiStats.isDead)
                 return;

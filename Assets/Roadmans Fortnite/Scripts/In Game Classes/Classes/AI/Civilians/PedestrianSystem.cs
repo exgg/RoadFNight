@@ -7,27 +7,28 @@ using UnityEngine;
 
 namespace RoadfnightPedestrian
 {
+    /*
+     * Highest level brain 
+     */
+
     public class PedestrianSystem : MonoBehaviour
     {
         public CityGen myCity;
         public List<GameObject> player_lst = new List<GameObject>();
         public float visible_threshold = 10;
 
-        private void Awake()
+        public List<PedestrianGroup> group_lst = new List<PedestrianGroup>();
+
+        private void Start()
         {
             init_block_pedestrian();//init secondary brain
         }
 
-        void Update()
+        private void FixedUpdate()
         {
-            foreach (var pedestrian in GetComponentsInChildren<Pedestrian>(true))
+            foreach (var group in group_lst)
             {
-                Dictionary<string, float> distance_dict = calculate_distance_to_players(pedestrian);
-                //update visible_dict in pedestrian
-                foreach (var player in distance_dict.Keys)
-                {
-                    pedestrian.visible_dict[player] = update_visible_state(distance_dict[player]);
-                }
+                group.update_members();
             }
         }
 
@@ -41,29 +42,6 @@ namespace RoadfnightPedestrian
                 }
             }
 
-        }
-
-        //Calculate the distance between pedestrian and players
-        public Dictionary<string, float> calculate_distance_to_players(Pedestrian pedestrian)
-        {
-            Dictionary<string, float> distance_dict = new Dictionary<string, float>();
-
-            foreach (var player in player_lst)
-            {
-                Vector2 player_pos = new Vector2(player.transform.position.x, player.transform.position.z);
-                Vector2 _pos = new Vector2(pedestrian.transform.position.x, pedestrian.transform.position.z);
-                distance_dict[player.name] = Vector2.Distance(player_pos, _pos);
-            }
-            foreach (var i in distance_dict)
-            {
-                Debug.Log(i);
-            }
-            return distance_dict;
-        }
-
-        public bool update_visible_state(float distance)
-        {
-            return distance > visible_threshold ? false : true;
         }
     }
 }

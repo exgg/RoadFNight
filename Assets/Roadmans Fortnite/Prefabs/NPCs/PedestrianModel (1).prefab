@@ -2262,9 +2262,9 @@ GameObject:
   - component: {fileID: 627184701288633726}
   - component: {fileID: 1756924140764907186}
   - component: {fileID: 4412753398064221943}
-  - component: {fileID: 3039989422382897110}
+  - component: {fileID: 2498855222606721819}
   m_Layer: 0
-  m_Name: PedestrianModel
+  m_Name: PedestrianModel (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2366,7 +2366,7 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &3039989422382897110
+--- !u!114 &2498855222606721819
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2375,9 +2375,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7965199311141679970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36a9ce6d00e891242be2561cbbb50e33, type: 3}
+  m_Script: {fileID: 11500000, guid: 58a5e387519b01e49b5326fff12e975c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _visibilityScript: {fileID: 0}
+  _ragDollPrefab: {fileID: 0}
+  _hasRagdoll: 1
+  _minWalkSpeed: 0.4
+  _maxWalkSpeed: 0.6
+  _type: 0
+  _triggerLength: 2
 --- !u!1 &7966955361780323038
 GameObject:
   m_ObjectHideFlags: 0
