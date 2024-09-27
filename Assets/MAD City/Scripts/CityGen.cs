@@ -3,7 +3,6 @@ using Roadmans_Fortnite.Scripts.Classes.Stats.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using RoadfnightPedestrian;
 using static DistrictData;
 
 [ExecuteInEditMode]
