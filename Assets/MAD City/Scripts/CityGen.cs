@@ -91,6 +91,14 @@ public class CityGen : MonoBehaviour
 
     public PedestrianSystem pedestrianSystem;
 
+    private void Awake()
+    {
+        listOfBlocks = FindObjectsOfType<_block>();
+        listOfBuildings = FindObjectsOfType<_building>();
+        listOfLargeBuildings = FindObjectsOfType<_buildingLarge>();
+        listOfPOIs = FindObjectsOfType<_poi>();
+    }
+
     void OnEnable()
     {
         if (generateOnEnable)
