@@ -1321,9 +1321,10 @@ PrefabInstance:
     - target: {fileID: 7270739145536265754, guid: 7e3ce0fd005d6a64b86ef06288090cac,
         type: 3}
       propertyPath: m_Name
-      value: LBlock Variant
+      value: LBlockNoHoles
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1216238179669371750, guid: 7e3ce0fd005d6a64b86ef06288090cac, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5958527408099593320, guid: 7e3ce0fd005d6a64b86ef06288090cac, type: 3}
     - {fileID: 7895140623161652316, guid: 7e3ce0fd005d6a64b86ef06288090cac, type: 3}

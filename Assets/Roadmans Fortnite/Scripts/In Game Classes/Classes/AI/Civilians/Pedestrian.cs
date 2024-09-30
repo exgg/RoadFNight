@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 using Roadmans_Fortnite.Data.Enums.NPCEnums;
+using RoadfnightPedestrian;
 
 public class Pedestrian : MonoBehaviour, IPoolObject
 {

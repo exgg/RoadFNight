@@ -8,8 +8,10 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Waypoint_Manageme
     public class WaypointLogger : MonoBehaviour
     {
         public List<GameObject> waypoints = new List<GameObject>();
-        
-        
+        public District _district;
+        public bool isRoadPoint;
+
+
         private void OnDrawGizmos()
         {
             switch (waypoints.Count)
