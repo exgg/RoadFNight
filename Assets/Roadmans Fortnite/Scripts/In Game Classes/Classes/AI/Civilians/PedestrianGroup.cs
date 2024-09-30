@@ -7,6 +7,7 @@ using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base;
 using RoadfnightPedestrian;
 using Gley.PedestrianSystem.Internal;
 
+
 /*
  * A group brain that controls specific groups
  */
@@ -21,12 +22,15 @@ public class PedestrianGroup : MonoBehaviour
 
     private void Awake()
     {
-        
+        foreach (var member in GetComponentsInChildren<Pedestrian>(true))
+        {
+            all_members.Add(member);
+        }
     }
 
     public void update_members()
     {
-        foreach (var member in GetComponentsInChildren<Pedestrian>(true))
+        foreach (var member in all_members)
         {
             //update state
             member.GetComponent<StateHandler>().HandleMovementStateMachine();
