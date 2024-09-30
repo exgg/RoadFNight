@@ -408,9 +408,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8369951168877798134}
   - component: {fileID: 4040053859328786131}
-  - component: {fileID: 4787735148947324266}
   - component: {fileID: 7941144170216795647}
   - component: {fileID: 3911726681950525055}
+  - component: {fileID: 7361678844111871836}
   m_Layer: 0
   m_Name: Pedestrian
   m_TagString: Untagged
@@ -457,19 +457,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4787735148947324266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 740357902766243192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 280620c3097b3154e883cc03cf803073, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDead: 0
 --- !u!114 &7941144170216795647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,6 +502,24 @@ CapsuleCollider:
   m_Height: 2.37
   m_Direction: 1
   m_Center: {x: 0, y: 0.93, z: 0}
+--- !u!114 &7361678844111871836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740357902766243192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a9ce6d00e891242be2561cbbb50e33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currenHealthStatus: 0
+  myGender: 0
+  myNationality: 0
+  myWealthClass: 0
+  mySexuality: 0
+  myBehaviourType: 0
 --- !u!1 &758621942437040360
 GameObject:
   m_ObjectHideFlags: 0
@@ -2367,6 +2372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2292298059299728024}
   - component: {fileID: 325835041831248910}
+  - component: {fileID: 1284829677525451172}
   m_Layer: 0
   m_Name: PedestrianModel
   m_TagString: Untagged
@@ -2412,7 +2418,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: ed3714a7c2189ba4ab19056b9b6d7d45, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -2420,6 +2426,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1284829677525451172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7101682989088433910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc06c54605164b6488533e83e2d79402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7138589042055552633
 GameObject:
   m_ObjectHideFlags: 0

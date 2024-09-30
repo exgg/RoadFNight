@@ -11,7 +11,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
         public WalkingState walkingState;
         private readonly float _axisthreshold = 3f;
         
-        public override BaseState Tick(StateHandler stateHandler, AIStats aiStats, AIAnimationHandler animationHandler)
+        public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
             // Find all available WaypointLogger instances in the scene
             var loggerList = FindObjectsOfType<WaypointLogger>();
@@ -19,6 +19,8 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             // Find the nearest path point(s) for the AI
             var nearestPathPoints = FindNearestPathPoint(stateHandler, loggerList);
 
+            Debug.Log("Looking for pathpoint");
+            
             // Logic after finding the nearest path point (could be transitioning to another state)
             if (nearestPathPoints.Count > 0)
             {

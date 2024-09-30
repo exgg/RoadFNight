@@ -9,10 +9,10 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
     {
         public WalkingState walkingState;
 
-        private readonly float floatingPointThreshold = 3f; // Minimum distance to consider two points different
-        private GameObject lastChosenPathPoint = null; // Temporary reference for the last chosen path point
+        private const float FloatingPointThreshold = 3f; // Minimum distance to consider two points different
+        private GameObject _lastChosenPathPoint = null; // Temporary reference for the last chosen path point
 
-        public override BaseState Tick(StateHandler stateHandler, AIStats aiStats, AIAnimationHandler animationHandler)
+        public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
             var randomPath = ChooseRandomPath(stateHandler);
             stateHandler.currentPathPoint = randomPath;
@@ -20,7 +20,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             if (stateHandler.currentPathPoint)
             {
                 // Set lastChosenPathPoint to track where the AI is walking
-                lastChosenPathPoint = stateHandler.previousPathPoint; // IMPORTANT: Track the last chosen path properly
+                _lastChosenPathPoint = stateHandler.previousPathPoint; // IMPORTANT: Track the last chosen path properly
                 return walkingState;
             }
             else
@@ -63,13 +63,13 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             // Ensure that the chosen path is not too close to the previous path, the current path, or the last chosen path
             while (
                 Vector3.Distance(stateHandler.previousPathPoint.transform.position, chosenPath.transform.position) <
-                floatingPointThreshold || // Compare to previous path
+                FloatingPointThreshold || // Compare to previous path
                 (stateHandler.currentPathPoint != null &&
                  Vector3.Distance(stateHandler.currentPathPoint.transform.position, chosenPath.transform.position) <
-                 floatingPointThreshold) || // Compare to current path
-                (lastChosenPathPoint != null &&
-                 Vector3.Distance(lastChosenPathPoint.transform.position, chosenPath.transform.position) <
-                 floatingPointThreshold) // Compare to last chosen path
+                 FloatingPointThreshold) || // Compare to current path
+                (_lastChosenPathPoint != null &&
+                 Vector3.Distance(_lastChosenPathPoint.transform.position, chosenPath.transform.position) <
+                 FloatingPointThreshold) // Compare to last chosen path
             );
 
             return chosenPath;

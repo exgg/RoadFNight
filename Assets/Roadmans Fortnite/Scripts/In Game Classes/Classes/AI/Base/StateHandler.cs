@@ -1,5 +1,6 @@
 using System;
 using Opsive.UltimateCharacterController.Objects.CharacterAssist;
+using Roadmans_Fortnite.Data.Enums.NPCEnums;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,7 +11,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
     public class StateHandler : MonoBehaviour
     {
         private AIAnimationHandler _animationHandler;
-        private AIStats _aiStats;
+        private Pedestrian _aiStats;
 
         [Header("Navmesh")] 
         public NavMeshAgent agent;
@@ -45,7 +46,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
         private void Awake()
         {
             _animationHandler = GetComponentInChildren<AIAnimationHandler>();
-            _aiStats = GetComponent<AIStats>();
+            _aiStats = GetComponent<Pedestrian>();
             agent = GetComponent<NavMeshAgent>();
         }
 
@@ -56,8 +57,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
 
         public void HandleMovementStateMachine()
         {
-            if(_aiStats.isDead)
+            if(_aiStats.currenHealthStatus != HealthStatus.Alive)
                 return;
+            
             if(!currentState)
             {
                 Debug.LogWarning("The AI has not been given a starting state");
