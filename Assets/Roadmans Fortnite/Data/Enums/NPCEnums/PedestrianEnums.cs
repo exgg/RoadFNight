@@ -44,7 +44,8 @@ namespace Roadmans_Fortnite.Data.Enums.NPCEnums
         Racist,
         Drunk,
         Homeless,
-        Druggy
+        Druggy,
+        Waiting,
     }
 
     public enum BodyType

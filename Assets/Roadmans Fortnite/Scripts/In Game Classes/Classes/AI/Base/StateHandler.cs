@@ -66,8 +66,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
             }
 
             BaseState nextState = currentState.Tick(this, _aiStats, _animationHandler);
-            
-            if(nextState != null)
+            if (nextState != null)
                 SwitchToNextState(nextState);
         }
 

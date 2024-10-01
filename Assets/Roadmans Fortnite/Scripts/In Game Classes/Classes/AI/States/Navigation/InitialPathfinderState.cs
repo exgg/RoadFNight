@@ -9,6 +9,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
     public class InitialPathfinderState : BaseState
     {
         public WalkingState walkingState;
+        public WaitingState waitingState;
         private readonly float _axisthreshold = 3f;
         
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
@@ -27,6 +28,18 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
                 // Move to walking state or whatever the next state would be
                 stateHandler.currentPathPoint = nearestPathPoints[0]; // Set the closest waypoint as target
                 stateHandler.previousPathPoint = stateHandler.currentPathPoint;
+
+                if (stateHandler.currentPathPoint.GetComponent<WaypointLogger>().isRoadPoint)
+                {
+                    int count = stateHandler.currentPathPoint.GetComponent<WaypointLogger>().waypoints.Count;
+                    if (Random.Range(0, count) == 0)
+                    {
+                        waitingState._isWaiting = true;
+                        return waitingState;
+                    }
+                }
+
+
                 return walkingState;  // Transition to walking state
             }
 

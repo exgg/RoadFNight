@@ -8,6 +8,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
     public class PathfinderState : BaseState
     {
         public WalkingState walkingState;
+        public WaitingState waitingState;
 
         private const float FloatingPointThreshold = 3f; // Minimum distance to consider two points different
         private GameObject _lastChosenPathPoint = null; // Temporary reference for the last chosen path point
@@ -21,6 +22,19 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             {
                 // Set lastChosenPathPoint to track where the AI is walking
                 _lastChosenPathPoint = stateHandler.previousPathPoint; // IMPORTANT: Track the last chosen path properly
+
+                if (stateHandler.currentPathPoint.GetComponent<WaypointLogger>().isRoadPoint)
+                {
+                    int count = stateHandler.currentPathPoint.GetComponent<WaypointLogger>().waypoints.Count;
+                    if (Random.Range(0, count) == 0)
+                    {
+                        waitingState._isWaiting = true;
+                        return waitingState;
+                    }
+                    /*waitingState._isWaiting = true;
+                    return waitingState;*/
+                }
+
                 return walkingState;
             }
             else

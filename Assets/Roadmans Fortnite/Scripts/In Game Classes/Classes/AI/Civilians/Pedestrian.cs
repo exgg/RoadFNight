@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 
 using Roadmans_Fortnite.Data.Enums.NPCEnums;
 using RoadfnightPedestrian;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base;
 
 public class Pedestrian : MonoBehaviour, IPoolObject
 {
@@ -27,6 +28,10 @@ public class Pedestrian : MonoBehaviour, IPoolObject
     private void Awake()
     {
         _system = GetComponentInParent<PedestrianSystem>();
+    }
+    private void FixedUpdate()
+    {
+        //GetComponent<StateHandler>().HandleMovementStateMachine();
     }
 
     // Called when getting this object from pool.
