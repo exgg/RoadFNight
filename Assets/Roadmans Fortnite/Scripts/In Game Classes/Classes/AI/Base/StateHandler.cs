@@ -63,12 +63,15 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
 
         public void HandleMovementStateMachine()
         {
+            Debug.Log($"I am running from {transform.name}");
+            
             if(_aiStats.currenHealthStatus != HealthStatus.Alive)
                 return;
             
             if(!currentState)
                 return;
-
+            
+            
             BaseState nextState = currentState.Tick(this, _aiStats, _animationHandler);
             
             if(nextState != null)

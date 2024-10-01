@@ -162,6 +162,11 @@ MonoBehaviour:
   - {fileID: 5579174891897639267}
   - {fileID: 7861874647530234010}
   - {fileID: 2794927718725387008}
+  pedestrianSystem: {fileID: 0}
+  pedestrian_lst: []
+  populationWeightMap: {fileID: 11400000, guid: afc297b0a5e3329478cda61ce5ffd2c3,
+    type: 2}
+  pedestrianPathPoints: []
 --- !u!1 &654458994647277378
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +704,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4902437659114985649}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 540, z: 0}
 --- !u!114 &6165521270282251275
 MonoBehaviour:
@@ -747,7 +752,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7992486504651856379}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!114 &2613311599443860918
 MonoBehaviour:
@@ -860,7 +865,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7992486504651856379}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!114 &9060010316237729726
 MonoBehaviour:
@@ -1457,41 +1462,6 @@ MonoBehaviour:
   white_people_lst: []
   asian_people_lst: []
   halfcast_people_lst: []
---- !u!1 &2146982986104493864
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7992486504651856379}
-  m_Layer: 8
-  m_Name: SmallBlockPaths (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7992486504651856379
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2146982986104493864}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7304724363616046632}
-  - {fileID: 5608106420066893192}
-  - {fileID: 5333669046095131156}
-  - {fileID: 7931114211670521435}
-  m_Father: {fileID: 9014831777891126714}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2717941654832728078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,41 +1545,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &3003112691434595226
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4902437659114985649}
-  m_Layer: 8
-  m_Name: SmallBlockPaths (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4902437659114985649
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3003112691434595226}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6096485580988435245}
-  - {fileID: 510339017703839009}
-  - {fileID: 7182924165309785536}
-  - {fileID: 8537324076963608691}
-  m_Father: {fileID: 9014831777891126714}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3224616879950157781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,7 +1575,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &3335172521458566495
 MonoBehaviour:
@@ -2116,7 +2051,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7086744875804893354
 MonoBehaviour:
@@ -2216,7 +2151,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4902437659114985649}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 540, z: 0}
 --- !u!114 &7358273619219994334
 MonoBehaviour:
@@ -2235,45 +2170,6 @@ MonoBehaviour:
   - {fileID: 7164793211687058979}
   - {fileID: 5118829321294361825}
   - {fileID: 7063437643503501239}
---- !u!1 &4694072049970408793
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7246327385035855781}
-  m_Layer: 8
-  m_Name: LongBlockPaths (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7246327385035855781
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4694072049970408793}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4822555941426639162}
-  - {fileID: 6752805579062290942}
-  - {fileID: 6844649359503310836}
-  - {fileID: 2827183631112967127}
-  - {fileID: 3251747929873628599}
-  - {fileID: 5221582171518056829}
-  - {fileID: 6374499905967687388}
-  - {fileID: 55605125743737623}
-  m_Father: {fileID: 9014831777891126714}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4986226809333895440
 GameObject:
   m_ObjectHideFlags: 0
@@ -2387,7 +2283,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4902437659114985649}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 540, z: 0}
 --- !u!114 &7038098977734382803
 MonoBehaviour:
@@ -2488,7 +2384,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &6044966112339653063
 MonoBehaviour:
@@ -2536,7 +2432,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &5747527685055153742
 MonoBehaviour:
@@ -2720,7 +2616,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &2058027103425806510
 MonoBehaviour:
@@ -2747,7 +2643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9014831777891126714}
   m_Layer: 8
-  m_Name: Paths
+  m_Name: PathPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2766,9 +2662,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7246327385035855781}
-  - {fileID: 7992486504651856379}
-  - {fileID: 4902437659114985649}
+  - {fileID: 4822555941426639162}
+  - {fileID: 6752805579062290942}
+  - {fileID: 6844649359503310836}
+  - {fileID: 2827183631112967127}
+  - {fileID: 3251747929873628599}
+  - {fileID: 5221582171518056829}
+  - {fileID: 6374499905967687388}
+  - {fileID: 55605125743737623}
+  - {fileID: 7304724363616046632}
+  - {fileID: 5608106420066893192}
+  - {fileID: 5333669046095131156}
+  - {fileID: 7931114211670521435}
+  - {fileID: 6096485580988435245}
+  - {fileID: 510339017703839009}
+  - {fileID: 7182924165309785536}
+  - {fileID: 8537324076963608691}
   m_Father: {fileID: 1457139176047060166}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5887754187421160557
@@ -3288,7 +3197,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7992486504651856379}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!114 &6299265846109487195
 MonoBehaviour:
@@ -3501,7 +3410,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &6910707232348981137
 MonoBehaviour:
@@ -3550,7 +3459,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4902437659114985649}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 540, z: 0}
 --- !u!114 &5282256946089015832
 MonoBehaviour:
@@ -3713,7 +3622,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7992486504651856379}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!114 &7129292225343978753
 MonoBehaviour:
@@ -3876,7 +3785,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1353656883744724451
 MonoBehaviour:
@@ -4152,7 +4061,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &5548715725111368467
 MonoBehaviour:

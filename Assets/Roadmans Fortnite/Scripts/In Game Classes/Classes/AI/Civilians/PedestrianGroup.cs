@@ -18,7 +18,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians
         private readonly Dictionary<Pedestrian, float> _pedestrianDistances = new Dictionary<Pedestrian, float>();
 
         // Cache for StateHandlers to avoid repeated GetComponent calls
-        private readonly Dictionary<Pedestrian, StateHandler> _cachedStateHandlers = new Dictionary<Pedestrian, StateHandler>();
+        private Dictionary<Pedestrian, StateHandler> _cachedStateHandlers = new Dictionary<Pedestrian, StateHandler>();
 
         private void Awake()
         {
@@ -37,11 +37,47 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians
                 // Initialize distance dictionary with infinite distance
                 _pedestrianDistances[member] = float.MaxValue;
             }
+
+            system = FindObjectOfType<PedestrianSystem>();
         }
 
+        public void AddMember(Pedestrian newMember)
+        {
+            Debug.Log("Tell me something man");
+            // Check if the pedestrian is already in the members list
+            if (allMembers.Contains(newMember)) 
+                return;
+
+            // Add to members list
+            allMembers.Add(newMember);
+
+            // Get and cache the StateHandler component for this pedestrian
+            StateHandler stateHandler = newMember.GetComponent<StateHandler>();
+
+            if (stateHandler != null)
+            {
+                // Cache both the pedestrian and its state handler
+                if (!_cachedStateHandlers.ContainsKey(newMember))
+                {
+                    _cachedStateHandlers.Add(newMember, stateHandler);
+                }
+            }
+           
+            // Initialize the distance dictionary with a default value if not already present
+            if (!_pedestrianDistances.ContainsKey(newMember))
+            {
+                _pedestrianDistances.Add(newMember, float.MaxValue);
+            }
+
+            Debug.Log($"New pedestrian {newMember.name} added to group {groupName}.");
+        }
+
+        
         // Updates state machines and behaviors (e.g., movement, visibility state) without checking distances
         public void UpdateMemberStates()
         {
+            //Debug.Log($"I am running in group {transform.name}");
+            
             foreach (var member in allMembers)
             {
                 // Use cached StateHandler reference to update state

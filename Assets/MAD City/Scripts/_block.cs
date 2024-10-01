@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using Gley.PedestrianSystem;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Scriptable_Objects;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Waypoint_Management;
 
 public class _block : MonoBehaviour
 {
@@ -18,12 +21,26 @@ public class _block : MonoBehaviour
     public PedestrianSystem pedestrianSystem;
     public List<Pedestrian> pedestrian_lst;
 
+    public PopulationControl populationWeightMap;
+
+    public List<WaypointLogger> pedestrianPathPoints = new List<WaypointLogger>();
+    
     public void try_add_pedestrian(Pedestrian pedestrian)
     {
         if (math.abs(pedestrian.transform.position.x - transform.position.x) < 40 &&
             math.abs(pedestrian.transform.position.z - transform.position.z) < 40)
         {
             pedestrian_lst.Add(pedestrian);
+        }
+    }
+
+    private void Awake()
+    {
+        var pathPointHolder = gameObject.transform.Find("PathPoints");
+
+        foreach (var pathPoint in pathPointHolder.GetComponentsInChildren<WaypointLogger>())
+        {
+            pedestrianPathPoints.Add(pathPoint);
         }
     }
 
