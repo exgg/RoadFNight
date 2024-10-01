@@ -2,8 +2,8 @@
 using Roadmans_Fortnite.Scripts.Classes.Stats.Enums;
 using System.Collections.Generic;
 using System.Linq;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians;
 using UnityEngine;
-using RoadfnightPedestrian;
 using static DistrictData;
 
 [ExecuteInEditMode]

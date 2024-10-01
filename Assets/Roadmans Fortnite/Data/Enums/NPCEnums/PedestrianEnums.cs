@@ -47,6 +47,12 @@ namespace Roadmans_Fortnite.Data.Enums.NPCEnums
         Druggy
     }
 
+    public enum GroupControlType
+    {
+        Leader,
+        Follower,
+    }
+
     public enum BodyType
     {
         Fat,

@@ -1,68 +1,91 @@
-using Roadmans_Fortnite.Scripts.Classes.Stats.Enums;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Gley.PedestrianSystem;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base;
-using RoadfnightPedestrian;
-using Gley.PedestrianSystem.Internal;
+using UnityEngine;
 
-
-/*
- * A group brain that controls specific groups
- */
-
-public class PedestrianGroup : MonoBehaviour
+namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians
 {
-    public string group_name;
-
-    public Pedestrian leader;
-    public List<Pedestrian> all_members = new List<Pedestrian>();
-    public PedestrianSystem _system;
-
-    private void Awake()
+    /// <summary>
+    /// A group brain that controls specific groups
+    /// </summary>
+    public class PedestrianGroup : MonoBehaviour
     {
-        foreach (var member in GetComponentsInChildren<Pedestrian>(true))
-        {
-            all_members.Add(member);
-        }
-    }
+        public string groupName;
+        public Pedestrian leader;
+        public List<Pedestrian> allMembers = new List<Pedestrian>();
+        public PedestrianSystem system;
 
-    public void update_members()
-    {
-        foreach (var member in all_members)
+        // Cached dictionary for storing distance and visibility states
+        private readonly Dictionary<Pedestrian, float> _pedestrianDistances = new Dictionary<Pedestrian, float>();
+
+        // Cache for StateHandlers to avoid repeated GetComponent calls
+        private readonly Dictionary<Pedestrian, StateHandler> _cachedStateHandlers = new Dictionary<Pedestrian, StateHandler>();
+
+        private void Awake()
         {
-            //update state
-            member.GetComponent<StateHandler>().HandleMovementStateMachine();
-            //update visibility
-            Dictionary<string, float> distance_dict = calculate_distance_to_players(member);
-            foreach (var player in distance_dict.Keys)
+            // Initialize pedestrians and cache their StateHandler components
+            foreach (var member in GetComponentsInChildren<Pedestrian>(true))
             {
-                member.visible_dict[player] = update_visible_state(distance_dict[player]);
+                allMembers.Add(member);
+
+                // Cache StateHandler component
+                StateHandler stateHandler = member.GetComponent<StateHandler>();
+                if (stateHandler != null)
+                {
+                    _cachedStateHandlers[member] = stateHandler;
+                }
+
+                // Initialize distance dictionary with infinite distance
+                _pedestrianDistances[member] = float.MaxValue;
             }
         }
-    }
 
-    //Calculate the distance between pedestrian and players
-    public Dictionary<string, float> calculate_distance_to_players(Pedestrian pedestrian)
-    {
-        Dictionary<string, float> distance_dict = new Dictionary<string, float>();
-
-        foreach (var player in _system.player_lst)
+        // Updates state machines and behaviors (e.g., movement, visibility state) without checking distances
+        public void UpdateMemberStates()
         {
-            Vector2 player_pos = new Vector2(player.transform.position.x, player.transform.position.z);
-            Vector2 _pos = new Vector2(pedestrian.transform.position.x, pedestrian.transform.position.z);
-            distance_dict[player.name] = Vector2.Distance(player_pos, _pos);
-        }
-        foreach (var i in distance_dict)
-        {
-            Debug.Log(i);
-        }
-        return distance_dict;
-    }
+            foreach (var member in allMembers)
+            {
+                // Use cached StateHandler reference to update state
+                if (_cachedStateHandlers.TryGetValue(member, out StateHandler stateHandler))
+                {
+                    stateHandler.HandleMovementStateMachine();
+                }
 
-    public bool update_visible_state(float distance)
-    {
-        return distance > _system.visible_threshold ? false : true;
+                // Update visibility based on cached distance (if distance was previously calculated)
+                if (_pedestrianDistances.TryGetValue(member, out float distance))
+                {
+                    member.visible_dict["VisibilityState"] = distance <= system.visibleThreshold;
+                }
+            }
+        }
+
+        // Updates distances between members and players
+        public void UpdateMemberDistances(List<GameObject> players, float visibleThreshold)
+        {
+            foreach (var member in allMembers)
+            {
+                // Find the closest player and update distance
+                
+                float closestDistance = CalculateDistanceToClosestPlayer(member, players);
+                _pedestrianDistances[member] = closestDistance;
+            }
+        }
+
+        // Calculate the distance between a pedestrian and the closest player
+        private float CalculateDistanceToClosestPlayer(Pedestrian pedestrian, List<GameObject> players)
+        {
+            float closestDistance = float.MaxValue;
+            Vector2 pedestrianPos = new Vector2(pedestrian.transform.position.x, pedestrian.transform.position.z);
+
+            foreach (var player in players)
+            {
+                Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.z);
+                float distance = Vector2.Distance(pedestrianPos, playerPos);
+
+                if (distance < closestDistance)
+                    closestDistance = distance;
+            }
+
+            return closestDistance;
+        }
     }
 }

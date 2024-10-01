@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 using Roadmans_Fortnite.Data.Enums.NPCEnums;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians;
 
 public class Pedestrian : MonoBehaviour, IPoolObject
 {
@@ -18,6 +19,7 @@ public class Pedestrian : MonoBehaviour, IPoolObject
     public WealthClass myWealthClass;
     public Sexuality mySexuality;
     public BehaviourType myBehaviourType;
+    public GroupControlType myGroupControlType;
     
     //For server to allocate visible state to players
     //e.g. {player1 : true, player2 : false, player3 : true}

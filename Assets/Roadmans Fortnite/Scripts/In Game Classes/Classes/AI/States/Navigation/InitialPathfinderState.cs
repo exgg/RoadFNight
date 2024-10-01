@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Roadmans_Fortnite.Data.Enums.NPCEnums;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Waypoint_Management;
 using UnityEngine;
@@ -9,17 +10,25 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
     public class InitialPathfinderState : BaseState
     {
         public WalkingState walkingState;
-        private readonly float _axisthreshold = 3f;
+        public FollowingState followingState;
+        private readonly float _axisThreshold = 3f;
         
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
+            if (aiStats.myGroupControlType != GroupControlType.Leader)
+            {
+                Debug.Log("I am a follower moving to follow state");
+                return followingState;
+            }
+            
+            
             // Find all available WaypointLogger instances in the scene
             var loggerList = FindObjectsOfType<WaypointLogger>();
 
             // Find the nearest path point(s) for the AI
             var nearestPathPoints = FindNearestPathPoint(stateHandler, loggerList);
 
-            Debug.Log("Looking for pathpoint");
+            Debug.Log("Looking for path point");
             
             // Logic after finding the nearest path point (could be transitioning to another state)
             if (nearestPathPoints.Count > 0)
@@ -48,7 +57,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
         private bool IsOnSameAxis(Vector3 pointA, Vector3 pointB)
         {
             // Return true if the two points are aligned on either the X axis or the Z axis within the threshold
-            return (Mathf.Abs(pointA.x - pointB.x) <= _axisthreshold || Mathf.Abs(pointA.z - pointB.z) <= _axisthreshold);
+            return (Mathf.Abs(pointA.x - pointB.x) <= _axisThreshold || Mathf.Abs(pointA.z - pointB.z) <= _axisThreshold);
         }
 
         // Helper method to calculate the distance between two points on the XZ plane (ignoring the Y axis)

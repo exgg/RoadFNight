@@ -37,12 +37,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
         
         public GameObject currentPathPoint;
         public GameObject previousPathPoint; // this will be used to prevent double backing on themselves
+
+        public GameObject myLeader;
         
-        // TODO: 
-            // for prejudice engine, we will possibly need to handle 2 states at once.
-            // 1 for movement and pathfinding, the other for visual for the AI
-                // allowing us to continue moving while also looking for people we like/dislike in terms of ethnicity, gender etc
-                
         private void Awake()
         {
             _animationHandler = GetComponentInChildren<AIAnimationHandler>();
@@ -50,10 +47,19 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
             agent = GetComponent<NavMeshAgent>();
         }
 
-        /*private void FixedUpdate()
+        private void Start()
         {
-            HandleMovementStateMachine();
-        }*/
+            if (_aiStats.myGroupControlType != GroupControlType.Leader)
+            {
+                foreach (Pedestrian pedestrian in transform.parent.gameObject.GetComponentsInChildren<Pedestrian>())
+                {
+                    if (pedestrian.myGroupControlType == GroupControlType.Leader)
+                    {
+                        myLeader = pedestrian.gameObject;
+                    }
+                }
+            }
+        }
 
         public void HandleMovementStateMachine()
         {
@@ -61,9 +67,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
                 return;
             
             if(!currentState)
-            {
-                Debug.LogWarning("The AI has not been given a starting state");
-            }
+                return;
 
             BaseState nextState = currentState.Tick(this, _aiStats, _animationHandler);
             

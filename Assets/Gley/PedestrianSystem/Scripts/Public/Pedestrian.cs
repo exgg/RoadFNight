@@ -49,7 +49,7 @@ namespace Gley.PedestrianSystem
         public enum State { Alive, Died }
         public int Health { get; private set; }
         private State _state;
-        private RoadfnightPedestrian.PedestrianSystem _system;
+        private Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians.PedestrianSystem _system;
 
         //For server to allocate visible state to players
         //e.g. {player1 : true, plaer2 : false, player3 : true}
@@ -534,7 +534,7 @@ namespace Gley.PedestrianSystem
 
         private void Awake()
         {
-            _system = GetComponentInParent<RoadfnightPedestrian.PedestrianSystem>();
+            _system = GetComponentInParent<Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians.PedestrianSystem>();
         }
 
         // Called when getting this object from pool.
