@@ -14,7 +14,4 @@ public class RegionsData : ScriptableObject
     public BuildingData[] LargeBuildings;
     public BuildingData[] PointsOfInterest;
     public ColorPallete buildingColors;
-
-    public CivilianWeightMapper CivilianWeightMap;
-
 }

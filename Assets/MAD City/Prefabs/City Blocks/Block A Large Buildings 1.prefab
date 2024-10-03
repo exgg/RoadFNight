@@ -164,6 +164,9 @@ MonoBehaviour:
   - {fileID: 2794927718725387008}
   pedestrianSystem: {fileID: 0}
   pedestrian_lst: []
+  populationWeightMap: {fileID: 11400000, guid: afc297b0a5e3329478cda61ce5ffd2c3,
+    type: 2}
+  pedestrianPathPoints: []
 --- !u!1 &654458994647277378
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,7 +704,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4902437659114985649}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 540, z: 0}
 --- !u!114 &6165521270282251275
 MonoBehaviour:
@@ -719,8 +722,8 @@ MonoBehaviour:
   - {fileID: 1256426331075980472}
   - {fileID: 5118829321294361825}
   - {fileID: 7164793211687058979}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 1
 --- !u!1 &1301435917668470485
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +754,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7992486504651856379}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!114 &2613311599443860918
 MonoBehaviour:
@@ -768,9 +771,8 @@ MonoBehaviour:
   waypoints:
   - {fileID: 7583990248077669747}
   - {fileID: 6566456371081504305}
-  - {fileID: 7164793211687058979}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 1
 --- !u!1 &1343766988512188327
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +868,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7992486504651856379}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!114 &9060010316237729726
 MonoBehaviour:
@@ -881,11 +883,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints:
-  - {fileID: 5469050095356859987}
   - {fileID: 7583990248077669747}
   - {fileID: 6566456371081504305}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 1
 --- !u!1 &1734087348625905281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,41 +1466,6 @@ MonoBehaviour:
   white_people_lst: []
   asian_people_lst: []
   halfcast_people_lst: []
---- !u!1 &2146982986104493864
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7992486504651856379}
-  m_Layer: 8
-  m_Name: SmallBlockPaths (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7992486504651856379
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2146982986104493864}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7304724363616046632}
-  - {fileID: 5608106420066893192}
-  - {fileID: 5333669046095131156}
-  - {fileID: 7931114211670521435}
-  m_Father: {fileID: 9014831777891126714}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2717941654832728078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,41 +1549,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &3003112691434595226
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4902437659114985649}
-  m_Layer: 8
-  m_Name: SmallBlockPaths (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4902437659114985649
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3003112691434595226}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6096485580988435245}
-  - {fileID: 510339017703839009}
-  - {fileID: 7182924165309785536}
-  - {fileID: 8537324076963608691}
-  m_Father: {fileID: 9014831777891126714}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3224616879950157781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,7 +1579,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &3335172521458566495
 MonoBehaviour:
@@ -1666,8 +1597,8 @@ MonoBehaviour:
   - {fileID: 5521084814007877925}
   - {fileID: 8618514773821800903}
   - {fileID: 5676848880675531571}
-  _district: {fileID: 0}
-  isRoadPoint: 0
+  searchRadius: 15
+  IsRoadCrossPoint: 0
 --- !u!1 &3300640057271027868
 GameObject:
   m_ObjectHideFlags: 0
@@ -2126,7 +2057,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7086744875804893354
 MonoBehaviour:
@@ -2143,9 +2074,8 @@ MonoBehaviour:
   waypoints:
   - {fileID: 7886315830920458632}
   - {fileID: 7063437643503501239}
-  - {fileID: 5118829321294361825}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 1
 --- !u!1 &4392467069299129790
 GameObject:
   m_ObjectHideFlags: 0
@@ -2228,7 +2158,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4902437659114985649}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 540, z: 0}
 --- !u!114 &7358273619219994334
 MonoBehaviour:
@@ -2243,51 +2173,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints:
-  - {fileID: 7583990248077669747}
   - {fileID: 7164793211687058979}
   - {fileID: 5118829321294361825}
-  - {fileID: 7063437643503501239}
-  _district: {fileID: 0}
-  isRoadPoint: 1
---- !u!1 &4694072049970408793
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7246327385035855781}
-  m_Layer: 8
-  m_Name: LongBlockPaths (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7246327385035855781
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4694072049970408793}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4822555941426639162}
-  - {fileID: 6752805579062290942}
-  - {fileID: 6844649359503310836}
-  - {fileID: 2827183631112967127}
-  - {fileID: 3251747929873628599}
-  - {fileID: 5221582171518056829}
-  - {fileID: 6374499905967687388}
-  - {fileID: 55605125743737623}
-  m_Father: {fileID: 9014831777891126714}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  searchRadius: 15
+  IsRoadCrossPoint: 0
 --- !u!1 &4986226809333895440
 GameObject:
   m_ObjectHideFlags: 0
@@ -2401,7 +2290,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4902437659114985649}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 540, z: 0}
 --- !u!114 &7038098977734382803
 MonoBehaviour:
@@ -2418,9 +2307,8 @@ MonoBehaviour:
   waypoints:
   - {fileID: 4603809717291414137}
   - {fileID: 1256426331075980472}
-  - {fileID: 4347669629659370859}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 1
 --- !u!1 &5405261989748819423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,7 +2392,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &6044966112339653063
 MonoBehaviour:
@@ -2521,9 +2409,8 @@ MonoBehaviour:
   waypoints:
   - {fileID: 8618514773821800903}
   - {fileID: 5676848880675531571}
-  - {fileID: 1555004157844201480}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 1
 --- !u!1 &5521084814007877925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2554,7 +2441,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &5747527685055153742
 MonoBehaviour:
@@ -2572,8 +2459,8 @@ MonoBehaviour:
   - {fileID: 7886315830920458632}
   - {fileID: 7063437643503501239}
   - {fileID: 3224616879950157781}
-  _district: {fileID: 0}
-  isRoadPoint: 0
+  searchRadius: 15
+  IsRoadCrossPoint: 0
 --- !u!1 &5649382435407270322
 GameObject:
   m_ObjectHideFlags: 0
@@ -2740,7 +2627,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &2058027103425806510
 MonoBehaviour:
@@ -2757,8 +2644,8 @@ MonoBehaviour:
   waypoints:
   - {fileID: 3224616879950157781}
   - {fileID: 5469050095356859987}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 1
 --- !u!1 &5787854252198359142
 GameObject:
   m_ObjectHideFlags: 0
@@ -2769,7 +2656,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9014831777891126714}
   m_Layer: 8
-  m_Name: Paths
+  m_Name: PathPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2788,9 +2675,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7246327385035855781}
-  - {fileID: 7992486504651856379}
-  - {fileID: 4902437659114985649}
+  - {fileID: 4822555941426639162}
+  - {fileID: 6752805579062290942}
+  - {fileID: 6844649359503310836}
+  - {fileID: 2827183631112967127}
+  - {fileID: 3251747929873628599}
+  - {fileID: 5221582171518056829}
+  - {fileID: 6374499905967687388}
+  - {fileID: 55605125743737623}
+  - {fileID: 7304724363616046632}
+  - {fileID: 5608106420066893192}
+  - {fileID: 5333669046095131156}
+  - {fileID: 7931114211670521435}
+  - {fileID: 6096485580988435245}
+  - {fileID: 510339017703839009}
+  - {fileID: 7182924165309785536}
+  - {fileID: 8537324076963608691}
   m_Father: {fileID: 1457139176047060166}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5887754187421160557
@@ -3310,7 +3210,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7992486504651856379}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!114 &6299265846109487195
 MonoBehaviour:
@@ -3327,8 +3227,8 @@ MonoBehaviour:
   waypoints:
   - {fileID: 1555004157844201480}
   - {fileID: 1301435917668470485}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 1
 --- !u!1 &6755703192862167304
 GameObject:
   m_ObjectHideFlags: 0
@@ -3525,7 +3425,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &6910707232348981137
 MonoBehaviour:
@@ -3543,9 +3443,8 @@ MonoBehaviour:
   - {fileID: 4347669629659370859}
   - {fileID: 5521084814007877925}
   - {fileID: 8618514773821800903}
-  - {fileID: 4603809717291414137}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 0
 --- !u!1 &7164793211687058979
 GameObject:
   m_ObjectHideFlags: 0
@@ -3576,7 +3475,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4902437659114985649}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 540, z: 0}
 --- !u!114 &5282256946089015832
 MonoBehaviour:
@@ -3591,11 +3490,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints:
-  - {fileID: 1301435917668470485}
   - {fileID: 4603809717291414137}
   - {fileID: 1256426331075980472}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 1
 --- !u!1 &7392356289288361235
 GameObject:
   m_ObjectHideFlags: 0
@@ -3741,7 +3639,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7992486504651856379}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!114 &7129292225343978753
 MonoBehaviour:
@@ -3756,12 +3654,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints:
-  - {fileID: 8618514773821800903}
   - {fileID: 1555004157844201480}
   - {fileID: 1301435917668470485}
-  - {fileID: 4603809717291414137}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 0
 --- !u!1 &7612716172952650673
 GameObject:
   m_ObjectHideFlags: 0
@@ -3906,7 +3802,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1353656883744724451
 MonoBehaviour:
@@ -3923,8 +3819,8 @@ MonoBehaviour:
   waypoints:
   - {fileID: 4347669629659370859}
   - {fileID: 5521084814007877925}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 1
 --- !u!1 &7899663755781097833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3934,7 +3830,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 144410017505364817}
-  - component: {fileID: 3473095006911331127}
   m_Layer: 8
   m_Name: Small Block (2)
   m_TagString: Untagged
@@ -3989,26 +3884,6 @@ Transform:
   - {fileID: 6756646633434555080}
   m_Father: {fileID: 1457139176047060166}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3473095006911331127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7899663755781097833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57d183d098574bd4ea535c83e2111923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 0
-  district_data: {fileID: 0}
-  predominant_race: 0
-  predominant_race_num: 0
-  black_people_lst: []
-  white_people_lst: []
-  asian_people_lst: []
-  halfcast_people_lst: []
 --- !u!1 &8169253304967939190
 GameObject:
   m_ObjectHideFlags: 0
@@ -4205,7 +4080,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7246327385035855781}
+  m_Father: {fileID: 9014831777891126714}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &5548715725111368467
 MonoBehaviour:
@@ -4223,9 +4098,8 @@ MonoBehaviour:
   - {fileID: 7063437643503501239}
   - {fileID: 3224616879950157781}
   - {fileID: 5469050095356859987}
-  - {fileID: 7583990248077669747}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  searchRadius: 15
+  IsRoadCrossPoint: 0
 --- !u!1 &8725161873460029098
 GameObject:
   m_ObjectHideFlags: 0
@@ -4748,11 +4622,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7448146817637365167, guid: 52e828fe126ef7042ae6d08fb83ee096,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8118491868852145214}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52e828fe126ef7042ae6d08fb83ee096, type: 3}
 --- !u!4 &6570117900797647016 stripped
 Transform:
@@ -4760,32 +4630,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 77824209645732569}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7370526329120700278 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7448146817637365167, guid: 52e828fe126ef7042ae6d08fb83ee096,
-    type: 3}
-  m_PrefabInstance: {fileID: 77824209645732569}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8118491868852145214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7370526329120700278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57d183d098574bd4ea535c83e2111923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 0
-  district_data: {fileID: 0}
-  predominant_race: 0
-  predominant_race_num: 0
-  black_people_lst: []
-  white_people_lst: []
-  asian_people_lst: []
-  halfcast_people_lst: []
 --- !u!1001 &113933815699747431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13678,11 +13522,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2645207847500894445, guid: ebb5aa6c22cabfd40ab5f970e68bad10,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5345106210705231841}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebb5aa6c22cabfd40ab5f970e68bad10, type: 3}
 --- !u!4 &2729607671511980833 stripped
 Transform:
@@ -13690,32 +13530,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8171604000476458633}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6184273582098660964 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2645207847500894445, guid: ebb5aa6c22cabfd40ab5f970e68bad10,
-    type: 3}
-  m_PrefabInstance: {fileID: 8171604000476458633}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5345106210705231841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6184273582098660964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57d183d098574bd4ea535c83e2111923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 0
-  district_data: {fileID: 0}
-  predominant_race: 0
-  predominant_race_num: 0
-  black_people_lst: []
-  white_people_lst: []
-  asian_people_lst: []
-  halfcast_people_lst: []
 --- !u!1001 &8209484154577843803
 PrefabInstance:
   m_ObjectHideFlags: 0

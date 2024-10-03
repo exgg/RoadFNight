@@ -1,56 +1,73 @@
-using Gley.PedestrianSystem;
-using Photon.Realtime;
-using Redcode.Pools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoadfnightPedestrian
+namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians
 {
-    /*
-     * Highest level brain 
-     */
-
+    /// <summary>
+    /// Highest level brain for managing pedestrian groups
+    /// </summary>
     public class PedestrianSystem : MonoBehaviour
     {
         public CityGen myCity;
-        public List<GameObject> player_lst = new List<GameObject>();
-        public float visible_threshold = 10;
-
-        public List<PedestrianGroup> group_lst = new List<PedestrianGroup>();
-
-
-        private void Awake()
-        {
-        }
+        public List<GameObject> playerLst = new List<GameObject>();
+        public float visibleThreshold = 10;
+        public List<PedestrianGroup> groupLst = new List<PedestrianGroup>();
 
         private void Start()
         {
-            init_block_pedestrian();//init secondary brain
-            StartCoroutine(update_in_2s());
+            // Initialize the group list by finding all PedestrianGroup components in child objects
+            groupLst = new List<PedestrianGroup>(GetComponentsInChildren<PedestrianGroup>(true));
+
+            // Debug message to check the group count
+            Debug.Log($"Found {groupLst.Count} pedestrian groups.");
+
+            // Initialize pedestrians within city blocks
+            InitBlockPedestrian();
+
+            // Start background coroutine for distance checks
+            StartCoroutine(UpdateDistancesInIntervals());
         }
 
         private void FixedUpdate()
         {
-            
+            // Update core behaviors like state handling every physics frame
+            UpdateGroupBehaviors();
         }
 
-        IEnumerator update_in_2s()
+        // Coroutine to update distances every 2 seconds, separated from core behavior updates
+        private IEnumerator UpdateDistancesInIntervals()
         {
-            yield return new WaitForSeconds(2);
-            yield return StartCoroutine(update_coroutine());
-        }
-
-        IEnumerator update_coroutine()
-        {
-            foreach (var group in group_lst)
+            // Loop to continuously update distances
+            while (true)
             {
-                group.update_members();
+                UpdateGroupDistances();
+                yield return new WaitForSeconds(2);
             }
-            yield return StartCoroutine(update_in_2s());
         }
 
-        private void init_block_pedestrian()
+        // Updates group behaviors like movement, state handling, etc.
+        private void UpdateGroupBehaviors()
+        {
+            foreach (var group in groupLst)
+            {
+                // Only update behaviors and states (excluding distance checks)
+                group.UpdateMemberStates(); // New method for states only
+            }
+        }
+
+        // Updates distances between players and pedestrians in each group
+        private void UpdateGroupDistances()
+        {
+            foreach (var group in groupLst)
+            {
+                // Update the distances for visibility or other purposes
+                group.UpdateMemberDistances(playerLst, visibleThreshold);
+            }
+        }
+
+        // Initializes pedestrians within each block of the city
+        private void InitBlockPedestrian()
         {
             foreach (var block in myCity.listOfBlocks)
             {
@@ -59,8 +76,6 @@ namespace RoadfnightPedestrian
                     block.try_add_pedestrian(pedestrian);
                 }
             }
-
         }
     }
 }
-

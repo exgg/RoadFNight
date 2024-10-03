@@ -48,6 +48,12 @@ namespace Roadmans_Fortnite.Data.Enums.NPCEnums
         Waiting,
     }
 
+    public enum GroupControlType
+    {
+        Leader,
+        Follower,
+    }
+
     public enum BodyType
     {
         Fat,

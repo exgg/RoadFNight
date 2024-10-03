@@ -59,10 +59,13 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
                 chosenPath = waypointLoggerList[randomChoice];
 
                 // Log the positions for debugging
+                /*
                 Debug.Log($"Previous path location: {stateHandler.previousPathPoint.transform.position}");
                 Debug.Log(
                     $"Current path location: {stateHandler.currentPathPoint?.transform.position ?? Vector3.zero}");
                 Debug.Log($"Chosen path location: {chosenPath.transform.position}");
+                */
+
 
                 // Increment the safety counter to avoid infinite loops
                 safetyCounter++;

@@ -85,7 +85,6 @@ Transform:
   m_Children:
   - {fileID: 8224066138961850812}
   - {fileID: 6247115321285388971}
-  - {fileID: 1228354765785851634}
   - {fileID: 3544304047541960188}
   - {fileID: 8281952413109559494}
   - {fileID: 3779460328167651855}
@@ -105,6 +104,7 @@ Transform:
   - {fileID: 8445569586905404943}
   - {fileID: 3153514129142513505}
   - {fileID: 6220894244804285031}
+  - {fileID: 1228354765785851634}
   - {fileID: 5538111756426505675}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -128,6 +128,9 @@ MonoBehaviour:
   - {fileID: 2798213114685831289}
   pedestrianSystem: {fileID: 0}
   pedestrian_lst: []
+  populationWeightMap: {fileID: 11400000, guid: afc297b0a5e3329478cda61ce5ffd2c3,
+    type: 2}
+  pedestrianPathPoints: []
 --- !u!1 &707675230508733213
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,11 +208,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints:
-  - {fileID: 4211831594590151267}
   - {fileID: 8757935461278207173}
   - {fileID: 6174554187925566254}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  IsRoadCrossPoint: 1
 --- !u!1 &1344647308128247828
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,8 +258,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 7718436263411829819}
   - {fileID: 7426788698810903927}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  IsRoadCrossPoint: 1
 --- !u!1 &1624505712165202317
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,8 +484,7 @@ MonoBehaviour:
   - {fileID: 7751560924942359988}
   - {fileID: 6767357627412755540}
   - {fileID: 6933735157702529633}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  IsRoadCrossPoint: 0
 --- !u!1 &2397294429219295202
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,8 +564,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 4879610150332356763}
   - {fileID: 4211831594590151267}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  IsRoadCrossPoint: 0
 --- !u!1 &2572200139957492116
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,9 +685,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 2524254746911244951}
   - {fileID: 7750037123905814243}
-  - {fileID: 1048459367489040085}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  IsRoadCrossPoint: 1
 --- !u!1 &4831793788469717525
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,9 +786,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 7750037123905814243}
   - {fileID: 2524254746911244951}
-  - {fileID: 7718436263411829819}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  IsRoadCrossPoint: 1
 --- !u!1 &5435011118350504161
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,8 +882,7 @@ MonoBehaviour:
   - {fileID: 7751560924942359988}
   - {fileID: 7426788698810903927}
   - {fileID: 6933735157702529633}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  IsRoadCrossPoint: 0
 --- !u!1 &5990994113410959442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,8 +1026,7 @@ MonoBehaviour:
   - {fileID: 7751560924942359988}
   - {fileID: 7718436263411829819}
   - {fileID: 7426788698810903927}
-  _district: {fileID: 0}
-  isRoadPoint: 0
+  IsRoadCrossPoint: 0
 --- !u!1 &6174554187925566254
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,8 +1074,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 1048459367489040085}
   - {fileID: 6767357627412755540}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  IsRoadCrossPoint: 1
 --- !u!1 &6619191448752027158
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,8 +1176,7 @@ MonoBehaviour:
   - {fileID: 8757935461278207173}
   - {fileID: 6174554187925566254}
   - {fileID: 2305133136485686700}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  IsRoadCrossPoint: 0
 --- !u!1 &6933735157702529633
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,8 +1224,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 2305133136485686700}
   - {fileID: 5509164316777730264}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  IsRoadCrossPoint: 1
 --- !u!1 &7426788698810903927
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,8 +1273,7 @@ MonoBehaviour:
   - {fileID: 6082421861836901814}
   - {fileID: 5509164316777730264}
   - {fileID: 1344647308128247828}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  IsRoadCrossPoint: 0
 --- !u!1 &7718436263411829819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,11 +1319,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints:
-  - {fileID: 4879610150332356763}
   - {fileID: 6082421861836901814}
   - {fileID: 1344647308128247828}
-  _district: {fileID: 0}
-  isRoadPoint: 1
+  IsRoadCrossPoint: 1
 --- !u!1 &7750037123905814243
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,8 +1369,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 4879610150332356763}
   - {fileID: 4211831594590151267}
-  _district: {fileID: 0}
-  isRoadPoint: 0
+  IsRoadCrossPoint: 0
 --- !u!1 &7751560924942359988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,8 +1419,7 @@ MonoBehaviour:
   - {fileID: 8757935461278207173}
   - {fileID: 2305133136485686700}
   - {fileID: 5509164316777730264}
-  _district: {fileID: 0}
-  isRoadPoint: 0
+  IsRoadCrossPoint: 0
 --- !u!1 &8234470713534313173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,8 +1529,7 @@ MonoBehaviour:
   - {fileID: 7751560924942359988}
   - {fileID: 1048459367489040085}
   - {fileID: 6767357627412755540}
-  _district: {fileID: 0}
-  isRoadPoint: 0
+  IsRoadCrossPoint: 0
 --- !u!1 &8985632681218813214
 GameObject:
   m_ObjectHideFlags: 0
