@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints:
-  - {fileID: 6420718346991975734}
   - {fileID: 3910172829492852487}
   - {fileID: 8060410260346170781}
+  IsRoadCrossPoint: 1
 --- !u!1 &396110707398613530
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,7 +513,9 @@ MonoBehaviour:
   waypoints:
   - {fileID: 4239642645179607142}
   - {fileID: 5450433680587729015}
-  - {fileID: 3647688399815000245}
+  - {fileID: 0}
+  - {fileID: 8103119389911241613}
+  IsRoadCrossPoint: 0
 --- !u!1 &1024323078357037406
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,8 +596,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 6420718346991975734}
   - {fileID: 3294950681666127806}
-  - {fileID: 7721288276965175102}
-  - {fileID: 3910172829492852487}
+  IsRoadCrossPoint: 0
 --- !u!1 &1132613219629215303
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,6 +763,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 1945885758535445733}
   - {fileID: 3906838074675591983}
+  IsRoadCrossPoint: 0
 --- !u!1 &1888005869122165955
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,7 +878,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 1735455604917812551}
   - {fileID: 7721288276965175102}
-  - {fileID: 3294950681666127806}
+  IsRoadCrossPoint: 1
 --- !u!1 &2008608318949562664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,56 +1069,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 1028260663557778302}
   - {fileID: 7476406652962761080}
-  - {fileID: 1945885758535445733}
---- !u!1 &3647688399815000245
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8030073377587142832}
-  - component: {fileID: 6681422101532217802}
-  m_Layer: 0
-  m_Name: PathPoint (17)
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8030073377587142832
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3647688399815000245}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000020861623}
-  m_LocalPosition: {x: 2.9263506, y: 18.022017, z: 20.853983}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8909163636193890466}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &6681422101532217802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3647688399815000245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 752809fab890c8448b391de83ff64a25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 4935281513400375454}
-  - {fileID: 3910172829492852487}
-  - {fileID: 842491710175686419}
-  - {fileID: 5450433680587729015}
+  IsRoadCrossPoint: 1
 --- !u!1 &3760186081084604430
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,7 +1150,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 1735455604917812551}
   - {fileID: 7721288276965175102}
-  - {fileID: 8209513172608406362}
+  IsRoadCrossPoint: 1
 --- !u!1 &3910172829492852487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,11 +1196,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints:
-  - {fileID: 1028260663557778302}
   - {fileID: 4935281513400375454}
   - {fileID: 219890662927707821}
-  - {fileID: 5450433680587729015}
-  - {fileID: 3647688399815000245}
+  - {fileID: 0}
+  - {fileID: 5976661132180987448}
+  IsRoadCrossPoint: 0
 --- !u!1 &3982385510319292160
 GameObject:
   m_ObjectHideFlags: 0
@@ -1463,6 +1416,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 8209513172608406362}
   - {fileID: 842491710175686419}
+  IsRoadCrossPoint: 1
 --- !u!1 &4392467069299129790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1803,10 +1757,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints:
-  - {fileID: 7721288276965175102}
   - {fileID: 8209513172608406362}
   - {fileID: 3910172829492852487}
-  - {fileID: 3647688399815000245}
+  - {fileID: 0}
+  - {fileID: 8103119389911241613}
+  IsRoadCrossPoint: 0
 --- !u!1 &5040737423912364185
 GameObject:
   m_ObjectHideFlags: 0
@@ -2012,8 +1967,9 @@ MonoBehaviour:
   waypoints:
   - {fileID: 842491710175686419}
   - {fileID: 8060410260346170781}
-  - {fileID: 3910172829492852487}
-  - {fileID: 3647688399815000245}
+  - {fileID: 0}
+  - {fileID: 5976661132180987448}
+  IsRoadCrossPoint: 0
 --- !u!1 &5666214890333420928
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,6 +2023,55 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5976661132180987448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6446451153276406888}
+  - component: {fileID: 1492613530808054121}
+  m_Layer: 0
+  m_Name: PathPoint (497)
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6446451153276406888
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5976661132180987448}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 12.466369, y: 18.022017, z: 20.47}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8909163636193890466}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1492613530808054121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5976661132180987448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 752809fab890c8448b391de83ff64a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints:
+  - {fileID: 3910172829492852487}
+  - {fileID: 8103119389911241613}
+  - {fileID: 5450433680587729015}
+  IsRoadCrossPoint: 0
 --- !u!1 &6159140107741382210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,7 +2265,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 1028260663557778302}
   - {fileID: 7476406652962761080}
-  - {fileID: 219890662927707821}
+  IsRoadCrossPoint: 1
 --- !u!1 &7392356289288361235
 GameObject:
   m_ObjectHideFlags: 0
@@ -2339,6 +2344,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 6420718346991975734}
   - {fileID: 3294950681666127806}
+  IsRoadCrossPoint: 0
 --- !u!1 &7612716172952650673
 GameObject:
   m_ObjectHideFlags: 0
@@ -2422,8 +2428,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 1945885758535445733}
   - {fileID: 3906838074675591983}
-  - {fileID: 1028260663557778302}
-  - {fileID: 4935281513400375454}
+  IsRoadCrossPoint: 0
 --- !u!1 &7939626604024286950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2574,7 +2579,8 @@ Transform:
   - {fileID: 5269002727691126618}
   - {fileID: 4199488155355332819}
   - {fileID: 3417586249136217876}
-  - {fileID: 8030073377587142832}
+  - {fileID: 6446451153276406888}
+  - {fileID: 759239784052965006}
   m_Father: {fileID: 1457139176047060166}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8060410260346170781
@@ -2624,6 +2630,56 @@ MonoBehaviour:
   waypoints:
   - {fileID: 219890662927707821}
   - {fileID: 5450433680587729015}
+  IsRoadCrossPoint: 1
+--- !u!1 &8103119389911241613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 759239784052965006}
+  - component: {fileID: 5438080036052955939}
+  m_Layer: 0
+  m_Name: PathPoint (497)
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &759239784052965006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8103119389911241613}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.053627, y: 18.022017, z: 20.47004}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8909163636193890466}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &5438080036052955939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8103119389911241613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 752809fab890c8448b391de83ff64a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints:
+  - {fileID: 4935281513400375454}
+  - {fileID: 5976661132180987448}
+  - {fileID: 842491710175686419}
+  IsRoadCrossPoint: 0
 --- !u!1 &8209513172608406362
 GameObject:
   m_ObjectHideFlags: 0
@@ -2669,9 +2725,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints:
-  - {fileID: 3906838074675591983}
   - {fileID: 4935281513400375454}
   - {fileID: 4239642645179607142}
+  IsRoadCrossPoint: 1
 --- !u!1 &8829405053101811703
 GameObject:
   m_ObjectHideFlags: 0

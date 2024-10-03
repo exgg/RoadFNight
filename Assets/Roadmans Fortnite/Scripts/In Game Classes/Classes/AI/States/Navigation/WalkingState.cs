@@ -38,7 +38,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             
             if (distanceToTarget <= _destinationTolerance)
             {
-                Debug.Log("Reached destination moving on");
+                //Debug.Log("Reached destination moving on");
 
                 // Now set the current path as the previous one, ensuring we don't double back
                 stateHandler.previousPathPoint = stateHandler.currentPathPoint;

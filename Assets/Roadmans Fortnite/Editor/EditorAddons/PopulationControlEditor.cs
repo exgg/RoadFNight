@@ -24,6 +24,11 @@ namespace Roadmans_Fortnite.Editor.EditorAddons
         private SerializedProperty _bisexual;
         private SerializedProperty _transsexual;
 
+        private SerializedProperty _male;
+        private SerializedProperty _female;
+        private SerializedProperty _transFemale;
+        private SerializedProperty _transMale;
+        
         private SerializedProperty _standardBehaviour;
         private SerializedProperty _racistBehaviour;
         private SerializedProperty _drunkBehaviour;
@@ -54,6 +59,12 @@ namespace Roadmans_Fortnite.Editor.EditorAddons
             _bisexual = serializedObject.FindProperty("bisexual");
             _transsexual = serializedObject.FindProperty("transsexual");
 
+            // Gender Properties
+            _male = serializedObject.FindProperty("male");
+            _female = serializedObject.FindProperty("female");
+            _transMale = serializedObject.FindProperty("transMale");
+            _transFemale = serializedObject.FindProperty("transFemale");
+            
             _standardBehaviour = serializedObject.FindProperty("standardBehaviour");
             _racistBehaviour = serializedObject.FindProperty("racistBehaviour");
             _drunkBehaviour = serializedObject.FindProperty("drunkBehaviour");
@@ -65,7 +76,7 @@ namespace Roadmans_Fortnite.Editor.EditorAddons
             _muscular = serializedObject.FindProperty("muscular");
 
             // Initialize direct set mode flags for each section
-            directSetModes = new bool[5];
+            directSetModes = new bool[6];
         }
 
         public override void OnInspectorGUI()
@@ -78,6 +89,7 @@ namespace Roadmans_Fortnite.Editor.EditorAddons
             DrawSection("Sexuality Percentages", 2, _heterosexual, _homosexual, _bisexual, _transsexual);
             DrawSection("Behaviour Type Percentages", 3, _standardBehaviour, _racistBehaviour, _drunkBehaviour, _homelessBehaviour, _druggyBehaviour);
             DrawSection("Body Type Percentages", 4, _fat, _slim, _muscular);
+            DrawSection("Gender Percentages", 5, _male, _female, _transMale, _transFemale);
 
             EditorGUILayout.Space(15);
             DrawGlobalRandomizeButton(); // Draws the global "Randomize All" button
@@ -165,6 +177,7 @@ namespace Roadmans_Fortnite.Editor.EditorAddons
                 RandomizeProperties(_heterosexual, _homosexual, _bisexual, _transsexual);
                 RandomizeProperties(_standardBehaviour, _racistBehaviour, _drunkBehaviour, _homelessBehaviour, _druggyBehaviour);
                 RandomizeProperties(_fat, _slim, _muscular);
+                RandomizeProperties(_male, _female, _transMale, _transFemale);
             }
         }
 
