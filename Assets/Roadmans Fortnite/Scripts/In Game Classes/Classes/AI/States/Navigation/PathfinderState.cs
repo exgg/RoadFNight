@@ -23,7 +23,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
                 // Set lastChosenPathPoint to track where the AI is walking
                 _lastChosenPathPoint = stateHandler.previousPathPoint; // IMPORTANT: Track the last chosen path properly
 
-                if (stateHandler.currentPathPoint.GetComponent<WaypointLogger>().isRoadPoint)
+                /*
+             
+                if (stateHandler.currentPathPoint.GetComponent<WaypointLogger>().IsRoadCrossPoint)
                 {
                     int count = stateHandler.currentPathPoint.GetComponent<WaypointLogger>().waypoints.Count;
                     if (Random.Range(0, count) == 0)
@@ -31,10 +33,12 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
                         waitingState._isWaiting = true;
                         return waitingState;
                     }
-                    /*waitingState._isWaiting = true;
-                    return waitingState;*/
+                    waitingState._isWaiting = true;
+                    return waitingState;
                 }
-
+                
+                */
+                
                 return walkingState;
             }
             else

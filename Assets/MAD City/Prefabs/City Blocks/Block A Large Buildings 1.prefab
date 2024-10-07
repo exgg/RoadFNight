@@ -722,7 +722,6 @@ MonoBehaviour:
   - {fileID: 1256426331075980472}
   - {fileID: 5118829321294361825}
   - {fileID: 7164793211687058979}
-  searchRadius: 15
   IsRoadCrossPoint: 1
 --- !u!1 &1301435917668470485
 GameObject:
@@ -771,7 +770,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 7583990248077669747}
   - {fileID: 6566456371081504305}
-  searchRadius: 15
   IsRoadCrossPoint: 1
 --- !u!1 &1343766988512188327
 GameObject:
@@ -885,7 +883,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 7583990248077669747}
   - {fileID: 6566456371081504305}
-  searchRadius: 15
   IsRoadCrossPoint: 1
 --- !u!1 &1734087348625905281
 GameObject:
@@ -1597,7 +1594,6 @@ MonoBehaviour:
   - {fileID: 5521084814007877925}
   - {fileID: 8618514773821800903}
   - {fileID: 5676848880675531571}
-  searchRadius: 15
   IsRoadCrossPoint: 0
 --- !u!1 &3300640057271027868
 GameObject:
@@ -2074,7 +2070,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 7886315830920458632}
   - {fileID: 7063437643503501239}
-  searchRadius: 15
   IsRoadCrossPoint: 1
 --- !u!1 &4392467069299129790
 GameObject:
@@ -2175,7 +2170,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 7164793211687058979}
   - {fileID: 5118829321294361825}
-  searchRadius: 15
   IsRoadCrossPoint: 0
 --- !u!1 &4986226809333895440
 GameObject:
@@ -2307,7 +2301,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 4603809717291414137}
   - {fileID: 1256426331075980472}
-  searchRadius: 15
   IsRoadCrossPoint: 1
 --- !u!1 &5405261989748819423
 GameObject:
@@ -2409,7 +2402,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 8618514773821800903}
   - {fileID: 5676848880675531571}
-  searchRadius: 15
   IsRoadCrossPoint: 1
 --- !u!1 &5521084814007877925
 GameObject:
@@ -2459,7 +2451,6 @@ MonoBehaviour:
   - {fileID: 7886315830920458632}
   - {fileID: 7063437643503501239}
   - {fileID: 3224616879950157781}
-  searchRadius: 15
   IsRoadCrossPoint: 0
 --- !u!1 &5649382435407270322
 GameObject:
@@ -2644,7 +2635,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 3224616879950157781}
   - {fileID: 5469050095356859987}
-  searchRadius: 15
   IsRoadCrossPoint: 1
 --- !u!1 &5787854252198359142
 GameObject:
@@ -3059,7 +3049,9 @@ Transform:
   - {fileID: 293306893943611568}
   - {fileID: 4340079927735213746}
   - {fileID: 3861931100573164161}
+  - {fileID: 2011461578688576960}
   - {fileID: 3369796634656407190}
+  - {fileID: 4620694091784317706}
   - {fileID: 2197130475851765496}
   - {fileID: 7655589427505724735}
   - {fileID: 6545852591520343198}
@@ -3227,7 +3219,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 1555004157844201480}
   - {fileID: 1301435917668470485}
-  searchRadius: 15
   IsRoadCrossPoint: 1
 --- !u!1 &6755703192862167304
 GameObject:
@@ -3443,7 +3434,6 @@ MonoBehaviour:
   - {fileID: 4347669629659370859}
   - {fileID: 5521084814007877925}
   - {fileID: 8618514773821800903}
-  searchRadius: 15
   IsRoadCrossPoint: 0
 --- !u!1 &7164793211687058979
 GameObject:
@@ -3492,7 +3482,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 4603809717291414137}
   - {fileID: 1256426331075980472}
-  searchRadius: 15
   IsRoadCrossPoint: 1
 --- !u!1 &7392356289288361235
 GameObject:
@@ -3656,7 +3645,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 1555004157844201480}
   - {fileID: 1301435917668470485}
-  searchRadius: 15
   IsRoadCrossPoint: 0
 --- !u!1 &7612716172952650673
 GameObject:
@@ -3819,7 +3807,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 4347669629659370859}
   - {fileID: 5521084814007877925}
-  searchRadius: 15
   IsRoadCrossPoint: 1
 --- !u!1 &7899663755781097833
 GameObject:
@@ -4098,7 +4085,6 @@ MonoBehaviour:
   - {fileID: 7063437643503501239}
   - {fileID: 3224616879950157781}
   - {fileID: 5469050095356859987}
-  searchRadius: 15
   IsRoadCrossPoint: 0
 --- !u!1 &8725161873460029098
 GameObject:
@@ -6169,6 +6155,95 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 427308, guid: c50789636e1fc5c4b8a37e2700e4a3c1,
     type: 3}
   m_PrefabInstance: {fileID: 1608694543002495250}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1682879885997105848
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2662709358030135915}
+    m_Modifications:
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 38.524315
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00000026822087
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6643119719123342088, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_Name
+      value: Traffic Lights (11)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ee8af46a90e02bc4c809e9b9527ea1e7, type: 3}
+--- !u!4 &4620694091784317706 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1682879885997105848}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1706260772885373217
 PrefabInstance:
@@ -10397,6 +10472,85 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 405696, guid: f738f6acdbb1d5844bd657732cb05e13,
     type: 3}
   m_PrefabInstance: {fileID: 5479979155108732701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5517172578149020786
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2662709358030135915}
+    m_Modifications:
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -29.473042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.707107
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071066
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6643119719123342088, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+        type: 3}
+      propertyPath: m_Name
+      value: Traffic Lights (10)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ee8af46a90e02bc4c809e9b9527ea1e7, type: 3}
+--- !u!4 &2011461578688576960 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6303573402104695218, guid: ee8af46a90e02bc4c809e9b9527ea1e7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5517172578149020786}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5853236174035300677
 PrefabInstance:
