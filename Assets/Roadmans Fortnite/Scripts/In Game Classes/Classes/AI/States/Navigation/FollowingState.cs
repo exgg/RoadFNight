@@ -21,6 +21,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
         private readonly float _maxDistanceFromLeader = 10f;
 
         public InitialPathfinderState initialPathfindingState;
+        public FollowerWaitingState followerWaitingState;
         
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
@@ -37,6 +38,12 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             
             // handle movement and animation within this state 
             MoveFollower(stateHandler, animationHandler, aiStats);
+            
+            //Handle waiting for followers
+            if (CheckNeedToWait(stateHandler))
+            {
+                return followerWaitingState;
+            }
             
             return this; // stay in this state for now until we add idle and other states 
         }
@@ -130,27 +137,33 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             {
                 agent.speed *= _speedModifier; // Temporarily increase speed
                 animationHandler?.SetWalkingAnimation("Running"); // Use running animation if available
-                Debug.Log("Follower is far from leader, speeding up.");
+                //Debug.Log("Follower is far from leader, speeding up.");
             }
             else
             {
                 // Return to leader's speed once close enough
                 agent.speed = stateHandler.myLeader.GetComponent<NavMeshAgent>().speed;
                 animationHandler?.SetWalkingAnimation(aiStats.CheckWalkingStyle()); // Use normal walking style
-                Debug.Log("Follower is within range of leader, maintaining pace.");
+                //Debug.Log("Follower is within range of leader, maintaining pace.");
             }
 
             // Check if close enough to the target, then stop the agent and trigger idle
             if (agent.remainingDistance <= _destinationTolerance)
             {
                 agent.isStopped = true;
-                //animationHandler?.PlayAnimation("Idle"); // Switch to idle animation
-                Debug.Log("Follower arrived at position, switching to idle.");
+                
             }
             else
             {
                 agent.isStopped = false;
             }
+        }
+
+        private bool CheckNeedToWait(StateHandler stateHandler)
+        {
+            NavMeshAgent agent = stateHandler.agent;
+
+            return agent.remainingDistance <= _destinationTolerance;
         }
     }
 }

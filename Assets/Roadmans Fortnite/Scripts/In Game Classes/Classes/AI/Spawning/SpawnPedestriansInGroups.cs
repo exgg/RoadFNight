@@ -113,7 +113,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Spawning
                 AvoidOverlap(pedestrianObject, block.pedestrian_lst);
             }
 
-            Debug.Log($"Spawned a group of {groupSize} pedestrians in {block.name}");
+            // Debug.Log($"Spawned a group of {groupSize} pedestrians in {block.name}");
         }
 
         private void InitializePedestrian(GameObject pedestrianObject, PopulationControl populationControl)
@@ -152,7 +152,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Spawning
             if (randomValue <= populationControl.middleClass) return WealthClass.MiddleClass;
             if (randomValue <= populationControl.highClass) return WealthClass.UpperClass;
             
-            Debug.Log($"Random value = {randomValue}");
+            //Debug.Log($"Random value = {randomValue}");
             return WealthClass.GangsterClass;
         }
 

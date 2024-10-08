@@ -17,7 +17,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
         {
             if (aiStats.myGroupControlType != GroupControlType.Leader)
             {
-                Debug.Log("I am a follower moving to follow state");
+                //Debug.Log("I am a follower moving to follow state");
                 return followingState;
             }
             
@@ -28,7 +28,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             // Find the nearest path point(s) for the AI
             var nearestPathPoints = FindNearestPathPoint(stateHandler, loggerList);
 
-            Debug.Log("Looking for path point");
+            //Debug.Log("Looking for path point");
             
             // Logic after finding the nearest path point (could be transitioning to another state)
             if (nearestPathPoints.Count > 0)

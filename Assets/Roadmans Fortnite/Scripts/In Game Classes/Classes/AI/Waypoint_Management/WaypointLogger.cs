@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.RoadCrossing;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -17,6 +18,10 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Waypoint_Manageme
         private float axisThreshold = 5f;  // Maximum alignment threshold for X or Z axis alignment
         private float existingDirectionTolerance = 10f;  // Tolerance angle to ignore existing directions
 
+        [Tooltip("Search radius for finding nearby traffic lights.")]
+        public float trafficLightSearchRadius = 50f;  // Radius within which to search for traffic lights
+
+        public TrafficLightSystem NearestTrafficLight;
         private void OnDrawGizmos()
         {
             // Draw the waypoints with different colors based on number of connections
@@ -85,8 +90,48 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Waypoint_Manageme
                     }
                 }
             }
+            
+            FindNearestTrafficLight();
         }
 
+        /// <summary>
+        /// Finds the nearest traffic light system within a specified search radius.
+        /// </summary>
+        private void FindNearestTrafficLight()
+        {
+            // Find all TrafficLightSystem components in the scene
+            TrafficLightSystem[] allTrafficLights = FindObjectsOfType<TrafficLightSystem>();
+
+            // Variable to store the nearest traffic light and its distance
+            TrafficLightSystem nearestTrafficLight = null;
+            float closestDistance = float.MaxValue;
+
+            // Iterate through all traffic lights to find the closest one
+            foreach (var trafficLight in allTrafficLights)
+            {
+                // Calculate distance to the traffic light on the XZ plane
+                float distance = CalculateDistanceOnXZPlane(transform.position, trafficLight.transform.position);
+
+                // If within the search radius and closer than the previous closest light, set it as the nearest
+                if (distance <= trafficLightSearchRadius && distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    nearestTrafficLight = trafficLight;
+                }
+            }
+
+            // Debugging: log the name of the nearest traffic light, if found
+            if (nearestTrafficLight != null)
+            {
+                //Debug.Log($"Nearest Traffic Light to {gameObject.name} is {nearestTrafficLight.name} at a distance of {closestDistance}");
+                NearestTrafficLight = nearestTrafficLight;
+            }
+            else
+            {
+                //Debug.Log($"No traffic light found within {trafficLightSearchRadius} units of {gameObject.name}");
+            }
+        }
+        
         /// <summary>
         /// Helper method to check if two waypoints are aligned on either the X or Z axis with a threshold.
         /// </summary>
@@ -114,7 +159,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Waypoint_Manageme
             {
                 if (CalculateDistanceOnXZPlane(targetPosition, existingWaypoint.transform.position) < axisThreshold)
                 {
-                    Debug.Log($"Position {targetPosition} is too close to {existingWaypoint.transform.position} and considered covered.");
+                    //Debug.Log($"Position {targetPosition} is too close to {existingWaypoint.transform.position} and considered covered.");
                     return true;
                 }
             }
@@ -134,7 +179,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Waypoint_Manageme
                 targetWaypoint.waypoints.Add(gameObject);
             }
 
-            Debug.Log($"Linked {gameObject.name} to {targetWaypoint.gameObject.name}");
+            //Debug.Log($"Linked {gameObject.name} to {targetWaypoint.gameObject.name}");
         }
     }
 }

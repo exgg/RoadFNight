@@ -43,7 +43,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians
 
         public void AddMember(Pedestrian newMember)
         {
-            Debug.Log("Tell me something man");
+            //Debug.Log("Tell me something man");
             // Check if the pedestrian is already in the members list
             if (allMembers.Contains(newMember)) 
                 return;
@@ -69,7 +69,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians
                 _pedestrianDistances.Add(newMember, float.MaxValue);
             }
 
-            Debug.Log($"New pedestrian {newMember.name} added to group {groupName}.");
+            //Debug.Log($"New pedestrian {newMember.name} added to group {groupName}.");
         }
 
         

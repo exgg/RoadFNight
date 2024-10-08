@@ -8,92 +8,90 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
     public class PathfinderState : BaseState
     {
         public WalkingState walkingState;
-        public WaitingState waitingState;
+      
 
         private const float FloatingPointThreshold = 3f; // Minimum distance to consider two points different
         private GameObject _lastChosenPathPoint = null; // Temporary reference for the last chosen path point
 
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
+            //Debug.Log($"[PathfinderState] Tick called. Previous: {stateHandler.previousPathPoint?.name}, Current: {stateHandler.currentPathPoint?.name}");
+
+            // Choose a new random path
             var randomPath = ChooseRandomPath(stateHandler);
-            stateHandler.currentPathPoint = randomPath;
 
-            if (stateHandler.currentPathPoint)
+            // Check if both previous and current path points are road crossing points
+            Debug.Log("Why the fuck are you not loggin??");
+            
+            if (randomPath != null)
             {
-                // Set lastChosenPathPoint to track where the AI is walking
-                _lastChosenPathPoint = stateHandler.previousPathPoint; // IMPORTANT: Track the last chosen path properly
+                // Set the selected path as the new current path point
+                stateHandler.currentPathPoint = randomPath;
+                _lastChosenPathPoint = stateHandler.previousPathPoint; // Track the last chosen path
 
-                /*
-             
-                if (stateHandler.currentPathPoint.GetComponent<WaypointLogger>().IsRoadCrossPoint)
-                {
-                    int count = stateHandler.currentPathPoint.GetComponent<WaypointLogger>().waypoints.Count;
-                    if (Random.Range(0, count) == 0)
-                    {
-                        waitingState._isWaiting = true;
-                        return waitingState;
-                    }
-                    waitingState._isWaiting = true;
-                    return waitingState;
-                }
-                
-                */
-                
+                //Debug.Log($"[PathfinderState] Chosen new path point: {randomPath.name}, transitioning to WalkingState.");
+
                 return walkingState;
             }
             else
             {
-                Debug.LogError("No valid path point found, staying in PathfinderState.");
-                return this;
+                //Debug.LogWarning($"[PathfinderState] No valid random path found.");
             }
+            
+            //Debug.LogError($"[PathfinderState] No valid path found, staying in PathfinderState. Previous: {stateHandler.previousPathPoint?.name}, Current: {stateHandler.currentPathPoint?.name}");
+            return this;
         }
 
         private GameObject ChooseRandomPath(StateHandler stateHandler)
         {
-            List<GameObject> waypointLoggerList =
-                stateHandler.previousPathPoint.GetComponent<WaypointLogger>().waypoints;
+            List<GameObject> waypointLoggerList = stateHandler.previousPathPoint?.GetComponent<WaypointLogger>()?.waypoints;
+
+            if (waypointLoggerList == null || waypointLoggerList.Count == 0)
+            {
+                //Debug.LogError("[PathfinderState] No waypoints available for pathfinding.");
+                return null; // No valid paths available
+            }
 
             GameObject chosenPath = null;
-            int safetyCounter = 0; // Safety to avoid infinite loop
+            int safetyCounter = 0; // Safety counter to avoid infinite loop
 
             do
             {
-                // Choose a random path from the waypoint list
                 int randomChoice = Random.Range(0, waypointLoggerList.Count);
                 chosenPath = waypointLoggerList[randomChoice];
 
-                // Log the positions for debugging
-                /*
-                Debug.Log($"Previous path location: {stateHandler.previousPathPoint.transform.position}");
-                Debug.Log(
-                    $"Current path location: {stateHandler.currentPathPoint?.transform.position ?? Vector3.zero}");
-                Debug.Log($"Chosen path location: {chosenPath.transform.position}");
-                */
+                //Debug.Log($"[PathfinderState] Trying path: {chosenPath.name}, Distance to Previous: {Vector3.Distance(stateHandler.previousPathPoint.transform.position, chosenPath.transform.position)}");
 
-
-                // Increment the safety counter to avoid infinite loops
                 safetyCounter++;
 
-                // Break if we exceed the safety limit (for very rare edge cases)
                 if (safetyCounter > 100)
                 {
-                    Debug.LogWarning("Safety break: Could not find a valid path different from the previous one.");
+                    //Debug.LogWarning("Safety break: Could not find a valid path different from the previous one.");
                     break;
                 }
             }
-            // Ensure that the chosen path is not too close to the previous path, the current path, or the last chosen path
-            while (
-                Vector3.Distance(stateHandler.previousPathPoint.transform.position, chosenPath.transform.position) <
-                FloatingPointThreshold || // Compare to previous path
-                (stateHandler.currentPathPoint != null &&
-                 Vector3.Distance(stateHandler.currentPathPoint.transform.position, chosenPath.transform.position) <
-                 FloatingPointThreshold) || // Compare to current path
-                (_lastChosenPathPoint != null &&
-                 Vector3.Distance(_lastChosenPathPoint.transform.position, chosenPath.transform.position) <
-                 FloatingPointThreshold) // Compare to last chosen path
-            );
+            while (IsPathTooClose(stateHandler, chosenPath)); // Check path distance validity
+
+            if (chosenPath != null)
+            {
+                //Debug.Log($"[PathfinderState] Successfully chose path: {chosenPath.name} after {safetyCounter} attempts.");
+            }
 
             return chosenPath;
+        }
+
+        /// <summary>
+        /// Checks if the chosen path is too close to the previous, current, or last chosen path.
+        /// </summary>
+        private bool IsPathTooClose(StateHandler stateHandler, GameObject chosenPath)
+        {
+            float distanceToPrevious = Vector3.Distance(stateHandler.previousPathPoint.transform.position, chosenPath.transform.position);
+            float distanceToCurrent = stateHandler.currentPathPoint != null ? Vector3.Distance(stateHandler.currentPathPoint.transform.position, chosenPath.transform.position) : float.MaxValue;
+            float distanceToLastChosen = _lastChosenPathPoint != null ? Vector3.Distance(_lastChosenPathPoint.transform.position, chosenPath.transform.position) : float.MaxValue;
+
+            //Debug.Log($"[PathfinderState] Distance to Previous: {distanceToPrevious}, Current: {distanceToCurrent}, LastChosen: {distanceToLastChosen}");
+
+            return distanceToPrevious < FloatingPointThreshold || distanceToCurrent < FloatingPointThreshold || distanceToLastChosen < FloatingPointThreshold;
         }
     }
 }

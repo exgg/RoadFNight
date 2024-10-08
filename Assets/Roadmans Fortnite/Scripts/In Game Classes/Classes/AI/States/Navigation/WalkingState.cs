@@ -1,4 +1,6 @@
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.RoadCrossing;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Waypoint_Management;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,6 +11,10 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
         public PathfinderState pathfinderState;
         public InitialPathfinderState initialPathfinderState;
     
+        public WaitingState waitingState;
+        private TrafficLightSystem _trafficLightSystem;
+        private WaypointLogger _waypointLogger;
+        
         // Tolerance level for floating point precision and multiple agents attempting to reach point 
         private readonly float _destinationTolerance = 2f;
 
@@ -36,6 +42,35 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
                 _startedWalking = true;
             }
             
+            if (stateHandler.previousPathPoint != null && stateHandler.currentPathPoint != null)
+            {
+                WaypointLogger previousLogger = stateHandler.previousPathPoint.GetComponent<WaypointLogger>();
+                WaypointLogger currentLogger = stateHandler.currentPathPoint.GetComponent<WaypointLogger>();
+
+                Debug.Log($"currentLoggerIs a pathpoint {currentLogger.IsRoadCrossPoint} previousLoggerIs a pathpoint {previousLogger.IsRoadCrossPoint}");
+                
+                if (previousLogger == null || currentLogger == null)
+                {
+                    //Debug.LogError("[PathfinderState] One of the path points is missing the WaypointLogger component.");
+                }
+                else
+                {
+                    //Debug.Log($"[PathfinderState] Previous Path Point: {stateHandler.previousPathPoint.name}, IsRoadCrossPoint: {previousLogger.IsRoadCrossPoint}");
+                    //Debug.Log($"[PathfinderState] Current Path Point: {stateHandler.currentPathPoint.name}, IsRoadCrossPoint: {currentLogger.IsRoadCrossPoint}");
+
+                    if (previousLogger.IsRoadCrossPoint && currentLogger.IsRoadCrossPoint && !CanCrossRoad(stateHandler))
+                    {
+                        //Debug.Log($"[PathfinderState] Transitioning to WaitingState as both points are road crossing points.");
+                        waitingState._isWaiting = true;
+                        return waitingState;
+                    }
+                }
+            }
+            else
+            {
+               
+            }
+            
             if (distanceToTarget <= _destinationTolerance)
             {
                 //Debug.Log("Reached destination moving on");
@@ -48,8 +83,43 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             }
             else
             {
-                Debug.Log("Approaching destination");
+                //Debug.Log("Approaching destination");
                 return this;
+            }
+        }
+        
+        /// <summary>
+        /// Checks if the AI can cross the road based on the traffic light system.
+        /// </summary>
+        /// <param name="stateHandler">The state handler controlling this AI.</param>
+        /// <returns>True if the AI can cross, otherwise false.</returns>
+        private bool CanCrossRoad(StateHandler stateHandler)
+        {
+            Vector3 directionToNextPoint = (stateHandler.currentPathPoint.transform.position - stateHandler.previousPathPoint.transform.position).normalized;
+
+            // Determine if the AI is primarily moving along the X or Z axis
+            bool isMovingAlongX = Mathf.Abs(directionToNextPoint.x) > Mathf.Abs(directionToNextPoint.z);
+
+            // Get the traffic light system for the appropriate axis
+            
+            _trafficLightSystem = stateHandler.currentPathPoint.GetComponent<WaypointLogger>().NearestTrafficLight;
+    
+            if (!_trafficLightSystem)
+            {
+                Debug.LogError("No TrafficLightSystem found on the WaypointLogger.");
+                return true; // Allow to proceed if no traffic light system is found
+            }
+
+            // Check if the traffic light is green for the direction AI is moving
+            if (isMovingAlongX)
+            {
+                // Moving along X axis
+                return _trafficLightSystem.canCrossX;
+            }
+            else
+            {
+                // Moving along Z axis
+                return _trafficLightSystem.canCrossY;
             }
         }
     }
