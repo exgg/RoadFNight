@@ -22,6 +22,14 @@ namespace Roadmans_Fortnite.Data.Enums.NPCEnums
        Egyptian
     }
 
+    public enum RaceCategory
+    {
+        Caucasoid, //White etc
+        Mongoloid, // Asian etc
+        Negroid, // Black etc
+        Latino, // Mexican etc
+    }
+
     public enum Sexuality
     {
         Heterosexual,
@@ -46,6 +54,17 @@ namespace Roadmans_Fortnite.Data.Enums.NPCEnums
         Homeless,
         Druggy,
         Waiting,
+    }
+
+    public enum Religion
+    {
+        Pagan,
+        Rastafarian,
+        Christian,
+        Atheist,
+        Muslim,
+        Buddhist,
+        Jewish,
     }
 
     public enum GroupControlType

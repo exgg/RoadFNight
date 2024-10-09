@@ -14,11 +14,18 @@ namespace Roadmans_Fortnite.Editor.EditorAddons
         private SerializedProperty _highClass;
         private SerializedProperty _gangsterClass;
 
-        private SerializedProperty _black;
-        private SerializedProperty _white;
-        private SerializedProperty _asian;
-        private SerializedProperty _mixedRace;
+        private SerializedProperty _caucasoid;
+        private SerializedProperty _mongoloid;
+        private SerializedProperty _negroid;
 
+        private SerializedProperty _pagan;
+        private SerializedProperty _christian;
+        private SerializedProperty _rastafarian;
+        private SerializedProperty _atheist;
+        private SerializedProperty _muslim;
+        private SerializedProperty _buddhist;
+        private SerializedProperty _jewish;
+        
         private SerializedProperty _heterosexual;
         private SerializedProperty _homosexual;
         private SerializedProperty _bisexual;
@@ -49,11 +56,18 @@ namespace Roadmans_Fortnite.Editor.EditorAddons
             _highClass = serializedObject.FindProperty("highClass");
             _gangsterClass = serializedObject.FindProperty("gangsterClass");
 
-            _black = serializedObject.FindProperty("black");
-            _white = serializedObject.FindProperty("white");
-            _asian = serializedObject.FindProperty("asian");
-            _mixedRace = serializedObject.FindProperty("mixedRace");
+            _negroid = serializedObject.FindProperty("negroid");
+            _caucasoid = serializedObject.FindProperty("caucasoid");
+            _mongoloid = serializedObject.FindProperty("mongoloid");
 
+            _pagan = serializedObject.FindProperty("pagan");
+            _christian = serializedObject.FindProperty("christian");
+            _rastafarian = serializedObject.FindProperty("rastafarian");
+            _atheist = serializedObject.FindProperty("atheist");
+            _muslim = serializedObject.FindProperty("muslim");
+            _buddhist = serializedObject.FindProperty("buddhist");
+            _jewish = serializedObject.FindProperty("jewish");
+            
             _heterosexual = serializedObject.FindProperty("heterosexual");
             _homosexual = serializedObject.FindProperty("homosexual");
             _bisexual = serializedObject.FindProperty("bisexual");
@@ -76,7 +90,7 @@ namespace Roadmans_Fortnite.Editor.EditorAddons
             _muscular = serializedObject.FindProperty("muscular");
 
             // Initialize direct set mode flags for each section
-            directSetModes = new bool[6];
+            directSetModes = new bool[7];
         }
 
         public override void OnInspectorGUI()
@@ -85,11 +99,12 @@ namespace Roadmans_Fortnite.Editor.EditorAddons
 
             // Draw sections with sliders and ensure they sum up to 100% independently
             DrawSection("Wealth Class Percentages", 0, _lowerClass, _middleClass, _highClass, _gangsterClass);
-            DrawSection("Race Percentages", 1, _black, _white, _asian, _mixedRace);
-            DrawSection("Sexuality Percentages", 2, _heterosexual, _homosexual, _bisexual, _transsexual);
-            DrawSection("Behaviour Type Percentages", 3, _standardBehaviour, _racistBehaviour, _drunkBehaviour, _homelessBehaviour, _druggyBehaviour);
-            DrawSection("Body Type Percentages", 4, _fat, _slim, _muscular);
-            DrawSection("Gender Percentages", 5, _male, _female, _transMale, _transFemale);
+            DrawSection("Race Percentages", 1, _negroid, _caucasoid, _mongoloid);
+            DrawSection("Religion Percentages", 2, _pagan, _christian, _rastafarian, _atheist, _muslim, _buddhist, _jewish);
+            DrawSection("Sexuality Percentages", 3, _heterosexual, _homosexual, _bisexual, _transsexual);
+            DrawSection("Behaviour Type Percentages", 4, _standardBehaviour, _racistBehaviour, _drunkBehaviour, _homelessBehaviour, _druggyBehaviour);
+            DrawSection("Body Type Percentages", 5, _fat, _slim, _muscular);
+            DrawSection("Gender Percentages", 6, _male, _female, _transMale, _transFemale);
 
             EditorGUILayout.Space(15);
             DrawGlobalRandomizeButton(); // Draws the global "Randomize All" button
@@ -173,7 +188,8 @@ namespace Roadmans_Fortnite.Editor.EditorAddons
             {
                 // Randomize all sections independently
                 RandomizeProperties(_lowerClass, _middleClass, _highClass, _gangsterClass);
-                RandomizeProperties(_black, _white, _asian, _mixedRace);
+                RandomizeProperties(_negroid, _caucasoid, _mongoloid);
+                RandomizeProperties(_pagan, _christian, _rastafarian, _atheist, _muslim, _buddhist, _jewish);
                 RandomizeProperties(_heterosexual, _homosexual, _bisexual, _transsexual);
                 RandomizeProperties(_standardBehaviour, _racistBehaviour, _drunkBehaviour, _homelessBehaviour, _druggyBehaviour);
                 RandomizeProperties(_fat, _slim, _muscular);

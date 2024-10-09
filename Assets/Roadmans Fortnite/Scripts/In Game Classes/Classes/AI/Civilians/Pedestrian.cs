@@ -16,6 +16,8 @@ public class Pedestrian : MonoBehaviour, IPoolObject
 
     public Gender myGender;
     public Nationality myNationality;
+    public RaceCategory myRace;
+    public Religion myReligion;
     public WealthClass myWealthClass;
     public Sexuality mySexuality;
     public BehaviourType myBehaviourType;

@@ -67,7 +67,6 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
             
             if(_aiStats.currenHealthStatus != HealthStatus.Alive)
                 return;
-            
             if(!currentState)
                 return;
             

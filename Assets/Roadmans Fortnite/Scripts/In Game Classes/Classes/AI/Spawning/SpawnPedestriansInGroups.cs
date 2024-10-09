@@ -122,7 +122,8 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Spawning
 
             // Randomize pedestrian stats based on the block's population weight map
             pedestrian.myWealthClass = RandomizeWealth(populationControl);
-            pedestrian.myNationality = RandomizeRace(populationControl);
+            pedestrian.myRace = RandomizeRace(populationControl);
+            pedestrian.myReligion = RandomizeReligion(populationControl);
             pedestrian.mySexuality = RandomizeSexuality(populationControl);
             pedestrian.myGender = RandomizeGender(populationControl);
             // Add any other customization code for the pedestrian here
@@ -148,42 +149,76 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Spawning
         {
             // Example randomization logic based on population weight
             float randomValue = Random.Range(1,100);
-            if (randomValue <= populationControl.lowerClass) return WealthClass.LowerClass;
-            if (randomValue <= populationControl.middleClass) return WealthClass.MiddleClass;
-            if (randomValue <= populationControl.highClass) return WealthClass.UpperClass;
-            
-            //Debug.Log($"Random value = {randomValue}");
-            return WealthClass.GangsterClass;
+         
+            return randomValue switch
+            {
+                var n when n <= populationControl.lowerClass => WealthClass.LowerClass,
+                var n when n <= (populationControl.lowerClass + populationControl.middleClass) => WealthClass.MiddleClass,
+                var n when n <= (populationControl.lowerClass + populationControl.middleClass + populationControl.highClass) => WealthClass.UpperClass,
+                var n when n <= (populationControl.lowerClass + populationControl.middleClass + populationControl.highClass + populationControl.gangsterClass) => WealthClass.GangsterClass,
+              
+                _ => WealthClass.MiddleClass
+            };
         }
 
         private Gender RandomizeGender(PopulationControl populationControl)
         {
             float randomValue = Random.Range(1, 100);
-
-            if (randomValue <= populationControl.male) return Gender.Male;
-            if (randomValue <= populationControl.female) return Gender.Female;
-            if (randomValue <= populationControl.transMale) return Gender.TransMale;
             
-            
-            return Gender.TransFemale;
+            return randomValue switch
+            {
+                var n when n <= populationControl.male => Gender.Male,
+                var n when n <= (populationControl.male + populationControl.female) => Gender.Female,
+                var n when n <= (populationControl.male + populationControl.female + populationControl.transMale) => Gender.TransMale,
+                var n when n <= (populationControl.male + populationControl.female + populationControl.transMale + populationControl.transFemale) => Gender.TransFemale,
+                
+                _ => Gender.Male
+            };
         }
         
-        private Nationality RandomizeRace(PopulationControl populationControl)
+        private RaceCategory RandomizeRace(PopulationControl populationControl)
         {
             float randomValue = Random.Range(1,100);
-            if (randomValue <= populationControl.black) return Nationality.Nigerian;
-            if (randomValue <= populationControl.white) return Nationality.English;
-            if (randomValue <= populationControl.asian) return Nationality.Chinese;
-            return Nationality.English;
+
+            return randomValue switch
+            {
+                var n when n <= populationControl.negroid => RaceCategory.Negroid,
+                var n when n <= (populationControl.negroid + populationControl.caucasoid) => RaceCategory.Caucasoid,
+                var n when n <= (populationControl.negroid + populationControl.caucasoid + populationControl.mongoloid) => RaceCategory.Mongoloid,
+                _ => RaceCategory.Caucasoid
+            };
         }
 
+        private Religion RandomizeReligion(PopulationControl populationControl)
+        {
+           // Generate a random value between 0 and total weight.
+            float randomValue = Random.Range(0, 100);
+
+            // Use a switch expression to select the religion based on randomValue.
+            return randomValue switch
+            {
+                var n when n <= populationControl.pagan => Religion.Pagan,
+                var n when n <= populationControl.pagan + populationControl.christian => Religion.Christian,
+                var n when n <= populationControl.pagan + populationControl.christian + populationControl.rastafarian => Religion.Rastafarian,
+                var n when n <= populationControl.pagan + populationControl.christian + populationControl.rastafarian + populationControl.atheist => Religion.Atheist,
+                var n when n <= populationControl.pagan + populationControl.christian + populationControl.rastafarian + populationControl.atheist + populationControl.muslim => Religion.Muslim,
+                var n when n <= populationControl.pagan + populationControl.christian + populationControl.rastafarian + populationControl.atheist + populationControl.muslim + populationControl.buddhist => Religion.Buddhist,
+                _ => Religion.Jewish
+            };
+        }
+        
         private Sexuality RandomizeSexuality(PopulationControl populationControl)
         {
             float randomValue = Random.Range(1,100);
-            if (randomValue <= populationControl.heterosexual) return Sexuality.Heterosexual;
-            if (randomValue <= populationControl.homosexual) return Sexuality.Homosexual;
-            if (randomValue <= populationControl.bisexual) return Sexuality.Bisexual;
-            return Sexuality.Transsexual;
+            
+            return randomValue switch
+            {
+                var n when n <= populationControl.heterosexual => Sexuality.Heterosexual,
+                var n when n <= (populationControl.heterosexual + populationControl.homosexual) => Sexuality.Homosexual,
+                var n when n <= (populationControl.heterosexual + populationControl.homosexual + populationControl.bisexual) => Sexuality.Bisexual,
+                var n when n <= (populationControl.heterosexual + populationControl.homosexual + populationControl.bisexual + populationControl.transsexual) => Sexuality.Transsexual,
+                _ => Sexuality.Heterosexual
+            };
         }
     }
 }
