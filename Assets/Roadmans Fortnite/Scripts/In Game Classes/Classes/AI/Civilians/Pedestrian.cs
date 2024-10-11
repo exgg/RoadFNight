@@ -22,6 +22,9 @@ public class Pedestrian : MonoBehaviour, IPoolObject
     public Sexuality mySexuality;
     public BehaviourType myBehaviourType;
     public GroupControlType myGroupControlType;
+
+    public float confidenceLevel;
+    public float aggressionLevel;
     
     //For server to allocate visible state to players
     //e.g. {player1 : true, player2 : false, player3 : true}
@@ -30,6 +33,9 @@ public class Pedestrian : MonoBehaviour, IPoolObject
     private void Awake()
     {
         _system = GetComponentInParent<PedestrianSystem>();
+
+        confidenceLevel = Random.Range(0, 100);
+        aggressionLevel = Random.Range(0, 100);
     }
 
     // Called when getting this object from pool.
