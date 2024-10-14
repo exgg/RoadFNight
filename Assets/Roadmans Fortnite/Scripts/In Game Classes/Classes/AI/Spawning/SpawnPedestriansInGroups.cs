@@ -13,6 +13,10 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Spawning
     {
         private List<_block> _blocks = new List<_block>();
 
+        [SerializeField] private PrejudiceSettings caucasoid;
+        [SerializeField] private PrejudiceSettings mongoloid;
+        [SerializeField] private PrejudiceSettings negroid;
+        
         [SerializeField] private GameObject pedestrianGroupPrefab; // reference to pedestrianGroupPrefab
         [SerializeField] private GameObject pedestrianPrefab; // Reference to the pedestrian prefab
 
@@ -126,6 +130,19 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Spawning
             pedestrian.myReligion = RandomizeReligion(populationControl);
             pedestrian.mySexuality = RandomizeSexuality(populationControl);
             pedestrian.myGender = RandomizeGender(populationControl);
+
+            switch (pedestrian.myRace)
+            {
+                case RaceCategory.Caucasoid:
+                    pedestrian.prejudice = caucasoid;
+                    break;
+                case RaceCategory.Mongoloid:
+                    pedestrian.prejudice = mongoloid;
+                    break;
+                case RaceCategory.Negroid:
+                    pedestrian.prejudice = negroid;
+                    break;
+            }
             // Add any other customization code for the pedestrian here
         }
 

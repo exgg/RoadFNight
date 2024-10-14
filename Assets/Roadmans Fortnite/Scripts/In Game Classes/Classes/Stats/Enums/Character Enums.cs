@@ -17,15 +17,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Stats.Enums
 
         RaceNum
     }
-
-    public enum Gender
-    {
-        Male,
-        Female,
-        NonBinary,
-        Transgender
-    }
-
+    
     public enum Sexuality
     {
         Straight,

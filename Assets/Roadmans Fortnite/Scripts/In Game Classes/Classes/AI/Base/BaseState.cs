@@ -1,7 +1,6 @@
-using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base;
 using UnityEngine;
 
-namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States
+namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
 {
     public abstract class BaseState : MonoBehaviour
     {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Scriptable_Objects;
 using UnityEngine;
 
 namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
@@ -18,6 +19,14 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
         public bool showGizmos = true;          // Toggle Gizmos visualization on or off
         public Color viewConeColor = new Color(0, 1, 0, 0.2f); // Color for the view cone visualization
 
+        [Header("Prejudice Settings")]
+        public PrejudiceSettings prejudiceSettings; // Reference to the AI's prejudice settings
+
+        private void Start()
+        {
+            prejudiceSettings = GetComponent<Pedestrian>().prejudice;
+        }
+
         private void OnDrawGizmos()
         {
             if (!showGizmos) return;
@@ -31,7 +40,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
             Gizmos.DrawLine(transform.position, transform.position + leftBoundary * viewRadius);
             Gizmos.DrawLine(transform.position, transform.position + rightBoundary * viewRadius);
 
-            // draw detection lines
+            // Draw detection lines
             Gizmos.color = Color.red;
             foreach (var target in FindVisibleTargets())
             {
@@ -41,7 +50,22 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
 
         private void Update()
         {
-            FindVisibleTargets();
+            var visibleTargets = FindVisibleTargets();
+            foreach (var target in visibleTargets)
+            {
+                // Transition based on prejudice settings
+                var prejudiceResult = EvaluatePrejudice(target);
+                if (prejudiceResult == PrejudiceResult.Dislike)
+                {
+                    // Transition to a negative state, like an aggressive or avoid state
+                    Debug.Log("Transitioning to Aggressive state.");
+                }
+                else if (prejudiceResult == PrejudiceResult.Like)
+                {
+                    // Transition to a positive state
+                    Debug.Log("Transitioning to Friendly state.");
+                }
+            }
         }
 
         /// <summary>
@@ -77,6 +101,55 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
             return visibleTargets.ToArray();
         }
 
+      private PrejudiceResult EvaluatePrejudice(Transform target)
+        {
+            // Ensure that PrejudiceSettings is assigned
+            if (prejudiceSettings == null)
+            {
+                Debug.LogError("PrejudiceSettings is not assigned in the inspector.");
+                return PrejudiceResult.Neutral;
+            }
+
+            // Example: Assume the target has a "Pedestrian" component with nationality, gender, race, etc.
+            var targetPedestrian = target.GetComponent<Pedestrian>();
+
+            // Ensure the targetPedestrian component exists
+            if (targetPedestrian == null)
+            {
+                Debug.LogError($"Pedestrian component missing on target: {target.name}");
+                return PrejudiceResult.Neutral;
+            }
+
+            // Check if arrays in PrejudiceSettings are properly initialized
+            if (prejudiceSettings.dislikedNationalities == null || prejudiceSettings.dislikedGenders == null || 
+                prejudiceSettings.dislikedRaces == null || prejudiceSettings.dislikedSexualities == null)
+            {
+                Debug.LogError("One or more prejudice arrays are not initialized in PrejudiceSettings.");
+                return PrejudiceResult.Neutral;
+            }
+
+            // Check if the target's nationality, gender, race, or other traits are disliked
+            if (Array.Exists(prejudiceSettings.dislikedNationalities, n => n == targetPedestrian.myNationality) ||
+                Array.Exists(prejudiceSettings.dislikedGenders, g => g == targetPedestrian.myGender) ||
+                Array.Exists(prejudiceSettings.dislikedRaces, r => r == targetPedestrian.myRace) ||
+                Array.Exists(prejudiceSettings.dislikedSexualities, s => s == targetPedestrian.mySexuality))
+            {
+                return PrejudiceResult.Dislike;
+            }
+
+            // Check if the target's traits are liked
+            if (Array.Exists(prejudiceSettings.likedNationalities, n => n == targetPedestrian.myNationality) ||
+                Array.Exists(prejudiceSettings.likedGenders, g => g == targetPedestrian.myGender) ||
+                Array.Exists(prejudiceSettings.likedRaces, r => r == targetPedestrian.myRace) ||
+                Array.Exists(prejudiceSettings.likedSexualities, s => s == targetPedestrian.mySexuality))
+            {
+                return PrejudiceResult.Like;
+            }
+
+            return PrejudiceResult.Neutral; // If no preference, remain neutral
+      }
+
+
         /// <summary>
         /// Gets the direction vector from a given angle in degrees.
         /// </summary>
@@ -88,5 +161,15 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
             }
             return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
         }
+    }
+
+    /// <summary>
+    /// Prejudice evaluation result to dictate state transitions.
+    /// </summary>
+    public enum PrejudiceResult
+    {
+        Like,
+        Dislike,
+        Neutral
     }
 }

@@ -25,6 +25,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             if (!stateHandler.currentPathPoint)
             {
                 Debug.LogError("There is no path point setup");
+                _startedWalking = false;
                 return initialPathfinderState;
             }
 
@@ -61,14 +62,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
                     if (previousLogger.IsRoadCrossPoint && currentLogger.IsRoadCrossPoint && !CanCrossRoad(stateHandler))
                     {
                         //Debug.Log($"[PathfinderState] Transitioning to WaitingState as both points are road crossing points.");
-                        waitingState._isWaiting = true;
                         return waitingState;
                     }
                 }
-            }
-            else
-            {
-               
             }
             
             if (distanceToTarget <= _destinationTolerance)

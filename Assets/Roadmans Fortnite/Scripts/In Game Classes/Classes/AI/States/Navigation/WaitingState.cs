@@ -21,6 +21,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             if (!stateHandler.currentPathPoint)
             {
                 Debug.LogError("There is no path point setup");
+                _isWaiting = false;
                 return initialPathfinderState;
             }
 
@@ -30,6 +31,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             if (!_waypointLogger)
             {
                 Debug.LogError("No WaypointLogger found on the current path point.");
+                _isWaiting = false;
                 return initialPathfinderState;
             }
 
@@ -40,14 +42,18 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             {
                 Debug.Log("Traffic light is green. Proceeding to walking state.");
                 stateHandler.agent.isStopped = false;
+                _isWaiting = false;
                 return walkingState;
             }
             else
             {
-                // Set the waiting animation if AI has to wait
-                _isWaiting = true;
-                animationHandler.SetWaitingAnimation(aiStats.myGender);
-                Debug.Log("Waiting at traffic light.");
+                if (!_isWaiting)
+                {
+                    // Set the waiting animation if AI has to wait
+                    _isWaiting = true;
+                    animationHandler.SetWaitingAnimation(aiStats.myGender);
+                    Debug.Log("Waiting at traffic light.");
+                }
                 return this;
             }
         }
