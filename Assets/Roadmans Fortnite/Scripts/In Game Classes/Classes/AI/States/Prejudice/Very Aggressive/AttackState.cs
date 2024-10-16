@@ -9,62 +9,72 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
         public float attackCooldown = 1.5f; // Cooldown between attacks
         private float currentCooldownTime = 0f;
 
-        private bool isAttacking = false; // Flag to indicate if an attack animation is playing
-
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
-            // Check if there is a target
+            // Ensure there's a valid target
             if (stateHandler.currentTarget == null)
             {
                 Debug.LogWarning("No target available for attack.");
                 return null; // Return to a default state, like idle or pursue
             }
 
+            // Get the target's Pedestrian component and check if they are dead
+            var targetPedestrian = stateHandler.currentTarget.GetComponent<Pedestrian>();
+            if (targetPedestrian != null && targetPedestrian.currenHealthStatus == HealthStatus.Died)
+            {
+                Debug.Log("Target is dead, abandoning attack.");
+                stateHandler.currentTarget = null; // Clear the target
+                return null; // Return to a neutral state (e.g., idle or search state)
+            }
+
+            // Rotate to face the target before attacking
+            FaceTarget(stateHandler);
+
             // Handle cooldown timer between attacks
             if (currentCooldownTime > 0)
             {
+                Debug.Log("Waiting for cooldown: " + currentCooldownTime);
                 currentCooldownTime -= Time.deltaTime;
                 return this; // Stay in attack state, waiting for cooldown
             }
 
-            // If an attack animation is playing, wait until it finishes
-            if (isAttacking)
-            {
-                // Check if the attack animation has finished (assuming you have an animation system that can provide this info)
-                if (!animationHandler.IsAnimationPlaying("Attack")) // Adjust this based on your animation system
-                {
-                    isAttacking = false; // Animation is finished, reset the attack flag
-                    currentCooldownTime = attackCooldown; // Reset cooldown
-                }
+            // Attack the target when the cooldown is complete
+            PerformAttack(stateHandler.currentTarget, animationHandler);
 
-                return this; // Stay in attack state until animation finishes
-            }
+            // Reset the cooldown after the attack
+            currentCooldownTime = attackCooldown;
 
-            // Play attack animation and flag that attack is in progress
-            animationHandler.PlaySpecificAnimation("Attack");
-            isAttacking = true;
-
-            // Perform the attack logic here (damage, effects, etc.)
-            PerformAttack(stateHandler.currentTarget);
-
-            return this; // Remain in attack state until the animation completes and cooldown passes
+            return this; // Stay in attack state to attack again after the cooldown
         }
 
-        private void PerformAttack(GameObject target)
+        private void PerformAttack(GameObject target, AIAnimationHandler animationHandler)
         {
-            // Example logic for damaging the target
+            // Play attack animation
+            Debug.Log("Playing attack animation.");
+            animationHandler.PlaySpecificAnimation("Attack");
+
+            // Apply damage to the target
             var targetPedestrian = target.GetComponent<Pedestrian>();
             if (targetPedestrian != null)
             {
                 Debug.Log("Performing attack on target.");
-                // Assuming the target has a Health component or a way to reduce health
-                targetPedestrian.health -= 10; // Adjust the damage value accordingly
+                targetPedestrian.health -= 10; // Apply damage to the target
+
+                // If the target dies, mark them as dead
                 if (targetPedestrian.health <= 0)
                 {
                     targetPedestrian.currenHealthStatus = HealthStatus.Died;
                     Debug.Log($"{targetPedestrian.name} is dead.");
                 }
             }
+        }
+
+        private void FaceTarget(StateHandler stateHandler)
+        {
+            // Smoothly rotate towards the target
+            Vector3 direction = (stateHandler.currentTarget.transform.position - stateHandler.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            stateHandler.transform.rotation = Quaternion.Slerp(stateHandler.transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
     }
 }

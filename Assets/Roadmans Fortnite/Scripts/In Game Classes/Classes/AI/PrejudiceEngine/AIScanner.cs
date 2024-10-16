@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Scriptable_Objects;
 using UnityEngine;
 
@@ -22,9 +23,12 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
         [Header("Prejudice Settings")]
         public PrejudiceSettings prejudiceSettings; // Reference to the AI's prejudice settings
 
+        private StateHandler _stateHandler;
+        
         private void Start()
         {
             prejudiceSettings = GetComponent<Pedestrian>().prejudice;
+            _stateHandler = GetComponent<StateHandler>();
         }
 
         private void OnDrawGizmos()
@@ -51,19 +55,29 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
         private void Update()
         {
             var visibleTargets = FindVisibleTargets();
-            foreach (var target in visibleTargets)
+            if (!_stateHandler.currentTarget)
             {
-                // Transition based on prejudice settings
-                var prejudiceResult = EvaluatePrejudice(target);
-                if (prejudiceResult == PrejudiceResult.Dislike)
+                foreach (var target in visibleTargets)
                 {
-                    // Transition to a negative state, like an aggressive or avoid state
-                    Debug.Log("Transitioning to Aggressive state.");
-                }
-                else if (prejudiceResult == PrejudiceResult.Like)
-                {
-                    // Transition to a positive state
-                    Debug.Log("Transitioning to Friendly state.");
+                    // Evaluate prejudice to find a disliked target
+                    var prejudiceResult = EvaluatePrejudice(target);
+                    if (prejudiceResult == PrejudiceResult.Dislike)
+                    {
+                        // Set the disliked target as the AI's current target
+                        _stateHandler.currentTarget = target.gameObject;
+                        Debug.Log($"Target acquired: {target.name} - transitioning to aggressive behavior.");
+
+                        // Make the AI the target of the disliked pedestrian (so they attack back)
+                        var targetPedestrianHandler = target.GetComponent<StateHandler>();
+                        if (targetPedestrianHandler != null)
+                        {
+                            targetPedestrianHandler.currentTarget = gameObject;
+                            Debug.Log($"{target.name} is now targeting {gameObject.name} in return.");
+                        }
+
+                        // Break once a target is found, no need to search further
+                        break;
+                    }
                 }
             }
         }

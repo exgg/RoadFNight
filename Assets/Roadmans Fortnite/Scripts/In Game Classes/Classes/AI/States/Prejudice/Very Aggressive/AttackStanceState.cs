@@ -16,7 +16,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
 
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
-            Debug.Log("I am in the attackstance");
+            Debug.Log("I am in the attack stance");
             
             // Reset wind-up time when entering the state to avoid carry-over
             if (_currentWindUpTime == 0f)
@@ -36,7 +36,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
             float distanceToTarget = Vector3.Distance(stateHandler.transform.position, target.transform.position);
 
             // If the target is outside the attack range, go back to pursuing the target
-            if (distanceToTarget > 5f) 
+            if (distanceToTarget > 3f) 
             {
                 Debug.Log("Target moved out of range, returning to PursueTarget state.");
                 return pursueTargetState;

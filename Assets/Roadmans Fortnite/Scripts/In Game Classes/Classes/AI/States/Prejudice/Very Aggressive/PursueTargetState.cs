@@ -46,7 +46,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
             // If within attack range, switch to the AttackStance state
             if (distanceToTarget <= attackRange)
             {
-                Debug.Log("Within attack range, transitioning to AttackStance.");
+                Debug.Log("Within attack range, transitioning to AttackStanceState.");
                 return attackStanceState;
             }
 

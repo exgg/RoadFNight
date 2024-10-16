@@ -47,6 +47,8 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
         public GameObject previousPathPoint; // this will be used to prevent double backing on themselves
 
         public GameObject myLeader;
+
+        private bool _hasTarget;
         
         private void Awake()
         {
@@ -71,25 +73,38 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
 
         public void HandleMovementStateMachine()
         {
-            //Debug.Log($"I am running from {transform.name}");
-            
+            // Check if AI is alive and there is a current state
             if(_aiStats.currenHealthStatus != HealthStatus.Alive)
                 return;
             if(!currentState)
                 return;
 
-            if (!currentTarget || currentTarget.GetComponent<Pedestrian>().currenHealthStatus == HealthStatus.Died)
-                _nextState = currentState.Tick(this, _aiStats, _animationHandler);
-            else
+            // Check if there's a valid target
+            if (currentTarget && currentTarget.GetComponent<Pedestrian>().currenHealthStatus == HealthStatus.Alive)
+            {
                 _nextState = currentAggressiveState.Tick(this, _aiStats, _animationHandler);
-            
+                _hasTarget = true; // Set the flag that the AI has a target
+            }
+            else
+            {
+                _nextState = currentState.Tick(this, _aiStats, _animationHandler);
+                _hasTarget = false; // Set the flag that the AI does not have a target
+            }
+
             if (_nextState)
                 SwitchToNextState(_nextState);
         }
 
         private void SwitchToNextState(BaseState state)
         {
-            currentState = state;
+            if (_hasTarget) // If there's a target, update aggressive state
+            {
+                currentAggressiveState = state;
+            }
+            else // Otherwise, update the regular state
+            {
+                currentState = state;
+            }
         }
         
     }
