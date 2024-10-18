@@ -18,14 +18,14 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
         // Tolerance level for floating point precision and multiple agents attempting to reach point 
         private readonly float _destinationTolerance = 2f;
 
-        private bool _startedWalking;
+        public bool startedWalking;
 
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
             if (!stateHandler.currentPathPoint)
             {
                 Debug.LogError("There is no path point setup");
-                _startedWalking = false;
+                startedWalking = false;
                 return initialPathfinderState;
             }
 
@@ -34,13 +34,13 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             // Use Vector3.Distance to handle floating-point precision for arrival
             float distanceToTarget = Vector3.Distance(stateHandler.transform.position, stateHandler.currentPathPoint.transform.position);
 
-            if (!_startedWalking)
+            if (!startedWalking)
             {
                 string walkingStyle = aiStats.CheckWalkingStyle();
                 
                 animationHandler.SetWalkingAnimation(walkingStyle);
 
-                _startedWalking = true;
+                startedWalking = true;
             }
             
             if (stateHandler.previousPathPoint != null && stateHandler.currentPathPoint != null)
@@ -74,7 +74,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
                 // Now set the current path as the previous one, ensuring we don't double back
                 stateHandler.previousPathPoint = stateHandler.currentPathPoint;
 
-                _startedWalking = false;
+                startedWalking = false;
                 return pathfinderState; // Move to next state to find a new path
             }
             else
@@ -118,5 +118,11 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
                 return _trafficLightSystem.canCrossY;
             }
         }
+
+        public void ResetWalking()
+        {
+            startedWalking = false;
+        }
+        
     }
 }

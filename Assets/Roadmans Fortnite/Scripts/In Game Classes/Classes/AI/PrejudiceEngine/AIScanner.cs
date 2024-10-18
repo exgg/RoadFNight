@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Roadmans_Fortnite.Data.Enums.NPCEnums;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Scriptable_Objects;
 using UnityEngine;
@@ -48,7 +49,11 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
             Gizmos.color = Color.red;
             foreach (var target in FindVisibleTargets())
             {
-                Gizmos.DrawLine(transform.position, target.position);
+                if (target.transform.parent != transform.parent)
+                {
+                    Gizmos.DrawLine(transform.position, target.position);
+
+                }
             }
         }
 
@@ -69,7 +74,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
 
                         // Make the AI the target of the disliked pedestrian (so they attack back)
                         var targetPedestrianHandler = target.GetComponent<StateHandler>();
-                        if (targetPedestrianHandler != null)
+                        if (targetPedestrianHandler != null && !_stateHandler.currentTarget)
                         {
                             targetPedestrianHandler.currentTarget = gameObject;
                             Debug.Log($"{target.name} is now targeting {gameObject.name} in return.");
@@ -128,9 +133,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
             var targetPedestrian = target.GetComponent<Pedestrian>();
 
             // Ensure the targetPedestrian component exists
-            if (targetPedestrian == null)
+            if (targetPedestrian == null || targetPedestrian.currenHealthStatus == HealthStatus.Died)
             {
-                Debug.LogError($"Pedestrian component missing on target: {target.name}");
+                //Debug.LogError($"Pedestrian component missing on target: {target.name}");
                 return PrejudiceResult.Neutral;
             }
 

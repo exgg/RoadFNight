@@ -1,5 +1,6 @@
 using Roadmans_Fortnite.Data.Enums.NPCEnums;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation;
 using UnityEngine;
 
 namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.Very_Aggressive
@@ -9,6 +10,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
         // References to other states
         public AttackState attackState;
         public PursueTargetState pursueTargetState;
+        public WalkingState walkingState;
 
         // Time variables to simulate a wind-up before attack
         private readonly float _windUpTime = 1f;  // How long the AI will stay in the attack stance before attacking
@@ -17,7 +19,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
             Debug.Log("I am in the attack stance");
-            
+
+           
+
             // Reset wind-up time when entering the state to avoid carry-over
             if (_currentWindUpTime == 0f)
             {
@@ -25,9 +29,11 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
             }
 
             // If no target is available, return to the pursue state or idle
-            if (!stateHandler.currentTarget || stateHandler.currentTarget.GetComponent<Pedestrian>().currenHealthStatus == HealthStatus.Died)
+            if (!stateHandler.currentTarget || stateHandler.currentTarget.GetComponent<Pedestrian>().currenHealthStatus == HealthStatus.Died || stateHandler.currentTarget.GetComponent<Pedestrian>().health <= 0)
             {
                 Debug.Log("No target available, switching back to pursuit.");
+                walkingState.startedWalking = false;
+                stateHandler.currentTarget = null;
                 return pursueTargetState;
             }
 
@@ -36,7 +42,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
             float distanceToTarget = Vector3.Distance(stateHandler.transform.position, target.transform.position);
 
             // If the target is outside the attack range, go back to pursuing the target
-            if (distanceToTarget > 3f) 
+            if (distanceToTarget > 1f) 
             {
                 Debug.Log("Target moved out of range, returning to PursueTarget state.");
                 return pursueTargetState;

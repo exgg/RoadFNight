@@ -14,6 +14,8 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians
         public float visibleThreshold = 10;
         public List<PedestrianGroup> groupLst = new List<PedestrianGroup>();
 
+        private bool _paused;
+        
         private void Start()
         {
             // Initialize the group list by finding all PedestrianGroup components in child objects
@@ -45,7 +47,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians
                 yield return new WaitForSeconds(2);
             }
         }
-
+        
         // Updates group behaviors like movement, state handling, etc.
         private void UpdateGroupBehaviors()
         {

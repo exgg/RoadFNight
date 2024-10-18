@@ -1,8 +1,11 @@
 using System;
+using Opsive.UltimateCharacterController.Items.Actions.Impact;
 using Opsive.UltimateCharacterController.Objects.CharacterAssist;
 using Roadmans_Fortnite.Data.Enums.NPCEnums;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States;
+using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -22,6 +25,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
         [Header("States")]
         public BaseState currentState;
         public BaseState currentAggressiveState;
+        public BaseState ragdollState;
         
         private BaseState _nextState;
         
@@ -40,21 +44,26 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
         [Header("Debug Displays")]
         public GameObject currentTarget; // change this to character stats later down the line
 
+        [Space(1)] [Header("Rag Dolling")]
+        public MonoBehaviour[] classes;
+        public Rigidbody initialForceApplication;
+        
         private bool _overrideStates;
         
-        
+        [Space(1)] [Header("Path Debugging")]
         public GameObject currentPathPoint;
         public GameObject previousPathPoint; // this will be used to prevent double backing on themselves
 
         public GameObject myLeader;
 
         private bool _hasTarget;
-        
+        private CapsuleCollider _capsuleCollider;
         private void Awake()
         {
             _animationHandler = GetComponentInChildren<AIAnimationHandler>();
             _aiStats = GetComponent<Pedestrian>();
             agent = GetComponent<NavMeshAgent>();
+            _capsuleCollider = GetComponent<CapsuleCollider>();
         }
 
         private void Start()
@@ -73,9 +82,14 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
 
         public void HandleMovementStateMachine()
         {
-            // Check if AI is alive and there is a current state
-            if(_aiStats.currenHealthStatus != HealthStatus.Alive)
-                return;
+            if (currentTarget)
+            {
+                if (currentTarget.GetComponent<Pedestrian>().health <= 0)
+                {
+                    currentTarget = null;
+                }
+            }
+            
             if(!currentState)
                 return;
 
@@ -85,7 +99,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
                 _nextState = currentAggressiveState.Tick(this, _aiStats, _animationHandler);
                 _hasTarget = true; // Set the flag that the AI has a target
             }
-            else
+            else if (!currentTarget && _aiStats.currenHealthStatus == HealthStatus.Alive)
             {
                 _nextState = currentState.Tick(this, _aiStats, _animationHandler);
                 _hasTarget = false; // Set the flag that the AI does not have a target
@@ -103,9 +117,33 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
             }
             else // Otherwise, update the regular state
             {
+                if (state is WalkingState walkingState)
+                {
+                    walkingState.ResetWalking();
+                }
+                
                 currentState = state;
             }
         }
-        
+
+        public void BeginRagdoll()
+        {
+            _animationHandler.animator.enabled = false;
+            foreach(var nClass in classes)
+            {
+                nClass.enabled = false;
+            }
+
+            agent.enabled = false;
+            _capsuleCollider.enabled = false;
+            
+            initialForceApplication.AddForce(0, 5, 0);
+
+            var masterBrain = FindObjectOfType<PedestrianSystem>();
+            
+            masterBrain.groupLst.Remove(transform.parent.GetComponent<PedestrianGroup>());
+            
+            enabled = false;
+        }
     }
 }

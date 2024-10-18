@@ -21,7 +21,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Spawning
         [SerializeField] private GameObject pedestrianPrefab; // Reference to the pedestrian prefab
 
         [SerializeField, Range(50,500)] private int pedestrianCap;
-        [SerializeField, Range(2,20)] private int pedestrianGroupCap;
+        [SerializeField, Range(1,20)] private int pedestrianGroupCap;
 
         private int _pedestrianCount = 0;
         private int _pedestrianGroupMin = 1;

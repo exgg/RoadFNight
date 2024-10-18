@@ -51,7 +51,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
             }
 
             // Play pursuit animation
-            animationHandler.SetWalkingAnimation("Running");
+            //animationHandler.SetWalkingAnimation("Running");
 
             // Stay in the pursue state if not within range
             return this;
@@ -63,11 +63,6 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
                 return initialPathfinderState;
             else
                 return followingState;
-        }
-
-        private void OnEnable()
-        {
-            GetComponent<NavMeshAgent>().speed = 3.5f;
         }
     }
 }
