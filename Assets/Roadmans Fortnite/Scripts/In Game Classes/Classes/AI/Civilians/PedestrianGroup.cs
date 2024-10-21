@@ -43,7 +43,6 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians
 
         public void AddMember(Pedestrian newMember)
         {
-            //Debug.Log("Tell me something man");
             // Check if the pedestrian is already in the members list
             if (allMembers.Contains(newMember)) 
                 return;
@@ -68,21 +67,17 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians
             {
                 _pedestrianDistances.Add(newMember, float.MaxValue);
             }
-
-            //Debug.Log($"New pedestrian {newMember.name} added to group {groupName}.");
         }
 
-        
         // Updates state machines and behaviors (e.g., movement, visibility state) without checking distances
         public void UpdateMemberStates()
         {
-            //Debug.Log($"I am running in group {transform.name}");
-            
             foreach (var member in allMembers)
             {
                 // Use cached StateHandler reference to update state
                 if (_cachedStateHandlers.TryGetValue(member, out StateHandler stateHandler))
                 {
+                    // Directly call HandleMovementStateMachine since we are no longer threading here
                     stateHandler.HandleMovementStateMachine();
                 }
 
@@ -100,7 +95,6 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Civilians
             foreach (var member in allMembers)
             {
                 // Find the closest player and update distance
-                
                 float closestDistance = CalculateDistanceToClosestPlayer(member, players);
                 _pedestrianDistances[member] = closestDistance;
             }

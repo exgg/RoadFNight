@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Opsive.UltimateCharacterController.Items.Actions.Impact;
 using Opsive.UltimateCharacterController.Objects.CharacterAssist;
 using Roadmans_Fortnite.Data.Enums.NPCEnums;
@@ -8,7 +9,6 @@ using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
 {
@@ -58,72 +58,59 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
 
         private bool _hasTarget;
         private CapsuleCollider _capsuleCollider;
+        private bool _isCalculatingState;
+
         private void Awake()
         {
             _animationHandler = GetComponentInChildren<AIAnimationHandler>();
             _aiStats = GetComponent<Pedestrian>();
             agent = GetComponent<NavMeshAgent>();
-            _capsuleCollider = GetComponent<CapsuleCollider>();
         }
 
-        private void Start()
-        {
-            if (_aiStats.myGroupControlType != GroupControlType.Leader)
-            {
-                foreach (Pedestrian pedestrian in transform.parent.gameObject.GetComponentsInChildren<Pedestrian>())
-                {
-                    if (pedestrian.myGroupControlType == GroupControlType.Leader)
-                    {
-                        myLeader = pedestrian.gameObject;
-                    }
-                }
-            }
-        }
-
+        // Main state management function without threading
         public void HandleMovementStateMachine()
         {
-            if (currentTarget)
+            // Check if AI is alive and there is a current state
+            if (_aiStats.currenHealthStatus == HealthStatus.Died || _aiStats.health <= 0)
             {
-                if (currentTarget.GetComponent<Pedestrian>().health <= 0)
-                {
-                    currentTarget = null;
-                }
-            }
-            
-            if(!currentState)
+                BeginRagdoll();
                 return;
-
-            // Check if there's a valid target
-            if (currentTarget && currentTarget.GetComponent<Pedestrian>().currenHealthStatus == HealthStatus.Alive)
-            {
-                _nextState = currentAggressiveState.Tick(this, _aiStats, _animationHandler);
-                _hasTarget = true; // Set the flag that the AI has a target
-            }
-            else if (!currentTarget && _aiStats.currenHealthStatus == HealthStatus.Alive)
-            {
-                _nextState = currentState.Tick(this, _aiStats, _animationHandler);
-                _hasTarget = false; // Set the flag that the AI does not have a target
             }
 
-            if (_nextState)
-                SwitchToNextState(_nextState);
+            if (!_isCalculatingState)
+            {
+                // Directly calculate next state on the main thread
+                CalculateNextState();
+            }
         }
 
-        private void SwitchToNextState(BaseState state)
+        private void CalculateNextState()
         {
-            if (_hasTarget) // If there's a target, update aggressive state
+            _isCalculatingState = true;
+
+            if (currentTarget != null && currentTarget.GetComponent<Pedestrian>().currenHealthStatus == HealthStatus.Alive)
             {
+                _hasTarget = true;
+                _nextState = currentAggressiveState.Tick(this, _aiStats, _animationHandler);
+            }
+            else
+            {
+                _hasTarget = false;
+                _nextState = currentState.Tick(this, _aiStats, _animationHandler);
+            }
+
+            // Now switch to the next state
+            SwitchToNextState(_nextState);
+            
+            _isCalculatingState = false;
+        }
+
+        public void SwitchToNextState(BaseState state)
+        {
+            if (_hasTarget)
                 currentAggressiveState = state;
-            }
-            else // Otherwise, update the regular state
-            {
-                if (state is WalkingState walkingState)
-                {
-                    walkingState.ResetWalking();
-                }
-                
+            else
                 currentState = state;
-            }
         }
 
         public void BeginRagdoll()

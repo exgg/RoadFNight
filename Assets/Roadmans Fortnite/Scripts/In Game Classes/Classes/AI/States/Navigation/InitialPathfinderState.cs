@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Roadmans_Fortnite.Data.Enums.NPCEnums;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Waypoint_Management;
@@ -12,43 +13,65 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
         public WalkingState walkingState;
         public FollowingState followingState;
         private readonly float _axisThreshold = 3f;
-        
+
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
+            // If not a leader, move to the following state
+            
+            Debug.Log("Testing if I am running this state");
             if (aiStats.myGroupControlType != GroupControlType.Leader)
             {
-                //Debug.Log("I am a follower moving to follow state");
                 return followingState;
             }
             
-            
-            // Find all available WaypointLogger instances in the scene
-            var loggerList = FindObjectsOfType<WaypointLogger>();
-
-            // Find the nearest path point(s) for the AI
-            var nearestPathPoints = FindNearestPathPoint(stateHandler, loggerList);
-
-            //Debug.Log("Looking for path point");
-            
-            // Logic after finding the nearest path point (could be transitioning to another state)
-            if (nearestPathPoints.Count > 0)
-            {
-                // Move to walking state or whatever the next state would be
-                stateHandler.currentPathPoint = nearestPathPoints[0]; // Set the closest waypoint as target
-                stateHandler.previousPathPoint = stateHandler.currentPathPoint;
-                return walkingState;  // Transition to walking state
-            }
-
-            // Stay in the current state if no valid paths are found
+            // Move the heavy computation (finding nearest path points) to a separate thread
+            CalculatePathPointsAsync(stateHandler);
+            // Stay in the current state until path points are processed
             return this;
         }
+        
+        
+        private async void CalculatePathPointsAsync(StateHandler stateHandler)
+        {
+            // Gather path point data from Unity on the main thread
+            
+            Debug.Log("Attempting to locate pathpoints");
+            
+            var loggerList = FindObjectsOfType<WaypointLogger>();  // Must be done on main thread
+            Debug.Log($"There are {loggerList.Length} waypoint loggers in the scene");
+            
+            Vector3 aiPosition = stateHandler.transform.position; // Must be done on main thread
+            Debug.Log($"Ai position is {aiPosition}");
+            
+            Debug.Log("Potato");
+            
+            // Perform the heavy computation on a background thread
+            var nearestPathPoints = await Task.Run(() =>
+            {
+                return FindNearestPathPoint(aiPosition, loggerList);
+            });
 
-        // Method to find the nearest path points (using WaypointLogger instances)
-        private List<GameObject> FindNearestPathPoint(StateHandler stateHandler, WaypointLogger[] pathPoints)
+            // Now, back on the main thread, assign the result
+            if (nearestPathPoints.Count > 0)
+            {
+                // Switch back to the main thread before assigning values
+                await Task.Yield();
+
+                stateHandler.currentPathPoint = nearestPathPoints[0];
+                stateHandler.previousPathPoint = stateHandler.currentPathPoint;
+
+                Debug.Log("Assigned path points, switching to walking state.");
+
+                // Transition to walking state on the main thread
+                stateHandler.SwitchToNextState(walkingState);
+            }
+        }
+        
+        // Method to find the nearest path points (thread-safe)
+        private List<GameObject> FindNearestPathPoint(Vector3 aiPosition, WaypointLogger[] pathPoints)
         {
             return pathPoints
-                .Where(p => IsOnSameAxis(stateHandler.transform.position, p.transform.position)) // Only allow waypoints on the same axis (X or Z)
-                .OrderBy(p => CalculateDistanceOnXZPlane(stateHandler.transform.position, p.transform.position))  // Sort by distance on the X and Z axes
+                .OrderBy(p => CalculateDistanceOnXZPlane(aiPosition, p.transform.position))  // Sort by distance on the X and Z axes
                 .Select(p => p.gameObject) // Return the GameObject from the WaypointLogger
                 .ToList();
         }
@@ -68,4 +91,3 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
         }
     }
 }
-

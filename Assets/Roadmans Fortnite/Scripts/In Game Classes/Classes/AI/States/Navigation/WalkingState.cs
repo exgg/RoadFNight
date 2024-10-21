@@ -1,8 +1,8 @@
+using System.Threading.Tasks;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.RoadCrossing;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Waypoint_Management;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
 {
@@ -10,15 +10,13 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
     {
         public PathfinderState pathfinderState;
         public InitialPathfinderState initialPathfinderState;
-    
         public WaitingState waitingState;
         private TrafficLightSystem _trafficLightSystem;
         private WaypointLogger _waypointLogger;
-        
-        // Tolerance level for floating point precision and multiple agents attempting to reach point 
-        private readonly float _destinationTolerance = 2f;
 
+        private readonly float _destinationTolerance = 2f;
         public bool startedWalking;
+        private bool _isCalculating;
 
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
@@ -29,61 +27,73 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
                 return initialPathfinderState;
             }
 
-            stateHandler.agent.destination = stateHandler.currentPathPoint.transform.position;
-
-            // Use Vector3.Distance to handle floating-point precision for arrival
-            float distanceToTarget = Vector3.Distance(stateHandler.transform.position, stateHandler.currentPathPoint.transform.position);
-
+            // Start walking only once
             if (!startedWalking)
             {
                 string walkingStyle = aiStats.CheckWalkingStyle();
-                
                 animationHandler.SetWalkingAnimation(walkingStyle);
-
                 startedWalking = true;
             }
-            
-            if (stateHandler.previousPathPoint != null && stateHandler.currentPathPoint != null)
+
+            // Calculate path and road-crossing asynchronously if not already calculating
+            if (!_isCalculating)
             {
-                WaypointLogger previousLogger = stateHandler.previousPathPoint.GetComponent<WaypointLogger>();
-                WaypointLogger currentLogger = stateHandler.currentPathPoint.GetComponent<WaypointLogger>();
+                HandleMovementAsync(stateHandler).ConfigureAwait(false);
+            }
 
-                Debug.Log($"currentLoggerIs a pathpoint {currentLogger.IsRoadCrossPoint} previousLoggerIs a pathpoint {previousLogger.IsRoadCrossPoint}");
-                
-                if (previousLogger == null || currentLogger == null)
-                {
-                    //Debug.LogError("[PathfinderState] One of the path points is missing the WaypointLogger component.");
-                }
-                else
-                {
-                    //Debug.Log($"[PathfinderState] Previous Path Point: {stateHandler.previousPathPoint.name}, IsRoadCrossPoint: {previousLogger.IsRoadCrossPoint}");
-                    //Debug.Log($"[PathfinderState] Current Path Point: {stateHandler.currentPathPoint.name}, IsRoadCrossPoint: {currentLogger.IsRoadCrossPoint}");
+            return this;
+        }
 
-                    if (previousLogger.IsRoadCrossPoint && currentLogger.IsRoadCrossPoint && !CanCrossRoad(stateHandler))
+        private async Task HandleMovementAsync(StateHandler stateHandler)
+        {
+            _isCalculating = true;
+
+            // Perform distance check and path-finding logic in a background thread
+            bool shouldStopWalking = await Task.Run(() =>
+            {
+                float distanceToTarget = Vector3.Distance(stateHandler.transform.position, stateHandler.currentPathPoint.transform.position);
+
+                // Handle road-crossing logic and return if waiting state should trigger
+                if (stateHandler.previousPathPoint != null && stateHandler.currentPathPoint != null)
+                {
+                    WaypointLogger previousLogger = stateHandler.previousPathPoint.GetComponent<WaypointLogger>();
+                    WaypointLogger currentLogger = stateHandler.currentPathPoint.GetComponent<WaypointLogger>();
+
+                    if (previousLogger != null && currentLogger != null)
                     {
-                        //Debug.Log($"[PathfinderState] Transitioning to WaitingState as both points are road crossing points.");
-                        return waitingState;
+                        if (previousLogger.IsRoadCrossPoint && currentLogger.IsRoadCrossPoint && !CanCrossRoad(stateHandler))
+                        {
+                            return true; // Stop walking, enter waiting state
+                        }
                     }
                 }
-            }
-            
-            if (distanceToTarget <= _destinationTolerance)
-            {
-                //Debug.Log("Reached destination moving on");
 
+                // Check if the agent has reached the destination
+                return distanceToTarget <= _destinationTolerance;
+            });
+
+            // Back on the main thread: update NavMeshAgent destination and transition states
+            stateHandler.agent.destination = stateHandler.currentPathPoint.transform.position;
+
+            if (shouldStopWalking)
+            {
                 // Now set the current path as the previous one, ensuring we don't double back
                 stateHandler.previousPathPoint = stateHandler.currentPathPoint;
-
                 startedWalking = false;
-                return pathfinderState; // Move to next state to find a new path
+                stateHandler.SwitchToNextState(pathfinderState); // Move to next state to find a new path
             }
             else
             {
-                //Debug.Log("Approaching destination");
-                return this;
+                // Check if it should enter the waiting state
+                if (CanCrossRoad(stateHandler))
+                {
+                    stateHandler.SwitchToNextState(waitingState);
+                }
             }
+
+            _isCalculating = false;
         }
-        
+
         /// <summary>
         /// Checks if the AI can cross the road based on the traffic light system.
         /// </summary>
@@ -96,10 +106,8 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             // Determine if the AI is primarily moving along the X or Z axis
             bool isMovingAlongX = Mathf.Abs(directionToNextPoint.x) > Mathf.Abs(directionToNextPoint.z);
 
-            // Get the traffic light system for the appropriate axis
-            
             _trafficLightSystem = stateHandler.currentPathPoint.GetComponent<WaypointLogger>().NearestTrafficLight;
-    
+
             if (!_trafficLightSystem)
             {
                 Debug.LogError("No TrafficLightSystem found on the WaypointLogger.");
@@ -107,22 +115,12 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             }
 
             // Check if the traffic light is green for the direction AI is moving
-            if (isMovingAlongX)
-            {
-                // Moving along X axis
-                return _trafficLightSystem.canCrossX;
-            }
-            else
-            {
-                // Moving along Z axis
-                return _trafficLightSystem.canCrossY;
-            }
+            return isMovingAlongX ? _trafficLightSystem.canCrossX : _trafficLightSystem.canCrossY;
         }
 
         public void ResetWalking()
         {
             startedWalking = false;
         }
-        
     }
 }

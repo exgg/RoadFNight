@@ -1,5 +1,4 @@
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base;
-using System.Collections.Generic;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.RoadCrossing;
 using Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Waypoint_Management;
 using UnityEngine;
@@ -11,84 +10,62 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
         public InitialPathfinderState initialPathfinderState;
         public WalkingState walkingState;
         
-        public bool _isWaiting; // Controlled by waiting signal e.g. traffic light
-
-        private WaypointLogger _waypointLogger;
+        private bool _isWaiting;
         private TrafficLightSystem _trafficLightSystem;
 
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
             if (!stateHandler.currentPathPoint)
             {
-                Debug.LogError("There is no path point setup");
+                Debug.LogError("No path point setup.");
                 _isWaiting = false;
                 return initialPathfinderState;
             }
 
             // Get the waypoint logger from the current path point
-            _waypointLogger = stateHandler.currentPathPoint.GetComponent<WaypointLogger>();
-
-            if (!_waypointLogger)
+            WaypointLogger waypointLogger = stateHandler.currentPathPoint.GetComponent<WaypointLogger>();
+            if (!waypointLogger)
             {
                 Debug.LogError("No WaypointLogger found on the current path point.");
                 _isWaiting = false;
                 return initialPathfinderState;
             }
 
-            // Check the direction and access traffic light accordingly
-            bool canCross = CanCrossRoad(stateHandler);
-
-            if (canCross)
-            {
-                Debug.Log("Traffic light is green. Proceeding to walking state.");
-                stateHandler.agent.isStopped = false;
-                _isWaiting = false;
-                return walkingState;
-            }
-            else
-            {
-                if (!_isWaiting)
-                {
-                    // Set the waiting animation if AI has to wait
-                    _isWaiting = true;
-                    animationHandler.SetWaitingAnimation(aiStats.myGender);
-                    Debug.Log("Waiting at traffic light.");
-                }
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Checks if the AI can cross the road based on the traffic light system.
-        /// </summary>
-        /// <param name="stateHandler">The state handler controlling this AI.</param>
-        /// <returns>True if the AI can cross, otherwise false.</returns>
-        private bool CanCrossRoad(StateHandler stateHandler)
-        {
-            Vector3 directionToNextPoint = (stateHandler.currentPathPoint.transform.position - stateHandler.previousPathPoint.transform.position).normalized;
-
-            // Determine if the AI is primarily moving along the X or Z axis
-            bool isMovingAlongX = Mathf.Abs(directionToNextPoint.x) > Mathf.Abs(directionToNextPoint.z);
-
-            // Get the traffic light system for the appropriate axis
-            _trafficLightSystem = _waypointLogger.NearestTrafficLight;
+            _trafficLightSystem = waypointLogger.NearestTrafficLight;
 
             if (!_trafficLightSystem)
             {
                 Debug.LogError("No TrafficLightSystem found on the WaypointLogger.");
-                return true; // Allow to proceed if no traffic light system is found
+                _isWaiting = false;
+                return initialPathfinderState;
             }
 
-            // Check if the traffic light is green for the direction AI is moving
-            if (isMovingAlongX)
+            if (!_isWaiting)
             {
-                // Moving along X axis
-                return _trafficLightSystem.canCrossX;
+                // Subscribe to traffic light state change event
+                _trafficLightSystem.OnLightChanged += HandleLightChange;
+
+                _isWaiting = true;
+                animationHandler.SetWaitingAnimation(aiStats.myGender);
+                Debug.Log("Waiting at traffic light.");
             }
-            else
+
+            return this; // Stay in waiting state until the light changes
+        }
+
+        private void HandleLightChange(TrafficDirection axis)
+        {
+            if ((_trafficLightSystem.canCrossX && axis == TrafficDirection.X) || (_trafficLightSystem.canCrossY && axis == TrafficDirection.Y))
             {
-                // Moving along Z axis
-                return _trafficLightSystem.canCrossY;
+                Debug.Log("Traffic light is green. Proceeding to walking state.");
+                _isWaiting = false;
+
+                // Unsubscribe from the event
+                _trafficLightSystem.OnLightChanged -= HandleLightChange;
+
+                // Transition back to walking state
+                var stateHandler = GetComponentInParent<StateHandler>();
+                stateHandler.SwitchToNextState(walkingState);
             }
         }
     }
