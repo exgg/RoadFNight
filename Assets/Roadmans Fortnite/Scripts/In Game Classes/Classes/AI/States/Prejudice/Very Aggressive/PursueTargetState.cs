@@ -10,59 +10,66 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
     public class PursueTargetState : BaseState
     {
         public float attackRange = 2f; // The range at which the AI can start attacking
-        
+
         public InitialPathfinderState initialPathfinderState;
         public FollowingState followingState;
         public AttackStanceState attackStanceState; // Reference to the next state
 
-        
+        private NavMeshAgent _agent;
+        private GameObject _target;
+
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
-            // Check if the AI has a current target
-            if (stateHandler.currentTarget == null)
+            // Cache NavMeshAgent and current target references
+            _agent = stateHandler.agent;
+            _target = stateHandler.currentTarget;
+
+            // Early exit if no target assigned or target is dead
+            if (_target == null || IsTargetDead(stateHandler))
             {
-                Debug.LogWarning("No target assigned for pursuing.");
-
-                return ReturnCorrectState(aiStats);
+                stateHandler.currentTarget = null;
+                return ReturnCorrectState(aiStats); // Return to pathfinding or following
             }
-
-            // Get the target's position
-            GameObject target = stateHandler.currentTarget;
-
-            // Check if the target is alive
-            if (aiStats.currenHealthStatus == HealthStatus.Died)
-            {
-                Debug.Log("Target is dead, abandoning pursuit.");
-                return ReturnCorrectState(aiStats);
-            }
-
-            // Use the NavMeshAgent to move towards the target
-            NavMeshAgent agent = stateHandler.agent;
-            agent.SetDestination(target.transform.position);
 
             // Calculate the distance to the target
-            float distanceToTarget = Vector3.Distance(stateHandler.transform.position, target.transform.position);
+            float distanceToTarget = Vector3.Distance(stateHandler.transform.position, _target.transform.position);
 
-            // If within attack range, switch to the AttackStance state
+            // If within attack range, transition to AttackStanceState
             if (distanceToTarget <= attackRange)
             {
-                Debug.Log("Within attack range, transitioning to AttackStanceState.");
                 return attackStanceState;
             }
 
-            // Play pursuit animation
-            //animationHandler.SetWalkingAnimation("Running");
+            // Set destination and pursue the target
+            _agent.SetDestination(_target.transform.position);
 
-            // Stay in the pursue state if not within range
-            return this;
+            // Play walking animation while pursuing
+            if (animationHandler != null)
+            {
+                string walkingStyle = aiStats.CheckWalkingStyle();
+                animationHandler.SetWalkingAnimation(walkingStyle); // Ensure AI is walking while pursuing
+            }
+
+            return this; // Remain in the pursue state until in range
         }
 
+        /// <summary>
+        /// Determines if the current target is dead.
+        /// </summary>
+        private bool IsTargetDead(StateHandler stateHandler)
+        {
+            var targetPedestrian = _target.GetComponent<Pedestrian>();
+            return targetPedestrian == null || targetPedestrian.currenHealthStatus == HealthStatus.Died || targetPedestrian.health <= 0;
+        }
+
+        /// <summary>
+        /// Determines the correct state to return to based on the AI's group control type.
+        /// </summary>
         private BaseState ReturnCorrectState(Pedestrian aiStats)
         {
-            if (aiStats.myGroupControlType == GroupControlType.Leader)
-                return initialPathfinderState;
-            else
-                return followingState;
+            return aiStats.myGroupControlType == GroupControlType.Leader
+                ? initialPathfinderState
+                : followingState;
         }
     }
 }

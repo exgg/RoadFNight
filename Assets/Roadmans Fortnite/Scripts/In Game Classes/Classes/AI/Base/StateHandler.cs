@@ -58,6 +58,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
 
         private bool _hasTarget;
         private CapsuleCollider _capsuleCollider;
+        
+        private Pedestrian _cachedTargetPedestrian;
+        
         private void Awake()
         {
             _animationHandler = GetComponentInChildren<AIAnimationHandler>();
@@ -80,48 +83,104 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
             }
         }
 
-        public void HandleMovementStateMachine()
+          public void HandleMovementStateMachine()
         {
-            if (currentTarget)
-            {
-                if (currentTarget.GetComponent<Pedestrian>().health <= 0)
-                {
-                    currentTarget = null;
-                }
-            }
-            
-            if(!currentState)
-                return;
+            // Validate the current target and check its state
+            HandleTargetValidation();
 
-            // Check if there's a valid target
-            if (currentTarget && currentTarget.GetComponent<Pedestrian>().currenHealthStatus == HealthStatus.Alive)
-            {
-                _nextState = currentAggressiveState.Tick(this, _aiStats, _animationHandler);
-                _hasTarget = true; // Set the flag that the AI has a target
-            }
-            else if (!currentTarget && _aiStats.currenHealthStatus == HealthStatus.Alive)
-            {
-                _nextState = currentState.Tick(this, _aiStats, _animationHandler);
-                _hasTarget = false; // Set the flag that the AI does not have a target
-            }
+            // Exit if no current state is defined
+            if (!currentState) return;
 
-            if (_nextState)
-                SwitchToNextState(_nextState);
+            // Decide the next state based on target status
+            DecideNextState();
+
+            // Switch to the next state if available
+            if (_nextState) SwitchToNextState(_nextState);
         }
 
+        /// <summary>
+        /// Handles the validation of the current target to check if it's alive or needs to be cleared.
+        /// </summary>
+        private void HandleTargetValidation()
+        {
+            // Check if a target exists
+            if (currentTarget)
+            {
+                CacheTargetPedestrianComponent();
+
+                // Invalidate the target if it's dead
+                if (IsTargetDead())
+                {
+                    ClearCurrentTarget();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Caches the Pedestrian component of the current target to avoid repeated GetComponent calls.
+        /// </summary>
+        private void CacheTargetPedestrianComponent()
+        {
+            if (!_cachedTargetPedestrian || _cachedTargetPedestrian.gameObject != currentTarget)
+            {
+                _cachedTargetPedestrian = currentTarget.GetComponent<Pedestrian>();
+            }
+        }
+
+        /// <summary>
+        /// Checks if the current target is dead.
+        /// </summary>
+        private bool IsTargetDead()
+        {
+            return _cachedTargetPedestrian != null && _cachedTargetPedestrian.health <= 0;
+        }
+
+        /// <summary>
+        /// Clears the current target and resets the cached pedestrian.
+        /// </summary>
+        private void ClearCurrentTarget()
+        {
+            currentTarget = null;
+            _cachedTargetPedestrian = null;
+        }
+
+        /// <summary>
+        /// Decides the next state based on whether a valid target exists.
+        /// </summary>
+        private void DecideNextState()
+        {
+            if (HasValidTarget())
+            {
+                _nextState = currentAggressiveState.Tick(this, _aiStats, _animationHandler);
+                _hasTarget = true;
+            }
+            else
+            {
+                _nextState = currentState.Tick(this, _aiStats, _animationHandler);
+                _hasTarget = false;
+            }
+        }
+
+        /// <summary>
+        /// Checks if the current target is valid and alive.
+        /// </summary>
+        private bool HasValidTarget()
+        {
+            return currentTarget && _cachedTargetPedestrian != null && _cachedTargetPedestrian.currenHealthStatus == HealthStatus.Alive;
+        }
+
+        /// <summary>
+        /// Switches to the next state if needed.
+        /// </summary>
+        /// <param name="state">The next state to switch to.</param>
         private void SwitchToNextState(BaseState state)
         {
-            if (_hasTarget) // If there's a target, update aggressive state
+            if (_hasTarget)
             {
                 currentAggressiveState = state;
             }
-            else // Otherwise, update the regular state
+            else
             {
-                if (state is WalkingState walkingState)
-                {
-                    walkingState.ResetWalking();
-                }
-                
                 currentState = state;
             }
         }

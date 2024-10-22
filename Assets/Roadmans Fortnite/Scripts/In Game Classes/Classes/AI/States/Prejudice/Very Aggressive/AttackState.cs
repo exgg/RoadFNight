@@ -8,41 +8,31 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
     public class AttackState : BaseState
     {
         public float attackCooldown = 1.5f;
-        private float currentCooldownTime = 0f;
+        private float _currentCooldownTime = 0f;
 
         [Header("States")]
         public PursueTargetState pursueTargetState;
         public AttackStanceState attackStanceState;
         public WalkingState walkingState;
-        
-        
+
+        private Pedestrian _targetPedestrian;
+
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
             // Ensure there's a valid target
-            if (stateHandler.currentTarget == null)
+            if (stateHandler.currentTarget == null || IsTargetDead(stateHandler))
             {
-                Debug.LogWarning("No target available for attack or target is dead");
+                stateHandler.currentTarget = null;
                 return attackStanceState;
             }
 
-            // Check if target is dead
-            var targetPedestrian = stateHandler.currentTarget.GetComponent<Pedestrian>();
-            if (targetPedestrian != null )
-            {
-                if(targetPedestrian.health <= 0 || targetPedestrian.currenHealthStatus == HealthStatus.Died)
-                {
-                    Debug.Log("Target is dead, abandoning attack.");
-                    stateHandler.currentTarget = null;
-                }
-            }
-
-            // Rotate to face the target
+            // Face the target
             FaceTarget(stateHandler);
 
             // Handle cooldown between attacks
-            if (currentCooldownTime > 0)
+            if (_currentCooldownTime > 0)
             {
-                currentCooldownTime -= Time.deltaTime;
+                _currentCooldownTime -= Time.deltaTime;
                 return this; // Stay in attack state until cooldown is complete
             }
 
@@ -50,46 +40,64 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
             PerformAttack(stateHandler.currentTarget, animationHandler, stateHandler);
 
             // Reset the cooldown after the attack
-            currentCooldownTime = attackCooldown;
+            _currentCooldownTime = attackCooldown;
 
             return attackStanceState; // Return to attack stance after the attack
         }
 
         private void PerformAttack(GameObject target, AIAnimationHandler animationHandler, StateHandler stateHandler)
         {
+            if (_targetPedestrian == null) return;
+
             // Play the attack animation
-            Debug.Log("Playing attack animation.");
             animationHandler.PlaySpecificAnimation("Attack");
 
             // Apply damage to the target
-            var targetPedestrian = target.GetComponent<Pedestrian>();
-            if (targetPedestrian != null)
-            {
-                Debug.Log("Attacking target.");
-                targetPedestrian.health -= Random.Range(5, 30); // Apply damage
-                var targetStateHandler = target.GetComponent<StateHandler>();
+            _targetPedestrian.health -= Random.Range(5, 30); // Apply damage
 
-                if (!targetStateHandler.currentTarget)
-                    targetStateHandler.currentTarget = stateHandler.gameObject;
-                
-                // Mark target as dead if health falls to 0 or below
-                if (targetPedestrian.health <= 0)
+            if (_targetPedestrian.health <= 0)
+            {
+                // Mark the target as dead
+                _targetPedestrian.currenHealthStatus = HealthStatus.Died;
+
+                // Trigger ragdoll for the dead target
+                var targetStateHandler = target.GetComponent<StateHandler>();
+                if (targetStateHandler != null)
                 {
-                    targetPedestrian.currenHealthStatus = HealthStatus.Died;
                     targetStateHandler.BeginRagdoll();
-                    Debug.Log($"{targetPedestrian.name} is dead.");
-                    walkingState.startedWalking = false;
-                    stateHandler.currentTarget = null;
                 }
+
+                // Clear target and log death
+                Debug.Log($"{_targetPedestrian.name} is dead.");
+                walkingState.startedWalking = false;
+                stateHandler.currentTarget = null;
             }
+        }
+
+        private bool IsTargetDead(StateHandler stateHandler)
+        {
+            // Cache the target Pedestrian component once
+            if (_targetPedestrian == null)
+            {
+                _targetPedestrian = stateHandler.currentTarget.GetComponent<Pedestrian>();
+            }
+
+            return _targetPedestrian == null || _targetPedestrian.currenHealthStatus == HealthStatus.Died || _targetPedestrian.health <= 0;
         }
 
         private void FaceTarget(StateHandler stateHandler)
         {
-            // Rotate towards the target
-            Vector3 direction = (stateHandler.currentTarget.transform.position - stateHandler.transform.position).normalized;
+            if (_targetPedestrian == null) return;
+
+            // Rotate towards the target if they exist
+            Vector3 direction = (_targetPedestrian.transform.position - stateHandler.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            stateHandler.transform.rotation = Quaternion.Slerp(stateHandler.transform.rotation, lookRotation, Time.deltaTime * 5f);
+
+            // Only rotate when necessary (when the direction changes significantly)
+            if (Vector3.Dot(stateHandler.transform.forward, direction) < 0.99f)
+            {
+                stateHandler.transform.rotation = Quaternion.Slerp(stateHandler.transform.rotation, lookRotation, Time.deltaTime * 5f);
+            }
         }
     }
 }

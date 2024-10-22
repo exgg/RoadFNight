@@ -13,55 +13,66 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Prejudice.
         public WalkingState walkingState;
 
         // Time variables to simulate a wind-up before attack
-        private readonly float _windUpTime = 1f;  // How long the AI will stay in the attack stance before attacking
-        private float _currentWindUpTime = 0f; // Initialize this at zero
+        private readonly float _windUpTime = 1f; // Time AI will wait before attacking
+        private float _currentWindUpTime = 0f;    // Timer for the current wind-up
 
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
-            Debug.Log("I am in the attack stance");
-
-           
-
-            // Reset wind-up time when entering the state to avoid carry-over
-            if (_currentWindUpTime == 0f)
+            // Early exit if no valid target or target is dead
+            if (!IsValidTarget(stateHandler))
             {
-                Debug.Log("Entering AttackStanceState: Resetting wind-up time.");
-            }
-
-            // If no target is available, return to the pursue state or idle
-            if (!stateHandler.currentTarget || stateHandler.currentTarget.GetComponent<Pedestrian>().currenHealthStatus == HealthStatus.Died || stateHandler.currentTarget.GetComponent<Pedestrian>().health <= 0)
-            {
-                Debug.Log("No target available, switching back to pursuit.");
+                ClearTarget(stateHandler);
                 walkingState.startedWalking = false;
-                stateHandler.currentTarget = null;
                 return pursueTargetState;
             }
 
-            // Calculate the distance to the target
-            GameObject target = stateHandler.currentTarget;
-            float distanceToTarget = Vector3.Distance(stateHandler.transform.position, target.transform.position);
-
-            // If the target is outside the attack range, go back to pursuing the target
-            if (distanceToTarget > 1f) 
+            // Check the distance to the target
+            if (!IsWithinAttackRange(stateHandler, 1f))
             {
-                Debug.Log("Target moved out of range, returning to PursueTarget state.");
-                return pursueTargetState;
+                return pursueTargetState; // Return to pursue state if the target is out of range
             }
 
-            // Wind-up to the attack (wait for the wind-up time to complete before attacking)
+            // Process attack wind-up timer
             _currentWindUpTime += Time.deltaTime;
-
-            Debug.Log($"CurrentWindupTime {_currentWindUpTime}");            
-            
             if (_currentWindUpTime >= _windUpTime)
             {
-                Debug.Log("Wind-up complete, transitioning to attack state.");
-                _currentWindUpTime = 0f; // Reset wind-up timer for the next time
-                return attackState;
+                _currentWindUpTime = 0f; // Reset wind-up timer
+                return attackState;      // Transition to attack state after wind-up
             }
 
-            
-            return this; // Remain in this state until wind-up completes
+            return this; // Remain in attack stance state until wind-up completes
+        }
+
+        /// <summary>
+        /// Checks if the current target is valid and alive.
+        /// </summary>
+        private bool IsValidTarget(StateHandler stateHandler)
+        {
+            GameObject target = stateHandler.currentTarget;
+            if (target == null) return false;
+
+            Pedestrian targetPedestrian = target.GetComponent<Pedestrian>();
+            return targetPedestrian != null && targetPedestrian.currenHealthStatus == HealthStatus.Alive && targetPedestrian.health > 0;
+        }
+
+        /// <summary>
+        /// Clears the current target in the StateHandler when it is no longer valid.
+        /// </summary>
+        private void ClearTarget(StateHandler stateHandler)
+        {
+            stateHandler.currentTarget = null;
+        }
+
+        /// <summary>
+        /// Checks if the target is within the specified attack range.
+        /// </summary>
+        private bool IsWithinAttackRange(StateHandler stateHandler, float attackRange)
+        {
+            GameObject target = stateHandler.currentTarget;
+            if (target == null) return false;
+
+            float distanceToTarget = Vector3.Distance(stateHandler.transform.position, target.transform.position);
+            return distanceToTarget <= attackRange;
         }
     }
 }
