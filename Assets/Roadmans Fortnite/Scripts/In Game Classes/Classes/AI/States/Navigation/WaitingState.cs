@@ -48,6 +48,8 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             {
                 stateHandler.agent.isStopped = false;
                 _isWaiting = false;
+                walkingState.startedWalking = false;
+                walkingState.isCrossingRoad = true;
                 return walkingState;
             }
 
@@ -55,6 +57,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
             if (!_isWaiting)
             {
                 _isWaiting = true;
+                stateHandler.agent.isStopped = true;
                 animationHandler.SetWaitingAnimation(aiStats.myGender);
             }
 

@@ -450,7 +450,7 @@ namespace PixelCrushers.DialogueSystem
                         {
 
                             // Condition is true (or blank), so add this link:
-                            if (destinationEntry.isGroup)
+                            if (destinationEntry.isGroup || destinationEntry.id == 0) // Treat <START> as group
                             {
                                 // For groups, evaluate their links (after running the group node's Lua code and OnExecute() event):
                                 if (DialogueDebug.logInfo) Debug.Log(string.Format("{0}: Evaluate Group ({1}): ID={2}:{3} '{4}' ({5})", new System.Object[] { DialogueDebug.Prefix, GetActorName(m_database.GetActor(destinationEntry.ActorID)), link.destinationConversationID, link.destinationDialogueID, destinationEntry.Title, isValid }));
@@ -809,11 +809,15 @@ namespace PixelCrushers.DialogueSystem
         /// <returns>The PC name, or <c>null</c> if both are NPCs.</returns>
         public string GetPCName()
         {
-            if (m_database.IsPlayerID(m_actorInfo.id))
+            if (m_database == null)
+            {
+                return pcPortraitName;
+            }
+            else if (m_actorInfo != null && m_database.IsPlayerID(m_actorInfo.id))
             {
                 return m_actorInfo.Name;
             }
-            else if (m_database.IsPlayerID(m_conversantInfo.id))
+            else if (m_conversantInfo != null && m_database.IsPlayerID(m_conversantInfo.id))
             {
                 return m_conversantInfo.Name;
             }

@@ -41,34 +41,39 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
                 return null;
             }
 
-            GameObject chosenPath = null;
-            int safetyCounter = 0; // Safety counter to avoid infinite loops
+            // Generate a random path choice
+            int randomChoice = Random.Range(0, waypointLoggerList.Count);
+            GameObject chosenPath = waypointLoggerList[randomChoice];
 
-            // Try selecting a valid random path, ensuring it's not too close to the previous/current path
-            do
+            // If the chosen path is the same as the previous path point, choose the next one
+            if (chosenPath == _lastChosenPathPoint)
             {
-                int randomChoice = Random.Range(0, waypointLoggerList.Count);
+                randomChoice = (randomChoice + 1) % waypointLoggerList.Count; // Increment index and wrap around if necessary
                 chosenPath = waypointLoggerList[randomChoice];
-
-                safetyCounter++;
-
-                // Break out of loop if too many failed attempts to find a valid path
-                if (safetyCounter > 100)
-                {
-                    chosenPath = null;
-                    break;
-                }
             }
-            while (IsPathTooClose(stateHandler, chosenPath)); // Check if the chosen path is too close
 
             return chosenPath;
         }
-
+        
         /// <summary>
         /// Checks if the chosen path is too close to the previous, current, or last chosen path.
         /// </summary>
         private bool IsPathTooClose(StateHandler stateHandler, GameObject chosenPath)
         {
+            // Ensure the chosen path is valid
+            if (chosenPath == null)
+            {
+                Debug.LogWarning("[PathfinderState] Chosen path is null.");
+                return true; // Force path finding to continue if invalid
+            }
+
+            // Cache the current and previous path point positions for efficiency
+            if (stateHandler.previousPathPoint == null)
+            {
+                Debug.LogWarning("[PathfinderState] Previous path point is null.");
+                return true; // If there's no previous path, it could be too close
+            }
+            
             // Cache the current and previous path point positions for efficiency
             Vector3 previousPos = stateHandler.previousPathPoint.transform.position;
             Vector3 chosenPos = chosenPath.transform.position;

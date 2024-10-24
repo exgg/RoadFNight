@@ -50,9 +50,10 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
         
         private bool _overrideStates;
         
-        [Space(1)] [Header("Path Debugging")]
+        [Space(1)] [Header("Pathing")]
         public GameObject currentPathPoint;
         public GameObject previousPathPoint; // this will be used to prevent double backing on themselves
+        public bool justCrossedRoad;
 
         public GameObject myLeader;
 

@@ -42,15 +42,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ColorThresholdMax: 3.02
-    - _ColorThresholdMin: 1.19
-    - _DepthThresholdMax: 15
-    - _DepthThresholdMin: 12
+    - _ColorThresholdMax: 0.25
+    - _ColorThresholdMin: 0
+    - _DepthThresholdMax: 10.44
+    - _DepthThresholdMin: 8.7
     - _FadeRangeEnd: 50
     - _FadeRangeStart: 10
-    - _NormalThresholdMax: 0.25
-    - _NormalThresholdMin: 0
-    - _Thickness: 2
+    - _NormalThresholdMax: 0.88
+    - _NormalThresholdMin: 0.2
+    - _Thickness: 3
     m_Colors:
     - _EdgeColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
@@ -67,20 +67,20 @@ MonoBehaviour:
   m_Name: Roadman_Outline_1
   m_EditorClassIdentifier: 
   edgeColor: {r: 0, g: 0, b: 0, a: 1}
-  thickness: 2
+  thickness: 3
   resolutionInvariant: 0
   fadeWithDistance: 1
   fadeRangeStart: 10
   fadeRangeEnd: 50
   useDepth: 1
-  minDepthThreshold: 12
-  maxDepthThreshold: 15
+  minDepthThreshold: 8.7
+  maxDepthThreshold: 10.44
   useNormals: 1
-  minNormalsThreshold: 0
-  maxNormalsThreshold: 0.25
+  minNormalsThreshold: 0.2
+  maxNormalsThreshold: 0.88
   useColor: 1
-  minColorThreshold: 1.19
-  maxColorThreshold: 3.02
+  minColorThreshold: 0
+  maxColorThreshold: 0.25
   renderEvent: 550
   outlineOnly: 0
   applyInSceneView: 1
