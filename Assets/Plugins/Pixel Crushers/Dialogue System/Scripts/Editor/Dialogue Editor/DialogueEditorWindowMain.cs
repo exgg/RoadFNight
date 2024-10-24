@@ -148,6 +148,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             showQuickDialogueTextEntry = false;
             LoadEditorSettings();
             if (database == null) template = TemplateTools.LoadFromEditorPrefs();
+            InitializeEntrytagFormatFromScene();
         }
 
         private void OnDisable()

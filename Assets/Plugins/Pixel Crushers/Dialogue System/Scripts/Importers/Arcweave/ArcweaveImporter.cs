@@ -1343,7 +1343,8 @@ namespace PixelCrushers.DialogueSystem.ArcweaveSupport
                     if (!string.IsNullOrEmpty(entry.conditionsString)) entry.conditionsString = ConvertArcscriptToLua(entry.conditionsString);
                     if (!entry.isGroup && string.IsNullOrEmpty(entry.DialogueText) && string.IsNullOrEmpty(entry.Sequence))
                     {
-                        entry.Sequence = (entry.id == 0) ? NoneSequence : ContinueSequence;
+                        entry.Sequence = (entry.id == 0) ? NoneSequence
+                            : string.IsNullOrEmpty(entry.DialogueText) ? ContinueSequence : string.Empty;
                     }
                 }
             }
@@ -1534,11 +1535,11 @@ namespace PixelCrushers.DialogueSystem.ArcweaveSupport
                                 code = code.Substring("elseif ".Length);
                                 numElseIf++;
                             }
-                            else if (code.StartsWith("else "))
+                            else if (code.StartsWith("else"))
                             {
                                 codeState = CodeState.InElse;
                                 codeFieldPrefix = "_ELSE";
-                                code = code.Substring("else ".Length);
+                                code = string.Empty;
                             }
                             else if (code.StartsWith("endif"))
                             {
@@ -1604,6 +1605,7 @@ namespace PixelCrushers.DialogueSystem.ArcweaveSupport
 
                     // Add code nodes between entry and postIfEntry:
                     var cumulativeConditions = string.Empty;
+                    DialogueEntry elseCodeEntry = null;
                     foreach (var prefix in CodeFieldPrefixes)
                     {
                         if (prefix == "_ELSEIF")
@@ -1614,22 +1616,34 @@ namespace PixelCrushers.DialogueSystem.ArcweaveSupport
                                 InsertCodeEntry(conversation, entry, postIfEntry, $"{prefix}.{elseIndex}", ref cumulativeConditions);
                             }
                         }
+                        else if (prefix == "_ELSE")
+                        {
+                            elseCodeEntry = InsertCodeEntry(conversation, entry, postIfEntry, $"{prefix}.else", ref cumulativeConditions);
+                        }
                         else
                         {
                             InsertCodeEntry(conversation, entry, postIfEntry, prefix, ref cumulativeConditions);
                         }
                     }
 
-                    // Add fallthrough node to use if no IF/ELSEIF conditions are true:
-                    InsertCodeFallthroughEntry(conversation, entry, postIfEntry, cumulativeConditions);
+                    // Update "else" entry conditions or add fallthrough entry if no if/elseif are true:
+                    if (elseCodeEntry != null)
+                    {
+                        elseCodeEntry.conditionsString = $"not ({cumulativeConditions})";
+                    }
+                    else
+                    {
+                        InsertCodeFallthroughEntry(conversation, entry, postIfEntry, cumulativeConditions);
+                    }
                 }
             }
         }
 
-        protected virtual void InsertCodeEntry(Conversation conversation, DialogueEntry entry, DialogueEntry postIfEntry, string prefix, ref string cumulativeConditions)
+        // Returns code entry.
+        protected virtual DialogueEntry InsertCodeEntry(Conversation conversation, DialogueEntry entry, DialogueEntry postIfEntry, string prefix, ref string cumulativeConditions)
         {
             var codeField = Field.Lookup(entry.fields, prefix + "_CODE");
-            if (codeField == null) return;
+            if (codeField == null && !prefix.EndsWith("else")) return null;
             var textField = Field.Lookup(entry.fields, prefix + "_TEXT");
             var innerCodeField = Field.Lookup(entry.fields, prefix + "_INNER_CODE");
             entry.fields.Remove(codeField);
@@ -1639,12 +1653,12 @@ namespace PixelCrushers.DialogueSystem.ArcweaveSupport
             conversation.dialogueEntries.Add(codeEntry);
             codeEntry.ActorID = entry.ActorID;
             codeEntry.ConversantID = entry.ConversantID;
-            codeEntry.Title = codeField.value;
+            codeEntry.Title = (codeField == null) ? "else" : codeField.value;
             codeEntry.outgoingLinks.Add(new Link(conversation.id, codeEntry.id, conversation.id, postIfEntry.id));
             codeEntry.isGroup = textField == null || string.IsNullOrEmpty(textField.value);
-            codeEntry.Sequence = codeEntry.isGroup ? string.Empty : ContinueSequence;
             codeEntry.DialogueText = (textField != null) ? TouchUpRichText(textField.value) : string.Empty;
-            codeEntry.conditionsString = ConvertArcscriptToLua(codeField.value);
+            codeEntry.Sequence = (codeEntry.isGroup || !string.IsNullOrEmpty(codeEntry.DialogueText)) ? string.Empty : ContinueSequence;
+            codeEntry.conditionsString = (codeField != null) ? ConvertArcscriptToLua(codeField.value) : string.Empty;
             if (string.IsNullOrEmpty(cumulativeConditions))
             {
                 cumulativeConditions = codeEntry.conditionsString;
@@ -1652,10 +1666,14 @@ namespace PixelCrushers.DialogueSystem.ArcweaveSupport
             else
             {
                 if (cumulativeConditions[0] != '(') cumulativeConditions = $"({cumulativeConditions})";
-                cumulativeConditions += $" and ({codeEntry.conditionsString})";
+                if (!string.IsNullOrEmpty(codeEntry.conditionsString))
+                {
+                    cumulativeConditions += $" and ({codeEntry.conditionsString})";
+                }
             }
             if (innerCodeField != null) codeEntry.userScript = ConvertArcscriptToLua(innerCodeField.value, true);
             entry.outgoingLinks.Add(new Link(conversation.id, entry.id, conversation.id, codeEntry.id));
+            return codeEntry;
         }
 
         protected virtual void InsertCodeFallthroughEntry(Conversation conversation, DialogueEntry entry, DialogueEntry postIfEntry, string cumulativePreviousConditions)
@@ -1667,8 +1685,8 @@ namespace PixelCrushers.DialogueSystem.ArcweaveSupport
             codeEntry.Title = "fallthrough";
             codeEntry.outgoingLinks.Add(new Link(conversation.id, codeEntry.id, conversation.id, postIfEntry.id));
             codeEntry.isGroup = true;
-            codeEntry.Sequence = codeEntry.isGroup ? string.Empty : ContinueSequence;
             codeEntry.DialogueText = string.Empty;
+            codeEntry.Sequence = (codeEntry.isGroup || !string.IsNullOrEmpty(codeEntry.DialogueText)) ? string.Empty : ContinueSequence;
             codeEntry.conditionsString = $"not ({cumulativePreviousConditions})";
             entry.outgoingLinks.Add(new Link(conversation.id, entry.id, conversation.id, codeEntry.id));
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Roadmans_Fortnite.Data.Enums.NPCEnums;
@@ -12,7 +13,14 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
         public WalkingState walkingState;
         public FollowingState followingState;
         private readonly float _axisThreshold = 3f;
-        
+
+        private WaypointLogger[] _loggerList;
+
+        private void Start()
+        {
+            _loggerList = FindObjectsOfType<WaypointLogger>();
+        }
+
         public override BaseState Tick(StateHandler stateHandler, Pedestrian aiStats, AIAnimationHandler animationHandler)
         {
             if (aiStats.myGroupControlType != GroupControlType.Leader)
@@ -20,13 +28,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
                 //Debug.Log("I am a follower moving to follow state");
                 return followingState;
             }
-            
-            
-            // Find all available WaypointLogger instances in the scene
-            var loggerList = FindObjectsOfType<WaypointLogger>();
 
             // Find the nearest path point(s) for the AI
-            var nearestPathPoints = FindNearestPathPoint(stateHandler, loggerList);
+            var nearestPathPoints = FindNearestPathPoint(stateHandler, _loggerList);
 
             //Debug.Log("Looking for path point");
             
@@ -47,7 +51,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
         private List<GameObject> FindNearestPathPoint(StateHandler stateHandler, WaypointLogger[] pathPoints)
         {
             return pathPoints
-                .Where(p => IsOnSameAxis(stateHandler.transform.position, p.transform.position)) // Only allow waypoints on the same axis (X or Z)
+                //.Where(p => IsOnSameAxis(stateHandler.transform.position, p.transform.position)) // Only allow waypoints on the same axis (X or Z)
                 .OrderBy(p => CalculateDistanceOnXZPlane(stateHandler.transform.position, p.transform.position))  // Sort by distance on the X and Z axes
                 .Select(p => p.gameObject) // Return the GameObject from the WaypointLogger
                 .ToList();

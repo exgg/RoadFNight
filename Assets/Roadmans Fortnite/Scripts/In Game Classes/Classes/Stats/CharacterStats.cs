@@ -14,8 +14,7 @@ namespace Roadmans_Fortnite.Scripts.Classes.Stats
 
         public Race MyRace { get; private set; }
         public Sexuality MySexuality { get; private set; }
-        public Gender MyGender { get; private set; }
-        
+       
         public CharacterStats(BaseCharacterStats cS)
         {
             Health = cS.health;
@@ -25,7 +24,6 @@ namespace Roadmans_Fortnite.Scripts.Classes.Stats
 
             MyRace = cS.race;
             MySexuality = cS.sexuality;
-            MyGender = cS.gender;
         }
     }
 }

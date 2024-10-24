@@ -668,6 +668,10 @@ namespace PixelCrushers.DialogueSystem
                         panel.Unfocus();
                     }
                 }
+                else
+                {
+                    panel.StopShowSubtitleCoroutines();
+                }
             }
         }
 

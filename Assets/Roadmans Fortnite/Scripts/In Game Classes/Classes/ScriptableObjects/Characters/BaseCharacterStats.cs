@@ -14,7 +14,6 @@ namespace Roadmans_Fortnite.Scripts.Classes.ScriptableObjects.Characters
 
         [Header("Game Interaction Stats")]
         public Race race;
-        public Gender gender;
         public Sexuality sexuality;
     }
 }

@@ -20,70 +20,63 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.States.Navigation
         {
             if (!stateHandler.currentPathPoint)
             {
-                Debug.LogError("There is no path point setup");
+                _isWaiting = false;
                 return initialPathfinderState;
             }
 
-            // Get the waypoint logger from the current path point
-            _waypointLogger = stateHandler.currentPathPoint.GetComponent<WaypointLogger>();
-
-            if (!_waypointLogger)
+            // Cache the WaypointLogger and TrafficLightSystem for optimization
+            if (_waypointLogger == null)
             {
-                Debug.LogError("No WaypointLogger found on the current path point.");
-                return initialPathfinderState;
+                _waypointLogger = stateHandler.currentPathPoint.GetComponent<WaypointLogger>();
+
+                if (_waypointLogger == null)
+                {
+                    _isWaiting = false;
+                    return initialPathfinderState;
+                }
+
+                _trafficLightSystem = _waypointLogger.NearestTrafficLight;
+
+                if (_trafficLightSystem == null)
+                {
+                    return walkingState; // Allow crossing if there's no traffic light system
+                }
             }
 
-            // Check the direction and access traffic light accordingly
-            bool canCross = CanCrossRoad(stateHandler);
-
-            if (canCross)
+            // Check if AI can cross the road based on the traffic light system
+            if (CanCrossRoad(stateHandler))
             {
-                Debug.Log("Traffic light is green. Proceeding to walking state.");
                 stateHandler.agent.isStopped = false;
+                _isWaiting = false;
+                walkingState.startedWalking = false;
+                walkingState.isCrossingRoad = true;
                 return walkingState;
             }
-            else
+
+            // Set waiting animation and wait for green light
+            if (!_isWaiting)
             {
-                // Set the waiting animation if AI has to wait
                 _isWaiting = true;
+                stateHandler.agent.isStopped = true;
                 animationHandler.SetWaitingAnimation(aiStats.myGender);
-                Debug.Log("Waiting at traffic light.");
-                return this;
             }
+
+            return this; // Stay in the WaitingState if cannot cross
         }
 
         /// <summary>
         /// Checks if the AI can cross the road based on the traffic light system.
         /// </summary>
-        /// <param name="stateHandler">The state handler controlling this AI.</param>
-        /// <returns>True if the AI can cross, otherwise false.</returns>
         private bool CanCrossRoad(StateHandler stateHandler)
         {
+            // Calculate the direction to the next point only once
             Vector3 directionToNextPoint = (stateHandler.currentPathPoint.transform.position - stateHandler.previousPathPoint.transform.position).normalized;
 
-            // Determine if the AI is primarily moving along the X or Z axis
+            // Determine the primary movement direction (X or Z axis)
             bool isMovingAlongX = Mathf.Abs(directionToNextPoint.x) > Mathf.Abs(directionToNextPoint.z);
 
-            // Get the traffic light system for the appropriate axis
-            _trafficLightSystem = _waypointLogger.NearestTrafficLight;
-
-            if (!_trafficLightSystem)
-            {
-                Debug.LogError("No TrafficLightSystem found on the WaypointLogger.");
-                return true; // Allow to proceed if no traffic light system is found
-            }
-
-            // Check if the traffic light is green for the direction AI is moving
-            if (isMovingAlongX)
-            {
-                // Moving along X axis
-                return _trafficLightSystem.canCrossX;
-            }
-            else
-            {
-                // Moving along Z axis
-                return _trafficLightSystem.canCrossY;
-            }
+            // Return if AI can cross based on the current light system for X or Y axis
+            return isMovingAlongX ? _trafficLightSystem.canCrossX : _trafficLightSystem.canCrossY;
         }
     }
 }

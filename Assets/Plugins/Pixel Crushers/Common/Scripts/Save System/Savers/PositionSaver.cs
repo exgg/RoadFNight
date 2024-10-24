@@ -1,5 +1,4 @@
-// Recompile at 09/10/2024 14:05:18
-// Copyright (c) Pixel Crushers. All rights reserved.
+﻿// Copyright (c) Pixel Crushers. All rights reserved.
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -182,10 +181,10 @@ namespace PixelCrushers
             var rb2d = GetComponent<Rigidbody2D>();
             if (rb2d != null)
             {
-                var wasKinematic = rb2d.isKinematic;
-                rb2d.isKinematic = true;
+                var bodyType = rb2d.bodyType;
+                rb2d.bodyType = RigidbodyType2D.Kinematic;
                 rb2d.position = position;
-                rb2d.isKinematic = wasKinematic;
+                rb2d.bodyType = bodyType;
             }
 #endif
             // Set the plain old transform's position:

@@ -77,7 +77,11 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             DrawTemplate("Dialogue Entries", template.dialogueEntryFields, template.dialogueEntryPrimaryFieldTitles, ref templateFoldouts.dialogueEntries);
             DrawDialogueLineColors();
             EditorWindowTools.EndIndentedSection();
-            if (EditorGUI.EndChangeCheck()) SaveTemplate();
+            if (EditorGUI.EndChangeCheck())
+            {
+                SaveTemplate();
+                ResetLastFieldsChecked();
+            }
         }
 
         private void DrawActorTemplateAIButton()
