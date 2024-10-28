@@ -590,8 +590,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59dc071809242c24dba10b87807ccea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueSettings: {fileID: 11400000, guid: c6f28aff2e87cc043a20295c6e05a9dd, type: 2}
   dialogue: {fileID: 5620101235461913679}
+  dialogueTimer: 5
+  dialogueCooldown: 5
 --- !u!1 &868466052399470655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,7 +1003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6083720003434291292
 Transform:
   m_ObjectHideFlags: 0
@@ -4538,7 +4539,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 34b332578d5425046ada402f0295133b, type: 3}
   m_Controller: {fileID: 9100000, guid: ed3714a7c2189ba4ab19056b9b6d7d45, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
