@@ -84,7 +84,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
             }
         }
 
-          public void HandleMovementStateMachine()
+        public void HandleMovementStateMachine()
         {
             // Validate the current target and check its state
             HandleTargetValidation();
