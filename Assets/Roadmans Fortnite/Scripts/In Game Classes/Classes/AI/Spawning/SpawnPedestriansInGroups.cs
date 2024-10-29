@@ -130,7 +130,8 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Spawning
             pedestrian.myReligion = RandomizeReligion(populationControl);
             pedestrian.mySexuality = RandomizeSexuality(populationControl);
             pedestrian.myGender = RandomizeGender(populationControl);
-
+            pedestrian.myBehaviourType = RandomizedBehaviourType(populationControl);
+            
             switch (pedestrian.myRace)
             {
                 case RaceCategory.Caucasoid:
@@ -190,6 +191,22 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Spawning
                 var n when n <= (populationControl.male + populationControl.female + populationControl.transMale + populationControl.transFemale) => Gender.TransFemale,
                 
                 _ => Gender.Male
+            };
+        }
+
+        private BehaviourType RandomizedBehaviourType(PopulationControl populationControl)
+        {
+            float randomValue = Random.Range(1, 100);
+            
+            return randomValue switch
+            {
+                var n when n <= populationControl.standardBehaviour => BehaviourType.Standard,
+                var n when n <= populationControl.standardBehaviour + populationControl.racistBehaviour => BehaviourType.Racist,
+                var n when n <= populationControl.standardBehaviour + populationControl.racistBehaviour + populationControl.drunkBehaviour => BehaviourType.Drunk,
+                var n when n <= populationControl.standardBehaviour + populationControl.racistBehaviour + populationControl.drunkBehaviour + populationControl.homelessBehaviour => BehaviourType.Homeless,
+                var n when n <= populationControl.standardBehaviour + populationControl.racistBehaviour + populationControl.drunkBehaviour + populationControl.homelessBehaviour + populationControl.druggyBehaviour => BehaviourType.Druggy,
+                
+                _ => BehaviourType.Standard
             };
         }
         

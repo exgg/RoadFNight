@@ -44,12 +44,12 @@ Material:
     m_Floats:
     - _ColorThresholdMax: 0.25
     - _ColorThresholdMin: 0
-    - _DepthThresholdMax: 10.44
+    - _DepthThresholdMax: 12.77
     - _DepthThresholdMin: 8.7
-    - _FadeRangeEnd: 50
-    - _FadeRangeStart: 10
-    - _NormalThresholdMax: 0.88
-    - _NormalThresholdMin: 0.2
+    - _FadeRangeEnd: 49.7
+    - _FadeRangeStart: 5.1
+    - _NormalThresholdMax: 2.86
+    - _NormalThresholdMin: 0.74
     - _Thickness: 3
     m_Colors:
     - _EdgeColor: {r: 0, g: 0, b: 0, a: 1}
@@ -70,14 +70,14 @@ MonoBehaviour:
   thickness: 3
   resolutionInvariant: 0
   fadeWithDistance: 1
-  fadeRangeStart: 10
-  fadeRangeEnd: 50
+  fadeRangeStart: 5.1
+  fadeRangeEnd: 49.7
   useDepth: 1
   minDepthThreshold: 8.7
-  maxDepthThreshold: 10.44
+  maxDepthThreshold: 12.77
   useNormals: 1
-  minNormalsThreshold: 0.2
-  maxNormalsThreshold: 0.88
+  minNormalsThreshold: 0.74
+  maxNormalsThreshold: 2.86
   useColor: 1
   minColorThreshold: 0
   maxColorThreshold: 0.25

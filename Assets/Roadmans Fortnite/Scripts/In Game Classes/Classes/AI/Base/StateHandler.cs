@@ -61,9 +61,11 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
         private CapsuleCollider _capsuleCollider;
         
         private Pedestrian _cachedTargetPedestrian;
+        private PedestrianDialogueManager _pedestrianDialogueManager;
         
         private void Awake()
         {
+            _pedestrianDialogueManager = GetComponent<PedestrianDialogueManager>();
             _animationHandler = GetComponentInChildren<AIAnimationHandler>();
             _aiStats = GetComponent<Pedestrian>();
             agent = GetComponent<NavMeshAgent>();
@@ -84,7 +86,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
             }
         }
 
-          public void HandleMovementStateMachine()
+        public void HandleMovementStateMachine()
         {
             // Validate the current target and check its state
             HandleTargetValidation();
@@ -150,7 +152,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
         /// </summary>
         private void DecideNextState()
         {
-            if (HasValidTarget())
+            if (HasValidTarget() && InteractionChecker(_aiStats.aggressionLevel, _aiStats.confidenceLevel) == "Aggressive")
             {
                 _nextState = currentAggressiveState.Tick(this, _aiStats, _animationHandler);
                 _hasTarget = true;
@@ -186,6 +188,18 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Base
             }
         }
 
+        public string InteractionChecker(float aggression, float confidence)
+        {
+            return (aggression, confidence) switch
+            {
+                var (a, c) when a >= 80 && c >= 80 => "Aggressive",
+                var (a, c) when a >= 50 && c >= 50 => "Insult",
+                var (a, c) when a <= 50 && c >= 50 => "Complement",
+                
+                _ => "Neutral"
+            };
+        }
+        
         public void BeginRagdoll()
         {
             _animationHandler.animator.enabled = false;

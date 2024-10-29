@@ -26,7 +26,9 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
         public PrejudiceSettings prejudiceSettings;
 
         private StateHandler _stateHandler;
-
+        private PedestrianDialogueManager _pedestrianDialogueManager;
+        private Pedestrian _pedestrian;
+        
         // Cache of visible targets for performance optimization
         private List<Transform> _cachedVisibleTargets = new List<Transform>();
         private float _cacheTime = 0.2f; // Cache for 200ms
@@ -36,6 +38,8 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
         {
             prejudiceSettings = GetComponent<Pedestrian>().prejudice;
             _stateHandler = GetComponent<StateHandler>();
+            _pedestrianDialogueManager = GetComponent<PedestrianDialogueManager>();
+            _pedestrian = GetComponent<Pedestrian>();
         }
 
         private void OnDrawGizmos()
@@ -81,7 +85,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
                     if (prejudiceResult == PrejudiceResult.Dislike)
                     {
                         _stateHandler.currentTarget = target.gameObject;
-
+                        
                         var targetPedestrianHandler = target.GetComponent<StateHandler>();
                         if (targetPedestrianHandler != null && !_stateHandler.currentTarget)
                         {
@@ -135,6 +139,23 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.PrejudiceEngine
             // Check against cached HashSets for faster lookup
             if (IsDisliked(targetPedestrian))
             {
+                switch (_stateHandler.InteractionChecker(_pedestrian.aggressionLevel, _pedestrian.confidenceLevel))
+                {
+                    default:
+                        break;
+                    case "Aggressive":
+                        _pedestrianDialogueManager.StartDialogue(_pedestrian.myRace.ToString(), // if the person is racist prompt them to accommodate for that
+                            targetPedestrian.myRace.ToString(),
+                            _pedestrian.myBehaviourType == BehaviourType.Racist ? "Racist" : "Insult");
+                        break;
+                    case "Insult":
+                        _pedestrianDialogueManager.StartDialogue(_pedestrian.myRace.ToString(),
+                            targetPedestrian.myRace.ToString(),
+                            _pedestrian.myBehaviourType == BehaviourType.Racist ? "Racist" : "Insult");
+                        break;
+                }
+               
+                
                 return PrejudiceResult.Dislike;
             }
 

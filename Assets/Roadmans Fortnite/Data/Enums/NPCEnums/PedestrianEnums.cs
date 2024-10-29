@@ -28,6 +28,10 @@ namespace Roadmans_Fortnite.Data.Enums.NPCEnums
         Mongoloid, // Asian etc
         Negroid, // Black etc
         Latino, // Mexican etc
+        Capoid,
+        Dravidian,
+        Polynesian,
+        Australoid,
     }
 
     public enum Sexuality
@@ -53,7 +57,6 @@ namespace Roadmans_Fortnite.Data.Enums.NPCEnums
         Drunk,
         Homeless,
         Druggy,
-        Waiting,
     }
 
     public enum Religion

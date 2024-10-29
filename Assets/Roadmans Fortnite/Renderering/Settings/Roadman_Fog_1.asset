@@ -48,11 +48,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DistanceFogIntensity: 0.714
-    - _DistanceHeightBlend: 0.5
-    - _Far: 70.6
+    - _DistanceFogIntensity: 0.75
+    - _DistanceHeightBlend: 0.52
+    - _Far: 100
     - _HeightFogIntensity: 0.612
-    - _HighWorldY: 97.3
+    - _HighWorldY: 100
     - _LowWorldY: 0
     - _Near: 0
     m_Colors: []
@@ -72,8 +72,8 @@ MonoBehaviour:
   useDistance: 1
   distanceGradient:
     serializedVersion: 2
-    key0: {r: 0.5330188, g: 0.9453902, b: 1, a: 0.14509805}
-    key1: {r: 0.53333336, g: 1, b: 0.98993045, a: 1}
+    key0: {r: 0.9622642, g: 0.20425421, b: 0.25904998, a: 0.078431375}
+    key1: {r: 0.53333336, g: 1, b: 0.98993045, a: 0.5176471}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
     ctime5: 0
     ctime6: 0
     ctime7: 0
-    atime0: 34502
+    atime0: 53392
     atime1: 65535
     atime2: 0
     atime3: 0
@@ -101,20 +101,20 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   near: 0
-  far: 70.6
-  distanceFogIntensity: 0.714
+  far: 100
+  distanceFogIntensity: 0.75
   useHeight: 1
   heightGradient:
     serializedVersion: 2
-    key0: {r: 0.92759395, g: 0.6123621, b: 0.9339623, a: 0}
-    key1: {r: 0.53333336, g: 1, b: 0.98993045, a: 1}
+    key0: {r: 1, g: 0.48186535, b: 0, a: 0}
+    key1: {r: 0.3679245, g: 0.25364733, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 15998
+    ctime0: 17733
     ctime1: 65535
     ctime2: 0
     ctime3: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
     ctime5: 0
     ctime6: 0
     ctime7: 0
-    atime0: 21974
+    atime0: 23130
     atime1: 65535
     atime2: 0
     atime3: 0
@@ -135,10 +135,10 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   low: 0
-  high: 97.3
+  high: 100
   heightFogIntensity: 0.612
   cameraRelativePosition: 0
-  distanceHeightBlend: 0.5
+  distanceHeightBlend: 0.52
   renderEvent: 550
   applyInSceneView: 1
   effectMaterial: {fileID: -3155325008900918967}
