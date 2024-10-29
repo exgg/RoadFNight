@@ -110,7 +110,7 @@ namespace Roadmans_Fortnite.Scripts.In_Game_Classes.Classes.AI.Spawning
 
                 
                 // Initialize pedestrian's stats using the block's population control
-                InitializePedestrian(pedestrianObject, block.populationWeightMap);
+                InitializePedestrian(pedestrianObject, block.chosenMap);
 
                 // Optional: handle collision detection and reposition if needed
                 // This will prevent overlap if pedestrians are spawned in the same location

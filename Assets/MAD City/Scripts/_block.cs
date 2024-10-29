@@ -21,8 +21,9 @@ public class _block : MonoBehaviour
     public PedestrianSystem pedestrianSystem;
     public List<Pedestrian> pedestrian_lst;
 
-    public PopulationControl populationWeightMap;
-
+    public PopulationControl[] populationWeightMap;
+    public PopulationControl chosenMap;
+    
     public List<WaypointLogger> pedestrianPathPoints = new List<WaypointLogger>();
     
     public void try_add_pedestrian(Pedestrian pedestrian)
